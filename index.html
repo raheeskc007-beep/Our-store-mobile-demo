@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Our Store — Mobile Demo</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f4f5f7;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial;color:#111}
+.app{max-width:430px;margin:auto;min-height:100vh;background:#fff}.top{padding:18px 18px 10px;position:sticky;top:0;background:#fff;z-index:3;border-bottom:1px solid #eee}
+h1{font-size:26px;margin:0 0 12px}.search{background:#f1f2f4;border:0;border-radius:14px;padding:13px;width:100%;font-size:15px}
+.content{padding:16px 16px 88px}.row{display:flex;gap:10px;overflow:auto}.chip{white-space:nowrap;border:1px solid #ddd;border-radius:20px;padding:9px 13px;background:#fff}.card{border:1px solid #e7e7e7;border-radius:18px;padding:14px;margin:12px 0}.img{height:150px;border-radius:14px;background:linear-gradient(135deg,#e9edf2,#cfd5dd);display:flex;align-items:center;justify-content:center;font-size:48px}.muted{color:#666;font-size:13px}.price{font-size:20px;font-weight:700;margin:6px 0}.btn{border:0;border-radius:13px;padding:12px 14px;background:#111;color:#fff;font-weight:600;margin-top:8px}.btn.alt{background:#eee;color:#111}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.bottom{position:fixed;bottom:0;left:0;right:0;max-width:430px;margin:auto;background:#fff;border-top:1px solid #ddd;display:flex;justify-content:space-around;padding:10px 4px calc(10px + env(safe-area-inset-bottom));z-index:5}.bottom button{border:0;background:none;font-size:11px}.screen{display:none}.screen.active{display:block}.back{border:0;background:none;font-size:15px;padding:0 0 12px}.tag{display:inline-block;background:#eef5ff;padding:5px 8px;border-radius:8px;font-size:12px;margin:3px}.question{padding:13px;border:1px solid #ddd;border-radius:14px;margin:8px 0}.question.selected{border-color:#111;background:#f4f4f4}
+</style>
+</head>
+<body>
+<div class="app">
+<div id="home" class="screen active">
+<div class="top"><h1>Our Store</h1><input class="search" placeholder="Search mobiles, laptops, tablets..." oninput="search(this.value)"></div>
+<div class="content">
+<h3>What are you looking for?</h3><div class="row">
+<button class="chip" onclick="catalog('Mobiles')">📱 Mobiles</button><button class="chip" onclick="catalog('Laptops')">💻 Laptops</button><button class="chip" onclick="catalog('Tablets')">📲 Tablets</button><button class="chip" onclick="catalog('Accessories')">🎧 Accessories</button>
+</div>
+<div class="grid" style="margin-top:14px"><button class="btn" onclick="find()">🎯 Find My Device</button><button class="btn alt" onclick="compare()">⚖️ Compare</button><button class="btn alt" onclick="exchange()">🔄 Exchange</button><button class="btn" onclick="advisor()">🤖 AI Advisor</button></div>
+<h3>Featured</h3><div id="featured"></div>
+</div></div>
+
+<div id="catalog" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2 id="catTitle">Products</h2><div id="products"></div></div></div>
+
+<div id="product" class="screen"><div class="content"><button class="back" onclick="go('catalog')">← Products</button><div class="img">📱</div><h2 id="pname"></h2><div class="tag">Our Store</div><div class="tag">Warranty</div><p class="muted">Demo product with sample catalog data.</p><div class="price" id="pprice"></div><p>12/256 GB · 5G · AMOLED · 50MP Camera</p><button class="btn" onclick="addCart()">🛒 Add to Cart</button><button class="btn alt" onclick="go('checkout')">Buy Now</button><button class="btn alt" onclick="go('compare')">⚖️ Compare</button></div></div>
+
+<div id="find" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2>Find My Device</h2><p class="muted">Tell us what you need.</p><div id="qs"></div><button class="btn" onclick="findResult()">Show Recommendations</button><div id="findResult"></div></div></div>
+
+<div id="compare" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2>Compare</h2><div class="card"><b>Phone A</b><p>12/256 GB · AMOLED · 50MP · 5000mAh</p><b>₹39,999</b></div><div class="card"><b>Phone B</b><p>12/256 GB · AMOLED · 50MP · 5500mAh</p><b>₹42,999</b></div><button class="btn" onclick="go('product')">View Product</button></div></div>
+
+<div id="exchange" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2>Exchange</h2><p class="muted">Demo valuation only.</p><input class="search" id="old" placeholder="Old device model"><input class="search" style="margin-top:10px" placeholder="Condition: Good / Fair / Like New"><button class="btn" onclick="document.getElementById('ex').innerHTML='Estimated exchange value: ₹18,000'">Get Estimate</button><h3 id="ex"></h3></div></div>
+
+<div id="cart" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2>Cart</h2><div id="cartItem" class="card">Your cart is empty.</div><button class="btn" onclick="go('checkout')">Checkout</button></div></div>
+
+<div id="checkout" class="screen"><div class="content"><button class="back" onclick="go('cart')">← Cart</button><h2>Checkout</h2><div class="card"><b>Delivery</b><p class="muted">Demo Address · Kerala</p></div><div class="card"><b>Payment</b><p>UPI · Card · Cash on Delivery (demo)</p></div><button class="btn" onclick="go('order')">Place Demo Order</button></div></div>
+
+<div id="order" class="screen"><div class="content"><h2>Order Confirmed ✅</h2><div class="card"><b>Order #OS-1001</b><p>Processing → Ready → Delivered</p></div><button class="btn" onclick="go('home')">Back to Home</button></div></div>
+
+<div id="advisor" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2>AI Product Advisor</h2><p class="muted">Demo advisor using sample catalog data.</p><input class="search" id="need" placeholder="Example: phone under ₹30,000 for camera"><button class="btn" onclick="advisorResult()">Recommend</button><div id="advice"></div></div></div>
+
+<div id="profile" class="screen"><div class="content"><h2>Profile</h2><div class="card">👤 Customer</div><div class="card">📦 My Orders</div><div class="card">❤️ Wishlist</div><div class="card">🛡️ Warranty</div><div class="card">🆘 Support</div></div></div>
+
+<div class="bottom"><button onclick="go('home')">🏠<br>Home</button><button onclick="catalog('Mobiles')">🔎<br>Shop</button><button onclick="go('cart')">🛒<br>Cart</button><button onclick="go('profile')">👤<br>Profile</button></div>
+</div>
+<script>
+const data=[['iPhone 17 Pro Max','₹1,49,900'],['Vivo X300 Pro','₹89,999'],['Galaxy S26','₹79,999']];
+function go(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');scrollTo(0,0)}
+function card(p){return `<div class="card"><div class="img">📱</div><h3>${p[0]}</h3><div class="price">${p[1]}</div><span class="tag">Our Store</span><span class="tag">In Stock</span><button class="btn" onclick="product('${p[0]}','${p[1]}')">View Details</button></div>`}
+function product(n,pr){document.getElementById('pname').textContent=n;document.getElementById('pprice').textContent=pr;go('product')}
+function catalog(c){document.getElementById('catTitle').textContent=c;document.getElementById('products').innerHTML=data.map(card).join('');go('catalog')}
+function search(v){if(v.trim()) catalog('Search Results')}
+function addCart(){document.getElementById('cartItem').innerHTML='<b>iPhone 17 Pro Max</b><p>Quantity: 1</p><div class="price">₹1,49,900</div>';go('cart')}
+function find(){document.getElementById('qs').innerHTML=['Budget','Main usage','Camera priority','Battery priority'].map(x=>`<div class="question">${x}<br><span class="muted">Tap to choose</span></div>`).join('');go('find')}
+function findResult(){document.getElementById('findResult').innerHTML='<div class="card"><h3>Recommended: Vivo X300 Pro</h3><p>Strong match for your budget, camera and performance preferences.</p><div class="price">₹89,999</div><button class="btn" onclick="product(\'Vivo X300 Pro\',\'₹89,999\')">View Product</button></div>'}
+function compare(){go('compare')}
+function exchange(){go('exchange')}
+function advisor(){go('advisor')}
+function advisorResult(){document.getElementById('advice').innerHTML='<div class="card"><h3>Suggested: Vivo X300 Pro</h3><p>Based on your demo requirement, this is a strong camera/performance match.</p><button class="btn" onclick="product(\'Vivo X300 Pro\',\'₹89,999\')">View Product</button></div>'}
+document.getElementById('featured').innerHTML=data.map(card).join('');
+</script>
+</body></html>
