@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Our Store — Mobile Demo v3.5 Find Budget Fix</title>
+<title>Our Store — Mobile Demo v3.6 Compare Screen Fix</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f4f5f7;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial;color:#111}
 .app{max-width:430px;margin:auto;min-height:100vh;background:#fff}.top{padding:18px 18px 10px;position:sticky;top:0;background:#fff;z-index:3;border-bottom:1px solid #eee}
@@ -28,7 +28,7 @@ h1{font-size:26px;margin:0 0 12px}.search{background:#f1f2f4;border:0;border-rad
 
 <div id="find" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2>Find My Device</h2><p class="muted">Tell us what you need.</p><div id="qs"></div><button class="btn" onclick="findResult()">Show Recommendations</button><div class="card"><h3>Find My Device</h3><p class="muted">Choose a category and optional budget.</p><select id="findCategory" style="width:100%;padding:12px;border-radius:10px;border:1px solid #ddd"><option>Mobiles</option><option>Tablets</option><option>Laptops</option><option>Accessories</option></select><input id="budget" inputmode="numeric" placeholder="Budget in ₹ (optional)" style="width:100%;padding:12px;margin-top:8px;border-radius:10px;border:1px solid #ddd"><button class="btn" onclick="findResult()">Find Devices</button></div><div id="findResult"></div></div></div>
 
-<div id="compare" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2>Compare</h2><div class="card"><b>Phone A</b><p>12/256 GB · AMOLED · 50MP · 5000mAh</p><b>₹39,999</b></div><div class="card"><b>Phone B</b><p>12/256 GB · AMOLED · 50MP · 5500mAh</p><b>₹42,999</b></div><button class="btn" onclick="go('product')">View Product</button></div></div>
+<div id="compare" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2>Compare</h2><p class="muted">Select 2 to 4 mobile models.</p><div class="card"><div id="compareChoices"></div><button id="compareBtn" type="button" class="btn">Compare Selected</button></div><div id="compareResult"></div></div></div>
 
 <div id="exchange" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2>Exchange</h2><p class="muted">Demo valuation only.</p><input class="search" id="old" placeholder="Old device model"><input class="search" style="margin-top:10px" placeholder="Condition: Good / Fair / Like New"><button class="btn" onclick="document.getElementById('ex').innerHTML='Estimated exchange value: ₹18,000'">Get Estimate</button><h3 id="ex"></h3></div></div>
 
@@ -116,8 +116,11 @@ function renderCompareUI(){
     '</label>'
   ).join('');
   const btn=document.getElementById('compareBtn');
+  const result=document.getElementById('compareResult');
+  if(result) result.innerHTML='';
   if(btn){
-    btn.onclick=function(e){e.preventDefault();runCompare();};
+    btn.onclick=null;
+    btn.addEventListener('click',function(e){e.preventDefault();runCompare();});
   }
 }
 function runCompare(){
@@ -132,21 +135,6 @@ function runCompare(){
   out.innerHTML='<div class="card"><h3>Comparison</h3><div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse">'+
     '<tr><th style="text-align:left;padding:8px;border-bottom:1px solid #ddd">Model</th><th style="text-align:left;padding:8px;border-bottom:1px solid #ddd">Price</th><th style="text-align:left;padding:8px;border-bottom:1px solid #ddd">Specs</th></tr>'+
     list.map(p=>'<tr><td style="padding:8px;border-bottom:1px solid #eee"><b>'+p.brand+'</b><br>'+p.name+'</td><td style="padding:8px;border-bottom:1px solid #eee">'+p.price+'</td><td style="padding:8px;border-bottom:1px solid #eee">'+p.spec+'</td></tr>').join('')+
-    '</table></div></div>';
-}
-
-function compare(){
-  const selected=[...document.querySelectorAll('input[name="compareProduct"]:checked')];
-  if(selected.length<2){
-    document.getElementById('compareResult').innerHTML='<div class="card"><b>Select at least 2 products.</b><p class="muted">Choose two or more models, then tap Compare Selected.</p></div>';
-    return;
-  }
-  const list=selected.map(x=>data[Number(x.value)]).filter(Boolean).slice(0,4);
-  document.getElementById('compareResult').innerHTML=
-    '<div class="card"><h3>Comparison</h3>'+
-    '<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse">'+
-    '<tr><th style="text-align:left;padding:8px;border-bottom:1px solid #ddd">Model</th><th style="text-align:left;padding:8px;border-bottom:1px solid #ddd">Price</th><th style="text-align:left;padding:8px;border-bottom:1px solid #ddd">Specs</th></tr>'+
-    list.map(p=>'<tr><td style="padding:8px;border-bottom:1px solid #eee">'+p.brand+'<br><b>'+p.name+'</b></td><td style="padding:8px;border-bottom:1px solid #eee">'+p.price+'</td><td style="padding:8px;border-bottom:1px solid #eee">'+p.spec+'</td></tr>').join('')+
     '</table></div></div>';
 }
 
