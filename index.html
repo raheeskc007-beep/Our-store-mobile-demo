@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Our Store — Mobile Demo v3.9 AI Advisor Removed Compare Screen Fix</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f4f5f7;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial;color:#111}
+.app{max-width:430px;margin:auto;min-height:100vh;background:#fff}.top{padding:18px 18px 10px;position:sticky;top:0;background:#fff;z-index:3;border-bottom:1px solid #eee}
+h1{font-size:26px;margin:0 0 12px}.search{background:#f1f2f4;border:0;border-radius:14px;padding:13px;width:100%;font-size:15px}
+.content{padding:16px 16px 88px}.row{display:flex;gap:10px;overflow:auto}.chip{white-space:nowrap;border:1px solid #ddd;border-radius:20px;padding:9px 13px;background:#fff}.card{border:1px solid #e7e7e7;border-radius:18px;padding:14px;margin:12px 0}.img{height:150px;border-radius:14px;background:linear-gradient(135deg,#e9edf2,#cfd5dd);display:flex;align-items:center;justify-content:center;font-size:48px}.muted{color:#666;font-size:13px}.price{font-size:20px;font-weight:700;margin:6px 0}.btn{border:0;border-radius:13px;padding:12px 14px;background:#111;color:#fff;font-weight:600;margin-top:8px}.btn.alt{background:#eee;color:#111}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.bottom{position:fixed;bottom:0;left:0;right:0;max-width:430px;margin:auto;background:#fff;border-top:1px solid #ddd;display:flex;justify-content:space-around;padding:10px 4px calc(10px + env(safe-area-inset-bottom));z-index:5}.bottom button{border:0;background:none;font-size:11px}.screen{display:none}.screen.active{display:block}.back{border:0;background:none;font-size:15px;padding:0 0 12px}.tag{display:inline-block;background:#eef5ff;padding:5px 8px;border-radius:8px;font-size:12px;margin:3px}.question{padding:13px;border:1px solid #ddd;border-radius:14px;margin:8px 0}.question.selected{border-color:#111;background:#f4f4f4}
+.compareChoice{display:flex;gap:10px;align-items:flex-start;margin:9px 0;padding:10px;border:1px solid #ddd;border-radius:10px}.compareChoice input{margin-top:4px}
+.track{margin-top:18px}
+.trackStep{display:grid;grid-template-columns:34px 1fr;column-gap:10px;align-items:center;margin:10px 0}
+.trackStep span{grid-row:1 / span 2;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#111;color:#fff;font-weight:700}
+.trackStep small{grid-column:2;color:#666;margin-top:2px}
+.trackLine{height:18px;border-left:2px solid #111;margin-left:13px}
+.linkBtn{background:none;border:0;padding:0;font:inherit;color:#0785f2;cursor:pointer}\n</style>
+</head>
+<body>
+<div class="app">
+<div id="home" class="screen active">
+<div class="top"><h1>Our Store</h1><input class="search" placeholder="Search mobiles, laptops, tablets..." autocomplete="off" autocapitalize="none" oninput="search(this.value)"><div id="searchResults" style="display:none"></div></div>
+<div class="content">
+<h3>What are you looking for?</h3><div class="row">
+<button class="chip" onclick="catalog('Mobiles')">📱 Mobiles</button><button class="chip" onclick="catalog('Laptops')">💻 Laptops</button><button class="chip" onclick="catalog('Tablets')">📲 Tablets</button><button class="chip" onclick="catalog('Accessories')">🎧 Accessories</button>
+</div>
+<div class="grid" style="margin-top:14px"><button class="btn" onclick="find()">🎯 Find My Device</button><button class="btn alt" onclick="openCompareFromHome()" type="button">⚖️ Compare</button><button class="btn alt" onclick="exchange()">🔄 Exchange</button></div>
+<h3>Featured</h3><div id="featured"></div>
+</div></div>
+
+<div id="catalog" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2 id="catTitle">Products</h2><div class="row" style="margin-bottom:10px"><button class="chip" onclick="brandCatalog('All')">All</button><button class="chip" onclick="brandCatalog('Apple')">Apple</button><button class="chip" onclick="brandCatalog('Samsung')">Samsung</button><button class="chip" onclick="brandCatalog('OnePlus')">OnePlus</button><button class="chip" onclick="brandCatalog('Xiaomi')">Xiaomi</button><button class="chip" onclick="brandCatalog('Vivo')">Vivo</button><button class="chip" onclick="brandCatalog('OPPO')">OPPO</button><button class="chip" onclick="brandCatalog('Google')">Google</button><button class="chip" onclick="brandCatalog('Realme')">Realme</button><button class="chip" onclick="brandCatalog('Motorola')">Motorola</button></div><div id="products"></div></div></div>
+
+<div id="product" class="screen"><div class="content"><button class="back" onclick="go('catalog')">← Products</button><div class="img">📱</div><h2 id="pname"></h2><div class="tag">Our Store</div><div class="tag">Warranty</div><p class="muted">Demo product with sample catalog data.</p><div class="price" id="pprice"></div><p>12/256 GB · 5G · AMOLED · 50MP Camera</p><button class="btn" onclick="addCart()">🛒 Add to Cart</button><button class="btn alt" onclick="renderCheckout();go('checkout')">Buy Now</button><button class="btn alt" onclick="go('compare')">⚖️ Compare</button></div></div>
+
+<div id="find" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2>Find My Device</h2><p class="muted">Tell us what you need.</p><div id="qs"></div><button class="btn" onclick="findResult()">Show Recommendations</button><div class="card"><h3>Find My Device</h3><p class="muted">Choose a category and optional budget.</p><select id="findCategory" style="width:100%;padding:12px;border-radius:10px;border:1px solid #ddd"><option>Mobiles</option><option>Tablets</option><option>Laptops</option><option>Accessories</option></select><input id="budget" inputmode="numeric" placeholder="Budget in ₹ (optional)" style="width:100%;padding:12px;margin-top:8px;border-radius:10px;border:1px solid #ddd"><button class="btn" onclick="findResult()">Find Devices</button></div><div id="findResult"></div></div></div>
+
+<div id="compare" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2>Compare</h2><p class="muted">Select 2 to 4 mobile models.</p><div class="card"><div id="compareChoices"></div><button id="compareBtn" type="button" class="btn">Compare Selected</button></div><div id="compareResult"></div></div></div>
+
+<div id="exchange" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2>Exchange</h2><p class="muted">Demo valuation only.</p><input class="search" id="old" placeholder="Old device model"><input class="search" style="margin-top:10px" placeholder="Condition: Good / Fair / Like New"><button class="btn" onclick="document.getElementById('ex').innerHTML='Estimated exchange value: ₹18,000'">Get Estimate</button><h3 id="ex"></h3></div></div>
+
+<div id="cart" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2>Cart</h2><div id="cartItem" class="card">Your cart is empty.</div><button class="btn" onclick="renderCheckout();go('checkout')">Checkout</button></div></div>
+
+<div id="checkout" class="screen"><div class="content"><button class="back" onclick="go('cart')">← Cart</button><h2>Checkout</h2><div id="checkoutItem" class="card">No product selected.</div><div class="card"><b>Delivery</b><p class="muted">Demo Address · Kerala</p></div><div class="card"><b>Payment</b><p>UPI · Card · Cash on Delivery (demo)</p></div><button class="btn" onclick="go('order')">Place Demo Order</button></div></div>
+
+<div id="order" class="screen"><div class="content"><h2>Order Confirmed ✅</h2><div class="card"><b>Order #OS-1001</b><p>Processing → Ready → Delivered</p></div><button class="btn" onclick="go('home')">Back to Home</button></div></div>
+
+<div id="advisor" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2>AI Product Advisor</h2><p class="muted">Demo advisor using sample catalog data.</p><input class="search" id="need" placeholder="Example: phone under ₹30,000 for camera"><div id="advice"></div></div></div>
+
+<div id="support" class="screen"><div class="content">
+<button class="back" onclick="go('profile')">← Profile</button>
+<h2>Support</h2>
+<div class="card"><b>Order Support</b><p class="muted">Need help with order #OS-1001?</p><button class="btn" onclick="alert('Demo support request created for order OS-1001.')">Contact Our Store</button></div>
+<div class="card"><b>Returns & Refunds</b><p>Return eligibility, pickup and refund support will be handled through Our Store.</p><button class="btn alt" onclick="alert('Demo return request flow opened.')">Start Return</button></div>
+</div></div>
+<div id="warranty" class="screen"><div class="content">
+<button class="back" onclick="go('profile')">← Profile</button>
+<h2>Warranty</h2>
+<div class="card"><b>iPhone 17 Pro Max</b><p class="muted">Order #OS-1001</p><p>Warranty status: <b>Demo Active</b></p><p>Warranty details can be verified against the order and device serial/IMEI in the production version.</p></div>
+<div class="card"><b>Need help?</b><p>Contact Our Store support for warranty claims and service requests.</p><button class="btn" onclick="go('support')">Contact Support</button></div>
+</div></div>
+<div id="profile" class="screen"><div class="content">
+<button class="back" onclick="go('home')">← Home</button>
+<h2>Profile</h2>
+<div class="card"><h3>Rahees</h3><p class="muted">Our Store customer · Demo profile</p></div>
+<div class="card"><b>My Orders</b><p>Order #OS-1001</p><p class="muted">iPhone 17 Pro Max · ₹1,49,900</p><button class="btn" onclick="showOrderTracking()">Track Order</button></div>
+<div id="trackingCard" class="card" style="display:none"><b>Order Tracking</b>
+<p class="muted">Order #OS-1001</p>
+<div class="track"><div class="trackStep active"><span>✓</span><b>Processing</b><small>Order confirmed</small></div>
+<div class="trackLine"></div>
+<div class="trackStep active"><span>✓</span><b>Ready</b><small>Ready for dispatch</small></div>
+<div class="trackLine"></div>
+<div class="trackStep active"><span>✓</span><b>Delivered</b><small>Demo order completed</small></div></div></div>
+<div class="card"><b>Account</b>
+<p>Delivery addresses</p>
+<p>Payment methods</p>
+<p><button class="linkBtn" onclick="go('warranty')">Warranty</button></p>
+<p><button class="linkBtn" onclick="go('support')">Support</button></p>
+</div>
+</div></div></div>
+
+<div class="bottom"><button onclick="go('home')">🏠<br>Home</button><button onclick="catalog('Mobiles')">🔎<br>Shop</button><button onclick="go('cart')">🛒<br>Cart</button><button onclick="go('profile')">👤<br>Profile</button></div>
+</div>
+<script>
+const data=[
+{brand:'Apple',category:'Mobiles',name:'iPhone 17 Pro Max',price:'₹1,49,900',spec:'12/256 GB · 5G · Pro camera'},
+{brand:'Apple',category:'Mobiles',name:'iPhone 17 Pro',price:'₹1,34,900',spec:'12/256 GB · 5G · Pro camera'},
+{brand:'Apple',category:'Mobiles',name:'iPhone 17',price:'₹89,900',spec:'8/256 GB · 5G · OLED'},
+{brand:'Apple',category:'Laptops',name:'MacBook Air',price:'₹99,900',spec:'13-inch · Apple silicon · 16 GB'},
+{brand:'Samsung',category:'Mobiles',name:'Galaxy S26',price:'₹79,999',spec:'12/256 GB · 5G · AMOLED'},
+{brand:'Samsung',category:'Mobiles',name:'Galaxy S26 Ultra',price:'₹1,29,999',spec:'12/256 GB · 5G · AMOLED · 200MP'},
+{brand:'Samsung',category:'Mobiles',name:'Galaxy A57 5G',price:'₹49,999',spec:'8/256 GB · 5G · AMOLED'},
+{brand:'OnePlus',category:'Mobiles',name:'OnePlus 14',price:'₹69,999',spec:'12/256 GB · 5G · AMOLED'},
+{brand:'OnePlus',category:'Mobiles',name:'OnePlus 14R',price:'₹49,999',spec:'12/256 GB · 5G · AMOLED'},
+{brand:'Xiaomi',category:'Mobiles',name:'Xiaomi 17',price:'₹59,999',spec:'12/256 GB · 5G · AMOLED'},
+{brand:'Xiaomi',category:'Mobiles',name:'Xiaomi 17 Ultra',price:'₹89,999',spec:'16/512 GB · 5G · AMOLED'},
+{brand:'Vivo',category:'Mobiles',name:'Vivo X300 Pro',price:'₹89,999',spec:'12/256 GB · 5G · AMOLED · Pro camera'},
+{brand:'Vivo',category:'Mobiles',name:'Vivo V60',price:'₹39,999',spec:'12/256 GB · 5G · AMOLED'},
+{brand:'OPPO',category:'Mobiles',name:'OPPO Find X9 Pro',price:'₹79,999',spec:'16/512 GB · 5G · AMOLED'},
+{brand:'OPPO',category:'Mobiles',name:'OPPO Reno 14 Pro',price:'₹49,999',spec:'12/256 GB · 5G · AMOLED'},
+{brand:'Google',category:'Mobiles',name:'Pixel 10 Pro',price:'₹99,999',spec:'16/256 GB · 5G · OLED'},
+{brand:'Google',category:'Mobiles',name:'Pixel 10',price:'₹79,999',spec:'12/256 GB · 5G · OLED'},
+{brand:'Realme',category:'Mobiles',name:'realme GT 7 Pro',price:'₹59,999',spec:'12/256 GB · 5G · AMOLED'},
+{brand:'Realme',category:'Mobiles',name:'realme 14 Pro+',price:'₹34,999',spec:'12/256 GB · 5G · OLED'},
+{brand:'Motorola',category:'Mobiles',name:'Motorola Edge 60 Pro',price:'₹39,999',spec:'12/256 GB · 5G · pOLED'},
+{brand:'Motorola',category:'Mobiles',name:'Motorola Razr 60 Ultra',price:'₹99,999',spec:'12/512 GB · 5G · Foldable OLED'},
+{brand:'Apple',category:'Tablets',name:'iPad Pro',price:'₹99,900',spec:'11-inch · Apple silicon · Wi‑Fi'},
+{brand:'Samsung',category:'Tablets',name:'Galaxy Tab S11',price:'₹69,999',spec:'12/256 GB · AMOLED · S Pen'},
+{brand:'OnePlus',category:'Tablets',name:'OnePlus Pad 3',price:'₹49,999',spec:'12/256 GB · LCD · Wi‑Fi'},
+{brand:'Apple',category:'Accessories',name:'AirPods Pro',price:'₹24,900',spec:'ANC · USB‑C · Wireless'},
+{brand:'Samsung',category:'Accessories',name:'Galaxy Buds',price:'₹14,999',spec:'ANC · Wireless'},
+{brand:'OnePlus',category:'Accessories',name:'OnePlus Buds Pro',price:'₹9,999',spec:'ANC · Wireless'}
+];
+function go(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');scrollTo(0,0);if(id==='compare'){setTimeout(renderCompareUI,0)}}
+function card(p){return `<div class="card"><div class="img">📱</div><div class="muted">${p.brand} · ${p.category}</div><h3>${p.name}</h3><div class="price">${p.price}</div><p class="muted">${p.spec}</p><span class="tag">Our Store</span><span class="tag">In Stock</span><button class="btn" onclick="product('${p.name.replace("'","\\'")}','${p.price}','${p.spec.replace("'","\\'")}')">View Details</button></div>`}
+let selectedProduct=null;
+function product(n,pr,spec){selectedProduct={name:n,price:pr,spec:spec};document.getElementById('pname').textContent=n;document.getElementById('pprice').textContent=pr;document.querySelector('#product .muted').textContent='Our Store demo catalog · sample data';document.querySelector('#product p:nth-of-type(2)').textContent=spec;go('product')}
+function renderCart(){const el=document.getElementById('cartItem');if(!selectedProduct){el.innerHTML='Your cart is empty.';return;}el.innerHTML='<b>'+selectedProduct.name+'</b><p class="muted">'+selectedProduct.spec+'</p><p>Quantity: 1</p><div class="price">'+selectedProduct.price+'</div>'}
+function renderCheckout(){const el=document.getElementById('checkoutItem');if(!selectedProduct){el.innerHTML='<b>No product selected.</b><p class="muted">Go back to the shop and choose a product.</p>';return;}el.innerHTML='<b>Order item</b><h3>'+selectedProduct.name+'</h3><p class="muted">'+selectedProduct.spec+'</p><p>Quantity: 1</p><div class="price">'+selectedProduct.price+'</div>'}
+function catalog(c){document.getElementById('catTitle').textContent=c;const list=c==='All'?data:data.filter(p=>p.category===c);document.getElementById('products').innerHTML=list.map(card).join('')||'<div class="card">No products in this category yet.</div>';go('catalog')}
+function brandCatalog(b){document.getElementById('catTitle').textContent=b==='All'?'All Products':b;const list=b==='All'?data:data.filter(p=>p.brand===b);document.getElementById('products').innerHTML=list.map(card).join('');go('catalog')}
+function search(v){
+  const q=v.trim().toLowerCase();
+  const box=document.getElementById('searchResults');
+  if(!box) return;
+  if(!q){box.innerHTML='';box.style.display='none';return;}
+  const list=data.filter(p=>(p.name+' '+p.brand+' '+p.category+' '+p.spec).toLowerCase().includes(q)).slice(0,8);
+  box.innerHTML=list.length
+    ? list.map(card).join('')
+    : '<div class="card"><b>No matching products found.</b><p class="muted">Try a brand or model name.</p></div>';
+  box.style.display='block';
+}
+function addCart(){renderCart();go('cart')}
+function find(){document.getElementById('qs').innerHTML=['Budget','Main usage','Camera priority','Battery priority'].map(x=>`<div class="question">${x}<br><span class="muted">Tap to choose</span></div>`).join('');go('find')}
+function findResult(){
+  const budget=Number(document.getElementById('budget')?.value||0);
+  const category=(document.getElementById('findCategory')?.value||'Mobiles').toLowerCase();
+  let list=data.filter(p=>p.category.toLowerCase()===category);
+  if(budget>0) list=list.filter(p=>Number(String(p.price).replace(/[^0-9]/g,''))<=budget);
+  list=list.slice(0,4);
+  const out=document.getElementById('findResult');
+  if(!list.length){
+    out.innerHTML='<div class="card"><h3>No matching devices</h3><p class="muted">No '+category+' are available within ₹'+budget.toLocaleString('en-IN')+'. Try increasing your budget or changing the category.</p></div>';
+    return;
+  }
+  out.innerHTML=list.map(card).join('');
+}
+function openCompareFromHome(){
+  go('compare');
+  setTimeout(function(){
+    if(typeof renderCompareUI==='function') renderCompareUI();
+  },50);
+}
+function renderCompareUI(){
+  const el=document.getElementById('compareChoices');
+  if(!el) return;
+  const list=data.filter(p=>p.category==='Mobiles').slice(0,12);
+  el.innerHTML=list.map((p,i)=>
+    '<label class="compareChoice">'+
+    '<input type="checkbox" class="compareCheck" value="'+i+'"> '+
+    '<span><b>'+p.brand+' — '+p.name+'</b><br><small>'+p.price+' · '+p.spec+'</small></span>'+
+    '</label>'
+  ).join('');
+  const btn=document.getElementById('compareBtn');
+  const result=document.getElementById('compareResult');
+  if(result) result.innerHTML='';
+  if(btn){
+    btn.onclick=null;
+    btn.addEventListener('click',function(e){e.preventDefault();runCompare();});
+  }
+}
+function runCompare(){
+  const checks=[...document.querySelectorAll('.compareCheck:checked')];
+  const out=document.getElementById('compareResult');
+  if(!out) return;
+  if(checks.length<2){
+    out.innerHTML='<div class="card"><b>Select at least 2 products.</b><p class="muted">Tap the checkboxes first, then tap Compare Selected.</p></div>';
+    return;
+  }
+  const list=checks.map(c=>data[Number(c.value)]).filter(Boolean).slice(0,4);
+  out.innerHTML='<div class="card"><h3>Comparison</h3><div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse">'+
+    '<tr><th style="text-align:left;padding:8px;border-bottom:1px solid #ddd">Model</th><th style="text-align:left;padding:8px;border-bottom:1px solid #ddd">Price</th><th style="text-align:left;padding:8px;border-bottom:1px solid #ddd">Specs</th></tr>'+
+    list.map(p=>'<tr><td style="padding:8px;border-bottom:1px solid #eee"><b>'+p.brand+'</b><br>'+p.name+'</td><td style="padding:8px;border-bottom:1px solid #eee">'+p.price+'</td><td style="padding:8px;border-bottom:1px solid #eee">'+p.spec+'</td></tr>').join('')+
+    '</table></div></div>';
+}
+
+function exchange(){go('exchange')}
+function advisor(){go('advisor')}
+
+document.getElementById('featured').innerHTML=data.slice(0,8).map(card).join('');
+function showOrderTracking(){document.getElementById('trackingCard').style.display='block';}</script>
+</body></html>
