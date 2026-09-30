@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Our Store — Mobile Demo v3.7 Home Compare Entry Fix Compare Screen Fix</title>
+<title>Our Store — Mobile Demo v3.8 AI Budget Fix Compare Screen Fix</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f4f5f7;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial;color:#111}
 .app{max-width:430px;margin:auto;min-height:100vh;background:#fff}.top{padding:18px 18px 10px;position:sticky;top:0;background:#fff;z-index:3;border-bottom:1px solid #eee}
@@ -146,7 +146,31 @@ function runCompare(){
 
 function exchange(){go('exchange')}
 function advisor(){go('advisor')}
-function advisorResult(){const p=data.find(x=>x.name==='Vivo X300 Pro');document.getElementById('advice').innerHTML=card(p)}
+function advisorResult(){
+  const q=(document.getElementById('aiQuery')?.value||'').trim();
+  const out=document.getElementById('advice');
+  if(!out) return;
+
+  const match=q.replace(/,/g,'').match(/(?:under|below|within|less than|upto|up to)\s*(?:₹|rs\.?\s*)?(\d{3,7})/i);
+  const budget=match?Number(match[1]):0;
+
+  let list=data.filter(p=>p.category==='Mobiles');
+  if(budget>0) list=list.filter(p=>Number(String(p.price).replace(/[^0-9]/g,''))<=budget);
+
+  if(!list.length){
+    out.innerHTML='<div class="card"><h3>No matching recommendation</h3><p class="muted">'+
+      (budget ? 'No mobile in the current catalog is within ₹'+budget.toLocaleString('en-IN')+'. Try a higher budget or another requirement.' :
+      'No matching mobile is available in the current demo catalog.')+
+      '</p></div>';
+    return;
+  }
+
+  const pick=budget>0
+    ? list.sort((a,b)=>Number(String(b.price).replace(/[^0-9]/g,''))-Number(String(a.price).replace(/[^0-9]/g,'')))[0]
+    : list[0];
+
+  out.innerHTML=card(pick);
+}
 document.getElementById('featured').innerHTML=data.slice(0,8).map(card).join('');
 </script>
 </body></html>
