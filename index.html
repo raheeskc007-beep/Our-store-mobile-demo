@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Our Store — Mobile Demo v2 Catalog</title>
+<title>Our Store — Mobile Demo v3 Smart Catalog</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f4f5f7;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial;color:#111}
 .app{max-width:430px;margin:auto;min-height:100vh;background:#fff}.top{padding:18px 18px 10px;position:sticky;top:0;background:#fff;z-index:3;border-bottom:1px solid #eee}
@@ -26,7 +26,7 @@ h1{font-size:26px;margin:0 0 12px}.search{background:#f1f2f4;border:0;border-rad
 
 <div id="product" class="screen"><div class="content"><button class="back" onclick="go('catalog')">← Products</button><div class="img">📱</div><h2 id="pname"></h2><div class="tag">Our Store</div><div class="tag">Warranty</div><p class="muted">Demo product with sample catalog data.</p><div class="price" id="pprice"></div><p>12/256 GB · 5G · AMOLED · 50MP Camera</p><button class="btn" onclick="addCart()">🛒 Add to Cart</button><button class="btn alt" onclick="go('checkout')">Buy Now</button><button class="btn alt" onclick="go('compare')">⚖️ Compare</button></div></div>
 
-<div id="find" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2>Find My Device</h2><p class="muted">Tell us what you need.</p><div id="qs"></div><button class="btn" onclick="findResult()">Show Recommendations</button><div id="findResult"></div></div></div>
+<div id="find" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2>Find My Device</h2><p class="muted">Tell us what you need.</p><div id="qs"></div><button class="btn" onclick="findResult()">Show Recommendations</button><div class="card"><h3>Find My Device</h3><p class="muted">Choose a category and optional budget.</p><select id="findCategory" style="width:100%;padding:12px;border-radius:10px;border:1px solid #ddd"><option>Mobiles</option><option>Tablets</option><option>Laptops</option><option>Accessories</option></select><input id="budget" inputmode="numeric" placeholder="Budget in ₹ (optional)" style="width:100%;padding:12px;margin-top:8px;border-radius:10px;border:1px solid #ddd"><button class="btn" onclick="findResult()">Find Devices</button></div><div id="findResult"></div></div></div>
 
 <div id="compare" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2>Compare</h2><div class="card"><b>Phone A</b><p>12/256 GB · AMOLED · 50MP · 5000mAh</p><b>₹39,999</b></div><div class="card"><b>Phone B</b><p>12/256 GB · AMOLED · 50MP · 5500mAh</p><b>₹42,999</b></div><button class="btn" onclick="go('product')">View Product</button></div></div>
 
@@ -82,8 +82,24 @@ function brandCatalog(b){document.getElementById('catTitle').textContent=b==='Al
 function search(v){const q=v.trim().toLowerCase();if(!q){go('home');return}document.getElementById('catTitle').textContent='Search Results';const list=data.filter(p=>(p.name+' '+p.brand+' '+p.category+' '+p.spec).toLowerCase().includes(q));document.getElementById('products').innerHTML=list.map(card).join('')||'<div class="card">No matching products found.</div>';go('catalog')}
 function addCart(){document.getElementById('cartItem').innerHTML='<b>Selected product</b><p>Quantity: 1</p><div class="price">Demo cart item</div>';go('cart')}
 function find(){document.getElementById('qs').innerHTML=['Budget','Main usage','Camera priority','Battery priority'].map(x=>`<div class="question">${x}<br><span class="muted">Tap to choose</span></div>`).join('');go('find')}
-function findResult(){const p=data.find(x=>x.name==='Vivo X300 Pro');document.getElementById('findResult').innerHTML=card(p)}
-function compare(){go('compare')}
+function findResult(){
+  const budget=Number(document.getElementById('budget')?.value||0);
+  const category=(document.getElementById('findCategory')?.value||'Mobiles').toLowerCase();
+  let list=data.filter(p=>p.category.toLowerCase()===category);
+  if(budget>0) list=list.filter(p=>Number(p.price.replace(/[^0-9]/g,''))<=budget);
+  if(!list.length) list=data.filter(p=>p.category==='Mobiles');
+  list=list.slice(0,4);
+  document.getElementById('findResult').innerHTML=list.map(card).join('');
+}
+function compare(){
+  const names=[...document.querySelectorAll('input[name="compareProduct"]:checked')].map(x=>x.value);
+  const list=data.filter(p=>names.includes(p.name)).slice(0,4);
+  document.getElementById('compareResult').innerHTML=list.length
+    ? '<div class="card"><h3>Comparison</h3><table style="width:100%;border-collapse:collapse"><tr><th style="text-align:left;padding:6px">Model</th><th style="text-align:left;padding:6px">Price</th><th style="text-align:left;padding:6px">Specs</th></tr>'+
+      list.map(p=>'<tr><td style="padding:6px;border-top:1px solid #ddd">'+p.name+'</td><td style="padding:6px;border-top:1px solid #ddd">'+p.price+'</td><td style="padding:6px;border-top:1px solid #ddd">'+p.spec+'</td></tr>').join('')+
+      '</table></div>'
+    : '<div class="card">Select products to compare.</div>';
+}
 function exchange(){go('exchange')}
 function advisor(){go('advisor')}
 function advisorResult(){const p=data.find(x=>x.name==='Vivo X300 Pro');document.getElementById('advice').innerHTML=card(p)}
