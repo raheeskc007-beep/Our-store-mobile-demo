@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Our Store — Mobile Demo</title>
+<title>Our Store — Mobile Demo v2 Catalog</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f4f5f7;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial;color:#111}
 .app{max-width:430px;margin:auto;min-height:100vh;background:#fff}.top{padding:18px 18px 10px;position:sticky;top:0;background:#fff;z-index:3;border-bottom:1px solid #eee}
@@ -22,7 +22,7 @@ h1{font-size:26px;margin:0 0 12px}.search{background:#f1f2f4;border:0;border-rad
 <h3>Featured</h3><div id="featured"></div>
 </div></div>
 
-<div id="catalog" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2 id="catTitle">Products</h2><div id="products"></div></div></div>
+<div id="catalog" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2 id="catTitle">Products</h2><div class="row" style="margin-bottom:10px"><button class="chip" onclick="brandCatalog('All')">All</button><button class="chip" onclick="brandCatalog('Apple')">Apple</button><button class="chip" onclick="brandCatalog('Samsung')">Samsung</button><button class="chip" onclick="brandCatalog('OnePlus')">OnePlus</button><button class="chip" onclick="brandCatalog('Xiaomi')">Xiaomi</button><button class="chip" onclick="brandCatalog('Vivo')">Vivo</button><button class="chip" onclick="brandCatalog('OPPO')">OPPO</button><button class="chip" onclick="brandCatalog('Google')">Google</button><button class="chip" onclick="brandCatalog('Realme')">Realme</button><button class="chip" onclick="brandCatalog('Motorola')">Motorola</button></div><div id="products"></div></div></div>
 
 <div id="product" class="screen"><div class="content"><button class="back" onclick="go('catalog')">← Products</button><div class="img">📱</div><h2 id="pname"></h2><div class="tag">Our Store</div><div class="tag">Warranty</div><p class="muted">Demo product with sample catalog data.</p><div class="price" id="pprice"></div><p>12/256 GB · 5G · AMOLED · 50MP Camera</p><button class="btn" onclick="addCart()">🛒 Add to Cart</button><button class="btn alt" onclick="go('checkout')">Buy Now</button><button class="btn alt" onclick="go('compare')">⚖️ Compare</button></div></div>
 
@@ -45,19 +45,48 @@ h1{font-size:26px;margin:0 0 12px}.search{background:#f1f2f4;border:0;border-rad
 <div class="bottom"><button onclick="go('home')">🏠<br>Home</button><button onclick="catalog('Mobiles')">🔎<br>Shop</button><button onclick="go('cart')">🛒<br>Cart</button><button onclick="go('profile')">👤<br>Profile</button></div>
 </div>
 <script>
-const data=[['iPhone 17 Pro Max','₹1,49,900'],['Vivo X300 Pro','₹89,999'],['Galaxy S26','₹79,999']];
+const data=[
+{brand:'Apple',category:'Mobiles',name:'iPhone 17 Pro Max',price:'₹1,49,900',spec:'12/256 GB · 5G · Pro camera'},
+{brand:'Apple',category:'Mobiles',name:'iPhone 17 Pro',price:'₹1,34,900',spec:'12/256 GB · 5G · Pro camera'},
+{brand:'Apple',category:'Mobiles',name:'iPhone 17',price:'₹89,900',spec:'8/256 GB · 5G · OLED'},
+{brand:'Apple',category:'Laptops',name:'MacBook Air',price:'₹99,900',spec:'13-inch · Apple silicon · 16 GB'},
+{brand:'Samsung',category:'Mobiles',name:'Galaxy S26',price:'₹79,999',spec:'12/256 GB · 5G · AMOLED'},
+{brand:'Samsung',category:'Mobiles',name:'Galaxy S26 Ultra',price:'₹1,29,999',spec:'12/256 GB · 5G · AMOLED · 200MP'},
+{brand:'Samsung',category:'Mobiles',name:'Galaxy A57 5G',price:'₹49,999',spec:'8/256 GB · 5G · AMOLED'},
+{brand:'OnePlus',category:'Mobiles',name:'OnePlus 14',price:'₹69,999',spec:'12/256 GB · 5G · AMOLED'},
+{brand:'OnePlus',category:'Mobiles',name:'OnePlus 14R',price:'₹49,999',spec:'12/256 GB · 5G · AMOLED'},
+{brand:'Xiaomi',category:'Mobiles',name:'Xiaomi 17',price:'₹59,999',spec:'12/256 GB · 5G · AMOLED'},
+{brand:'Xiaomi',category:'Mobiles',name:'Xiaomi 17 Ultra',price:'₹89,999',spec:'16/512 GB · 5G · AMOLED'},
+{brand:'Vivo',category:'Mobiles',name:'Vivo X300 Pro',price:'₹89,999',spec:'12/256 GB · 5G · AMOLED · Pro camera'},
+{brand:'Vivo',category:'Mobiles',name:'Vivo V60',price:'₹39,999',spec:'12/256 GB · 5G · AMOLED'},
+{brand:'OPPO',category:'Mobiles',name:'OPPO Find X9 Pro',price:'₹79,999',spec:'16/512 GB · 5G · AMOLED'},
+{brand:'OPPO',category:'Mobiles',name:'OPPO Reno 14 Pro',price:'₹49,999',spec:'12/256 GB · 5G · AMOLED'},
+{brand:'Google',category:'Mobiles',name:'Pixel 10 Pro',price:'₹99,999',spec:'16/256 GB · 5G · OLED'},
+{brand:'Google',category:'Mobiles',name:'Pixel 10',price:'₹79,999',spec:'12/256 GB · 5G · OLED'},
+{brand:'Realme',category:'Mobiles',name:'realme GT 7 Pro',price:'₹59,999',spec:'12/256 GB · 5G · AMOLED'},
+{brand:'Realme',category:'Mobiles',name:'realme 14 Pro+',price:'₹34,999',spec:'12/256 GB · 5G · OLED'},
+{brand:'Motorola',category:'Mobiles',name:'Motorola Edge 60 Pro',price:'₹39,999',spec:'12/256 GB · 5G · pOLED'},
+{brand:'Motorola',category:'Mobiles',name:'Motorola Razr 60 Ultra',price:'₹99,999',spec:'12/512 GB · 5G · Foldable OLED'},
+{brand:'Apple',category:'Tablets',name:'iPad Pro',price:'₹99,900',spec:'11-inch · Apple silicon · Wi‑Fi'},
+{brand:'Samsung',category:'Tablets',name:'Galaxy Tab S11',price:'₹69,999',spec:'12/256 GB · AMOLED · S Pen'},
+{brand:'OnePlus',category:'Tablets',name:'OnePlus Pad 3',price:'₹49,999',spec:'12/256 GB · LCD · Wi‑Fi'},
+{brand:'Apple',category:'Accessories',name:'AirPods Pro',price:'₹24,900',spec:'ANC · USB‑C · Wireless'},
+{brand:'Samsung',category:'Accessories',name:'Galaxy Buds',price:'₹14,999',spec:'ANC · Wireless'},
+{brand:'OnePlus',category:'Accessories',name:'OnePlus Buds Pro',price:'₹9,999',spec:'ANC · Wireless'}
+];
 function go(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');scrollTo(0,0)}
-function card(p){return `<div class="card"><div class="img">📱</div><h3>${p[0]}</h3><div class="price">${p[1]}</div><span class="tag">Our Store</span><span class="tag">In Stock</span><button class="btn" onclick="product('${p[0]}','${p[1]}')">View Details</button></div>`}
-function product(n,pr){document.getElementById('pname').textContent=n;document.getElementById('pprice').textContent=pr;go('product')}
-function catalog(c){document.getElementById('catTitle').textContent=c;document.getElementById('products').innerHTML=data.map(card).join('');go('catalog')}
-function search(v){if(v.trim()) catalog('Search Results')}
-function addCart(){document.getElementById('cartItem').innerHTML='<b>iPhone 17 Pro Max</b><p>Quantity: 1</p><div class="price">₹1,49,900</div>';go('cart')}
+function card(p){return `<div class="card"><div class="img">📱</div><div class="muted">${p.brand} · ${p.category}</div><h3>${p.name}</h3><div class="price">${p.price}</div><p class="muted">${p.spec}</p><span class="tag">Our Store</span><span class="tag">In Stock</span><button class="btn" onclick="product('${p.name.replace("'","\\'")}','${p.price}','${p.spec.replace("'","\\'")}')">View Details</button></div>`}
+function product(n,pr,spec){document.getElementById('pname').textContent=n;document.getElementById('pprice').textContent=pr;document.querySelector('#product .muted').textContent='Our Store demo catalog · sample data';document.querySelector('#product p:nth-of-type(2)').textContent=spec;go('product')}
+function catalog(c){document.getElementById('catTitle').textContent=c;const list=c==='All'?data:data.filter(p=>p.category===c);document.getElementById('products').innerHTML=list.map(card).join('')||'<div class="card">No products in this category yet.</div>';go('catalog')}
+function brandCatalog(b){document.getElementById('catTitle').textContent=b==='All'?'All Products':b;const list=b==='All'?data:data.filter(p=>p.brand===b);document.getElementById('products').innerHTML=list.map(card).join('');go('catalog')}
+function search(v){const q=v.trim().toLowerCase();if(!q){go('home');return}document.getElementById('catTitle').textContent='Search Results';const list=data.filter(p=>(p.name+' '+p.brand+' '+p.category+' '+p.spec).toLowerCase().includes(q));document.getElementById('products').innerHTML=list.map(card).join('')||'<div class="card">No matching products found.</div>';go('catalog')}
+function addCart(){document.getElementById('cartItem').innerHTML='<b>Selected product</b><p>Quantity: 1</p><div class="price">Demo cart item</div>';go('cart')}
 function find(){document.getElementById('qs').innerHTML=['Budget','Main usage','Camera priority','Battery priority'].map(x=>`<div class="question">${x}<br><span class="muted">Tap to choose</span></div>`).join('');go('find')}
-function findResult(){document.getElementById('findResult').innerHTML='<div class="card"><h3>Recommended: Vivo X300 Pro</h3><p>Strong match for your budget, camera and performance preferences.</p><div class="price">₹89,999</div><button class="btn" onclick="product(\'Vivo X300 Pro\',\'₹89,999\')">View Product</button></div>'}
+function findResult(){const p=data.find(x=>x.name==='Vivo X300 Pro');document.getElementById('findResult').innerHTML=card(p)}
 function compare(){go('compare')}
 function exchange(){go('exchange')}
 function advisor(){go('advisor')}
-function advisorResult(){document.getElementById('advice').innerHTML='<div class="card"><h3>Suggested: Vivo X300 Pro</h3><p>Based on your demo requirement, this is a strong camera/performance match.</p><button class="btn" onclick="product(\'Vivo X300 Pro\',\'₹89,999\')">View Product</button></div>'}
-document.getElementById('featured').innerHTML=data.map(card).join('');
+function advisorResult(){const p=data.find(x=>x.name==='Vivo X300 Pro');document.getElementById('advice').innerHTML=card(p)}
+document.getElementById('featured').innerHTML=data.slice(0,8).map(card).join('');
 </script>
 </body></html>
