@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Our Store — Mobile Demo v3.3 Compare Button Fix</title>
+<title>Our Store — Mobile Demo v3.4 Stable Navigation Fix</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f4f5f7;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial;color:#111}
 .app{max-width:430px;margin:auto;min-height:100vh;background:#fff}.top{padding:18px 18px 10px;position:sticky;top:0;background:#fff;z-index:3;border-bottom:1px solid #eee}
@@ -74,7 +74,7 @@ const data=[
 {brand:'Samsung',category:'Accessories',name:'Galaxy Buds',price:'₹14,999',spec:'ANC · Wireless'},
 {brand:'OnePlus',category:'Accessories',name:'OnePlus Buds Pro',price:'₹9,999',spec:'ANC · Wireless'}
 ];
-function go(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');scrollTo(0,0;if(id==='compare'){setTimeout(renderCompareUI,0)}}}
+function go(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');scrollTo(0,0);if(id==='compare'){setTimeout(renderCompareUI,0)}}
 function card(p){return `<div class="card"><div class="img">📱</div><div class="muted">${p.brand} · ${p.category}</div><h3>${p.name}</h3><div class="price">${p.price}</div><p class="muted">${p.spec}</p><span class="tag">Our Store</span><span class="tag">In Stock</span><button class="btn" onclick="product('${p.name.replace("'","\\'")}','${p.price}','${p.spec.replace("'","\\'")}')">View Details</button></div>`}
 function product(n,pr,spec){document.getElementById('pname').textContent=n;document.getElementById('pprice').textContent=pr;document.querySelector('#product .muted').textContent='Our Store demo catalog · sample data';document.querySelector('#product p:nth-of-type(2)').textContent=spec;go('product')}
 function catalog(c){document.getElementById('catTitle').textContent=c;const list=c==='All'?data:data.filter(p=>p.category===c);document.getElementById('products').innerHTML=list.map(card).join('')||'<div class="card">No products in this category yet.</div>';go('catalog')}
