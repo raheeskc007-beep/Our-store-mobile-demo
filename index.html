@@ -14,7 +14,13 @@ h1{font-size:26px;margin:0 0 12px}.search{background:#f1f2f4;border:0;border-rad
 .trackStep span{grid-row:1 / span 2;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#111;color:#fff;font-weight:700}
 .trackStep small{grid-column:2;color:#666;margin-top:2px}
 .trackLine{height:18px;border-left:2px solid #111;margin-left:13px}
-.linkBtn{background:none;border:0;padding:0;font:inherit;color:#0785f2;cursor:pointer}\n</style>
+.linkBtn{background:none;border:0;padding:0;font:inherit;color:#0785f2;cursor:pointer}\n
+.reviewBox{margin-top:18px}
+.reviewSummary{font-size:18px;margin:8px 0 14px}
+.reviewSummary span{font-size:14px;color:#666}
+.review{border-top:1px solid #eee;padding:14px 0}
+.review small{color:#666}
+</style>
 </head>
 <body>
 <div class="app">
@@ -30,7 +36,15 @@ h1{font-size:26px;margin:0 0 12px}.search{background:#f1f2f4;border:0;border-rad
 
 <div id="catalog" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2 id="catTitle">Products</h2><div class="row" style="margin-bottom:10px"><button class="chip" onclick="brandCatalog('All')">All</button><button class="chip" onclick="brandCatalog('Apple')">Apple</button><button class="chip" onclick="brandCatalog('Samsung')">Samsung</button><button class="chip" onclick="brandCatalog('OnePlus')">OnePlus</button><button class="chip" onclick="brandCatalog('Xiaomi')">Xiaomi</button><button class="chip" onclick="brandCatalog('Vivo')">Vivo</button><button class="chip" onclick="brandCatalog('OPPO')">OPPO</button><button class="chip" onclick="brandCatalog('Google')">Google</button><button class="chip" onclick="brandCatalog('Realme')">Realme</button><button class="chip" onclick="brandCatalog('Motorola')">Motorola</button></div><div id="products"></div></div></div>
 
-<div id="product" class="screen"><div class="content"><button class="back" onclick="go('catalog')">← Products</button><div class="img">📱</div><h2 id="pname"></h2><div class="tag">Our Store</div><div class="tag">Warranty</div><p class="muted">Demo product with sample catalog data.</p><div class="price" id="pprice"></div><p>12/256 GB · 5G · AMOLED · 50MP Camera</p><button class="btn" onclick="addCart()">🛒 Add to Cart</button><button class="btn alt" onclick="renderCheckout();go('checkout')">Buy Now</button><button class="btn alt" onclick="go('compare')">⚖️ Compare</button></div></div>
+<div id="product" class="screen"><div class="content"><button class="back" onclick="go('catalog')">← Products</button><div class="img">📱</div><h2 id="pname"></h2><div class="tag">Our Store</div><div class="tag">Warranty</div><p class="muted">Demo product with sample catalog data.</p><div class="price" id="pprice"></div><p>12/256 GB · 5G · AMOLED · 50MP Camera</p><button class="btn" onclick="addCart()">🛒 Add to Cart</button><button class="btn alt" onclick="renderCheckout();go('checkout')">Buy Now</button><button class="btn alt" onclick="go('compare')">⚖️ Compare</button>
+<div class="card reviewBox">
+<h3>Customer Reviews</h3>
+<div class="reviewSummary"><b>4.7 ★</b><span> · 128 reviews · Verified purchases</span></div>
+<div class="review"><b>Excellent performance</b><p class="muted">Fast performance, great camera and premium build.</p><small>Verified purchase · 5 ★</small></div>
+<div class="review"><b>Great phone</b><p class="muted">Display and battery experience are very good.</p><small>Verified purchase · 5 ★</small></div>
+<button class="btn alt" onclick="writeReview()">Write a Review</button>
+</div>
+</div></div>
 
 <div id="find" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2>Find My Device</h2><p class="muted">Tell us what you need.</p><div id="qs"></div><button class="btn" onclick="findResult()">Show Recommendations</button><div class="card"><h3>Find My Device</h3><p class="muted">Choose a category and optional budget.</p><select id="findCategory" style="width:100%;padding:12px;border-radius:10px;border:1px solid #ddd"><option>Mobiles</option><option>Tablets</option><option>Laptops</option><option>Accessories</option></select><input id="budget" inputmode="numeric" placeholder="Budget in ₹ (optional)" style="width:100%;padding:12px;margin-top:8px;border-radius:10px;border:1px solid #ddd"><button class="btn" onclick="findResult()">Find Devices</button></div><div id="findResult"></div></div></div>
 
@@ -187,5 +201,5 @@ function exchange(){go('exchange')}
 function advisor(){go('advisor')}
 
 document.getElementById('featured').innerHTML=data.slice(0,8).map(card).join('');
-function showOrderTracking(){document.getElementById('trackingCard').style.display='block';}</script>
+function showOrderTracking(){document.getElementById('trackingCard').style.display='block';}function writeReview(){alert('Demo: review form opened. Production version will support rating, text, photos/video, verification and moderation.')} </script>
 </body></html>
