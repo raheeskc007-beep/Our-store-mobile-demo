@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Our Store — Mobile Demo v3 Smart Catalog</title>
+<title>Our Store — Mobile Demo v3.1 Search Fix</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f4f5f7;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial;color:#111}
 .app{max-width:430px;margin:auto;min-height:100vh;background:#fff}.top{padding:18px 18px 10px;position:sticky;top:0;background:#fff;z-index:3;border-bottom:1px solid #eee}
@@ -13,7 +13,7 @@ h1{font-size:26px;margin:0 0 12px}.search{background:#f1f2f4;border:0;border-rad
 <body>
 <div class="app">
 <div id="home" class="screen active">
-<div class="top"><h1>Our Store</h1><input class="search" placeholder="Search mobiles, laptops, tablets..." oninput="search(this.value)"></div>
+<div class="top"><h1>Our Store</h1><input class="search" placeholder="Search mobiles, laptops, tablets..." autocomplete="off" autocapitalize="none" oninput="search(this.value)"><div id="searchResults" style="display:none"></div></div>
 <div class="content">
 <h3>What are you looking for?</h3><div class="row">
 <button class="chip" onclick="catalog('Mobiles')">📱 Mobiles</button><button class="chip" onclick="catalog('Laptops')">💻 Laptops</button><button class="chip" onclick="catalog('Tablets')">📲 Tablets</button><button class="chip" onclick="catalog('Accessories')">🎧 Accessories</button>
@@ -79,7 +79,17 @@ function card(p){return `<div class="card"><div class="img">📱</div><div class
 function product(n,pr,spec){document.getElementById('pname').textContent=n;document.getElementById('pprice').textContent=pr;document.querySelector('#product .muted').textContent='Our Store demo catalog · sample data';document.querySelector('#product p:nth-of-type(2)').textContent=spec;go('product')}
 function catalog(c){document.getElementById('catTitle').textContent=c;const list=c==='All'?data:data.filter(p=>p.category===c);document.getElementById('products').innerHTML=list.map(card).join('')||'<div class="card">No products in this category yet.</div>';go('catalog')}
 function brandCatalog(b){document.getElementById('catTitle').textContent=b==='All'?'All Products':b;const list=b==='All'?data:data.filter(p=>p.brand===b);document.getElementById('products').innerHTML=list.map(card).join('');go('catalog')}
-function search(v){const q=v.trim().toLowerCase();if(!q){go('home');return}document.getElementById('catTitle').textContent='Search Results';const list=data.filter(p=>(p.name+' '+p.brand+' '+p.category+' '+p.spec).toLowerCase().includes(q));document.getElementById('products').innerHTML=list.map(card).join('')||'<div class="card">No matching products found.</div>';go('catalog')}
+function search(v){
+  const q=v.trim().toLowerCase();
+  const box=document.getElementById('searchResults');
+  if(!box) return;
+  if(!q){box.innerHTML='';box.style.display='none';return;}
+  const list=data.filter(p=>(p.name+' '+p.brand+' '+p.category+' '+p.spec).toLowerCase().includes(q)).slice(0,8);
+  box.innerHTML=list.length
+    ? list.map(card).join('')
+    : '<div class="card"><b>No matching products found.</b><p class="muted">Try a brand or model name.</p></div>';
+  box.style.display='block';
+}
 function addCart(){document.getElementById('cartItem').innerHTML='<b>Selected product</b><p>Quantity: 1</p><div class="price">Demo cart item</div>';go('cart')}
 function find(){document.getElementById('qs').innerHTML=['Budget','Main usage','Camera priority','Battery priority'].map(x=>`<div class="question">${x}<br><span class="muted">Tap to choose</span></div>`).join('');go('find')}
 function findResult(){
