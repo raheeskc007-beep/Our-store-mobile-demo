@@ -50,9 +50,25 @@ h1{font-size:26px;margin:0 0 12px}.search{background:#f1f2f4;border:0;border-rad
 
 <div id="compare" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2>Compare</h2><p class="muted">Select 2 to 4 mobile models.</p><div class="card"><div id="compareChoices"></div><button id="compareBtn" type="button" class="btn">Compare Selected</button></div><div id="compareResult"></div></div></div>
 
-<div id="exchange" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2>Exchange</h2><p class="muted">Demo valuation only.</p><input class="search" id="old" placeholder="Old device model"><input class="search" style="margin-top:10px" placeholder="Condition: Good / Fair / Like New"><button class="btn" onclick="document.getElementById('ex').innerHTML='Estimated exchange value: ₹18,000'">Get Estimate</button><h3 id="ex"></h3></div></div>
-
-<div id="cart" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2>Cart</h2><div id="cartItem" class="card">Your cart is empty.</div><button class="btn" onclick="renderCheckout();go('checkout')">Checkout</button></div></div>
+<div id="exchange" class="screen"><div class="content">
+<button class="back" onclick="go('home')">← Home</button>
+<h2>Exchange</h2>
+<p class="muted">Get a demo exchange estimate for your old device.</p>
+<div class="card">
+<label><b>Old device model</b></label>
+<input class="search" id="oldDevice" placeholder="Example: iPhone 15 Pro">
+<label style="display:block;margin-top:14px"><b>Condition</b></label>
+<select class="search" id="oldCondition" style="margin-top:8px">
+<option value="Good">Good</option><option value="Like New">Like New</option><option value="Fair">Fair</option>
+</select>
+<label style="display:block;margin-top:14px"><b>Storage</b></label>
+<select class="search" id="oldStorage" style="margin-top:8px">
+<option>128 GB</option><option>256 GB</option><option>512 GB</option><option>1 TB</option>
+</select>
+<button class="btn" style="margin-top:16px" onclick="getExchangeEstimate()">Get Estimate</button>
+</div>
+<div id="exchangeResult"></div>
+</div></div><div id="cart" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2>Cart</h2><div id="cartItem" class="card">Your cart is empty.</div><button class="btn" onclick="renderCheckout();go('checkout')">Checkout</button></div></div>
 
 <div id="checkout" class="screen"><div class="content"><button class="back" onclick="go('cart')">← Cart</button><h2>Checkout</h2><div id="checkoutItem" class="card">No product selected.</div><div class="card"><b>Delivery</b><p class="muted">Demo Address · Kerala</p></div><div class="card"><b>Payment</b><p>UPI · Card · Cash on Delivery (demo)</p></div><button class="btn" onclick="go('order')">Place Demo Order</button></div></div>
 
@@ -201,5 +217,17 @@ function exchange(){go('exchange')}
 function advisor(){go('advisor')}
 
 document.getElementById('featured').innerHTML=data.slice(0,8).map(card).join('');
-function showOrderTracking(){document.getElementById('trackingCard').style.display='block';}function writeReview(){alert('Demo: review form opened. Production version will support rating, text, photos/video, verification and moderation.')} </script>
+function showOrderTracking(){document.getElementById('trackingCard').style.display='block';}function writeReview(){alert('Demo: review form opened. Production version will support rating, text, photos/video, verification and moderation.')} 
+function getExchangeEstimate(){
+ const model=(document.getElementById('oldDevice').value||'Old device').trim();
+ const condition=document.getElementById('oldCondition').value;
+ const storage=document.getElementById('oldStorage').value;
+ const values={'Like New':22000,'Good':18000,'Fair':13000};
+ const estimate=values[condition]||18000;
+ document.getElementById('exchangeResult').innerHTML='<div class="card" style="margin-top:16px"><h3>Estimated exchange value</h3><p><b>'+model+'</b> · '+storage+' · '+condition+'</p><div class="price">₹'+estimate.toLocaleString('en-IN')+'</div><p class="muted">Final value is subject to physical inspection in the production version.</p><button class="btn" onclick="confirmExchange()">Continue Exchange</button></div>';
+}
+function confirmExchange(){
+ document.getElementById('exchangeResult').innerHTML='<div class="card" style="margin-top:16px"><h3>Exchange request created ✓</h3><p>Our Store has received your demo exchange request.</p><p class="muted">Next: device inspection → final offer → exchange completion.</p></div>';
+}
+</script>
 </body></html>
