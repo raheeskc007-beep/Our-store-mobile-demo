@@ -14,7 +14,7 @@ h1{font-size:26px;margin:0 0 12px}.search{background:#f1f2f4;border:0;border-rad
 .trackStep span{grid-row:1 / span 2;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#111;color:#fff;font-weight:700}
 .trackStep small{grid-column:2;color:#666;margin-top:2px}
 .trackLine{height:18px;border-left:2px solid #111;margin-left:13px}
-</style>
+.linkBtn{background:none;border:0;padding:0;font:inherit;color:#0785f2;cursor:pointer}\n</style>
 </head>
 <body>
 <div class="app">
@@ -46,6 +46,18 @@ h1{font-size:26px;margin:0 0 12px}.search{background:#f1f2f4;border:0;border-rad
 
 <div id="advisor" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2>AI Product Advisor</h2><p class="muted">Demo advisor using sample catalog data.</p><input class="search" id="need" placeholder="Example: phone under ₹30,000 for camera"><div id="advice"></div></div></div>
 
+<div id="support" class="screen"><div class="content">
+<button class="back" onclick="go('profile')">← Profile</button>
+<h2>Support</h2>
+<div class="card"><b>Order Support</b><p class="muted">Need help with order #OS-1001?</p><button class="btn" onclick="alert('Demo support request created for order OS-1001.')">Contact Our Store</button></div>
+<div class="card"><b>Returns & Refunds</b><p>Return eligibility, pickup and refund support will be handled through Our Store.</p><button class="btn alt" onclick="alert('Demo return request flow opened.')">Start Return</button></div>
+</div></div>
+<div id="warranty" class="screen"><div class="content">
+<button class="back" onclick="go('profile')">← Profile</button>
+<h2>Warranty</h2>
+<div class="card"><b>iPhone 17 Pro Max</b><p class="muted">Order #OS-1001</p><p>Warranty status: <b>Demo Active</b></p><p>Warranty details can be verified against the order and device serial/IMEI in the production version.</p></div>
+<div class="card"><b>Need help?</b><p>Contact Our Store support for warranty claims and service requests.</p><button class="btn" onclick="go('support')">Contact Support</button></div>
+</div></div>
 <div id="profile" class="screen"><div class="content">
 <button class="back" onclick="go('home')">← Home</button>
 <h2>Profile</h2>
@@ -58,7 +70,12 @@ h1{font-size:26px;margin:0 0 12px}.search{background:#f1f2f4;border:0;border-rad
 <div class="trackStep active"><span>✓</span><b>Ready</b><small>Ready for dispatch</small></div>
 <div class="trackLine"></div>
 <div class="trackStep active"><span>✓</span><b>Delivered</b><small>Demo order completed</small></div></div></div>
-<div class="card"><b>Account</b><p>Delivery addresses</p><p>Payment methods</p><p>Support</p></div>
+<div class="card"><b>Account</b>
+<p>Delivery addresses</p>
+<p>Payment methods</p>
+<p><button class="linkBtn" onclick="go('warranty')">Warranty</button></p>
+<p><button class="linkBtn" onclick="go('support')">Support</button></p>
+</div>
 </div></div></div>
 
 <div class="bottom"><button onclick="go('home')">🏠<br>Home</button><button onclick="catalog('Mobiles')">🔎<br>Shop</button><button onclick="go('cart')">🛒<br>Cart</button><button onclick="go('profile')">👤<br>Profile</button></div>
