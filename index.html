@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Our Store — Mobile Demo v3.2 Compare Fix</title>
+<title>Our Store — Mobile Demo v3.3 Compare Button Fix</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f4f5f7;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial;color:#111}
 .app{max-width:430px;margin:auto;min-height:100vh;background:#fff}.top{padding:18px 18px 10px;position:sticky;top:0;background:#fff;z-index:3;border-bottom:1px solid #eee}
 h1{font-size:26px;margin:0 0 12px}.search{background:#f1f2f4;border:0;border-radius:14px;padding:13px;width:100%;font-size:15px}
 .content{padding:16px 16px 88px}.row{display:flex;gap:10px;overflow:auto}.chip{white-space:nowrap;border:1px solid #ddd;border-radius:20px;padding:9px 13px;background:#fff}.card{border:1px solid #e7e7e7;border-radius:18px;padding:14px;margin:12px 0}.img{height:150px;border-radius:14px;background:linear-gradient(135deg,#e9edf2,#cfd5dd);display:flex;align-items:center;justify-content:center;font-size:48px}.muted{color:#666;font-size:13px}.price{font-size:20px;font-weight:700;margin:6px 0}.btn{border:0;border-radius:13px;padding:12px 14px;background:#111;color:#fff;font-weight:600;margin-top:8px}.btn.alt{background:#eee;color:#111}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.bottom{position:fixed;bottom:0;left:0;right:0;max-width:430px;margin:auto;background:#fff;border-top:1px solid #ddd;display:flex;justify-content:space-around;padding:10px 4px calc(10px + env(safe-area-inset-bottom));z-index:5}.bottom button{border:0;background:none;font-size:11px}.screen{display:none}.screen.active{display:block}.back{border:0;background:none;font-size:15px;padding:0 0 12px}.tag{display:inline-block;background:#eef5ff;padding:5px 8px;border-radius:8px;font-size:12px;margin:3px}.question{padding:13px;border:1px solid #ddd;border-radius:14px;margin:8px 0}.question.selected{border-color:#111;background:#f4f4f4}
-</style>
+.compareChoice{display:flex;gap:10px;align-items:flex-start;margin:9px 0;padding:10px;border:1px solid #ddd;border-radius:10px}.compareChoice input{margin-top:4px}</style>
 </head>
 <body>
 <div class="app">
@@ -74,7 +74,7 @@ const data=[
 {brand:'Samsung',category:'Accessories',name:'Galaxy Buds',price:'₹14,999',spec:'ANC · Wireless'},
 {brand:'OnePlus',category:'Accessories',name:'OnePlus Buds Pro',price:'₹9,999',spec:'ANC · Wireless'}
 ];
-function go(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');scrollTo(0,0);if(id==='compare'){loadCompareChoices()}}
+function go(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');scrollTo(0,0;if(id==='compare'){setTimeout(renderCompareUI,0)}}}
 function card(p){return `<div class="card"><div class="img">📱</div><div class="muted">${p.brand} · ${p.category}</div><h3>${p.name}</h3><div class="price">${p.price}</div><p class="muted">${p.spec}</p><span class="tag">Our Store</span><span class="tag">In Stock</span><button class="btn" onclick="product('${p.name.replace("'","\\'")}','${p.price}','${p.spec.replace("'","\\'")}')">View Details</button></div>`}
 function product(n,pr,spec){document.getElementById('pname').textContent=n;document.getElementById('pprice').textContent=pr;document.querySelector('#product .muted').textContent='Our Store demo catalog · sample data';document.querySelector('#product p:nth-of-type(2)').textContent=spec;go('product')}
 function catalog(c){document.getElementById('catTitle').textContent=c;const list=c==='All'?data:data.filter(p=>p.category===c);document.getElementById('products').innerHTML=list.map(card).join('')||'<div class="card">No products in this category yet.</div>';go('catalog')}
@@ -101,17 +101,36 @@ function findResult(){
   list=list.slice(0,4);
   document.getElementById('findResult').innerHTML=list.map(card).join('');
 }
-function loadCompareChoices(){
-  const list=data.filter(p=>p.category==='Mobiles').slice(0,12);
+function renderCompareUI(){
   const el=document.getElementById('compareChoices');
-  if(el){
-    el.innerHTML=list.map((p,i)=>
-      '<label style="display:block;margin:10px 0;padding:10px;border:1px solid #ddd;border-radius:10px">'+
-      '<input type="checkbox" name="compareProduct" value="'+i+'"> '+
-      p.brand+' — '+p.name+' · '+p.price+'</label>'
-    ).join('');
+  if(!el) return;
+  const list=data.filter(p=>p.category==='Mobiles').slice(0,12);
+  el.innerHTML=list.map((p,i)=>
+    '<label class="compareChoice">'+
+    '<input type="checkbox" class="compareCheck" value="'+i+'"> '+
+    '<span><b>'+p.brand+' — '+p.name+'</b><br><small>'+p.price+' · '+p.spec+'</small></span>'+
+    '</label>'
+  ).join('');
+  const btn=document.getElementById('compareBtn');
+  if(btn){
+    btn.onclick=function(e){e.preventDefault();runCompare();};
   }
 }
+function runCompare(){
+  const checks=[...document.querySelectorAll('.compareCheck:checked')];
+  const out=document.getElementById('compareResult');
+  if(!out) return;
+  if(checks.length<2){
+    out.innerHTML='<div class="card"><b>Select at least 2 products.</b><p class="muted">Tap the checkboxes first, then tap Compare Selected.</p></div>';
+    return;
+  }
+  const list=checks.map(c=>data[Number(c.value)]).filter(Boolean).slice(0,4);
+  out.innerHTML='<div class="card"><h3>Comparison</h3><div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse">'+
+    '<tr><th style="text-align:left;padding:8px;border-bottom:1px solid #ddd">Model</th><th style="text-align:left;padding:8px;border-bottom:1px solid #ddd">Price</th><th style="text-align:left;padding:8px;border-bottom:1px solid #ddd">Specs</th></tr>'+
+    list.map(p=>'<tr><td style="padding:8px;border-bottom:1px solid #eee"><b>'+p.brand+'</b><br>'+p.name+'</td><td style="padding:8px;border-bottom:1px solid #eee">'+p.price+'</td><td style="padding:8px;border-bottom:1px solid #eee">'+p.spec+'</td></tr>').join('')+
+    '</table></div></div>';
+}
+
 function compare(){
   const selected=[...document.querySelectorAll('input[name="compareProduct"]:checked')];
   if(selected.length<2){
