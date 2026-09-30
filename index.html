@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Our Store — Mobile Demo v3.1 Search Fix</title>
+<title>Our Store — Mobile Demo v3.2 Compare Fix</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f4f5f7;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial;color:#111}
 .app{max-width:430px;margin:auto;min-height:100vh;background:#fff}.top{padding:18px 18px 10px;position:sticky;top:0;background:#fff;z-index:3;border-bottom:1px solid #eee}
@@ -74,7 +74,7 @@ const data=[
 {brand:'Samsung',category:'Accessories',name:'Galaxy Buds',price:'₹14,999',spec:'ANC · Wireless'},
 {brand:'OnePlus',category:'Accessories',name:'OnePlus Buds Pro',price:'₹9,999',spec:'ANC · Wireless'}
 ];
-function go(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');scrollTo(0,0)}
+function go(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');scrollTo(0,0);if(id==='compare'){loadCompareChoices()}}
 function card(p){return `<div class="card"><div class="img">📱</div><div class="muted">${p.brand} · ${p.category}</div><h3>${p.name}</h3><div class="price">${p.price}</div><p class="muted">${p.spec}</p><span class="tag">Our Store</span><span class="tag">In Stock</span><button class="btn" onclick="product('${p.name.replace("'","\\'")}','${p.price}','${p.spec.replace("'","\\'")}')">View Details</button></div>`}
 function product(n,pr,spec){document.getElementById('pname').textContent=n;document.getElementById('pprice').textContent=pr;document.querySelector('#product .muted').textContent='Our Store demo catalog · sample data';document.querySelector('#product p:nth-of-type(2)').textContent=spec;go('product')}
 function catalog(c){document.getElementById('catTitle').textContent=c;const list=c==='All'?data:data.filter(p=>p.category===c);document.getElementById('products').innerHTML=list.map(card).join('')||'<div class="card">No products in this category yet.</div>';go('catalog')}
@@ -101,15 +101,32 @@ function findResult(){
   list=list.slice(0,4);
   document.getElementById('findResult').innerHTML=list.map(card).join('');
 }
-function compare(){
-  const names=[...document.querySelectorAll('input[name="compareProduct"]:checked')].map(x=>x.value);
-  const list=data.filter(p=>names.includes(p.name)).slice(0,4);
-  document.getElementById('compareResult').innerHTML=list.length
-    ? '<div class="card"><h3>Comparison</h3><table style="width:100%;border-collapse:collapse"><tr><th style="text-align:left;padding:6px">Model</th><th style="text-align:left;padding:6px">Price</th><th style="text-align:left;padding:6px">Specs</th></tr>'+
-      list.map(p=>'<tr><td style="padding:6px;border-top:1px solid #ddd">'+p.name+'</td><td style="padding:6px;border-top:1px solid #ddd">'+p.price+'</td><td style="padding:6px;border-top:1px solid #ddd">'+p.spec+'</td></tr>').join('')+
-      '</table></div>'
-    : '<div class="card">Select products to compare.</div>';
+function loadCompareChoices(){
+  const list=data.filter(p=>p.category==='Mobiles').slice(0,12);
+  const el=document.getElementById('compareChoices');
+  if(el){
+    el.innerHTML=list.map((p,i)=>
+      '<label style="display:block;margin:10px 0;padding:10px;border:1px solid #ddd;border-radius:10px">'+
+      '<input type="checkbox" name="compareProduct" value="'+i+'"> '+
+      p.brand+' — '+p.name+' · '+p.price+'</label>'
+    ).join('');
+  }
 }
+function compare(){
+  const selected=[...document.querySelectorAll('input[name="compareProduct"]:checked')];
+  if(selected.length<2){
+    document.getElementById('compareResult').innerHTML='<div class="card"><b>Select at least 2 products.</b><p class="muted">Choose two or more models, then tap Compare Selected.</p></div>';
+    return;
+  }
+  const list=selected.map(x=>data[Number(x.value)]).filter(Boolean).slice(0,4);
+  document.getElementById('compareResult').innerHTML=
+    '<div class="card"><h3>Comparison</h3>'+
+    '<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse">'+
+    '<tr><th style="text-align:left;padding:8px;border-bottom:1px solid #ddd">Model</th><th style="text-align:left;padding:8px;border-bottom:1px solid #ddd">Price</th><th style="text-align:left;padding:8px;border-bottom:1px solid #ddd">Specs</th></tr>'+
+    list.map(p=>'<tr><td style="padding:8px;border-bottom:1px solid #eee">'+p.brand+'<br><b>'+p.name+'</b></td><td style="padding:8px;border-bottom:1px solid #eee">'+p.price+'</td><td style="padding:8px;border-bottom:1px solid #eee">'+p.spec+'</td></tr>').join('')+
+    '</table></div></div>';
+}
+
 function exchange(){go('exchange')}
 function advisor(){go('advisor')}
 function advisorResult(){const p=data.find(x=>x.name==='Vivo X300 Pro');document.getElementById('advice').innerHTML=card(p)}
