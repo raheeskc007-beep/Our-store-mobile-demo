@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Our Store — Mobile Demo v3.6 Compare Screen Fix</title>
+<title>Our Store — Mobile Demo v3.7 Home Compare Entry Fix Compare Screen Fix</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f4f5f7;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial;color:#111}
 .app{max-width:430px;margin:auto;min-height:100vh;background:#fff}.top{padding:18px 18px 10px;position:sticky;top:0;background:#fff;z-index:3;border-bottom:1px solid #eee}
@@ -18,7 +18,7 @@ h1{font-size:26px;margin:0 0 12px}.search{background:#f1f2f4;border:0;border-rad
 <h3>What are you looking for?</h3><div class="row">
 <button class="chip" onclick="catalog('Mobiles')">📱 Mobiles</button><button class="chip" onclick="catalog('Laptops')">💻 Laptops</button><button class="chip" onclick="catalog('Tablets')">📲 Tablets</button><button class="chip" onclick="catalog('Accessories')">🎧 Accessories</button>
 </div>
-<div class="grid" style="margin-top:14px"><button class="btn" onclick="find()">🎯 Find My Device</button><button class="btn alt" onclick="compare()">⚖️ Compare</button><button class="btn alt" onclick="exchange()">🔄 Exchange</button><button class="btn" onclick="advisor()">🤖 AI Advisor</button></div>
+<div class="grid" style="margin-top:14px"><button class="btn" onclick="find()">🎯 Find My Device</button><button class="btn alt" onclick="openCompareFromHome()" type="button">⚖️ Compare</button><button class="btn alt" onclick="exchange()">🔄 Exchange</button><button class="btn" onclick="advisor()">🤖 AI Advisor</button></div>
 <h3>Featured</h3><div id="featured"></div>
 </div></div>
 
@@ -104,6 +104,12 @@ function findResult(){
     return;
   }
   out.innerHTML=list.map(card).join('');
+}
+function openCompareFromHome(){
+  go('compare');
+  setTimeout(function(){
+    if(typeof renderCompareUI==='function') renderCompareUI();
+  },50);
 }
 function renderCompareUI(){
   const el=document.getElementById('compareChoices');
