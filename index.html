@@ -20,6 +20,10 @@ h1{font-size:26px;margin:0 0 12px}.search{background:#f1f2f4;border:0;border-rad
 .reviewSummary span{font-size:14px;color:#666}
 .review{border-top:1px solid #eee;padding:14px 0}
 .review small{color:#666}
+
+.payOption{display:block;padding:12px 0;border-bottom:1px solid #eee}
+.payOption:last-child{border-bottom:0}
+textarea.search{font-family:inherit;resize:vertical}
 </style>
 </head>
 <body>
@@ -70,7 +74,22 @@ h1{font-size:26px;margin:0 0 12px}.search{background:#f1f2f4;border:0;border-rad
 <div id="exchangeResult"></div>
 </div></div><div id="cart" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2>Cart</h2><div id="cartItem" class="card">Your cart is empty.</div><button class="btn" onclick="renderCheckout();go('checkout')">Checkout</button></div></div>
 
-<div id="checkout" class="screen"><div class="content"><button class="back" onclick="go('cart')">← Cart</button><h2>Checkout</h2><div id="checkoutItem" class="card">No product selected.</div><div class="card"><b>Delivery</b><p class="muted">Demo Address · Kerala</p></div><div class="card"><b>Payment</b><p>UPI · Card · Cash on Delivery (demo)</p></div><button class="btn" onclick="go('order')">Place Demo Order</button></div></div>
+<div id="checkout" class="screen"><div class="content">
+<button class="back" onclick="go('cart')">← Cart</button>
+<h2>Checkout</h2>
+<div id="checkoutItem" class="card">No product selected.</div>
+<div class="card"><h3>Delivery Address</h3>
+<label><b>Address</b></label>
+<textarea id="deliveryAddress" class="search" rows="3" placeholder="House / Street / City / PIN"></textarea>
+</div>
+<div class="card"><h3>Payment Method</h3>
+<label class="payOption"><input type="radio" name="payment" value="UPI" checked> UPI</label>
+<label class="payOption"><input type="radio" name="payment" value="Card"> Card</label>
+<label class="payOption"><input type="radio" name="payment" value="Cash on Delivery"> Cash on Delivery</label>
+</div>
+<div class="card"><b>Order total</b><div id="checkoutTotal" class="price">—</div></div>
+<button class="btn" onclick="placeOrder()">Place Demo Order</button>
+</div></div><div id="checkoutItem" class="card">No product selected.</div><div class="card"><b>Delivery</b><p class="muted">Demo Address · Kerala</p></div><div class="card"><b>Payment</b><p>UPI · Card · Cash on Delivery (demo)</p></div><button class="btn" onclick="go('order')">Place Demo Order</button></div></div>
 
 <div id="order" class="screen"><div class="content"><h2>Order Confirmed ✅</h2><div class="card"><b>Order #OS-1001</b><p>Processing → Ready → Delivered</p></div><button class="btn" onclick="go('home')">Back to Home</button></div></div>
 
@@ -145,19 +164,12 @@ function card(p){return `<div class="card"><div class="img">📱</div><div class
 let selectedProduct=null;
 function product(n,pr,spec){selectedProduct={name:n,price:pr,spec:spec};document.getElementById('pname').textContent=n;document.getElementById('pprice').textContent=pr;document.querySelector('#product .muted').textContent='Our Store demo catalog · sample data';document.querySelector('#product p:nth-of-type(2)').textContent=spec;go('product')}
 function renderCart(){const el=document.getElementById('cartItem');if(!selectedProduct){el.innerHTML='Your cart is empty.';return;}el.innerHTML='<b>'+selectedProduct.name+'</b><p class="muted">'+selectedProduct.spec+'</p><p>Quantity: 1</p><div class="price">'+selectedProduct.price+'</div>'}
-function renderCheckout(){const el=document.getElementById('checkoutItem');if(!selectedProduct){el.innerHTML='<b>No product selected.</b><p class="muted">Go back to the shop and choose a product.</p>';return;}el.innerHTML='<b>Order item</b><h3>'+selectedProduct.name+'</h3><p class="muted">'+selectedProduct.spec+'</p><p>Quantity: 1</p><div class="price">'+selectedProduct.price+'</div>'}
-function catalog(c){document.getElementById('catTitle').textContent=c;const list=c==='All'?data:data.filter(p=>p.category===c);document.getElementById('products').innerHTML=list.map(card).join('')||'<div class="card">No products in this category yet.</div>';go('catalog')}
-function brandCatalog(b){document.getElementById('catTitle').textContent=b==='All'?'All Products':b;const list=b==='All'?data:data.filter(p=>p.brand===b);document.getElementById('products').innerHTML=list.map(card).join('');go('catalog')}
-function search(v){
-  const q=v.trim().toLowerCase();
-  const box=document.getElementById('searchResults');
-  if(!box) return;
-  if(!q){box.innerHTML='';box.style.display='none';return;}
-  const list=data.filter(p=>(p.name+' '+p.brand+' '+p.category+' '+p.spec).toLowerCase().includes(q)).slice(0,8);
-  box.innerHTML=list.length
-    ? list.map(card).join('')
-    : '<div class="card"><b>No matching products found.</b><p class="muted">Try a brand or model name.</p></div>';
-  box.style.display='block';
+function renderCheckout(){
+ const el=document.getElementById('checkoutItem');
+ const total=document.getElementById('checkoutTotal');
+ if(!selectedProduct){el.innerHTML='<b>No product selected.</b><p class="muted">Go back to the shop and choose a product.</p>'; total.textContent='—'; return;}
+ el.innerHTML='<b>Order item</b><h3>'+selectedProduct.name+'</h3><p class="muted">'+selectedProduct.spec+'</p><p>Quantity: 1</p>';
+ total.textContent=selectedProduct.price;
 }
 function addCart(){renderCart();go('cart')}
 function find(){document.getElementById('qs').innerHTML=['Budget','Main usage','Camera priority','Battery priority'].map(x=>`<div class="question">${x}<br><span class="muted">Tap to choose</span></div>`).join('');go('find')}
@@ -228,6 +240,21 @@ function getExchangeEstimate(){
 }
 function confirmExchange(){
  document.getElementById('exchangeResult').innerHTML='<div class="card" style="margin-top:16px"><h3>Exchange request created ✓</h3><p>Our Store has received your demo exchange request.</p><p class="muted">Next: device inspection → final offer → exchange completion.</p></div>';
+}
+
+function renderCheckout(){
+ const el=document.getElementById('checkoutItem');
+ const total=document.getElementById('checkoutTotal');
+ if(!selectedProduct){el.innerHTML='<b>No product selected.</b><p class="muted">Go back to the shop and choose a product.</p>'; total.textContent='—'; return;}
+ el.innerHTML='<b>Order item</b><h3>'+selectedProduct.name+'</h3><p class="muted">'+selectedProduct.spec+'</p><p>Quantity: 1</p>';
+ total.textContent=selectedProduct.price;
+}
+function placeOrder(){
+ const address=(document.getElementById('deliveryAddress').value||'').trim();
+ const payment=document.querySelector('input[name="payment"]:checked')?.value||'UPI';
+ if(!address){alert('Please enter a delivery address for the demo order.');return;}
+ window.demoPayment=payment;
+ go('order');
 }
 </script>
 </body></html>
