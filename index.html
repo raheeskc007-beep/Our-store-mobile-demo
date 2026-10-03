@@ -351,8 +351,8 @@ body:has(#catalog:target) #catalog {display:block!important}
 <div id="profile" class="screen"><div class="content">
 <button class="back" onclick="go('home')">← Home</button>
 <h2>Profile</h2>
-<div class="card"><h3>Rahees</h3><p class="muted">Our Store customer · Demo profile</p></div>
-<div class="card"><b>My Orders</b><p>Order #OS-1001</p><p class="muted">iPhone 17 Pro Max · ₹1,49,900</p><button class="btn" onclick="showOrderTracking()">Track Order</button></div>
+<div class="card"><h3>My Account</h3><p class="muted">Our Store customer · Demo profile</p><div class="grid"><button class="btn alt" onclick="openAddresses()">📍 Addresses</button><button class="btn alt" onclick="go('support')">🛟 Support</button></div></div>
+<div class="card"><b>My Orders</b><div id="profileOrders"><p class="muted">No demo orders yet.</p></div><button class="btn" onclick="showOrderTracking()">Track Latest Order</button></div>
 <div id="trackingCard" class="card" style="display:none"><b>Order Tracking</b>
 <p class="muted">Order #OS-1001</p>
 <div class="track"><div class="trackStep active"><span>✓</span><b>Processing</b><small>Order confirmed</small></div>
@@ -453,7 +453,7 @@ function search(q){
   }).join('');
 }
 
-function go(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');scrollTo(0,0);if(id!=='home'){const sr=document.getElementById('searchResults');if(sr)sr.style.display='none';}if(id==='compare'){setTimeout(renderCompareUI,0)}if(id==='cart'){setTimeout(renderCart,0)}if(id==='checkout'){setTimeout(renderCheckout,0)}}
+function go(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');scrollTo(0,0);if(id!=='home'){const sr=document.getElementById('searchResults');if(sr)sr.style.display='none';}if(id==='compare'){setTimeout(renderCompareUI,0)}if(id==='cart'){setTimeout(renderCart,0)}if(id==='checkout'){setTimeout(renderCheckout,0)}if(id==='profile'){setTimeout(renderProfileOrders,0)}}
 function card(p){return `<div class="card"><div class="img">📱</div><div class="muted">${p.brand} · ${p.category}</div><h3>${p.name}</h3><div class="price">${p.price}</div><p class="muted">${p.spec}</p><span class="tag">Our Store</span><span class="tag">In Stock</span><button class="btn" onclick="product('${p.name.replace("'","\\'")}','${p.price}','${p.spec.replace("'","\\'")}')">View Details</button></div>`}
 let selectedStorage='12/256 GB';let selectedColor='Black';
 let selectedProduct=null;
@@ -647,7 +647,13 @@ function exchange(){resetExchange();go('exchange')}
 
 
 document.getElementById('featured').innerHTML=data.slice(0,8).map(card).join('');
-function showOrderTracking(){document.getElementById('trackingCard').style.display='block';}function writeReview(){alert('Demo: review form opened. Production version will support rating, text, photos/video, verification and moderation.')} 
+function renderProfileOrders(){
+  const el=document.getElementById('profileOrders'); if(!el)return;
+  let o=null; try{o=JSON.parse(localStorage.getItem('ourStoreLatestOrder')||'null')}catch(e){}
+  if(!o){el.innerHTML='<p class="muted">No demo orders yet. Complete a demo checkout to see your latest order here.</p>';return;}
+  el.innerHTML='<div class="card" style="margin:10px 0 0;background:#fafafa"><b>Order #'+o.id+'</b><p style="margin:6px 0">'+String(o.name).replace(/</g,'&lt;')+'</p><p class="muted" style="margin:4px 0">Payment: '+String(o.payment).replace(/</g,'&lt;')+'</p><span class="tag">'+o.status+'</span></div>';
+}
+function showOrderTracking(){document.getElementById('trackingCard').style.display='block';renderProfileOrders();}function writeReview(){alert('Demo: review form opened. Production version will support rating, text, photos/video, verification and moderation.')} 
 
 let ex={category:'',brand:'',model:null,step:1,view:'Front',conditions:{},tests:{},maxValue:0};
 const brandIcons={Apple:'',Samsung:'▦',OnePlus:'1+',Xiaomi:'Mi',Vivo:'V',OPPO:'O',Google:'G',Realme:'R',Motorola:'M',Dell:'D',HP:'HP',Lenovo:'L',Asus:'A',Acer:'A',Microsoft:'MS'};
@@ -780,6 +786,9 @@ function placeOrder(){
   const n=document.getElementById('orderNumber'); if(n)n.textContent='Order #'+orderNo;
   const p=document.getElementById('orderPayment'); if(p)p.textContent='Payment: '+window.demoPayment;
   const a=document.getElementById('orderAddress'); if(a)a.textContent='Delivery: '+window.demoAddress;
+  const item=(cart[0]||data[0]||{});
+  const order={id:orderNo,name:item.name||'Demo product',price:item.price||0,payment:window.demoPayment,address:window.demoAddress,status:'Order placed'};
+  localStorage.setItem('ourStoreLatestOrder',JSON.stringify(order));
   go('order');
 }
 </script>
