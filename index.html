@@ -188,6 +188,15 @@ body:has(#catalog:target) #catalog {display:block!important}
 .emiNote{font-size:11px;color:#666;line-height:1.4}
 </style>
 
+
+<style>/* Exchange + EMI */
+.combinedBox{padding:14px;border:1px solid #e4e7eb;border-radius:16px;margin-top:10px;background:#fff}
+.calcRow{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid #eee}
+.calcRow:last-child{border-bottom:0}
+.calcTotal{font-size:22px;font-weight:800;margin-top:6px}
+.exchangeApply{width:100%;margin-top:10px}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -226,6 +235,22 @@ body:has(#catalog:target) #catalog {display:block!important}
   </div>
   <div id="emiResult" class="emiResult"></div>
   <p class="emiNote">Demo calculation only. Final bank eligibility, interest rate, fees and approved EMI will be confirmed at checkout.</p>
+</div>
+
+
+<div class="card" id="exchangeEmi">
+  <h3>🔄 Exchange + EMI</h3>
+  <p class="muted">Apply your estimated exchange value and see the remaining amount and EMI.</p>
+  <div class="combinedBox">
+    <div class="calcRow"><span>Product price</span><b id="calcProductPrice">₹0</b></div>
+    <div class="calcRow"><span>Exchange value</span><b id="calcExchangeValue">₹0</b></div>
+    <div class="calcRow"><span>Pay after exchange</span><b id="calcPayable">₹0</b></div>
+    <div class="calcRow"><span>Selected EMI</span><b id="calcMonths">3 months</b></div>
+    <div class="calcTotal" id="calcEmi">₹0 / month</div>
+    <div class="muted">Illustrative EMI calculation based on the selected period.</div>
+    <button class="btn exchangeApply" type="button" onclick="applyDemoExchange()">🔄 Apply Demo Exchange Value</button>
+  </div>
+  <p class="emiNote">Demo only. Final exchange value, bank rate, fees and approved EMI are confirmed after device inspection and checkout eligibility.</p>
 </div>
 
 <div class="card"><h3>Delivery & pickup</h3><p>🚚 Delivery available</p><p>🏪 Store pickup available</p><p class="muted">Final availability and delivery date will be confirmed at checkout.</p></div><div class="card"><h3>Exchange</h3><p class="muted">Have an old device? Check its condition and get an estimated exchange value.</p><button class="btn alt" onclick="exchange()">🔄 Check Exchange Value</button></div><div class="stickyBuy"><button class="btn" onclick="addCart()">🛒 Add to Cart</button><button class="btn alt" onclick="renderCheckout();go('checkout')">Buy Now</button><button class="btn alt" onclick="go('compare')">⚖️ Compare</button></div>
@@ -488,7 +513,7 @@ function brandCatalog(brand,category){
   if(!out)return;
   out.innerHTML=list.length?list.map(card).join(''):'<div class="card"><b>No products found</b><p class="muted">Try another brand or category.</p></div>';
 }
-function product(n,pr,spec){selectedProduct={name:n,price:pr,spec:spec};document.getElementById('pname').textContent=n;document.getElementById('pprice').textContent=pr;const ps=document.getElementById('pSpec');if(ps)ps.textContent=spec;go('product');setTimeout(function(){const b=document.querySelector('#offersEmi .emiBtn.active');selectEMI(3,b)},0)}
+function product(n,pr,spec){selectedProduct={name:n,price:pr,spec:spec};document.getElementById('pname').textContent=n;document.getElementById('pprice').textContent=pr;const ps=document.getElementById('pSpec');if(ps)ps.textContent=spec;go('product');setTimeout(function(){const b=document.querySelector('#offersEmi .emiBtn.active');selectEMI(3,b);updateCombinedExchange(3)},0)}
 function renderCart(){const el=document.getElementById('cartItem');if(!selectedProduct){el.innerHTML='Your cart is empty.';return;}el.innerHTML='<b>'+selectedProduct.name+'</b><p class="muted">'+selectedProduct.spec+'</p><p>Quantity: 1</p><div class="price">'+selectedProduct.price+'</div>'}
 function renderCheckout(){
   const el=document.getElementById('checkoutItem');
@@ -764,6 +789,46 @@ function resetAddressForm(){
 }
 
 function placeOrder(){const address=(document.getElementById('deliveryAddress').value||'').trim();if(!address){alert('Please select a saved delivery address or enter one for the demo order.');return;}window.demoAddress=address;window.demoPayment=document.querySelector('input[name="payment"]:checked')?.value||'UPI';go('order');}
+
+
+function getCurrentProductPrice(){
+  const priceText=document.getElementById('pprice')?.textContent || selectedProduct?.price || '₹0';
+  return Number(String(priceText).replace(/[^0-9]/g,'')) || 0;
+}
+function getDemoExchangeValue(){
+  const price=getCurrentProductPrice();
+  // Prefer a completed exchange estimate when available; otherwise use a clear demo estimate.
+  if(window.ex && Number(window.ex.maxValue)>0) return Math.min(Number(window.ex.maxValue),price);
+  return Math.round((price*0.30)/100)*100;
+}
+function updateCombinedExchange(months){
+  const price=getCurrentProductPrice();
+  const exchange=Math.min(getDemoExchangeValue(),price);
+  const payable=Math.max(0,price-exchange);
+  const rateByMonths={3:0,6:0.08,9:0.10,12:0.12};
+  const annualRate=rateByMonths[months]||0;
+  const monthlyRate=annualRate/12;
+  const emi=monthlyRate===0 ? payable/months : (payable*monthlyRate*Math.pow(1+monthlyRate,months))/(Math.pow(1+monthlyRate,months)-1);
+  const a=document.getElementById('calcProductPrice');
+  const b=document.getElementById('calcExchangeValue');
+  const c=document.getElementById('calcPayable');
+  const d=document.getElementById('calcMonths');
+  const e=document.getElementById('calcEmi');
+  if(a)a.textContent='₹'+price.toLocaleString('en-IN');
+  if(b)b.textContent='− ₹'+exchange.toLocaleString('en-IN');
+  if(c)c.textContent='₹'+payable.toLocaleString('en-IN');
+  if(d)d.textContent=months+' months';
+  if(e)e.textContent='₹'+Math.round(emi).toLocaleString('en-IN')+' / month';
+}
+function applyDemoExchange(){
+  const price=getCurrentProductPrice();
+  const exchange=Math.min(getDemoExchangeValue(),price);
+  const msg=document.getElementById('calcExchangeValue');
+  if(msg)msg.textContent='− ₹'+exchange.toLocaleString('en-IN');
+  const active=document.querySelector('#offersEmi .emiBtn.active');
+  const months=active ? Number(active.textContent.match(/\d+/)?.[0]||3) : 3;
+  updateCombinedExchange(months);
+}
 
 function selectEMI(months,btn){
   document.querySelectorAll('#offersEmi .emiBtn').forEach(function(b){b.classList.remove('active');});
