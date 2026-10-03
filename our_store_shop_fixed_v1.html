@@ -1,0 +1,703 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Our Store — Mobile Demo v4.1 Compare Devices</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f4f5f7;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial;color:#111}
+.app{max-width:430px;margin:auto;min-height:100vh;background:#fff}.top{padding:18px 18px 10px;position:sticky;top:0;background:#fff;z-index:3;border-bottom:1px solid #eee}
+h1{font-size:26px;margin:0 0 12px}.search{background:#f1f2f4;border:0;border-radius:14px;padding:13px;width:100%;font-size:15px}
+.content{padding:16px 16px 88px}.row{display:flex;gap:10px;overflow:auto}.chip{white-space:nowrap;border:1px solid #ddd;border-radius:20px;padding:9px 13px;background:#fff}.card{border:1px solid #e7e7e7;border-radius:18px;padding:14px;margin:12px 0}.img{height:150px;border-radius:14px;background:linear-gradient(135deg,#e9edf2,#cfd5dd);display:flex;align-items:center;justify-content:center;font-size:48px}.muted{color:#666;font-size:13px}.price{font-size:20px;font-weight:700;margin:6px 0}.btn{border:0;border-radius:13px;padding:12px 14px;background:#111;color:#fff;font-weight:600;margin-top:8px}.btn.alt{background:#eee;color:#111}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.bottom{position:fixed;bottom:0;left:0;right:0;max-width:430px;margin:auto;background:#fff;border-top:1px solid #ddd;display:flex;justify-content:space-around;padding:10px 4px calc(10px + env(safe-area-inset-bottom));z-index:5}.bottom button{border:0;background:none;font-size:11px}.screen{display:none}.screen.active{display:block}.back{border:0;background:none;font-size:15px;padding:0 0 12px}.tag{display:inline-block;background:#eef5ff;padding:5px 8px;border-radius:8px;font-size:12px;margin:3px}.question{padding:13px;border:1px solid #ddd;border-radius:14px;margin:8px 0}.question.selected{border-color:#111;background:#f4f4f4}
+.compareChoice{display:flex;gap:10px;align-items:flex-start;margin:9px 0;padding:10px;border:1px solid #ddd;border-radius:10px}.compareChoice input{margin-top:4px}
+.track{margin-top:18px}
+.trackStep{display:grid;grid-template-columns:34px 1fr;column-gap:10px;align-items:center;margin:10px 0}
+.trackStep span{grid-row:1 / span 2;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#111;color:#fff;font-weight:700}
+.trackStep small{grid-column:2;color:#666;margin-top:2px}
+.trackLine{height:18px;border-left:2px solid #111;margin-left:13px}
+.linkBtn{background:none;border:0;padding:0;font:inherit;color:#0785f2;cursor:pointer}\n
+.reviewBox{margin-top:18px}.compareDeviceGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.compareDevice{border:1px solid #ddd;border-radius:16px;padding:10px;background:#fff}
+.compareDevice img{width:100%;height:140px;object-fit:contain;border-radius:12px;background:#f3f4f6}
+.compareTableWrap{width:100%;overflow-x:hidden;margin-top:14px}
+.compareTable{width:100%;min-width:0;border-collapse:collapse;table-layout:fixed}
+.compareTable th,.compareTable td{padding:10px 6px;border-bottom:1px solid #eee;text-align:left;vertical-align:top;overflow-wrap:anywhere;word-break:normal}
+.compareTable th:first-child,.compareTable td:first-child{width:27%;font-weight:600}
+.compareTable th:nth-child(2),.compareTable td:nth-child(2),
+.compareTable th:nth-child(3),.compareTable td:nth-child(3){width:36.5%}
+.compareTable th{background:#f6f6f7;font-size:14px}
+.compareTable td{font-size:13px;line-height:1.35}
+.compareGroup td{background:#111;color:#fff;font-weight:700;text-align:left;padding:9px 7px;font-size:14px}
+.compareTable tr:first-child th{position:sticky;top:0;z-index:1}
+.compareHero{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.compareHeroCard{border:1px solid #ddd;border-radius:16px;padding:10px;text-align:center}
+.compareHeroCard img{width:100%;height:150px;object-fit:contain;background:#f3f4f6;border-radius:12px}
+.compareNote{font-size:12px;color:#666;margin-top:10px}
+
+.reviewSummary{font-size:18px;margin:8px 0 14px}
+.reviewSummary span{font-size:14px;color:#666}
+.review{border-top:1px solid #eee;padding:14px 0}
+.review small{color:#666}
+.payOption{display:block;padding:10px 0;border-bottom:1px solid #eee}.payOption:last-child{border-bottom:0}textarea.search{font-family:inherit;resize:vertical}
+.exStep{display:none}.exStep.active{display:block}
+.exProgress{display:flex;gap:5px;margin:12px 0 18px}.exDot{height:5px;flex:1;border-radius:5px;background:#ddd}.exDot.active{background:#111}
+.exChoiceGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.exChoice{border:1px solid #ddd;border-radius:16px;background:#fff;padding:14px;text-align:left}
+.exChoice.selected{border:2px solid #111;background:#f7f7f7}
+.exIcon{font-size:30px;margin-bottom:6px}.exModel{display:flex;gap:12px;align-items:center}
+.exModelIcon{width:62px;height:62px;border-radius:15px;background:#eef0f3;display:flex;align-items:center;justify-content:center;font-size:30px}
+.exTest{padding:14px;border:1px solid #ddd;border-radius:15px;margin:10px 0}.exTest h4{margin:0 0 6px}
+.exStatus{font-size:12px;font-weight:700}.exStatus.pending{color:#777}.exStatus.pass{color:#16803c}.exStatus.manual{color:#7a4e00}
+.touchGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}.touchCell{height:52px;border:1px solid #ccc;border-radius:9px;background:#f7f7f7}.touchCell.hit{background:#ddd}
+@media (max-width:480px){
+  .compareHero{gap:8px}
+  .compareHeroCard{padding:8px}
+  .compareHeroCard img{height:130px}
+  .compareHeroCard b{font-size:18px}
+  .compareTable th,.compareTable td{padding:9px 5px}
+  .compareTable th:first-child,.compareTable td:first-child{width:25%}
+  .compareTable th:nth-child(2),.compareTable td:nth-child(2),
+  .compareTable th:nth-child(3),.compareTable td:nth-child(3){width:37.5%}
+  .compareTable th{font-size:12px}
+  .compareTable td{font-size:12px}
+  .compareGroup td{font-size:13px}
+}
+</style>
+
+<style>
+/* Our Store Premium Home v1 — visual layer only */
+body{background:#eef1f5;color:#111}
+.app{background:#fff;box-shadow:0 0 0 1px #e7e9ed}
+.top{padding:18px 18px 14px;background:rgba(255,255,255,.96);backdrop-filter:blur(14px);border-bottom:1px solid #eceef1}
+.top h1{font-size:29px;letter-spacing:-.7px;font-weight:800;margin-bottom:14px}
+.top .search{height:48px;border-radius:16px;background:#f2f4f7;padding:0 16px;font-size:15px}
+.content{padding:18px 16px 96px}
+#home .content>h3{font-size:18px;letter-spacing:-.2px;margin:22px 2px 10px}
+#home .row{padding-bottom:3px}
+#home .chip{border:1px solid #e2e5ea;background:#fff;border-radius:14px;padding:11px 14px;font-weight:600;box-shadow:0 2px 8px rgba(20,25,35,.04)}
+#home .grid{grid-template-columns:1fr 1fr;gap:10px}
+#home .grid .btn{min-height:52px;border-radius:16px;margin-top:0;font-size:14px}
+#home .grid .btn:first-child{grid-column:1/-1}
+#home #featured{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+#home #featured .card{margin:0;padding:11px;border:1px solid #e7e9ed;border-radius:18px;box-shadow:0 5px 18px rgba(20,25,35,.06)}
+#home #featured .img{height:132px;border-radius:14px;background:linear-gradient(145deg,#f4f6f8,#dfe4ea);font-size:40px}
+#home #featured h3{font-size:15px;line-height:1.25;margin:7px 0 3px}
+#home #featured .price{font-size:17px}
+#home #featured .muted{font-size:11px}
+#home #featured .tag{font-size:10px;padding:4px 6px}
+#home #featured .btn{width:100%;font-size:12px;padding:10px 8px;border-radius:12px}
+#home .heroStore{margin:4px 0 18px;padding:18px;border-radius:22px;background:linear-gradient(145deg,#111,#252932);color:#fff;box-shadow:0 10px 28px rgba(0,0,0,.15)}
+#home .heroStore h2{margin:0 0 6px;font-size:25px;letter-spacing:-.6px}
+#home .heroStore p{margin:0;color:#cfd4dc;font-size:13px;line-height:1.45}
+#home .heroStore .heroPill{display:inline-block;margin-top:12px;padding:7px 10px;border-radius:999px;background:#fff;color:#111;font-size:11px;font-weight:700}
+.bottom{height:72px;padding:8px 4px calc(8px + env(safe-area-inset-bottom));border-top:1px solid #e7e9ed;box-shadow:0 -5px 18px rgba(20,25,35,.06)}
+.bottom button{font-weight:600;color:#555}
+@media(max-width:380px){
+  #home #featured{grid-template-columns:1fr}
+}
+</style>
+
+
+<style>
+/* Our Store Premium Search v1 */
+#home .top{position:sticky;top:0}
+#home .top .search{box-shadow:inset 0 0 0 1px #e6e9ee}
+#home .row{scrollbar-width:none;padding-right:2px}
+#home .row::-webkit-scrollbar{display:none}
+#searchResults{
+  position:absolute;left:18px;right:18px;top:88px;z-index:20;
+  background:#fff;border:1px solid #e4e7eb;border-radius:18px;
+  box-shadow:0 14px 35px rgba(20,25,35,.14);overflow:hidden;
+  max-height:62vh;overflow-y:auto;
+}
+.searchResult{
+  display:flex;align-items:center;gap:12px;padding:12px 14px;
+  border-bottom:1px solid #f0f1f3;background:#fff;text-align:left;
+}
+.searchResult:last-child{border-bottom:0}
+.searchResultIcon{
+  width:46px;height:46px;border-radius:13px;background:#f0f3f7;
+  display:flex;align-items:center;justify-content:center;font-size:22px;flex:none;
+}
+.searchResultInfo{min-width:0;flex:1}
+.searchResultName{font-weight:750;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.searchResultMeta{font-size:11px;color:#70757d;margin-top:3px}
+.searchResultPrice{font-size:14px;font-weight:750;margin-top:4px}
+.searchEmpty{padding:18px 14px;color:#666;font-size:13px}
+#home .heroStore{margin-top:2px}
+</style>
+
+
+<style>
+.productHero{display:grid;grid-template-columns:1fr;gap:12px}.productVisual{height:230px;border-radius:22px;background:linear-gradient(145deg,#f2f4f7,#dce1e8);display:flex;align-items:center;justify-content:center;font-size:92px}.variantRow{display:flex;gap:8px;overflow:auto}.variant{border:1px solid #ddd;background:#fff;border-radius:12px;padding:10px 13px;white-space:nowrap}.variant.active{border:2px solid #111}.offer{padding:12px;border-radius:15px;background:#f6f7f9;margin-top:10px}.specGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.specItem{padding:11px;border:1px solid #eee;border-radius:13px}.specItem small{display:block;color:#777;margin-bottom:4px}.stickyBuy{position:sticky;bottom:72px;background:rgba(255,255,255,.96);padding:10px 0;border-top:1px solid #eee;z-index:2}
+</style>
+
+<style>
+.addressList{display:grid;gap:10px;margin-top:12px}
+.addressItem{border:1px solid #e2e5ea;border-radius:16px;padding:14px;background:#fff}
+.addressItem.selected{border:2px solid #111;background:#fafafa}
+.addressTop{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.addressActions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.addressActions .btn{margin-top:0}
+.addressEmpty{padding:16px;border:1px dashed #ccc;border-radius:14px;color:#666}
+.addressForm{display:grid;gap:10px;margin-top:12px}
+.addressForm input,.addressForm textarea{width:100%;padding:12px;border:1px solid #ddd;border-radius:12px;font:inherit;background:#fff}
+</style>
+
+
+<style>
+.checkoutSaved{display:grid;gap:8px;margin-top:10px}
+.checkoutAddressBtn{width:100%;text-align:left;border:1px solid #ddd;border-radius:14px;background:#fff;padding:12px;font:inherit}
+.checkoutAddressBtn.selected{border:2px solid #111;background:#fafafa}
+.checkoutAddressBtn small{display:block;color:#666;margin-top:4px}
+</style>
+
+</head>
+<body>
+<div class="app">
+<div id="home" class="screen active">
+<div class="top"><h1>Our Store</h1><input class="search" placeholder="Search mobiles, laptops, tablets..." autocomplete="off" autocapitalize="none" oninput="search(this.value)"><div id="searchResults" style="display:none"></div></div>
+<div class="content">
+
+<div class="heroStore">
+  <h2>Tech, made simple.</h2>
+  <p>Find the right device, compare models, exchange your old device, and buy directly from Our Store.</p>
+  <span class="heroPill">Trusted · Simple · Our Store</span>
+</div>
+<h3>What are you looking for?</h3><div class="row">
+<button class="chip" onclick="catalog('Mobiles')">📱 Mobiles</button><button class="chip" onclick="catalog('Laptops')">💻 Laptops</button><button class="chip" onclick="catalog('Tablets')">📲 Tablets</button><button class="chip" onclick="catalog('Accessories')">🎧 Accessories</button>
+</div>
+<div class="grid" style="margin-top:14px"><button class="btn" onclick="find()">🎯 Find My Device</button><button class="btn alt" onclick="openCompareFromHome()" type="button">⚖️ Compare</button><button class="btn alt" onclick="exchange()">🔄 Exchange</button></div>
+<h3>Featured</h3><div id="featured"></div>
+</div></div>
+
+<div id="catalog" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2 id="catTitle">Products</h2><div class="row" style="margin-bottom:10px"><button class="chip" onclick="brandCatalog('All')">All</button><button class="chip" onclick="brandCatalog('Apple')">Apple</button><button class="chip" onclick="brandCatalog('Samsung')">Samsung</button><button class="chip" onclick="brandCatalog('OnePlus')">OnePlus</button><button class="chip" onclick="brandCatalog('Xiaomi')">Xiaomi</button><button class="chip" onclick="brandCatalog('Vivo')">Vivo</button><button class="chip" onclick="brandCatalog('OPPO')">OPPO</button><button class="chip" onclick="brandCatalog('Google')">Google</button><button class="chip" onclick="brandCatalog('Realme')">Realme</button><button class="chip" onclick="brandCatalog('Motorola')">Motorola</button></div><div id="products"></div></div></div>
+
+<div id="product" class="screen"><div class="content"><button class="back" onclick="go('catalog')">← Products</button><div class="productHero"><div class="productVisual">📱</div><div><div class="tag">Our Store</div><div class="tag">In Stock</div><div class="tag">Warranty</div><h2 id="pname"></h2><p class="muted">Official Our Store listing · sample catalog data</p><div class="price" id="pprice"></div></div></div><div class="card"><b>Choose variant</b><div class="variantRow" style="margin-top:10px"><button class="variant active" data-storage="12/256 GB" onclick="selectVariant(this,'storage')">12/256 GB</button><button class="variant" data-storage="12/512 GB" onclick="selectVariant(this,'storage')">12/512 GB</button><button class="variant" data-storage="16/512 GB" onclick="selectVariant(this,'storage')">16/512 GB</button></div><div class="variantRow" style="margin-top:10px"><button class="variant active" data-color="Black" onclick="selectVariant(this,'color')">Black</button><button class="variant" data-color="Blue" onclick="selectVariant(this,'color')">Blue</button><button class="variant" data-color="Silver" onclick="selectVariant(this,'color')">Silver</button></div><p class="muted" id="variantSummary" style="margin:10px 0 0">Selected: 12/256 GB · Black</p></div><div class="offer"><b>🏷️ Our Store Offer</b><p class="muted">Instant bank offers, EMI options and exchange eligibility will appear here.</p></div><div class="card"><h3>Key specifications</h3><div class="specGrid"><div class="specItem"><small>Display</small>6.7″ AMOLED</div><div class="specItem"><small>Network</small>5G</div><div class="specItem"><small>Memory</small>12 GB RAM</div><div class="specItem"><small>Storage</small>256 GB</div><div class="specItem"><small>Camera</small>50 MP main</div><div class="specItem"><small>Warranty</small>Our Store warranty</div></div></div><div class="card"><h3>Delivery & pickup</h3><p>🚚 Delivery available</p><p>🏪 Store pickup available</p><p class="muted">Final availability and delivery date will be confirmed at checkout.</p></div><div class="card"><h3>Exchange</h3><p class="muted">Have an old device? Check its condition and get an estimated exchange value.</p><button class="btn alt" onclick="exchange()">🔄 Check Exchange Value</button></div><div class="stickyBuy"><button class="btn" onclick="addCart()">🛒 Add to Cart</button><button class="btn alt" onclick="renderCheckout();go('checkout')">Buy Now</button><button class="btn alt" onclick="go('compare')">⚖️ Compare</button></div>
+<div class="card reviewBox">
+<h3>Customer Reviews</h3>
+<div class="reviewSummary"><b>4.7 ★</b><span> · 128 reviews · Verified purchases</span></div>
+<div class="review"><b>Excellent performance</b><p class="muted">Fast performance, great camera and premium build.</p><small>Verified purchase · 5 ★</small></div>
+<div class="review"><b>Great phone</b><p class="muted">Display and battery experience are very good.</p><small>Verified purchase · 5 ★</small></div>
+<button class="btn alt" onclick="writeReview()">Write a Review</button>
+</div>
+</div></div>
+
+<div id="find" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2>Find My Device</h2><p class="muted">Tell us what you need.</p><div id="qs"></div><button class="btn" onclick="findResult()">Show Recommendations</button><div class="card"><h3>Find My Device</h3><p class="muted">Choose a category and optional budget.</p><select id="findCategory" style="width:100%;padding:12px;border-radius:10px;border:1px solid #ddd"><option>Mobiles</option><option>Tablets</option><option>Laptops</option><option>Accessories</option></select><input id="budget" inputmode="numeric" placeholder="Budget in ₹ (optional)" style="width:100%;padding:12px;margin-top:8px;border-radius:10px;border:1px solid #ddd"><button class="btn" onclick="findResult()">Find Devices</button></div><div id="findResult"></div></div></div>
+
+<div id="compare" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2>Compare Devices</h2><p class="muted">Choose exactly 2 devices to compare side by side.</p><div class="card"><input class="search" id="compareSearch" placeholder="Search model..." oninput="renderCompareUI(this.value)" autocomplete="off"><div id="compareChoices" class="compareDeviceGrid"></div><button id="compareBtn" type="button" class="btn">Compare 2 Devices</button></div><div id="compareResult"></div></div></div>
+
+<div id="exchange" class="screen"><div class="content">
+<button class="back" onclick="go('home')">← Home</button>
+<h2>Exchange</h2>
+<p class="muted">Complete the device checks first. Your demo estimate appears only after the review.</p>
+<div class="exProgress" id="exProgress"></div>
+
+<div id="exStep1" class="exStep active">
+  <div class="card"><h3>1. Choose category</h3><p class="muted">What device do you want to exchange?</p>
+    <div class="exChoiceGrid">
+      <button class="exChoice" onclick="selectExCategory('Mobiles')"><div class="exIcon">📱</div><b>Mobile</b><div class="muted">Smartphones</div></button>
+      <button class="exChoice" onclick="selectExCategory('Tablets')"><div class="exIcon">📲</div><b>Tablet</b><div class="muted">iPad & Android tablets</div></button>
+      <button class="exChoice" onclick="selectExCategory('Laptops')"><div class="exIcon">💻</div><b>Laptop</b><div class="muted">Mac & Windows laptops</div></button>
+    </div>
+  </div>
+</div>
+
+<div id="exStep2" class="exStep">
+  <div class="card"><h3>2. Select brand</h3><p class="muted" id="exCategoryLabel"></p><div id="exBrands" class="exChoiceGrid"></div></div>
+  <button class="btn alt" onclick="exStep(1)">← Back</button>
+</div>
+
+<div id="exStep3" class="exStep">
+  <div class="card"><h3>3. Select model</h3><p class="muted">Newest models are shown first.</p>
+    <input class="search" id="exModelSearch" placeholder="Search model..." oninput="renderExModels(this.value)" autocomplete="off">
+    <div id="exModels"></div>
+  </div>
+  <button class="btn alt" onclick="exStep(2)">← Back</button>
+</div>
+
+<div id="exStep4" class="exStep">
+  <div class="card"><h3>4. Check physical condition</h3><p class="muted">Check each side of your device and select the closest condition.</p>
+    <div class="exViewTabs">
+      <button class="exChoice selected" id="viewFront" onclick="setExView('Front',this)">📱<br><b>Front</b></button>
+      <button class="exChoice" id="viewBack" onclick="setExView('Back',this)">🔲<br><b>Back</b></button>
+      <button class="exChoice" id="viewLeft" onclick="setExView('Left side',this)">↔️<br><b>Left</b></button>
+      <button class="exChoice" id="viewRight" onclick="setExView('Right side',this)">↔️<br><b>Right</b></button>
+    </div>
+    <div class="exConditionPanel"><div class="exModelIcon" id="exConditionIcon">📱</div><div><b id="exViewTitle">Front condition</b><p class="muted">Choose one</p></div></div>
+    <div class="exChoiceGrid">
+      <button class="exChoice" onclick="setExCondition('Like New',1.15,this)"><b>✨ Like New</b><div class="muted">No visible marks</div></button>
+      <button class="exChoice" onclick="setExCondition('Good',1,this)"><b>👍 Good</b><div class="muted">Minor signs of use</div></button>
+      <button class="exChoice" onclick="setExCondition('Fair',.82,this)"><b>👌 Fair</b><div class="muted">Visible scratches/dents</div></button>
+      <button class="exChoice" onclick="setExCondition('Poor',.62,this)"><b>⚠️ Poor</b><div class="muted">Heavy damage/cracks</div></button>
+    </div>
+    <div class="card" style="margin-top:12px;background:#f7f7f8"><b>Condition summary</b><div id="exConditionSummary" class="muted" style="margin-top:6px">Front: Not checked · Back: Not checked · Left: Not checked · Right: Not checked</div></div>
+    <div class="exTest"><h4>Screen & touch</h4><div class="muted">Tap every square once to check the display.</div><div id="touchGrid" class="touchGrid"></div><div id="screenStatus" class="exStatus pending">Pending</div></div>
+  </div>
+  <button class="btn" onclick="continueFromCondition()">Continue</button>
+  <button class="btn alt" onclick="exStep(3)">← Back to model</button>
+</div>
+
+<div id="exStep5" class="exStep">
+  <div class="card"><h3>5. Function check</h3><p class="muted">Confirm the main functions before we calculate the maximum estimated value.</p>
+    <div class="exTest"><h4>Speaker</h4><button class="btn alt" onclick="runSpeakerTest()">🔊 Play test sound</button><button class="btn alt" onclick="passTest('speakerStatus')">I Can Hear It</button><div id="speakerStatus" class="exStatus manual">Manual check</div></div>
+    <div class="exTest"><h4>Camera</h4><button class="btn alt" onclick="passTest('cameraStatus')">Camera Works</button><div id="cameraStatus" class="exStatus manual">Manual check</div></div>
+    <div class="exTest"><h4>Buttons</h4><button class="btn alt" onclick="passTest('buttonsStatus')">Volume + Power Work</button><div id="buttonsStatus" class="exStatus manual">Manual check</div></div>
+    <div class="exTest"><h4>Connectivity</h4><button class="btn alt" onclick="passTest('connectStatus')">Wi-Fi / Bluetooth / Charging Checked</button><div id="connectStatus" class="exStatus manual">Manual check</div></div>
+    <label><b>Battery condition</b></label><select class="search" id="batteryHealth" style="margin-top:8px"><option value="Excellent">Excellent</option><option value="Good">Good</option><option value="Average">Average</option><option value="Poor">Poor</option></select>
+    <label style="display:block;margin-top:14px"><b>Any water/liquid damage?</b></label><select class="search" id="qWater" style="margin-top:8px"><option>No</option><option>Yes</option><option>Not sure</option></select>
+    <label style="display:block;margin-top:14px"><b>Any part replaced?</b></label><select class="search" id="qReplacement" style="margin-top:8px"><option>No</option><option>Yes</option><option>Not sure</option></select>
+  </div>
+  <button class="btn" onclick="continueFromFunction()">Review Exchange</button>
+  <button class="btn alt" onclick="exStep(4)">← Back</button>
+</div>
+
+<div id="exStep6" class="exStep">
+  <div class="card"><h3>6. Estimated maximum value</h3><div id="exchangeReview"></div></div>
+  <div id="maxExchangeValue" class="card"></div>
+  <button class="btn" onclick="requestPickup()">📦 Request Pickup & Inspection</button>
+  <button class="btn alt" onclick="exStep(5)">← Edit</button>
+</div>
+
+<div id="exStep7" class="exStep">
+  <div class="card"><h3>7. Pickup inspection</h3><p>Our Store pickup team will inspect the device physically.</p><div class="track"><div class="trackStep active"><span>✓</span><b>Request created</b><small>Exchange request received</small></div><div class="trackLine"></div><div class="trackStep active"><span>2</span><b>Pickup inspection</b><small>Final condition will be verified</small></div><div class="trackLine"></div><div class="trackStep"><span>3</span><b>Final offer</b><small>Confirmed after inspection</small></div></div></div>
+  <div id="finalExchangeValue" class="card"></div>
+  <button class="btn" onclick="confirmExchange()">Confirm Exchange Request</button>
+</div>
+</div></div><div id="cart" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2>Cart</h2><div id="cartItem" class="card">Your cart is empty.</div><button class="btn" onclick="renderCheckout();go('checkout')">Checkout</button></div></div>
+
+<div id="checkout" class="screen"><div class="content">
+<button class="back" onclick="go('cart')">← Cart</button>
+<h2>Checkout</h2>
+<div id="checkoutItem" class="card">No product selected.</div>
+<div class="card"><h3>Delivery Address</h3>
+<div id="checkoutSavedAddresses" class="checkoutSaved"></div>
+<textarea id="deliveryAddress" class="search" rows="3" placeholder="House / Street / City / PIN"></textarea>
+<p class="muted" style="margin:8px 0 0">You can choose a saved address above or enter a new one.</p>
+</div>
+<div class="card"><h3>Payment Method</h3>
+<label class="payOption"><input type="radio" name="payment" value="UPI" checked> UPI</label>
+<label class="payOption"><input type="radio" name="payment" value="Card"> Card</label>
+<label class="payOption"><input type="radio" name="payment" value="Cash on Delivery"> Cash on Delivery</label>
+</div>
+<div class="card"><b>Order total</b><div id="checkoutTotal" class="price">—</div></div>
+<button class="btn" onclick="placeOrder()">Place Demo Order</button>
+</div></div>
+
+<div id="order" class="screen"><div class="content"><h2>Order Confirmed ✅</h2><div class="card"><b>Order #OS-1001</b><p>Processing → Ready → Delivered</p></div><button class="btn" onclick="go('home')">Back to Home</button></div></div>
+
+
+
+<div id="addresses" class="screen"><div class="content">
+<button class="back" onclick="go('profile')">← Profile</button>
+<h2>Delivery Addresses</h2>
+<p class="muted">Save an address once and use it during checkout.</p>
+
+<div class="card">
+  <b id="addressFormTitle">Add New Address</b>
+  <div class="addressForm">
+    <input id="addressName" placeholder="Name">
+    <input id="addressPhone" inputmode="tel" placeholder="Phone number">
+    <textarea id="addressLine" rows="3" placeholder="House / Street / Area"></textarea>
+    <div class="grid">
+      <input id="addressCity" placeholder="City">
+      <input id="addressPin" inputmode="numeric" placeholder="PIN code">
+    </div>
+    <button class="btn" id="saveAddressBtn" onclick="saveAddress()">Save Address</button>
+    <button class="btn alt" id="cancelAddressBtn" onclick="resetAddressForm()" style="display:none">Cancel Edit</button>
+  </div>
+</div>
+
+<div class="card">
+  <b>Saved Addresses</b>
+  <div id="addressList" class="addressList"></div>
+</div>
+</div></div>
+
+<div id="support" class="screen"><div class="content">
+<button class="back" onclick="go('profile')">← Profile</button>
+<h2>Support</h2>
+<div class="card"><b>Order Support</b><p class="muted">Need help with order #OS-1001?</p><button class="btn" onclick="alert('Demo support request created for order OS-1001.')">Contact Our Store</button></div>
+<div class="card"><b>Returns & Refunds</b><p>Return eligibility, pickup and refund support will be handled through Our Store.</p><button class="btn alt" onclick="alert('Demo return request flow opened.')">Start Return</button></div>
+</div></div>
+<div id="warranty" class="screen"><div class="content">
+<button class="back" onclick="go('profile')">← Profile</button>
+<h2>Warranty</h2>
+<div class="card"><b>iPhone 17 Pro Max</b><p class="muted">Order #OS-1001</p><p>Warranty status: <b>Demo Active</b></p><p>Warranty details can be verified against the order and device serial/IMEI in the production version.</p></div>
+<div class="card"><b>Need help?</b><p>Contact Our Store support for warranty claims and service requests.</p><button class="btn" onclick="go('support')">Contact Support</button></div>
+</div></div>
+<div id="profile" class="screen"><div class="content">
+<button class="back" onclick="go('home')">← Home</button>
+<h2>Profile</h2>
+<div class="card"><h3>Rahees</h3><p class="muted">Our Store customer · Demo profile</p></div>
+<div class="card"><b>My Orders</b><p>Order #OS-1001</p><p class="muted">iPhone 17 Pro Max · ₹1,49,900</p><button class="btn" onclick="showOrderTracking()">Track Order</button></div>
+<div id="trackingCard" class="card" style="display:none"><b>Order Tracking</b>
+<p class="muted">Order #OS-1001</p>
+<div class="track"><div class="trackStep active"><span>✓</span><b>Processing</b><small>Order confirmed</small></div>
+<div class="trackLine"></div>
+<div class="trackStep active"><span>✓</span><b>Ready</b><small>Ready for dispatch</small></div>
+<div class="trackLine"></div>
+<div class="trackStep active"><span>✓</span><b>Delivered</b><small>Demo order completed</small></div></div></div>
+<div class="card"><b>Account</b>
+<p><button class="linkBtn" onclick="openAddresses()">Delivery addresses</button></p>
+<p>Payment methods</p>
+<p><button class="linkBtn" onclick="go('warranty')">Warranty</button></p>
+<p><button class="linkBtn" onclick="go('support')">Support</button></p>
+</div>
+</div></div></div>
+
+<div class="bottom"><button type="button" onclick="go('home')">🏠<br>Home</button><button type="button" onclick="openShop()">🔎<br>Shop</button><button type="button" onclick="go('cart')">🛒<br>Cart</button><button type="button" onclick="go('profile')">👤<br>Profile</button></div>
+</div>
+<script>
+const data=[
+{brand:'Apple',category:'Mobiles',name:'iPhone 17 Pro Max',price:'₹1,49,900',spec:'12/256 GB · 5G · Pro camera'},
+{brand:'Apple',category:'Mobiles',name:'iPhone 17 Pro',price:'₹1,34,900',spec:'12/256 GB · 5G · Pro camera'},
+{brand:'Apple',category:'Mobiles',name:'iPhone 17',price:'₹89,900',spec:'8/256 GB · 5G · OLED'},
+{brand:'Apple',category:'Laptops',name:'MacBook Air',price:'₹99,900',spec:'13-inch · Apple silicon · 16 GB'},
+{brand:'Samsung',category:'Mobiles',name:'Galaxy S26',price:'₹79,999',spec:'12/256 GB · 5G · AMOLED'},
+{brand:'Samsung',category:'Mobiles',name:'Galaxy S26 Ultra',price:'₹1,29,999',spec:'12/256 GB · 5G · AMOLED · 200MP'},
+{brand:'Samsung',category:'Mobiles',name:'Galaxy A57 5G',price:'₹49,999',spec:'8/256 GB · 5G · AMOLED'},
+{brand:'OnePlus',category:'Mobiles',name:'OnePlus 14',price:'₹69,999',spec:'12/256 GB · 5G · AMOLED'},
+{brand:'OnePlus',category:'Mobiles',name:'OnePlus 14R',price:'₹49,999',spec:'12/256 GB · 5G · AMOLED'},
+{brand:'Xiaomi',category:'Mobiles',name:'Xiaomi 17',price:'₹59,999',spec:'12/256 GB · 5G · AMOLED'},
+{brand:'Xiaomi',category:'Mobiles',name:'Xiaomi 17 Ultra',price:'₹89,999',spec:'16/512 GB · 5G · AMOLED'},
+{brand:'Vivo',category:'Mobiles',name:'Vivo X300 Pro',price:'₹89,999',spec:'12/256 GB · 5G · AMOLED · Pro camera'},
+{brand:'Vivo',category:'Mobiles',name:'Vivo V60',price:'₹39,999',spec:'12/256 GB · 5G · AMOLED'},
+{brand:'OPPO',category:'Mobiles',name:'OPPO Find X9 Pro',price:'₹79,999',spec:'16/512 GB · 5G · AMOLED'},
+{brand:'OPPO',category:'Mobiles',name:'OPPO Reno 14 Pro',price:'₹49,999',spec:'12/256 GB · 5G · AMOLED'},
+{brand:'Google',category:'Mobiles',name:'Pixel 10 Pro',price:'₹99,999',spec:'16/256 GB · 5G · OLED'},
+{brand:'Google',category:'Mobiles',name:'Pixel 10',price:'₹79,999',spec:'12/256 GB · 5G · OLED'},
+{brand:'Realme',category:'Mobiles',name:'realme GT 7 Pro',price:'₹59,999',spec:'12/256 GB · 5G · AMOLED'},
+{brand:'Realme',category:'Mobiles',name:'realme 14 Pro+',price:'₹34,999',spec:'12/256 GB · 5G · OLED'},
+{brand:'Motorola',category:'Mobiles',name:'Motorola Edge 60 Pro',price:'₹39,999',spec:'12/256 GB · 5G · pOLED'},
+{brand:'Motorola',category:'Mobiles',name:'Motorola Razr 60 Ultra',price:'₹99,999',spec:'12/512 GB · 5G · Foldable OLED'},
+{brand:'Apple',category:'Tablets',name:'iPad Pro',price:'₹99,900',spec:'11-inch · Apple silicon · Wi‑Fi'},
+{brand:'Samsung',category:'Tablets',name:'Galaxy Tab S11',price:'₹69,999',spec:'12/256 GB · AMOLED · S Pen'},
+{brand:'OnePlus',category:'Tablets',name:'OnePlus Pad 3',price:'₹49,999',spec:'12/256 GB · LCD · Wi‑Fi'},
+{brand:'Apple',category:'Accessories',name:'AirPods Pro',price:'₹24,900',spec:'ANC · USB‑C · Wireless'},
+{brand:'Samsung',category:'Accessories',name:'Galaxy Buds',price:'₹14,999',spec:'ANC · Wireless'},
+{brand:'OnePlus',category:'Accessories',name:'OnePlus Buds Pro',price:'₹9,999',spec:'ANC · Wireless'}
+];
+
+function search(q){
+  const box=document.getElementById('searchResults');
+  if(!box)return;
+  const query=String(q||'').trim().toLowerCase();
+  if(!query){box.style.display='none';box.innerHTML='';return;}
+  const list=data.filter(p=>
+    (p.name+' '+p.brand+' '+p.category+' '+p.spec).toLowerCase().includes(query)
+  ).slice(0,8);
+  box.style.display='block';
+  if(!list.length){
+    box.innerHTML='<div class="searchEmpty">No products found. Try a model, brand or category.</div>';
+    return;
+  }
+  box.innerHTML=list.map(p=>{
+    const safeName=p.name.replace(/'/g,"\\'");
+    const safePrice=p.price.replace(/'/g,"\\'");
+    const safeSpec=p.spec.replace(/'/g,"\\'");
+    const icon=p.category==='Accessories'?'🎧':p.category==='Laptops'?'💻':p.category==='Tablets'?'📲':'📱';
+    return '<button class="searchResult" type="button" onclick="product(\''+safeName+'\',\''+safePrice+'\',\''+safeSpec+'\');document.getElementById(\'searchResults\').style.display=\'none\'">'+
+      '<span class="searchResultIcon">'+icon+'</span>'+
+      '<span class="searchResultInfo"><span class="searchResultName">'+p.name+'</span>'+
+      '<span class="searchResultMeta">'+p.brand+' · '+p.category+'</span>'+
+      '<span class="searchResultPrice">'+p.price+'</span></span></button>';
+  }).join('');
+}
+
+function go(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');scrollTo(0,0);if(id!=='home'){const sr=document.getElementById('searchResults');if(sr)sr.style.display='none';}if(id==='compare'){setTimeout(renderCompareUI,0)}if(id==='cart'){setTimeout(renderCart,0)}if(id==='checkout'){setTimeout(renderCheckout,0)}}
+function card(p){return `<div class="card"><div class="img">📱</div><div class="muted">${p.brand} · ${p.category}</div><h3>${p.name}</h3><div class="price">${p.price}</div><p class="muted">${p.spec}</p><span class="tag">Our Store</span><span class="tag">In Stock</span><button class="btn" onclick="product('${p.name.replace("'","\\'")}','${p.price}','${p.spec.replace("'","\\'")}')">View Details</button></div>`}
+let selectedStorage='12/256 GB';let selectedColor='Black';
+let selectedProduct=null;
+function openShop(){catalog('Mobiles');}
+function catalog(category){
+  const title=document.getElementById('catTitle');
+  if(title)title.textContent=category+' Products';
+  brandCatalog('All',category);
+  go('catalog');
+}
+function brandCatalog(brand,category){
+  const cat=category || (document.getElementById('catTitle')?.textContent||'Mobiles').replace(' Products','');
+  let list=data.filter(p=>p.category===cat);
+  if(brand && brand!=='All')list=list.filter(p=>p.brand===brand);
+  const out=document.getElementById('products');
+  if(!out)return;
+  out.innerHTML=list.length?list.map(card).join(''):'<div class="card"><b>No products found</b><p class="muted">Try another brand or category.</p></div>';
+}
+function product(n,pr,spec){selectedProduct={name:n,price:pr,spec:spec};document.getElementById('pname').textContent=n;document.getElementById('pprice').textContent=pr;document.querySelector('#product .muted').textContent='Our Store demo catalog · sample data';document.querySelector('#product p:nth-of-type(2)').textContent=spec;go('product')}
+function renderCart(){const el=document.getElementById('cartItem');if(!selectedProduct){el.innerHTML='Your cart is empty.';return;}el.innerHTML='<b>'+selectedProduct.name+'</b><p class="muted">'+selectedProduct.spec+'</p><p>Quantity: 1</p><div class="price">'+selectedProduct.price+'</div>'}
+function renderCheckout(){
+  const el=document.getElementById('checkoutItem');
+  const total=document.getElementById('checkoutTotal');
+  if(!selectedProduct){
+    el.innerHTML='<b>No product selected.</b><p class="muted">Go back to the shop and choose a product.</p>';
+    total.textContent='—';
+    return;
+  }
+  el.innerHTML='<b>Order item</b><h3>'+selectedProduct.name+'</h3><p class="muted">'+selectedProduct.spec+'</p><p>Quantity: 1</p>';
+  total.textContent=selectedProduct.price;
+  renderCheckoutAddresses();
+}
+function renderCheckoutAddresses(){
+  const el=document.getElementById('checkoutSavedAddresses');
+  if(!el)return;
+  let list=[];
+  try{list=JSON.parse(localStorage.getItem(addressStorageKey)||'[]');}catch(e){list=[];}
+  if(!list.length){
+    el.innerHTML='<div class="muted">No saved addresses yet.</div>';
+    return;
+  }
+  el.innerHTML=list.map(a=>{
+    const safe=v=>String(v||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    return `<button type="button" class="checkoutAddressBtn ${a.selected?'selected':''}" onclick="useCheckoutAddress(${a.id})">
+      <b>${safe(a.name)}${a.selected?' · Selected':''}</b>
+      <small>${safe(a.line)} · ${safe(a.city)} · ${safe(a.pin)} · ${safe(a.phone)}</small>
+    </button>`;
+  }).join('');
+}
+function useCheckoutAddress(id){
+  let list=[];
+  try{list=JSON.parse(localStorage.getItem(addressStorageKey)||'[]');}catch(e){list=[];}
+  const a=list.find(x=>x.id===id);
+  if(!a)return;
+  list=list.map(x=>({...x,selected:x.id===id}));
+  localStorage.setItem(addressStorageKey,JSON.stringify(list));
+  const field=document.getElementById('deliveryAddress');
+  if(field)field.value=[a.name,a.phone,a.line,a.city,a.pin].filter(Boolean).join(', ');
+  renderCheckoutAddresses();
+}
+function selectVariant(btn,type){
+  const row=btn.parentElement;
+  row.querySelectorAll('.variant').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  if(type==='storage'){selectedStorage=btn.dataset.storage;}
+  if(type==='color'){selectedColor=btn.dataset.color;}
+  const prices={'12/256 GB':'₹1,49,900','12/512 GB':'₹1,59,900','16/512 GB':'₹1,69,900'};
+  document.getElementById('pprice').textContent=prices[selectedStorage] || selectedProduct.price;
+  const storageText=document.querySelector('#product .specItem:nth-child(4)');
+  const memoryText=document.querySelector('#product .specItem:nth-child(3)');
+  if(storageText) storageText.innerHTML='<small>Storage</small>'+selectedStorage.split('/')[1].replace(' GB',' GB');
+  if(memoryText) memoryText.innerHTML='<small>Memory</small>'+selectedStorage.split('/')[0]+' GB RAM';
+  const sum=document.getElementById('variantSummary');
+  if(sum) sum.textContent='Selected: '+selectedStorage+' · '+selectedColor;
+}
+
+function addCart(){renderCart();go('cart')}
+function find(){document.getElementById('qs').innerHTML=['Budget','Main usage','Camera priority','Battery priority'].map(x=>`<div class="question">${x}<br><span class="muted">Tap to choose</span></div>`).join('');go('find')}
+function findResult(){
+  const budget=Number(document.getElementById('budget')?.value||0);
+  const category=(document.getElementById('findCategory')?.value||'Mobiles').toLowerCase();
+  let list=data.filter(p=>p.category.toLowerCase()===category);
+  if(budget>0) list=list.filter(p=>Number(String(p.price).replace(/[^0-9]/g,''))<=budget);
+  list=list.slice(0,4);
+  const out=document.getElementById('findResult');
+  if(!list.length){
+    out.innerHTML='<div class="card"><h3>No matching devices</h3><p class="muted">No '+category+' are available within ₹'+budget.toLocaleString('en-IN')+'. Try increasing your budget or changing the category.</p></div>';
+    return;
+  }
+  out.innerHTML=list.map(card).join('');
+}
+function openCompareFromHome(){
+  go('compare');
+  setTimeout(function(){
+    if(typeof renderCompareUI==='function') renderCompareUI();
+  },50);
+}
+function deviceImage(p){
+  const text=(p.name||'Device').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const brand=(p.brand||'').replace(/&/g,'&amp;');
+  const svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 300"><rect width="220" height="300" rx="28" fill="#eef0f3"/><rect x="52" y="12" width="116" height="276" rx="22" fill="#20242a"/><rect x="59" y="27" width="102" height="246" rx="17" fill="#f8f9fa"/><circle cx="110" cy="40" r="4" fill="#20242a"/><text x="110" y="138" text-anchor="middle" font-size="13" font-family="Arial" fill="#222">'+brand+'</text><text x="110" y="158" text-anchor="middle" font-size="10" font-family="Arial" fill="#555">'+(text.length>18?text.slice(0,18)+'…':text)+'</text></svg>';
+  return 'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent(svg);
+}
+function renderCompareUI(q){
+  const el=document.getElementById('compareChoices'); if(!el)return;
+  const query=(q||'').toLowerCase().trim();
+  const list=data.filter(p=>p.category==='Mobiles' && (!query || (p.name+' '+p.brand).toLowerCase().includes(query))).slice(0,12);
+  el.innerHTML=list.map(p=>'<label class="compareDevice"><img src="'+deviceImage(p)+'" alt="'+p.name+'"><div class="muted" style="margin-top:8px">'+p.brand+'</div><b>'+p.name+'</b><div class="muted">'+p.price+'</div><div style="margin-top:8px"><input type="checkbox" class="compareCheck" value="'+data.indexOf(p)+'"> Select</div></label>').join('');
+  const btn=document.getElementById('compareBtn');
+  if(btn){btn.onclick=null;btn.addEventListener('click',function(e){e.preventDefault();runCompare();});}
+  const result=document.getElementById('compareResult'); if(result)result.innerHTML='';
+}
+function compareSpecs(p){
+  const name=p.name||'Device';
+  const flagship=/Ultra|Pro|14$|17$|X300|Find X9|GT 7 Pro|Razr/i.test(name);
+  const fold=/Razr/i.test(name);
+  return {
+    price:p.price, release:flagship?'Demo 2026':'Demo 2025/26',
+    screen:fold?'7.0-inch foldable':(flagship?'6.8-inch':'6.5-inch'),
+    camera:flagship?'50MP+ multi-camera':'50MP multi-camera',
+    ram:flagship?'12 GB':'8 GB', weight:fold?'190 g':(flagship?'210 g':'190 g'),
+    thickness:fold?'7.2 mm unfolded':(flagship?'8.2 mm':'7.8 mm'),
+    network:'5G / 4G LTE', body:'Glass + metal/composite',
+    dimensions:fold?'Foldable dimensions':'Demo dimensions',
+    build:'Metal/aluminium class', sim:'Dual SIM / eSIM (demo)',
+    display:fold?'Foldable OLED':(flagship?'AMOLED / LTPO OLED':'AMOLED / OLED'),
+    resolution:flagship?'2780 × 1264 (demo)':'2400 × 1080 (demo)',
+    protection:'Glass protection (demo)', os:'Android / iOS',
+    chipset:'Flagship / mid-range chipset (demo)', cpu:'Multi-core / Octa-core (demo)',
+    gpu:'Integrated / flagship GPU (demo)', card:'No (demo)', internal:(/Ultra|Pro|512|1 TB/i.test(p.spec||name)?'256/512 GB':'256 GB'),
+    mainModules:flagship?'Wide + Ultra Wide + Telephoto':'Wide + Ultra Wide + Macro',
+    mainFeatures:'HDR · Night · Portrait · Pro modes (demo)', mainVideo:'4K / 8K class (demo)',
+    selfieModules:'Front camera', selfieFeatures:'HDR · Portrait · AI features (demo)', selfieVideo:'4K class (demo)',
+    battery:flagship?'5000–6000 mAh class':'4500–5500 mAh class',
+    charging:'Fast charging / wireless where supported (demo)',
+    wifi:'Wi‑Fi 6/7 class', bluetooth:'Bluetooth 5.x/6 class', nfc:'Yes / model dependent',
+    usb:'USB‑C', audio:'Stereo speakers', headphone:'No / model dependent',
+    sensors:'Fingerprint/Face unlock · accelerometer · gyro · proximity · compass',
+    water:'IP rating / model dependent', extras:'AI · gaming · camera · software features (demo)'
+  };
+}
+function runCompare(){
+  const checks=[...document.querySelectorAll('.compareCheck:checked')];
+  const out=document.getElementById('compareResult'); if(!out)return;
+  if(checks.length!==2){out.innerHTML='<div class="card"><b>Please select exactly 2 devices.</b><p class="muted">This comparison is designed for two devices.</p></div>';return;}
+  const list=checks.map(c=>data[Number(c.value)]).filter(Boolean), a=compareSpecs(list[0]), b=compareSpecs(list[1]);
+  const rows=[
+    ['Basic','Price',a.price,b.price],['Basic','Release date',a.release,b.release],['Basic','Screen size',a.screen,b.screen],['Basic','Weight',a.weight,b.weight],['Basic','Thickness',a.thickness,b.thickness],
+    ['Network','Network',a.network,b.network],['Network','SIM',a.sim,b.sim],
+    ['Body','Dimensions',a.dimensions,b.dimensions],['Body','Build',a.build,b.build],['Body','Body',a.body,b.body],
+    ['Display','Type',a.display,b.display],['Display','Size',a.screen,b.screen],['Display','Resolution',a.resolution,b.resolution],['Display','Protection',a.protection,b.protection],
+    ['Platform','OS',a.os,b.os],['Platform','Chipset',a.chipset,b.chipset],['Platform','CPU',a.cpu,b.cpu],['Platform','GPU',a.gpu,b.gpu],
+    ['Memory','RAM',a.ram,b.ram],['Memory','Card slot',a.card,b.card],['Memory','Internal',a.internal,b.internal],
+    ['Main Camera','Modules',a.mainModules,b.mainModules],['Main Camera','Features',a.mainFeatures,b.mainFeatures],['Main Camera','Video',a.mainVideo,b.mainVideo],
+    ['Selfie Camera','Modules',a.selfieModules,b.selfieModules],['Selfie Camera','Features',a.selfieFeatures,b.selfieFeatures],['Selfie Camera','Video',a.selfieVideo,b.selfieVideo],
+    ['Battery','Capacity',a.battery,b.battery],['Battery','Charging',a.charging,b.charging],
+    ['Connectivity','Wi‑Fi',a.wifi,b.wifi],['Connectivity','Bluetooth',a.bluetooth,b.bluetooth],['Connectivity','NFC',a.nfc,b.nfc],['Connectivity','USB',a.usb,b.usb],
+    ['Audio','Speakers',a.audio,b.audio],['Audio','Headphone jack',a.headphone,b.headphone],
+    ['Security & Sensors','Sensors / security',a.sensors,b.sensors],
+    ['Protection & Extras','Water / dust',a.water,b.water],['Protection & Extras','Extra features',a.extras,b.extras]
+  ];
+  let body='',last='';
+  rows.forEach(r=>{if(r[0]!==last){body+='<tr class="compareGroup"><td colspan="3">'+r[0]+'</td></tr>';last=r[0];}body+='<tr><th>'+r[1]+'</th><td>'+r[2]+'</td><td>'+r[3]+'</td></tr>';});
+  out.innerHTML='<div class="card"><h3>Device Comparison</h3><div class="compareHero"><div class="compareHeroCard"><img src="'+deviceImage(list[0])+'" alt="'+list[0].name+'"><b>'+list[0].name+'</b><div class="muted">'+list[0].brand+'</div></div><div class="compareHeroCard"><img src="'+deviceImage(list[1])+'" alt="'+list[1].name+'"><b>'+list[1].name+'</b><div class="muted">'+list[1].brand+'</div></div></div><div class="compareTableWrap"><table class="compareTable"><tr><th>Feature</th><th>'+list[0].name+'</th><th>'+list[1].name+'</th></tr>'+body+'</table></div><p class="compareNote">Demo comparison data. Production can connect verified manufacturer specifications and live Our Store price/offers.</p></div>';
+}
+function exchange(){resetExchange();go('exchange')}
+
+
+document.getElementById('featured').innerHTML=data.slice(0,8).map(card).join('');
+function showOrderTracking(){document.getElementById('trackingCard').style.display='block';}function writeReview(){alert('Demo: review form opened. Production version will support rating, text, photos/video, verification and moderation.')} 
+
+let ex={category:'',brand:'',model:null,step:1,view:'Front',conditions:{},tests:{},maxValue:0};
+const brandIcons={Apple:'',Samsung:'▦',OnePlus:'1+',Xiaomi:'Mi',Vivo:'V',OPPO:'O',Google:'G',Realme:'R',Motorola:'M',Dell:'D',HP:'HP',Lenovo:'L',Asus:'A',Acer:'A',Microsoft:'MS'};
+const catIcons={Mobiles:'📱',Tablets:'📲',Laptops:'💻'};
+function resetExchange(){ex={category:'',brand:'',model:null,step:1,view:'Front',conditions:{},tests:{},maxValue:0};for(let i=1;i<=7;i++){const e=document.getElementById('exStep'+i);if(e)e.classList.toggle('active',i===1)}document.querySelectorAll('.exDot').forEach((d,i)=>d.classList.toggle('active',i===0));document.getElementById('exBrands').innerHTML='';document.getElementById('exModels').innerHTML='';initTouchTest();updateConditionSummary();}
+function exStep(n){ex.step=n;for(let i=1;i<=7;i++){const e=document.getElementById('exStep'+i);if(e)e.classList.toggle('active',i===n)}document.querySelectorAll('.exDot').forEach((d,i)=>d.classList.toggle('active',i<n));scrollTo(0,0)}
+function selectExCategory(category){ex.category=category;const brands=[...new Set(data.filter(p=>p.category===category).map(p=>p.brand))];document.getElementById('exCategoryLabel').textContent='Category: '+category;document.getElementById('exBrands').innerHTML=brands.map(b=>`<button class="exChoice" onclick="selectExBrand('${b.replace(/'/g,"\'")}')"><div class="exIcon">${brandIcons[b]||'●'}</div><b>${b}</b><div class="muted">${category}</div></button>`).join('');exStep(2)}
+function selectExBrand(brand){ex.brand=brand;document.getElementById('exModelSearch').value='';renderExModels('');exStep(3)}
+function renderExModels(q){const query=(q||'').toLowerCase().trim();const list=data.filter(p=>p.category===ex.category&&p.brand===ex.brand&&(!query||p.name.toLowerCase().includes(query)));document.getElementById('exModels').innerHTML=list.length?list.map(p=>`<button class="exChoice" style="width:100%;margin-top:10px" onclick="selectExModel('${p.name.replace(/'/g,"\'")}')"><div class="exModel"><div class="exModelIcon">${catIcons[ex.category]||'📦'}</div><div><b>${p.name}</b><div class="muted">${p.spec}</div><div class="muted">${p.price}</div></div></div></button>`).join(''):'<div class="card"><b>No model found</b><p class="muted">Try another model name.</p></div>'}
+function selectExModel(name){ex.model=data.find(p=>p.name===name&&p.category===ex.category&&p.brand===ex.brand)||null;if(!ex.model)return;initTouchTest();exStep(4)}
+function setExView(view,btn){ex.view=view;document.querySelectorAll('#exStep4 .exViewTabs .exChoice').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');document.getElementById('exViewTitle').textContent=view+' condition';document.getElementById('exConditionIcon').textContent=view==='Front'?'📱':view==='Back'?'🔲':'↔️'}
+function setExCondition(label,factor,btn){ex.conditions[ex.view]={label,factor};document.querySelectorAll('#exStep4 .exConditionPanel + .exChoiceGrid .exChoice').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');updateConditionSummary()}
+function updateConditionSummary(){const names=['Front','Back','Left side','Right side'];document.getElementById('exConditionSummary').textContent=names.map(n=>n+': '+(ex.conditions[n]?.label||'Not checked')).join(' · ')}
+function initTouchTest(){const grid=document.getElementById('touchGrid');if(!grid)return;ex.touchHits=0;grid.innerHTML='';for(let i=0;i<9;i++){const b=document.createElement('button');b.className='touchCell';b.onclick=()=>{if(!b.classList.contains('hit')){b.classList.add('hit');ex.touchHits++;if(ex.touchHits===9)passTest('screenStatus')}};grid.appendChild(b)}const e=document.getElementById('screenStatus');if(e){e.textContent='Pending';e.className='exStatus pending'}}
+function passTest(id){const e=document.getElementById(id);if(e){e.textContent='Passed ✓';e.className='exStatus pass'}ex.tests[id]=true}
+function runSpeakerTest(){try{const C=window.AudioContext||window.webkitAudioContext;if(!C)throw new Error();const c=new C(),o=c.createOscillator(),g=c.createGain();o.frequency.value=660;g.gain.value=.08;o.connect(g);g.connect(c.destination);o.start();setTimeout(()=>{o.stop();c.close()},500);const e=document.getElementById('speakerStatus');e.textContent='Test sound played — confirm it';e.className='exStatus pending'}catch(e){}}
+function continueFromCondition(){if(['Front','Back','Left side','Right side'].some(v=>!ex.conditions[v])){alert('Please check all four sides first.');return}if(!ex.tests.screenStatus){alert('Please complete the screen & touch check.');return}exStep(5)}
+function continueFromFunction(){if(!ex.tests.speakerStatus||!ex.tests.cameraStatus||!ex.tests.buttonsStatus||!ex.tests.connectStatus){alert('Please complete all function checks.');return}const factors=Object.values(ex.conditions).map(x=>x.factor);const conditionFactor=factors.reduce((a,b)=>a+b,0)/factors.length;const battery={'Excellent':1.05,'Good':1,'Average':.92,'Poor':.8}[document.getElementById('batteryHealth').value]||1;const water=document.getElementById('qWater').value==='Yes'?.55:document.getElementById('qWater').value==='Not sure'?.8:1;const replaced=document.getElementById('qReplacement').value==='Yes'?.82:document.getElementById('qReplacement').value==='Not sure'?.9:1;const base=Number(String(ex.model.price).replace(/[^0-9]/g,''))*.35;ex.maxValue=Math.max(0,Math.round(base*conditionFactor*battery*water*replaced/100)*100);document.getElementById('exchangeReview').innerHTML='<p><b>'+ex.model.name+'</b> · '+ex.model.spec+'</p><p>Front/Back/Sides: ✓ checked</p><p>Screen & touch: ✓ · Speaker: ✓ · Camera: ✓ · Buttons: ✓ · Connectivity: ✓</p><p class="muted">This is an approximate maximum exchange value. Final value is confirmed only after physical pickup inspection.</p>';document.getElementById('maxExchangeValue').innerHTML='<h3>Approximate maximum value</h3><div class="price">₹'+ex.maxValue.toLocaleString('en-IN')+'</div><p class="muted">Estimated from the information entered. This is not the final offer.</p>';exStep(6)}
+function requestPickup(){document.getElementById('finalExchangeValue').innerHTML='<h3>Pickup request created ✓</h3><p>Estimated maximum: <b>₹'+ex.maxValue.toLocaleString('en-IN')+'</b></p><p class="muted">Our Store will inspect the device at pickup. The final exchange value may change after inspection.</p>';exStep(7)}
+function confirmExchange(){document.getElementById('finalExchangeValue').innerHTML='<h3>Exchange request confirmed ✓</h3><p>Your device is ready for pickup inspection.</p><p class="muted">Final offer will be generated after the physical inspection.</p>';const btn=document.querySelector('#exStep7 button[onclick="confirmExchange()"]');if(btn){btn.textContent='Exchange Request Confirmed ✓';btn.disabled=true;btn.style.opacity='.55';btn.style.cursor='default';btn.style.display='none';}}
+
+
+const addressStorageKey='ourStoreDemoAddresses';
+let editingAddressId=null;
+
+function getAddresses(){
+  try{return JSON.parse(localStorage.getItem(addressStorageKey)||'[]');}
+  catch(e){return [];}
+}
+function setAddresses(list){
+  localStorage.setItem(addressStorageKey,JSON.stringify(list));
+}
+function openAddresses(){
+  resetAddressForm();
+  renderAddresses();
+  go('addresses');
+}
+function renderAddresses(){
+  const el=document.getElementById('addressList');
+  if(!el)return;
+  const list=getAddresses();
+  if(!list.length){
+    el.innerHTML='<div class="addressEmpty">No saved addresses yet. Add your first delivery address above.</div>';
+    return;
+  }
+  el.innerHTML=list.map(a=>{
+    const safe=(v)=>String(v||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    return `<div class="addressItem ${a.selected?'selected':''}">
+      <div class="addressTop">
+        <div>
+          <b>${safe(a.name||'Address')}</b>${a.selected?' <span class="tag">Selected</span>':''}
+          <p style="margin:7px 0 0">${safe(a.line)}</p>
+          <p class="muted" style="margin:4px 0">${safe(a.city)} · ${safe(a.pin)}</p>
+          <p class="muted" style="margin:4px 0">${safe(a.phone)}</p>
+        </div>
+      </div>
+      <div class="addressActions">
+        ${a.selected?'':'<button class="btn alt" onclick="selectAddress('+a.id+')">Use this address</button>'}
+        <button class="btn alt" onclick="editAddress(${a.id})">Edit</button>
+        <button class="btn alt" onclick="deleteAddress(${a.id})">Delete</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+function saveAddress(){
+  const name=document.getElementById('addressName').value.trim();
+  const phone=document.getElementById('addressPhone').value.trim();
+  const line=document.getElementById('addressLine').value.trim();
+  const city=document.getElementById('addressCity').value.trim();
+  const pin=document.getElementById('addressPin').value.trim();
+  if(!name||!phone||!line||!city||!pin){
+    alert('Please fill all address fields.');
+    return;
+  }
+  let list=getAddresses();
+  if(editingAddressId!==null){
+    list=list.map(a=>a.id===editingAddressId?{...a,name,phone,line,city,pin}:a);
+  }else{
+    list.push({id:Date.now(),name,phone,line,city,pin,selected:list.length===0});
+  }
+  setAddresses(list);
+  resetAddressForm();
+  renderAddresses();
+}
+function selectAddress(id){
+  const list=getAddresses().map(a=>({...a,selected:a.id===id}));
+  setAddresses(list);
+  renderAddresses();
+}
+function editAddress(id){
+  const a=getAddresses().find(x=>x.id===id);
+  if(!a)return;
+  editingAddressId=id;
+  document.getElementById('addressFormTitle').textContent='Edit Address';
+  document.getElementById('addressName').value=a.name||'';
+  document.getElementById('addressPhone').value=a.phone||'';
+  document.getElementById('addressLine').value=a.line||'';
+  document.getElementById('addressCity').value=a.city||'';
+  document.getElementById('addressPin').value=a.pin||'';
+  document.getElementById('saveAddressBtn').textContent='Update Address';
+  document.getElementById('cancelAddressBtn').style.display='block';
+  scrollTo(0,0);
+}
+function deleteAddress(id){
+  if(!confirm('Delete this saved address?'))return;
+  let list=getAddresses().filter(a=>a.id!==id);
+  if(list.length&&!list.some(a=>a.selected))list[0].selected=true;
+  setAddresses(list);
+  renderAddresses();
+}
+function resetAddressForm(){
+  editingAddressId=null;
+  ['addressName','addressPhone','addressLine','addressCity','addressPin'].forEach(id=>{
+    const e=document.getElementById(id); if(e)e.value='';
+  });
+  const title=document.getElementById('addressFormTitle');
+  const save=document.getElementById('saveAddressBtn');
+  const cancel=document.getElementById('cancelAddressBtn');
+  if(title)title.textContent='Add New Address';
+  if(save)save.textContent='Save Address';
+  if(cancel)cancel.style.display='none';
+}
+
+function placeOrder(){const address=(document.getElementById('deliveryAddress').value||'').trim();if(!address){alert('Please select a saved delivery address or enter one for the demo order.');return;}window.demoAddress=address;window.demoPayment=document.querySelector('input[name="payment"]:checked')?.value||'UPI';go('order');}
+</script>
+</body></html>
