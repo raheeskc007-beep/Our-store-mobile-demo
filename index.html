@@ -174,6 +174,20 @@ body:has(#catalog:target) #catalog {display:block!important}
 .shopNavLink{border:0;background:none;font-size:11px;font-weight:600;color:#555;text-decoration:none;text-align:center;display:block;padding:0}
 </style>
 
+
+<style>/* Offers + EMI */
+.offerBox{padding:14px;border:1px solid #e4e7eb;border-radius:16px;margin-top:10px;background:#fff}
+.offerRow{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid #eee}
+.offerRow:last-child{border-bottom:0}
+.offerBadge{display:inline-block;background:#eef5ff;border-radius:8px;padding:5px 8px;font-size:11px;font-weight:700}
+.emiGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}
+.emiBtn{border:1px solid #ddd;background:#fff;border-radius:13px;padding:11px;text-align:left}
+.emiBtn.active{border:2px solid #111;background:#f7f7f7}
+.emiBtn b{display:block}
+.emiResult{margin-top:12px;padding:13px;border-radius:14px;background:#f5f6f8}
+.emiNote{font-size:11px;color:#666;line-height:1.4}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -195,7 +209,26 @@ body:has(#catalog:target) #catalog {display:block!important}
 
 <div id="catalog" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2 id="catTitle">Products</h2><div class="row" style="margin-bottom:10px"><button class="chip" onclick="brandCatalog('All')">All</button><button class="chip" onclick="brandCatalog('Apple')">Apple</button><button class="chip" onclick="brandCatalog('Samsung')">Samsung</button><button class="chip" onclick="brandCatalog('OnePlus')">OnePlus</button><button class="chip" onclick="brandCatalog('Xiaomi')">Xiaomi</button><button class="chip" onclick="brandCatalog('Vivo')">Vivo</button><button class="chip" onclick="brandCatalog('OPPO')">OPPO</button><button class="chip" onclick="brandCatalog('Google')">Google</button><button class="chip" onclick="brandCatalog('Realme')">Realme</button><button class="chip" onclick="brandCatalog('Motorola')">Motorola</button></div><div id="products"></div></div></div>
 
-<div id="product" class="screen"><div class="content"><button class="back" onclick="go('catalog')">← Products</button><div class="productHero"><div class="productVisual">📱</div><div><div class="tag">Our Store</div><div class="tag">In Stock</div><div class="tag">Warranty</div><h2 id="pname"></h2><p id="pSpec" class="muted">Official Our Store listing · sample catalog data</p><div class="price" id="pprice"></div></div></div><div class="card"><b>Choose variant</b><div class="variantRow" style="margin-top:10px"><button class="variant active" data-storage="12/256 GB" onclick="selectVariant(this,'storage')">12/256 GB</button><button class="variant" data-storage="12/512 GB" onclick="selectVariant(this,'storage')">12/512 GB</button><button class="variant" data-storage="16/512 GB" onclick="selectVariant(this,'storage')">16/512 GB</button></div><div class="variantRow" style="margin-top:10px"><button class="variant active" data-color="Black" onclick="selectVariant(this,'color')">Black</button><button class="variant" data-color="Blue" onclick="selectVariant(this,'color')">Blue</button><button class="variant" data-color="Silver" onclick="selectVariant(this,'color')">Silver</button></div><p class="muted" id="variantSummary" style="margin:10px 0 0">Selected: 12/256 GB · Black</p></div><div class="offer"><b>🏷️ Our Store Offer</b><p class="muted">Instant bank offers, EMI options and exchange eligibility will appear here.</p></div><div class="card"><h3>Key specifications</h3><div class="specGrid"><div class="specItem"><small>Display</small>6.7″ AMOLED</div><div class="specItem"><small>Network</small>5G</div><div class="specItem"><small>Memory</small>12 GB RAM</div><div class="specItem"><small>Storage</small>256 GB</div><div class="specItem"><small>Camera</small>50 MP main</div><div class="specItem"><small>Warranty</small>Our Store warranty</div></div></div><div class="card"><h3>Delivery & pickup</h3><p>🚚 Delivery available</p><p>🏪 Store pickup available</p><p class="muted">Final availability and delivery date will be confirmed at checkout.</p></div><div class="card"><h3>Exchange</h3><p class="muted">Have an old device? Check its condition and get an estimated exchange value.</p><button class="btn alt" onclick="exchange()">🔄 Check Exchange Value</button></div><div class="stickyBuy"><button class="btn" onclick="addCart()">🛒 Add to Cart</button><button class="btn alt" onclick="renderCheckout();go('checkout')">Buy Now</button><button class="btn alt" onclick="go('compare')">⚖️ Compare</button></div>
+<div id="product" class="screen"><div class="content"><button class="back" onclick="go('catalog')">← Products</button><div class="productHero"><div class="productVisual">📱</div><div><div class="tag">Our Store</div><div class="tag">In Stock</div><div class="tag">Warranty</div><h2 id="pname"></h2><p id="pSpec" class="muted">Official Our Store listing · sample catalog data</p><div class="price" id="pprice"></div></div></div><div class="card"><b>Choose variant</b><div class="variantRow" style="margin-top:10px"><button class="variant active" data-storage="12/256 GB" onclick="selectVariant(this,'storage')">12/256 GB</button><button class="variant" data-storage="12/512 GB" onclick="selectVariant(this,'storage')">12/512 GB</button><button class="variant" data-storage="16/512 GB" onclick="selectVariant(this,'storage')">16/512 GB</button></div><div class="variantRow" style="margin-top:10px"><button class="variant active" data-color="Black" onclick="selectVariant(this,'color')">Black</button><button class="variant" data-color="Blue" onclick="selectVariant(this,'color')">Blue</button><button class="variant" data-color="Silver" onclick="selectVariant(this,'color')">Silver</button></div><p class="muted" id="variantSummary" style="margin:10px 0 0">Selected: 12/256 GB · Black</p></div><div class="offer"><b>🏷️ Our Store Offer</b><p class="muted">Instant bank offers, EMI options and exchange eligibility will appear here.</p></div><div class="card"><h3>Key specifications</h3><div class="specGrid"><div class="specItem"><small>Display</small>6.7″ AMOLED</div><div class="specItem"><small>Network</small>5G</div><div class="specItem"><small>Memory</small>12 GB RAM</div><div class="specItem"><small>Storage</small>256 GB</div><div class="specItem"><small>Camera</small>50 MP main</div><div class="specItem"><small>Warranty</small>Our Store warranty</div></div></div>
+<div class="card" id="offersEmi">
+  <h3>🏦 Offers & EMI</h3>
+  <div class="offerBox">
+    <div class="offerRow"><div><b>HDFC Bank</b><div class="muted">Instant discount on eligible cards</div></div><span class="offerBadge">₹3,000 OFF</span></div>
+    <div class="offerRow"><div><b>ICICI Bank</b><div class="muted">Eligible credit-card offer</div></div><span class="offerBadge">₹2,500 OFF</span></div>
+    <div class="offerRow"><div><b>Our Store Exchange</b><div class="muted">Exchange your old device</div></div><span class="offerBadge">Extra value</span></div>
+  </div>
+  <h4 style="margin:16px 0 6px">Choose EMI period</h4>
+  <div class="emiGrid">
+    <button class="emiBtn active" type="button" onclick="selectEMI(3,this)">3 months</button>
+    <button class="emiBtn" type="button" onclick="selectEMI(6,this)">6 months</button>
+    <button class="emiBtn" type="button" onclick="selectEMI(9,this)">9 months</button>
+    <button class="emiBtn" type="button" onclick="selectEMI(12,this)">12 months</button>
+  </div>
+  <div id="emiResult" class="emiResult"></div>
+  <p class="emiNote">Demo calculation only. Final bank eligibility, interest rate, fees and approved EMI will be confirmed at checkout.</p>
+</div>
+
+<div class="card"><h3>Delivery & pickup</h3><p>🚚 Delivery available</p><p>🏪 Store pickup available</p><p class="muted">Final availability and delivery date will be confirmed at checkout.</p></div><div class="card"><h3>Exchange</h3><p class="muted">Have an old device? Check its condition and get an estimated exchange value.</p><button class="btn alt" onclick="exchange()">🔄 Check Exchange Value</button></div><div class="stickyBuy"><button class="btn" onclick="addCart()">🛒 Add to Cart</button><button class="btn alt" onclick="renderCheckout();go('checkout')">Buy Now</button><button class="btn alt" onclick="go('compare')">⚖️ Compare</button></div>
 <div class="card reviewBox">
 <h3>Customer Reviews</h3>
 <div class="reviewSummary"><b>4.7 ★</b><span> · 128 reviews · Verified purchases</span></div>
@@ -455,7 +488,7 @@ function brandCatalog(brand,category){
   if(!out)return;
   out.innerHTML=list.length?list.map(card).join(''):'<div class="card"><b>No products found</b><p class="muted">Try another brand or category.</p></div>';
 }
-function product(n,pr,spec){selectedProduct={name:n,price:pr,spec:spec};document.getElementById('pname').textContent=n;document.getElementById('pprice').textContent=pr;const ps=document.getElementById('pSpec');if(ps)ps.textContent=spec;go('product')}
+function product(n,pr,spec){selectedProduct={name:n,price:pr,spec:spec};document.getElementById('pname').textContent=n;document.getElementById('pprice').textContent=pr;const ps=document.getElementById('pSpec');if(ps)ps.textContent=spec;go('product');setTimeout(function(){const b=document.querySelector('#offersEmi .emiBtn.active');selectEMI(3,b)},0)}
 function renderCart(){const el=document.getElementById('cartItem');if(!selectedProduct){el.innerHTML='Your cart is empty.';return;}el.innerHTML='<b>'+selectedProduct.name+'</b><p class="muted">'+selectedProduct.spec+'</p><p>Quantity: 1</p><div class="price">'+selectedProduct.price+'</div>'}
 function renderCheckout(){
   const el=document.getElementById('checkoutItem');
@@ -731,5 +764,21 @@ function resetAddressForm(){
 }
 
 function placeOrder(){const address=(document.getElementById('deliveryAddress').value||'').trim();if(!address){alert('Please select a saved delivery address or enter one for the demo order.');return;}window.demoAddress=address;window.demoPayment=document.querySelector('input[name="payment"]:checked')?.value||'UPI';go('order');}
+
+function selectEMI(months,btn){
+  document.querySelectorAll('#offersEmi .emiBtn').forEach(function(b){b.classList.remove('active');});
+  if(btn)btn.classList.add('active');
+  const priceText=document.getElementById('pprice')?.textContent || selectedProduct?.price || '₹0';
+  const price=Number(String(priceText).replace(/[^0-9]/g,'')) || 0;
+  // Demo interest rate: 0% for 3 months, then simple illustrative rates.
+  const rateByMonths={3:0,6:0.08,9:0.10,12:0.12};
+  const annualRate=rateByMonths[months]||0;
+  const monthlyRate=annualRate/12;
+  let emi=monthlyRate===0 ? price/months : (price*monthlyRate*Math.pow(1+monthlyRate,months))/(Math.pow(1+monthlyRate,months)-1);
+  const el=document.getElementById('emiResult');
+  if(!el)return;
+  el.innerHTML='<b>'+months+' month EMI</b><div class="price">₹'+Math.round(emi).toLocaleString('en-IN')+' / month</div><div class="muted">Product price: ₹'+price.toLocaleString('en-IN')+' · Demo rate: '+(annualRate*100).toFixed(0)+'% p.a.</div>';
+}
+
 </script>
 </body></html>
