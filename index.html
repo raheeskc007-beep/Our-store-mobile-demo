@@ -306,7 +306,7 @@ body:has(#catalog:target) #catalog {display:block!important}
 <button class="btn" onclick="placeOrder()">Place Demo Order</button>
 </div></div>
 
-<div id="order" class="screen"><div class="content"><h2>Order Confirmed ✅</h2><div class="card"><b>Order #OS-1001</b><p>Processing → Ready → Delivered</p></div><button class="btn" onclick="go('home')">Back to Home</button></div></div>
+<div id="order" class="screen"><div class="content"><h2>Order Confirmed ✅</h2><div class="card"><b id="orderNumber">Order #OS-1001</b><p id="orderSummary">Processing → Ready → Delivered</p><p class="muted" id="orderPayment"></p><p class="muted" id="orderAddress"></p></div><div class="card"><h3>Order status</h3><div class="track"><div class="trackStep active"><span>✓</span><b>Order placed</b><small>Order received by Our Store</small></div><div class="trackLine"></div><div class="trackStep"><span>2</span><b>Preparing</b><small>Demo status</small></div><div class="trackLine"></div><div class="trackStep"><span>3</span><b>Delivered</b><small>Delivery confirmation later</small></div></div></div><button class="btn" onclick="go('home')">Back to Home</button><button class="btn alt" onclick="go('cart')">View Cart</button></div></div>
 
 
 
@@ -771,6 +771,16 @@ function resetAddressForm(){
   if(cancel)cancel.style.display='none';
 }
 
-function placeOrder(){const address=(document.getElementById('deliveryAddress').value||'').trim();if(!address){alert('Please select a saved delivery address or enter one for the demo order.');return;}window.demoAddress=address;window.demoPayment=document.querySelector('input[name="payment"]:checked')?.value||'UPI';go('order');}
+function placeOrder(){
+  const address=(document.getElementById('deliveryAddress').value||'').trim();
+  if(!address){alert('Please select a saved delivery address or enter one for the demo order.');return;}
+  window.demoAddress=address;
+  window.demoPayment=document.querySelector('input[name="payment"]:checked')?.value||'UPI';
+  const orderNo='OS-'+String(Date.now()).slice(-6);
+  const n=document.getElementById('orderNumber'); if(n)n.textContent='Order #'+orderNo;
+  const p=document.getElementById('orderPayment'); if(p)p.textContent='Payment: '+window.demoPayment;
+  const a=document.getElementById('orderAddress'); if(a)a.textContent='Delivery: '+window.demoAddress;
+  go('order');
+}
 </script>
 </body></html>
