@@ -130,6 +130,19 @@ body{background:#eef1f5;color:#111}
 <style>
 .productHero{display:grid;grid-template-columns:1fr;gap:12px}.productVisual{height:230px;border-radius:22px;background:linear-gradient(145deg,#f2f4f7,#dce1e8);display:flex;align-items:center;justify-content:center;font-size:92px}.variantRow{display:flex;gap:8px;overflow:auto}.variant{border:1px solid #ddd;background:#fff;border-radius:12px;padding:10px 13px;white-space:nowrap}.variant.active{border:2px solid #111}.offer{padding:12px;border-radius:15px;background:#f6f7f9;margin-top:10px}.specGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.specItem{padding:11px;border:1px solid #eee;border-radius:13px}.specItem small{display:block;color:#777;margin-bottom:4px}.stickyBuy{position:sticky;bottom:72px;background:rgba(255,255,255,.96);padding:10px 0;border-top:1px solid #eee;z-index:2}
 </style>
+
+<style>
+.addressList{display:grid;gap:10px;margin-top:12px}
+.addressItem{border:1px solid #e2e5ea;border-radius:16px;padding:14px;background:#fff}
+.addressItem.selected{border:2px solid #111;background:#fafafa}
+.addressTop{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.addressActions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.addressActions .btn{margin-top:0}
+.addressEmpty{padding:16px;border:1px dashed #ccc;border-radius:14px;color:#666}
+.addressForm{display:grid;gap:10px;margin-top:12px}
+.addressForm input,.addressForm textarea{width:100%;padding:12px;border:1px solid #ddd;border-radius:12px;font:inherit;background:#fff}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -263,6 +276,33 @@ body{background:#eef1f5;color:#111}
 <div id="order" class="screen"><div class="content"><h2>Order Confirmed ✅</h2><div class="card"><b>Order #OS-1001</b><p>Processing → Ready → Delivered</p></div><button class="btn" onclick="go('home')">Back to Home</button></div></div>
 
 
+
+<div id="addresses" class="screen"><div class="content">
+<button class="back" onclick="go('profile')">← Profile</button>
+<h2>Delivery Addresses</h2>
+<p class="muted">Save an address once and use it during checkout.</p>
+
+<div class="card">
+  <b id="addressFormTitle">Add New Address</b>
+  <div class="addressForm">
+    <input id="addressName" placeholder="Name">
+    <input id="addressPhone" inputmode="tel" placeholder="Phone number">
+    <textarea id="addressLine" rows="3" placeholder="House / Street / Area"></textarea>
+    <div class="grid">
+      <input id="addressCity" placeholder="City">
+      <input id="addressPin" inputmode="numeric" placeholder="PIN code">
+    </div>
+    <button class="btn" id="saveAddressBtn" onclick="saveAddress()">Save Address</button>
+    <button class="btn alt" id="cancelAddressBtn" onclick="resetAddressForm()" style="display:none">Cancel Edit</button>
+  </div>
+</div>
+
+<div class="card">
+  <b>Saved Addresses</b>
+  <div id="addressList" class="addressList"></div>
+</div>
+</div></div>
+
 <div id="support" class="screen"><div class="content">
 <button class="back" onclick="go('profile')">← Profile</button>
 <h2>Support</h2>
@@ -288,7 +328,7 @@ body{background:#eef1f5;color:#111}
 <div class="trackLine"></div>
 <div class="trackStep active"><span>✓</span><b>Delivered</b><small>Demo order completed</small></div></div></div>
 <div class="card"><b>Account</b>
-<p>Delivery addresses</p>
+<p><button class="linkBtn" onclick="openAddresses()">Delivery addresses</button></p>
 <p>Payment methods</p>
 <p><button class="linkBtn" onclick="go('warranty')">Warranty</button></p>
 <p><button class="linkBtn" onclick="go('support')">Support</button></p>
@@ -491,6 +531,108 @@ function continueFromCondition(){if(['Front','Back','Left side','Right side'].so
 function continueFromFunction(){if(!ex.tests.speakerStatus||!ex.tests.cameraStatus||!ex.tests.buttonsStatus||!ex.tests.connectStatus){alert('Please complete all function checks.');return}const factors=Object.values(ex.conditions).map(x=>x.factor);const conditionFactor=factors.reduce((a,b)=>a+b,0)/factors.length;const battery={'Excellent':1.05,'Good':1,'Average':.92,'Poor':.8}[document.getElementById('batteryHealth').value]||1;const water=document.getElementById('qWater').value==='Yes'?.55:document.getElementById('qWater').value==='Not sure'?.8:1;const replaced=document.getElementById('qReplacement').value==='Yes'?.82:document.getElementById('qReplacement').value==='Not sure'?.9:1;const base=Number(String(ex.model.price).replace(/[^0-9]/g,''))*.35;ex.maxValue=Math.max(0,Math.round(base*conditionFactor*battery*water*replaced/100)*100);document.getElementById('exchangeReview').innerHTML='<p><b>'+ex.model.name+'</b> · '+ex.model.spec+'</p><p>Front/Back/Sides: ✓ checked</p><p>Screen & touch: ✓ · Speaker: ✓ · Camera: ✓ · Buttons: ✓ · Connectivity: ✓</p><p class="muted">This is an approximate maximum exchange value. Final value is confirmed only after physical pickup inspection.</p>';document.getElementById('maxExchangeValue').innerHTML='<h3>Approximate maximum value</h3><div class="price">₹'+ex.maxValue.toLocaleString('en-IN')+'</div><p class="muted">Estimated from the information entered. This is not the final offer.</p>';exStep(6)}
 function requestPickup(){document.getElementById('finalExchangeValue').innerHTML='<h3>Pickup request created ✓</h3><p>Estimated maximum: <b>₹'+ex.maxValue.toLocaleString('en-IN')+'</b></p><p class="muted">Our Store will inspect the device at pickup. The final exchange value may change after inspection.</p>';exStep(7)}
 function confirmExchange(){document.getElementById('finalExchangeValue').innerHTML='<h3>Exchange request confirmed ✓</h3><p>Your device is ready for pickup inspection.</p><p class="muted">Final offer will be generated after the physical inspection.</p>';const btn=document.querySelector('#exStep7 button[onclick="confirmExchange()"]');if(btn){btn.textContent='Exchange Request Confirmed ✓';btn.disabled=true;btn.style.opacity='.55';btn.style.cursor='default';btn.style.display='none';}}
+
+
+const addressStorageKey='ourStoreDemoAddresses';
+let editingAddressId=null;
+
+function getAddresses(){
+  try{return JSON.parse(localStorage.getItem(addressStorageKey)||'[]');}
+  catch(e){return [];}
+}
+function setAddresses(list){
+  localStorage.setItem(addressStorageKey,JSON.stringify(list));
+}
+function openAddresses(){
+  resetAddressForm();
+  renderAddresses();
+  go('addresses');
+}
+function renderAddresses(){
+  const el=document.getElementById('addressList');
+  if(!el)return;
+  const list=getAddresses();
+  if(!list.length){
+    el.innerHTML='<div class="addressEmpty">No saved addresses yet. Add your first delivery address above.</div>';
+    return;
+  }
+  el.innerHTML=list.map(a=>{
+    const safe=(v)=>String(v||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    return `<div class="addressItem ${a.selected?'selected':''}">
+      <div class="addressTop">
+        <div>
+          <b>${safe(a.name||'Address')}</b>${a.selected?' <span class="tag">Selected</span>':''}
+          <p style="margin:7px 0 0">${safe(a.line)}</p>
+          <p class="muted" style="margin:4px 0">${safe(a.city)} · ${safe(a.pin)}</p>
+          <p class="muted" style="margin:4px 0">${safe(a.phone)}</p>
+        </div>
+      </div>
+      <div class="addressActions">
+        ${a.selected?'':'<button class="btn alt" onclick="selectAddress('+a.id+')">Use this address</button>'}
+        <button class="btn alt" onclick="editAddress(${a.id})">Edit</button>
+        <button class="btn alt" onclick="deleteAddress(${a.id})">Delete</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+function saveAddress(){
+  const name=document.getElementById('addressName').value.trim();
+  const phone=document.getElementById('addressPhone').value.trim();
+  const line=document.getElementById('addressLine').value.trim();
+  const city=document.getElementById('addressCity').value.trim();
+  const pin=document.getElementById('addressPin').value.trim();
+  if(!name||!phone||!line||!city||!pin){
+    alert('Please fill all address fields.');
+    return;
+  }
+  let list=getAddresses();
+  if(editingAddressId!==null){
+    list=list.map(a=>a.id===editingAddressId?{...a,name,phone,line,city,pin}:a);
+  }else{
+    list.push({id:Date.now(),name,phone,line,city,pin,selected:list.length===0});
+  }
+  setAddresses(list);
+  resetAddressForm();
+  renderAddresses();
+}
+function selectAddress(id){
+  const list=getAddresses().map(a=>({...a,selected:a.id===id}));
+  setAddresses(list);
+  renderAddresses();
+}
+function editAddress(id){
+  const a=getAddresses().find(x=>x.id===id);
+  if(!a)return;
+  editingAddressId=id;
+  document.getElementById('addressFormTitle').textContent='Edit Address';
+  document.getElementById('addressName').value=a.name||'';
+  document.getElementById('addressPhone').value=a.phone||'';
+  document.getElementById('addressLine').value=a.line||'';
+  document.getElementById('addressCity').value=a.city||'';
+  document.getElementById('addressPin').value=a.pin||'';
+  document.getElementById('saveAddressBtn').textContent='Update Address';
+  document.getElementById('cancelAddressBtn').style.display='block';
+  scrollTo(0,0);
+}
+function deleteAddress(id){
+  if(!confirm('Delete this saved address?'))return;
+  let list=getAddresses().filter(a=>a.id!==id);
+  if(list.length&&!list.some(a=>a.selected))list[0].selected=true;
+  setAddresses(list);
+  renderAddresses();
+}
+function resetAddressForm(){
+  editingAddressId=null;
+  ['addressName','addressPhone','addressLine','addressCity','addressPin'].forEach(id=>{
+    const e=document.getElementById(id); if(e)e.value='';
+  });
+  const title=document.getElementById('addressFormTitle');
+  const save=document.getElementById('saveAddressBtn');
+  const cancel=document.getElementById('cancelAddressBtn');
+  if(title)title.textContent='Add New Address';
+  if(save)save.textContent='Save Address';
+  if(cancel)cancel.style.display='none';
+}
 
 function placeOrder(){const address=(document.getElementById('deliveryAddress').value||'').trim();if(!address){alert('Please enter a delivery address for the demo order.');return;}window.demoPayment=document.querySelector('input[name="payment"]:checked')?.value||'UPI';go('order');}
 </script>
