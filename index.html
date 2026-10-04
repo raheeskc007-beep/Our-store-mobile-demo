@@ -408,8 +408,22 @@ body:has(#catalog:target) #catalog {display:block!important}
 <label class="payOption"><input type="radio" name="payment" value="UPI" checked> UPI</label>
 <label class="payOption"><input type="radio" name="payment" value="Card"> Card</label>
 <label class="payOption"><input type="radio" name="payment" value="Cash on Delivery"> Cash on Delivery</label>
+<label class="payOption"><input type="radio" name="payment" value="Wallet"> 💳 Our Store Wallet · Balance <span id="checkoutWalletBalance">₹2,500</span></label>
+
 </div>
 <div class="card"><b>Order total</b><div id="checkoutTotal" class="price">—</div></div>
+<div class="card">
+  <h3>🎁 Use Reward Points</h3>
+  <label style="display:flex;align-items:center;gap:8px">
+    <input type="checkbox" id="useRewardPoints" onchange="updateCheckoutReward()">
+    Use available points
+  </label>
+  <div class="muted" style="margin-top:6px;font-size:12px">
+    Available: <b id="checkoutRewardBalance">0</b> points · 1 point = ₹1 demo discount
+  </div>
+  <div id="rewardDiscountLine" class="muted" style="display:none;margin-top:6px"></div>
+</div>
+
 <button class="btn" onclick="placeOrder()">
 <label class="paymentOption" style="display:block;margin:8px 0">
   <input type="radio" name="payment" value="Wallet">
@@ -463,6 +477,21 @@ Place Demo Order</button>
 <div id="wallet" class="screen"><div class="content">
 <button class="back" onclick="go('home')">← Home</button>
 <h2>Wallet</h2>
+<div class="card" style="margin-top:12px">
+  <h3>🎁 Reward Points</h3>
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+    <div>
+      <div id="rewardPointsBalance" style="font-size:30px;font-weight:800">0</div>
+      <div class="muted">points available</div>
+    </div>
+    <div style="text-align:right">
+      <div style="font-weight:700">Earn after every purchase</div>
+      <div class="muted" style="font-size:11px">Demo: 1 point per ₹100 spent</div>
+    </div>
+  </div>
+  <div class="muted" style="font-size:12px;margin-top:8px">100 points = ₹100 discount at checkout.</div>
+</div>
+
 <div class="card" id="walletCard" style="margin-top:12px">
   <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
     <div>
@@ -677,6 +706,55 @@ function product(n,pr,spec){
   go('product');
 }
 function renderCart(){const el=document.getElementById('cartItem');if(!selectedProduct){el.innerHTML='Your cart is empty.';return;}el.innerHTML='<b>'+selectedProduct.name+'</b><p class="muted">'+selectedProduct.spec+'</p><p>Quantity: 1</p><div class="price">'+selectedProduct.price+'</div>'}
+
+function getRewardPoints(){
+  return parseInt(localStorage.getItem('ourStoreRewardPoints') || '0',10);
+}
+function setRewardPoints(value){
+  const n=Math.max(0,Math.floor(Number(value)||0));
+  localStorage.setItem('ourStoreRewardPoints',String(n));
+  updateRewardPoints();
+}
+function updateRewardPoints(){
+  const points=getRewardPoints();
+  const a=document.getElementById('rewardPointsBalance'); if(a)a.textContent=points.toLocaleString('en-IN');
+  const b=document.getElementById('checkoutRewardBalance'); if(b)b.textContent=points.toLocaleString('en-IN');
+}
+function getCheckoutBaseTotal(){
+  if(!selectedProduct)return 0;
+  return Number(String(selectedProduct.price).replace(/[^0-9.]/g,''))||0;
+}
+function getRewardDiscount(){
+  const cb=document.getElementById('useRewardPoints');
+  if(!cb || !cb.checked)return 0;
+  return Math.min(getRewardPoints(),getCheckoutBaseTotal());
+}
+function getFinalCheckoutTotal(){
+  return Math.max(0,getCheckoutBaseTotal()-getRewardDiscount());
+}
+function updateCheckoutReward(){
+  const base=getCheckoutBaseTotal();
+  const discount=getRewardDiscount();
+  const total=document.getElementById('checkoutTotal');
+  if(total)total.textContent='₹'+Math.round(Math.max(0,base-discount)).toLocaleString('en-IN');
+  const line=document.getElementById('rewardDiscountLine');
+  if(line){
+    line.style.display=discount>0?'block':'none';
+    line.textContent=discount>0?'Reward discount: −₹'+discount.toLocaleString('en-IN'):'';
+  }
+  updateRewardPoints();
+  updateCheckoutWalletBalance();
+}
+function updateCheckoutWalletBalance(){
+  const el=document.getElementById('checkoutWalletBalance');
+  if(el)el.textContent='₹'+getWalletBalance().toLocaleString('en-IN');
+}
+function addRewardPointsFromPurchase(total){
+  const earned=Math.floor((Number(total)||0)/100);
+  if(earned>0)setRewardPoints(getRewardPoints()+earned);
+  return earned;
+}
+
 function renderCheckout(){
   const el=document.getElementById('checkoutItem');
   const total=document.getElementById('checkoutTotal');
@@ -687,6 +765,9 @@ function renderCheckout(){
   }
   el.innerHTML='<b>Order item</b><h3>'+selectedProduct.name+'</h3><p class="muted">'+selectedProduct.spec+'</p><p>Quantity: 1</p>';
   total.textContent=selectedProduct.price;
+  const cb=document.getElementById('useRewardPoints'); if(cb)cb.checked=false;
+  updateRewardPoints();
+  updateCheckoutReward();
   renderCheckoutAddresses();
 }
 function renderCheckoutAddresses(){
@@ -990,25 +1071,35 @@ function placeOrder(){
   if(!address){alert('Please select a saved delivery address or enter one for the demo order.');return;}
   window.demoAddress=address;
   window.demoPayment=document.querySelector('input[name="payment"]:checked')?.value||'UPI';
+
+  const baseTotal=getCheckoutBaseTotal();
+  const rewardUsed=getRewardDiscount();
+  const finalTotal=Math.max(0,baseTotal-rewardUsed);
+
   if(window.demoPayment==='Wallet'){
     const balance=getWalletBalance();
-    const totalEl=document.querySelector('.checkoutTotal');
-    const total=Number((totalEl?.textContent||'').replace(/[^0-9.]/g,''))||0;
-    if(balance<total){
+    if(balance<finalTotal){
       alert('Insufficient Our Store Wallet balance for this demo order.');
       return;
     }
-    setWalletBalance(balance-total);
+    setWalletBalance(balance-finalTotal);
   }
+
+  // Redeem points only after all payment checks pass.
+  if(rewardUsed>0)setRewardPoints(getRewardPoints()-rewardUsed);
+
+  // Earn new points only after the demo purchase is successfully placed.
+  const earned=addRewardPointsFromPurchase(finalTotal);
 
   const orderNo='OS-'+String(Date.now()).slice(-6);
   const n=document.getElementById('orderNumber'); if(n)n.textContent='Order #'+orderNo;
-  const p=document.getElementById('orderPayment'); if(p)p.textContent='Payment: '+window.demoPayment;
+  const p=document.getElementById('orderPayment'); if(p)p.textContent='Payment: '+window.demoPayment+' · Paid ₹'+finalTotal.toLocaleString('en-IN')+(rewardUsed?' · Reward discount ₹'+rewardUsed.toLocaleString('en-IN'):'')+(earned?' · Earned '+earned+' points':'');
   const a=document.getElementById('orderAddress'); if(a)a.textContent='Delivery: '+window.demoAddress;
   const item=(cart[0]||data[0]||{});
-  const order={id:orderNo,name:item.name||'Demo product',price:item.price||0,payment:window.demoPayment,address:window.demoAddress,status:'Order placed'};
+  const order={id:orderNo,name:item.name||'Demo product',price:finalTotal,payment:window.demoPayment,address:window.demoAddress,status:'Order placed',rewardUsed:rewardUsed,rewardEarned:earned};
   localStorage.setItem('ourStoreLatestOrder',JSON.stringify(order));
   go('order');
 }
 </script>
+<script>document.addEventListener('DOMContentLoaded',function(){updateRewardPoints();updateCheckoutWalletBalance();});</script>
 </body></html>
