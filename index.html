@@ -68,7 +68,7 @@ h1{font-size:26px;margin:0 0 12px}.search{background:#f1f2f4;border:0;border-rad
   .homeSection .card{box-shadow:none}
 }
 
-</style>
+.rewardDisabled{opacity:.55}\n</style>
 
 <style>
 /* Our Store Premium Home v1 — visual layer only */
@@ -733,6 +733,16 @@ function getFinalCheckoutTotal(){
   return Math.max(0,getCheckoutBaseTotal()-getRewardDiscount());
 }
 function updateCheckoutReward(){
+  const points=getRewardPoints();
+  const cb=document.getElementById('useRewardPoints');
+  if(cb){
+    if(points<=0){
+      cb.checked=false;
+      cb.disabled=true;
+    }else{
+      cb.disabled=false;
+    }
+  }
   const base=getCheckoutBaseTotal();
   const discount=getRewardDiscount();
   const total=document.getElementById('checkoutTotal');
@@ -765,7 +775,7 @@ function renderCheckout(){
   }
   el.innerHTML='<b>Order item</b><h3>'+selectedProduct.name+'</h3><p class="muted">'+selectedProduct.spec+'</p><p>Quantity: 1</p>';
   total.textContent=selectedProduct.price;
-  const cb=document.getElementById('useRewardPoints'); if(cb)cb.checked=false;
+  const cb=document.getElementById('useRewardPoints'); if(cb){cb.checked=false;cb.disabled=getRewardPoints()<=0;}
   updateRewardPoints();
   updateCheckoutReward();
   renderCheckoutAddresses();
