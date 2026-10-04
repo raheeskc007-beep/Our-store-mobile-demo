@@ -191,6 +191,24 @@ body:has(#catalog:target) #catalog {display:block!important}
 </div>
 <div class="grid" style="margin-top:14px"><button class="btn" onclick="find()">🎯 Find My Device</button><button class="btn alt" onclick="openCompareFromHome()" type="button">⚖️ Compare</button><button class="btn alt" onclick="exchange()">🔄 Exchange</button></div>
 <button class="btn" style="width:100%;margin-top:12px" onclick="go('videoReviews')">🎥 Video Reviews</button>
+<button class="btn" style="width:100%;margin:12px 0" onclick="openNewLaunches()">🆕 New Launches</button>
+<div id="newLaunchesModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:999;align-items:flex-end;padding:14px">
+  <div style="background:#fff;border-radius:24px;padding:20px;width:100%;max-width:520px;margin:auto;max-height:85vh;overflow:auto">
+    <button class="back" onclick="closeNewLaunches()">← Back</button>
+    <h2 style="margin:14px 0 8px">🆕 New Launches</h2>
+    <p class="muted">Latest devices available at Our Store.</p>
+    <div class="card" style="margin-top:12px">
+      <h3>Latest iPhone</h3>
+      <p class="muted">New generation iPhone · Demo launch listing</p>
+      <button class="btn" style="width:100%" onclick="closeNewLaunches()">View Details</button>
+    </div>
+    <div class="card" style="margin-top:10px">
+      <h3>Latest Galaxy</h3>
+      <p class="muted">New generation Galaxy · Demo launch listing</p>
+      <button class="btn" style="width:100%" onclick="closeNewLaunches()">View Details</button>
+    </div>
+  </div>
+</div>
 <h3>Featured</h3><div id="featured"></div>
 </div></div>
 
@@ -524,6 +542,16 @@ function brandCatalog(brand,category){
   if(!out)return;
   out.innerHTML=list.length?list.map(card).join(''):'<div class="card"><b>No products found</b><p class="muted">Try another brand or category.</p></div>';
 }
+
+function openNewLaunches(){
+  const m=document.getElementById('newLaunchesModal');
+  if(m)m.style.display='flex';
+}
+function closeNewLaunches(){
+  const m=document.getElementById('newLaunchesModal');
+  if(m)m.style.display='none';
+}
+
 function product(n,pr,spec){
   localStorage.setItem('ourStoreSelectedProduct',JSON.stringify({name:n,price:pr,spec:spec}));
 
