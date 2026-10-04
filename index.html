@@ -68,7 +68,177 @@ h1{font-size:26px;margin:0 0 12px}.search{background:#f1f2f4;border:0;border-rad
   .homeSection .card{box-shadow:none}
 }
 
-.rewardDisabled{opacity:.55}\n</style>
+.rewardDisabled{opacity:.55}\n
+/* V19 — Our Store Premium UI Polish
+   Visual-only refinement: existing navigation, flows and demo logic remain intact. */
+:root{
+  --os-bg:#f5f5f7;
+  --os-surface:#ffffff;
+  --os-soft:#f2f3f5;
+  --os-line:#e5e5e7;
+  --os-text:#111214;
+  --os-muted:#6b6d72;
+  --os-blue:#0071e3;
+  --os-radius:22px;
+}
+html{background:var(--os-bg);scroll-behavior:smooth}
+body{
+  background:var(--os-bg);
+  color:var(--os-text);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text",Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+.app{
+  max-width:430px;
+  background:var(--os-surface);
+  box-shadow:0 0 50px rgba(0,0,0,.07);
+}
+.top{
+  padding:20px 18px 14px;
+  background:rgba(255,255,255,.94);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(0,0,0,.06);
+}
+h1{
+  font-size:30px;
+  line-height:1.05;
+  letter-spacing:-1.1px;
+  font-weight:800;
+}
+h2,h3,h4{
+  letter-spacing:-.45px;
+}
+h2{font-size:28px}
+h3{font-size:21px}
+.content{padding:18px 16px 112px}
+.search{
+  background:#f1f2f4;
+  border:1px solid rgba(0,0,0,.04);
+  border-radius:17px;
+  padding:15px 16px;
+  font-size:16px;
+  outline:none;
+  transition:.2s ease;
+}
+.search:focus{
+  background:#fff;
+  border-color:#c8c9cc;
+  box-shadow:0 0 0 4px rgba(0,113,227,.08);
+}
+.row{gap:10px;padding-bottom:3px}
+.chip{
+  border:1px solid var(--os-line);
+  border-radius:999px;
+  padding:11px 15px;
+  background:#fff;
+  font-weight:650;
+  box-shadow:0 2px 8px rgba(0,0,0,.035);
+}
+.card{
+  border:1px solid var(--os-line);
+  border-radius:var(--os-radius);
+  padding:16px;
+  margin:13px 0;
+  background:#fff;
+  box-shadow:0 8px 26px rgba(20,20,25,.045);
+}
+.btn{
+  border:0;
+  border-radius:16px;
+  padding:14px 17px;
+  font-size:15px;
+  font-weight:750;
+  background:#111214;
+  color:#fff;
+  box-shadow:0 7px 18px rgba(0,0,0,.12);
+  transition:transform .15s ease,box-shadow .15s ease,opacity .15s ease;
+}
+.btn:active{transform:scale(.985);box-shadow:0 4px 12px rgba(0,0,0,.10)}
+.btn.alt{
+  background:#f1f2f4;
+  color:#111214;
+  box-shadow:none;
+  border:1px solid #e4e5e7;
+}
+.back{
+  border:0;
+  background:transparent;
+  color:var(--os-blue);
+  font-size:16px;
+  font-weight:600;
+  padding:5px 0;
+}
+.muted{color:var(--os-muted)}
+.price{letter-spacing:-.7px;font-weight:800}
+.tag,.heroPill{
+  border-radius:999px;
+  border:1px solid var(--os-line);
+}
+.heroStore,.compareHero{
+  border-radius:26px;
+  box-shadow:0 16px 36px rgba(0,0,0,.10);
+  overflow:hidden;
+}
+.heroStore{background:linear-gradient(145deg,#111214,#252830)}
+.heroPill{font-weight:750}
+.productHero,.productVisual{
+  border-radius:24px;
+  overflow:hidden;
+}
+.grid{gap:12px}
+.grid .card{margin:0}
+.variant,.variantRow{
+  border-radius:14px;
+}
+.variant.active{
+  box-shadow:0 0 0 2px #111214 inset;
+}
+.payOption,.paymentOption{
+  border-radius:15px;
+  border:1px solid var(--os-line);
+  padding:14px;
+  margin:8px 0;
+  background:#fff;
+}
+.payOption:has(input:checked),.paymentOption:has(input:checked){
+  border-color:#111214;
+  background:#f7f7f8;
+}
+.specGrid,.specList{gap:10px}
+.specItem,.specRow{
+  border-radius:15px;
+  background:#f6f7f8;
+}
+.homeSection{margin:20px 0}
+.homeSection.card{padding:18px}
+.homeSection h3{font-size:22px}
+.videoSection,.offer{border-radius:22px}
+.bottom{
+  background:rgba(255,255,255,.96);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  border-top:1px solid rgba(0,0,0,.08);
+  box-shadow:0 -10px 28px rgba(0,0,0,.06);
+  padding:9px 7px calc(9px + env(safe-area-inset-bottom));
+}
+.bottom button,.bottom a{
+  font-weight:650;
+}
+.stickyBuy{
+  background:rgba(255,255,255,.96);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  border-top:1px solid rgba(0,0,0,.08);
+}
+.screen{animation:osFade .18s ease}
+@keyframes osFade{from{opacity:.6;transform:translateY(3px)}to{opacity:1;transform:none}}
+@media (max-width:430px){
+  .content{padding-left:14px;padding-right:14px}
+  .card{border-radius:20px}
+}
+
+</style>
 
 <style>
 /* Our Store Premium Home v1 — visual layer only */
