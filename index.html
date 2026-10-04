@@ -353,9 +353,9 @@ Place Demo Order</button>
 <div class="card"><b>iPhone 17 Pro Max</b><p class="muted">Order #OS-1001</p><p>Warranty status: <b>Demo Active</b></p><p>Warranty details can be verified against the order and device serial/IMEI in the production version.</p></div>
 <div class="card"><b>Need help?</b><p>Contact Our Store support for warranty claims and service requests.</p><button class="btn" onclick="go('support')">Contact Support</button></div>
 </div></div>
-<div id="profile" class="screen"><div class="content">
+<div id="wallet" class="screen"><div class="content">
 <button class="back" onclick="go('home')">← Home</button>
-<h2>Profile</h2>
+<h2>Wallet</h2>
 <div class="card" id="walletCard" style="margin-top:12px">
   <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
     <div>
@@ -371,6 +371,13 @@ Place Demo Order</button>
   </div>
   <p class="muted" style="margin-top:10px">Demo wallet for the prototype. Real payment processing will be connected in production.</p>
 </div>
+<div class="card"><h3>Wallet & Payments</h3><p class="muted">Use your Our Store Wallet at checkout. Your demo balance is stored on this device.</p><button class="btn alt" onclick="go('cart')">🛒 Go to Cart</button></div>
+<div class="card"><h3>My Account</h3><p class="muted">Manage your profile, addresses, orders and support.</p><button class="btn alt" onclick="go('profile')">👤 Open Profile</button></div>
+</div></div>
+
+<div id="profile" class="screen"><div class="content">
+<button class="back" onclick="go('home')">← Home</button>
+<h2>Profile</h2>
 
 <div class="card"><h3>My Account</h3><p class="muted">Our Store customer · Demo profile</p><div class="grid"><button class="btn alt" onclick="openAddresses()">📍 Addresses</button><button class="btn alt" onclick="go('support')">🛟 Support</button></div></div>
 <div class="card"><b>My Orders</b><div id="profileOrders"><p class="muted">No demo orders yet.</p></div><button class="btn" onclick="showOrderTracking()">Track Latest Order</button></div>
@@ -389,7 +396,7 @@ Place Demo Order</button>
 </div>
 </div></div></div>
 
-<div class="bottom"><button type="button" onclick="go('home')">🏠<br>Home</button><button type="button" class="shopNavLink" onclick="catalog('Mobiles')">🔎<br>Shop</button><button type="button" onclick="go('cart')">🛒<br>Cart</button><button type="button" onclick="go('profile')">👤<br>Profile</button></div>
+<div class="bottom"><button type="button" onclick="go('home')">🏠<br>Home</button><button type="button" class="shopNavLink" onclick="catalog('Mobiles')">🔎<br>Shop</button><button type="button" onclick="go('wallet')">💳<br>Wallet</button><button type="button" onclick="go('cart')">🛒<br>Cart</button></div>
 </div>
 <script>
 const data=[
@@ -474,7 +481,7 @@ function search(q){
   }).join('');
 }
 
-function go(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');scrollTo(0,0);if(id!=='home'){const sr=document.getElementById('searchResults');if(sr)sr.style.display='none';}if(id==='compare'){setTimeout(renderCompareUI,0)}if(id==='cart'){setTimeout(renderCart,0)}if(id==='checkout'){setTimeout(renderCheckout,0)}if(id==='profile'){setTimeout(renderProfileOrders,0)}}
+function go(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');scrollTo(0,0);if(id!=='home'){const sr=document.getElementById('searchResults');if(sr)sr.style.display='none';}if(id==='compare'){setTimeout(renderCompareUI,0)}if(id==='cart'){setTimeout(renderCart,0)}if(id==='checkout'){setTimeout(renderCheckout,0)}if(id==='profile'){setTimeout(renderProfileOrders,0)}if(id==='wallet'){setTimeout(updateWalletUI,0)}}
 function card(p){
   const safeName=p.name.replace(/'/g,"\\'");
   const safePrice=p.price.replace(/'/g,"\\'");
@@ -676,6 +683,7 @@ function exchange(){resetExchange();go('exchange')}
 
 document.getElementById('featured').innerHTML=data.slice(0,8).map(card).join('');
 setWalletBalance(getWalletBalance());
+updateWalletUI();
 try{
   const saved=JSON.parse(localStorage.getItem('ourStoreSelectedProduct')||'null');
   if(saved && saved.name){selectedProduct=saved;}
@@ -811,6 +819,7 @@ function resetAddressForm(){
 }
 
 
+function updateWalletUI(){const el=document.getElementById('walletBalance');if(el)el.textContent='₹'+getWalletBalance().toLocaleString('en-IN');const cb=document.getElementById('checkoutWalletBalance');if(cb)cb.textContent='₹'+getWalletBalance().toLocaleString('en-IN');}
 function getWalletBalance(){
   const saved=localStorage.getItem('ourStoreWalletBalance');
   return saved===null ? 2500 : Math.max(0,Number(saved)||0);
