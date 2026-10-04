@@ -264,6 +264,31 @@ body:has(#catalog:target) #catalog {display:block!important}
   </div>
 </div>
 
+<button class="btn" style="width:100%;margin:12px 0" onclick="openOffers()">🏷️ Offers & Deals</button>
+<div id="offersModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:999;align-items:flex-end;padding:14px">
+  <div style="background:#fff;border-radius:24px;padding:20px;width:100%;max-width:520px;margin:auto;max-height:85vh;overflow:auto">
+    <button class="back" onclick="closeOffers()">← Back</button>
+    <h2 style="margin:14px 0 8px">🏷️ Offers & Deals</h2>
+    <p class="muted">Special demo offers from Our Store.</p>
+    <div class="card" style="margin-top:12px">
+      <h3>📱 Mobile Offers</h3>
+      <p class="muted">Selected mobiles with demo promotional offers.</p>
+      <button class="btn alt" style="width:100%" onclick="showOffer('Mobile Offer')">View Offer</button>
+    </div>
+    <div class="card" style="margin-top:10px">
+      <h3>💻 Laptop Offers</h3>
+      <p class="muted">Selected laptops with demo promotional offers.</p>
+      <button class="btn alt" style="width:100%" onclick="showOffer('Laptop Offer')">View Offer</button>
+    </div>
+    <div class="card" style="margin-top:10px">
+      <h3>🎁 Accessories Deals</h3>
+      <p class="muted">Special accessory deals for demo purposes.</p>
+      <button class="btn alt" style="width:100%" onclick="showOffer('Accessories Deal')">View Offer</button>
+    </div>
+    <p id="offerStatus" class="muted" style="text-align:center;margin-top:12px"></p>
+  </div>
+</div>
+
 <h3>Featured</h3><div id="featured"></div>
 </div></div>
 
@@ -615,6 +640,22 @@ function openNews(){
 function closeNews(){
   const m=document.getElementById('newsModal');
   if(m)m.style.display='none';
+}
+
+
+function openOffers(){
+  const m=document.getElementById('offersModal');
+  if(m)m.style.display='flex';
+}
+function closeOffers(){
+  const m=document.getElementById('offersModal');
+  if(m)m.style.display='none';
+  const st=document.getElementById('offerStatus');
+  if(st)st.textContent='';
+}
+function showOffer(name){
+  const st=document.getElementById('offerStatus');
+  if(st)st.textContent=name+' — demo offer selected.';
 }
 
 function product(n,pr,spec){
