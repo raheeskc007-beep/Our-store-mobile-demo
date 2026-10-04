@@ -209,6 +209,30 @@ body:has(#catalog:target) #catalog {display:block!important}
     </div>
   </div>
 </div>
+<button class="btn" style="width:100%;margin:12px 0" onclick="openNews()">📰 News</button>
+<div id="newsModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:999;align-items:flex-end;padding:14px">
+  <div style="background:#fff;border-radius:24px;padding:20px;width:100%;max-width:520px;margin:auto;max-height:85vh;overflow:auto">
+    <button class="back" onclick="closeNews()">← Back</button>
+    <h2 style="margin:14px 0 8px">📰 Tech News</h2>
+    <p class="muted">Latest technology updates and product news.</p>
+    <div class="card" style="margin-top:12px">
+      <h3>📱 Smartphone Updates</h3>
+      <p class="muted">New smartphone launches, features and technology updates.</p>
+      <button class="btn alt" style="width:100%" onclick="showNewsDemo('Smartphone Updates')">Read More</button>
+    </div>
+    <div class="card" style="margin-top:10px">
+      <h3>💻 Laptop & AI News</h3>
+      <p class="muted">Latest laptop, AI and computing technology updates.</p>
+      <button class="btn alt" style="width:100%" onclick="showNewsDemo('Laptop & AI News')">Read More</button>
+    </div>
+    <div class="card" style="margin-top:10px">
+      <h3>🎮 Gaming & Accessories</h3>
+      <p class="muted">New gaming devices, accessories and tech trends.</p>
+      <button class="btn alt" style="width:100%" onclick="showNewsDemo('Gaming & Accessories')">Read More</button>
+    </div>
+    <p id="newsStatus" class="muted" style="text-align:center;margin-top:12px"></p>
+  </div>
+</div>
 <h3>Featured</h3><div id="featured"></div>
 </div></div>
 
@@ -550,6 +574,22 @@ function openNewLaunches(){
 function closeNewLaunches(){
   const m=document.getElementById('newLaunchesModal');
   if(m)m.style.display='none';
+}
+
+
+function openNews(){
+  const m=document.getElementById('newsModal');
+  if(m)m.style.display='flex';
+}
+function closeNews(){
+  const m=document.getElementById('newsModal');
+  if(m)m.style.display='none';
+  const st=document.getElementById('newsStatus');
+  if(st)st.textContent='';
+}
+function showNewsDemo(topic){
+  const st=document.getElementById('newsStatus');
+  if(st)st.textContent=topic+' — demo article opened.';
 }
 
 function product(n,pr,spec){
