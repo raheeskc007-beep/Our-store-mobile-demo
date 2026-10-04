@@ -61,7 +61,14 @@ h1{font-size:26px;margin:0 0 12px}.search{background:#f1f2f4;border:0;border-rad
   .compareTable td{font-size:12px}
   .compareGroup td{font-size:13px}
 }
-.specList{display:flex;flex-direction:column;gap:0}.specRow{display:flex;justify-content:space-between;gap:16px;padding:11px 0;border-bottom:1px solid #eee;font-size:14px}.specRow span{color:#666}.specRow b{text-align:right;max-width:58%}html,body{overflow-x:hidden}</style>
+.specList{display:flex;flex-direction:column;gap:0}.specRow{display:flex;justify-content:space-between;gap:16px;padding:11px 0;border-bottom:1px solid #eee;font-size:14px}.specRow span{color:#666}.specRow b{text-align:right;max-width:58%}html,body{overflow-x:hidden}
+/* V16 Home redesign polish */
+.homeSection{box-sizing:border-box}
+@media (max-width:520px){
+  .homeSection .card{box-shadow:none}
+}
+
+</style>
 
 <style>
 /* Our Store Premium Home v1 — visual layer only */
@@ -229,6 +236,34 @@ body:has(#catalog:target) #catalog {display:block!important}
     </div>
   </div>
 </div>
+<div class="homeSection" style="margin:18px 0">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+    <h3 style="margin:0">Popular Today</h3>
+    <span class="muted" style="font-size:12px">Our Store picks</span>
+  </div>
+  <div style="display:flex;gap:10px;overflow-x:auto;padding-bottom:4px">
+    <button class="card" style="min-width:145px;text-align:left;border:1px solid #e4e7eb" onclick="catalog('Mobiles')">
+      <b>📱 Mobiles</b><div class="muted" style="font-size:12px;margin-top:5px">Latest phones</div>
+    </button>
+    <button class="card" style="min-width:145px;text-align:left;border:1px solid #e4e7eb" onclick="catalog('Laptops')">
+      <b>💻 Laptops</b><div class="muted" style="font-size:12px;margin-top:5px">Work & study</div>
+    </button>
+    <button class="card" style="min-width:145px;text-align:left;border:1px solid #e4e7eb" onclick="catalog('Tablets')">
+      <b>📱 Tablets</b><div class="muted" style="font-size:12px;margin-top:5px">Portable power</div>
+    </button>
+  </div>
+</div>
+
+<div class="homeSection card" style="margin:18px 0">
+  <h3 style="margin-top:0">Why Our Store?</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px">
+    <div style="padding:10px;border-radius:14px;background:#f5f6f8"><b>✓ Trusted</b><div class="muted" style="font-size:11px;margin-top:4px">Simple buying experience</div></div>
+    <div style="padding:10px;border-radius:14px;background:#f5f6f8"><b>✓ Compare</b><div class="muted" style="font-size:11px;margin-top:4px">Choose the right device</div></div>
+    <div style="padding:10px;border-radius:14px;background:#f5f6f8"><b>✓ Exchange</b><div class="muted" style="font-size:11px;margin-top:4px">Trade your old device</div></div>
+    <div style="padding:10px;border-radius:14px;background:#f5f6f8"><b>✓ Direct</b><div class="muted" style="font-size:11px;margin-top:4px">Buy from Our Store</div></div>
+  </div>
+</div>
+
 <h3>Featured</h3><div id="featured"></div>
 </div></div>
 
