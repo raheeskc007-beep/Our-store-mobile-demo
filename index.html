@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Our Store — V6 Product Details Demo</title>
+<title>Our Store — V13 Video Reviews</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f4f5f7;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial;color:#111}
 .app{max-width:430px;margin:auto;min-height:100vh;background:#fff}.top{padding:18px 18px 10px;position:sticky;top:0;background:#fff;z-index:3;border-bottom:1px solid #eee}
@@ -190,7 +190,16 @@ body:has(#catalog:target) #catalog {display:block!important}
 <button class="chip" onclick="catalog('Mobiles')">📱 Mobiles</button><button class="chip" onclick="catalog('Laptops')">💻 Laptops</button><button class="chip" onclick="catalog('Tablets')">📲 Tablets</button><button class="chip" onclick="catalog('Accessories')">🎧 Accessories</button>
 </div>
 <div class="grid" style="margin-top:14px"><button class="btn" onclick="find()">🎯 Find My Device</button><button class="btn alt" onclick="openCompareFromHome()" type="button">⚖️ Compare</button><button class="btn alt" onclick="exchange()">🔄 Exchange</button></div>
+<button class="btn" style="width:100%;margin-top:12px" onclick="go('videoReviews')">🎥 Video Reviews</button>
 <h3>Featured</h3><div id="featured"></div>
+</div></div>
+
+<div id="videoReviews" class="screen"><div class="content">
+<button class="back" onclick="go('home')">← Home</button>
+<h2>🎥 Video Reviews</h2>
+<p class="muted">Watch quick product reviews before you buy.</p>
+<div class="card"><h3>iPhone Pro</h3><p class="muted">Camera, performance and everyday use.</p><button class="btn" style="width:100%" onclick="demoVideoReview('iPhone Pro')">▶ Watch Review</button></div>
+<div class="card"><h3>Galaxy Ultra</h3><p class="muted">Display, battery and performance.</p><button class="btn" style="width:100%" onclick="demoVideoReview('Galaxy Ultra')">▶ Watch Review</button></div>
 </div></div>
 
 <div id="catalog" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2 id="catTitle">Products</h2><div class="row" style="margin-bottom:10px"><button class="chip" onclick="brandCatalog('All')">All</button><button class="chip" onclick="brandCatalog('Apple')">Apple</button><button class="chip" onclick="brandCatalog('Samsung')">Samsung</button><button class="chip" onclick="brandCatalog('OnePlus')">OnePlus</button><button class="chip" onclick="brandCatalog('Xiaomi')">Xiaomi</button><button class="chip" onclick="brandCatalog('Vivo')">Vivo</button><button class="chip" onclick="brandCatalog('OPPO')">OPPO</button><button class="chip" onclick="brandCatalog('Google')">Google</button><button class="chip" onclick="brandCatalog('Realme')">Realme</button><button class="chip" onclick="brandCatalog('Motorola')">Motorola</button></div><div id="products"></div></div></div>
@@ -481,6 +490,7 @@ function search(q){
   }).join('');
 }
 
+function demoVideoReview(name){alert('Demo video review: '+name+'\n\nReal product review video can be connected here in production.');}
 function go(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');scrollTo(0,0);if(id!=='home'){const sr=document.getElementById('searchResults');if(sr)sr.style.display='none';}if(id==='compare'){setTimeout(renderCompareUI,0)}if(id==='cart'){setTimeout(renderCart,0)}if(id==='checkout'){setTimeout(renderCheckout,0)}if(id==='profile'){setTimeout(renderProfileOrders,0)}if(id==='wallet'){setTimeout(updateWalletUI,0)}}
 function card(p){
   const safeName=p.name.replace(/'/g,"\\'");
