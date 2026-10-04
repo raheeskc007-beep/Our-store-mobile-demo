@@ -303,7 +303,12 @@ body:has(#catalog:target) #catalog {display:block!important}
 <label class="payOption"><input type="radio" name="payment" value="Cash on Delivery"> Cash on Delivery</label>
 </div>
 <div class="card"><b>Order total</b><div id="checkoutTotal" class="price">—</div></div>
-<button class="btn" onclick="placeOrder()">Place Demo Order</button>
+<button class="btn" onclick="placeOrder()">
+<label class="paymentOption" style="display:block;margin:8px 0">
+  <input type="radio" name="payment" value="Wallet">
+  Our Store Wallet <span class="muted">· Balance <span id="checkoutWalletBalance">₹2,500</span></span>
+</label>
+Place Demo Order</button>
 </div></div>
 
 <div id="order" class="screen"><div class="content"><h2>Order Confirmed ✅</h2><div class="card"><b id="orderNumber">Order #OS-1001</b><p id="orderSummary">Processing → Ready → Delivered</p><p class="muted" id="orderPayment"></p><p class="muted" id="orderAddress"></p></div><div class="card"><h3>Order status</h3><div class="track"><div class="trackStep active"><span>✓</span><b>Order placed</b><small>Order received by Our Store</small></div><div class="trackLine"></div><div class="trackStep"><span>2</span><b>Preparing</b><small>Demo status</small></div><div class="trackLine"></div><div class="trackStep"><span>3</span><b>Delivered</b><small>Delivery confirmation later</small></div></div></div><button class="btn" onclick="go('home')">Back to Home</button><button class="btn alt" onclick="go('cart')">View Cart</button></div></div>
@@ -351,6 +356,22 @@ body:has(#catalog:target) #catalog {display:block!important}
 <div id="profile" class="screen"><div class="content">
 <button class="back" onclick="go('home')">← Home</button>
 <h2>Profile</h2>
+<div class="card" id="walletCard" style="margin-top:12px">
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+    <div>
+      <div class="muted">Our Store Wallet</div>
+      <div id="walletBalance" class="price">₹2,500</div>
+    </div>
+    <button class="btn" onclick="walletTopUp()">Add Money</button>
+  </div>
+  <div class="row" style="margin-top:10px">
+    <button class="chip" onclick="walletTopUp(500)">+ ₹500</button>
+    <button class="chip" onclick="walletTopUp(1000)">+ ₹1,000</button>
+    <button class="chip" onclick="walletTopUp(2000)">+ ₹2,000</button>
+  </div>
+  <p class="muted" style="margin-top:10px">Demo wallet for the prototype. Real payment processing will be connected in production.</p>
+</div>
+
 <div class="card"><h3>My Account</h3><p class="muted">Our Store customer · Demo profile</p><div class="grid"><button class="btn alt" onclick="openAddresses()">📍 Addresses</button><button class="btn alt" onclick="go('support')">🛟 Support</button></div></div>
 <div class="card"><b>My Orders</b><div id="profileOrders"><p class="muted">No demo orders yet.</p></div><button class="btn" onclick="showOrderTracking()">Track Latest Order</button></div>
 <div id="trackingCard" class="card" style="display:none"><b>Order Tracking</b>
@@ -654,6 +675,7 @@ function exchange(){resetExchange();go('exchange')}
 
 
 document.getElementById('featured').innerHTML=data.slice(0,8).map(card).join('');
+setWalletBalance(getWalletBalance());
 try{
   const saved=JSON.parse(localStorage.getItem('ourStoreSelectedProduct')||'null');
   if(saved && saved.name){selectedProduct=saved;}
@@ -788,11 +810,44 @@ function resetAddressForm(){
   if(cancel)cancel.style.display='none';
 }
 
+
+function getWalletBalance(){
+  const saved=localStorage.getItem('ourStoreWalletBalance');
+  return saved===null ? 2500 : Math.max(0,Number(saved)||0);
+}
+function setWalletBalance(value){
+  const balance=Math.max(0,Number(value)||0);
+  localStorage.setItem('ourStoreWalletBalance',String(balance));
+  const a=document.getElementById('walletBalance');
+  if(a)a.textContent='₹'+Math.round(balance).toLocaleString('en-IN');
+  const b=document.getElementById('checkoutWalletBalance');
+  if(b)b.textContent='₹'+Math.round(balance).toLocaleString('en-IN');
+}
+function walletTopUp(amount){
+  let value=Number(amount);
+  if(!value){
+    value=Number(prompt('Enter demo top-up amount'));
+  }
+  if(!value || value<=0)return;
+  setWalletBalance(getWalletBalance()+value);
+  alert('₹'+Math.round(value).toLocaleString('en-IN')+' added to your demo wallet.');
+}
 function placeOrder(){
   const address=(document.getElementById('deliveryAddress').value||'').trim();
   if(!address){alert('Please select a saved delivery address or enter one for the demo order.');return;}
   window.demoAddress=address;
   window.demoPayment=document.querySelector('input[name="payment"]:checked')?.value||'UPI';
+  if(window.demoPayment==='Wallet'){
+    const balance=getWalletBalance();
+    const totalEl=document.querySelector('.checkoutTotal');
+    const total=Number((totalEl?.textContent||'').replace(/[^0-9.]/g,''))||0;
+    if(balance<total){
+      alert('Insufficient Our Store Wallet balance for this demo order.');
+      return;
+    }
+    setWalletBalance(balance-total);
+  }
+
   const orderNo='OS-'+String(Date.now()).slice(-6);
   const n=document.getElementById('orderNumber'); if(n)n.textContent='Order #'+orderNo;
   const p=document.getElementById('orderPayment'); if(p)p.textContent='Payment: '+window.demoPayment;
