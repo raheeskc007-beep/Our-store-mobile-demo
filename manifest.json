@@ -1,0 +1,13 @@
+
+{
+  "id": "/Our-store-mobile-demo/",
+  "name": "Our Store",
+  "short_name": "Our Store",
+  "description": "Shop smartphones, laptops, tablets and accessories with Our Store.",
+  "start_url": "/Our-store-mobile-demo/",
+  "scope": "/Our-store-mobile-demo/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#111111",
+  "orientation": "portrait"
+}
