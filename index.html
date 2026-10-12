@@ -1284,4 +1284,14 @@ function placeOrder(){
 }
 </script>
 <script>document.addEventListener('DOMContentLoaded',function(){updateRewardPoints();updateCheckoutWalletBalance();});</script>
+  
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/Our-store-mobile-demo/sw.js")
+      .catch((error) => console.error("Service worker registration failed:", error));
+  });
+}
+</script>
+
 </body></html>
