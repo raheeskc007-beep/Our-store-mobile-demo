@@ -391,15 +391,15 @@ body{background:var(--os-page)}
 
 /* Multi-image product gallery — interactive demo layer */
 .productVisual{height:auto!important;display:block!important;background:transparent!important;font-size:initial!important;overflow:visible!important}
-.osGalleryStage{height:310px;position:relative;display:flex;align-items:center;justify-content:center;border-radius:22px;background:linear-gradient(145deg,#f4f6f9,#dfe4eb);overflow:hidden}
-.osGalleryStage #productDetailImage{transition:transform .25s ease,filter .25s ease;max-width:100%;}
+.osGalleryStage{height:340px;position:relative;display:flex;align-items:center;justify-content:center;border-radius:24px;background:radial-gradient(ellipse at 50% 38%,#fff 0%,#f4f6f9 48%,#e4e8ee 100%);overflow:hidden;border:1px solid #e6e9ef;box-shadow:inset 0 1px 0 #fff,0 10px 24px #19283b0b}
+.osGalleryStage #productDetailImage{transition:transform .28s ease,filter .28s ease;max-width:100%;max-height:100%;object-fit:contain!important;padding:22px!important;filter:drop-shadow(0 16px 13px #10182822);}
 .osGalleryCount{position:absolute;right:12px;top:12px;z-index:2;background:#111a;color:white;border-radius:20px;padding:6px 10px;font-size:12px;font-weight:700}
 .osGalleryArrow{position:absolute;top:48%;z-index:3;border:0;width:36px;height:36px;border-radius:50%;background:#ffffffed;box-shadow:0 2px 8px #0001;font-size:27px;line-height:1;cursor:pointer}
 .osGalleryArrow.prev{left:10px}.osGalleryArrow.next{right:10px}
 .osGallery360{position:absolute;bottom:10px;right:10px;border:0;border-radius:22px;background:#111;color:#fff;padding:9px 12px;font-weight:700;font-size:12px;z-index:3}
 .osGalleryThumbs{display:flex;gap:7px;overflow-x:auto;padding:10px 1px 3px;scrollbar-width:none}.osGalleryThumbs::-webkit-scrollbar{display:none}
-.osGalleryThumb{flex:0 0 68px;border:1px solid #e2e5ea;border-radius:12px;background:#f5f7fa;padding:5px 3px 6px;color:#30343b;font-size:10px;white-space:nowrap;cursor:pointer}
-.osGalleryThumb.active{border:2px solid #1769e0;background:#eef5ff}.osGalleryThumb img{display:block;width:100%;height:54px;object-fit:contain}.osGalleryThumb span{display:block;margin-top:3px}
+.osGalleryThumb{flex:0 0 70px;border:1px solid #e2e5ea;border-radius:13px;background:linear-gradient(145deg,#fff,#f0f3f7);padding:5px 3px 7px;color:#30343b;font-size:10px;white-space:nowrap;cursor:pointer;box-shadow:0 2px 7px #15243a0a}
+.osGalleryThumb.active{border:2px solid #1769e0;background:#eef5ff;box-shadow:0 0 0 2px #1769e018}.osGalleryThumb img{display:block;width:100%;height:54px;object-fit:contain}.osGalleryThumb span{display:block;margin-top:3px}
 @media(max-width:380px){.osGalleryStage{height:275px}.osGalleryThumb{flex-basis:61px}}
 
 </style>
@@ -921,23 +921,32 @@ function showOffer(name){
 
 const osGalleryViews=[
  {label:'Front',transform:'scale(1)',filter:'none'},
- {label:'Back',transform:'scale(.92) rotateY(180deg)',filter:'none'},
- {label:'Left',transform:'scale(.78) skewY(-5deg) rotate(-4deg)',filter:'brightness(.94)'},
- {label:'Right',transform:'scale(.78) skewY(5deg) rotate(4deg)',filter:'brightness(.94)'},
+ {label:'Back',transform:'scale(.94)',filter:'brightness(.96)'},
+ {label:'Left',transform:'scale(.72) skewY(-3deg) rotate(-3deg)',filter:'brightness(.92)'},
+ {label:'Right',transform:'scale(.72) skewY(3deg) rotate(3deg)',filter:'brightness(.92)'},
  {label:'Top',transform:'scale(.82) rotate(90deg)',filter:'brightness(.96)'},
  {label:'Bottom',transform:'scale(.82) rotate(-90deg)',filter:'brightness(.96)'},
- {label:'Camera',transform:'scale(1.55) translateY(-12%)',filter:'contrast(1.05)'},
- {label:'360°',transform:'scale(.94) rotateY(0deg)',filter:'saturate(1.05)'}
+ {label:'Camera',transform:'scale(1.42) translateY(-8%)',filter:'contrast(1.08)'},
+ {label:'360°',transform:'scale(.94)',filter:'saturate(1.05)'}
 ];
 let osGalleryIndex=0,osGalleryTimer=null;
+function galleryColorFilter(){
+ const c=(selectedColor||'Black').toLowerCase();
+ if(c==='blue')return 'hue-rotate(175deg) saturate(1.2)';
+ if(c==='silver')return 'grayscale(.72) brightness(1.18)';
+ if(c==='gold')return 'sepia(.62) saturate(1.35) hue-rotate(350deg)';
+ return 'none';
+}
 function renderOsGallery(){
  const img=document.getElementById('productDetailImage'),count=document.getElementById('osGalleryCount'),thumbs=document.getElementById('osGalleryThumbs'),note=document.getElementById('osGalleryNote');
  if(!img||!thumbs)return;
- const view=osGalleryViews[osGalleryIndex];
- img.style.transform=view.transform;img.style.filter=view.filter;img.style.objectPosition='center';
+ const view=osGalleryViews[osGalleryIndex], colorFilter=galleryColorFilter();
+ img.style.transform=view.transform;
+ img.style.filter=[view.filter,colorFilter].filter(x=>x&&x!=='none').join(' ')||'none';
+ img.style.objectPosition='center';
  if(count)count.textContent=(osGalleryIndex+1)+' / '+osGalleryViews.length;
- thumbs.innerHTML=osGalleryViews.map((v,i)=>`<button type="button" class="osGalleryThumb ${i===osGalleryIndex?'active':''}" onclick="setGalleryView(${i})"><img src="${img.src}" alt="${v.label} preview" style="transform:${v.transform};filter:${v.filter}"><span>${v.label}</span></button>`).join('');
- if(note)note.textContent='Interactive gallery demo · genuine model-specific angle photos can replace these previews';
+ thumbs.innerHTML=osGalleryViews.map((v,i)=>`<button type="button" class="osGalleryThumb ${i===osGalleryIndex?'active':''}" onclick="setGalleryView(${i})" aria-label="Show ${v.label} view"><img src="${img.src}" alt="${v.label} view preview" style="transform:${v.transform};filter:${[v.filter,colorFilter].filter(x=>x&&x!=='none').join(' ')||'none'}"><span>${v.label}</span></button>`).join('');
+ if(note)note.textContent='Selected colour: '+selectedColor+' · Angle previews are stylized from the available product image';
 }
 function setGalleryView(i){osGalleryIndex=(i+osGalleryViews.length)%osGalleryViews.length;renderOsGallery();}
 function moveGallery(delta){setGalleryView(osGalleryIndex+delta);}
@@ -954,7 +963,7 @@ function product(n,pr,spec){
   const p=data.find(x=>x.name===n)||{};
   selectedProduct={name:n,price:pr,spec:spec,brand:p.brand||'—',category:p.category||'—'};
   const detailImage=document.getElementById('productDetailImage');
-  if(detailImage){detailImage.src=deviceImage(p.name?p:{name:n,brand:selectedProduct.brand,category:selectedProduct.category});detailImage.alt=n+' product image';}
+  if(detailImage){detailImage.src=deviceImage(p.name?p:{name:n,brand:selectedProduct.brand,category:selectedProduct.category});detailImage.alt=n+' product image';detailImage.style.transform='scale(1)';detailImage.style.filter='none';}
   osGalleryIndex=0;if(osGalleryTimer){clearInterval(osGalleryTimer);osGalleryTimer=null;}const gbtn=document.getElementById('osGallery360');if(gbtn)gbtn.textContent='↻ 360° Preview';setTimeout(renderOsGallery,50);
   document.getElementById('pname').textContent=n;
   document.getElementById('pprice').textContent=pr;
@@ -1086,6 +1095,7 @@ function selectVariant(btn,type){
   if(memoryText) memoryText.innerHTML='<small>Memory</small>'+selectedStorage.split('/')[0]+' GB RAM';
   const sum=document.getElementById('variantSummary');
   if(sum) sum.textContent='Selected: '+selectedStorage+' · '+selectedColor;
+  renderOsGallery();
 }
 
 function addCart(){renderCart();go('cart')}
