@@ -940,17 +940,26 @@ const osIphone17ProImages={
  lineup:'https://www.apple.com/newsroom/images/2025/09/apple-unveils-iphone-17-pro-and-iphone-17-pro-max/article/Apple-iPhone-17-Pro-color-lineup-250909_inline.jpg.large.jpg'
 };
 let osGalleryIndex=0,osGalleryTimer=null;
-function isSamsungS26Gallery(){return /galaxy s26 ultra/i.test((selectedProduct&&selectedProduct.name)||document.getElementById('pname')?.textContent||'');}
-function isIphone17ProGallery(){return /iphone 17 pro/i.test((selectedProduct&&selectedProduct.name)||document.getElementById('pname')?.textContent||'');}
+function galleryProductName(){
+ return String((selectedProduct&&selectedProduct.name)||document.getElementById('pname')?.textContent||'');
+}
+function isSamsungS26Gallery(){return /galaxy s26 ultra/i.test(galleryProductName());}
+function isIphone17ProGallery(){return /^iphone 17 pro(?: max)?$/i.test(galleryProductName());}
 function currentGalleryViews(){
+ const name=galleryProductName();
  if(isSamsungS26Gallery()){
-   const chosen=(selectedColor||'').toLowerCase();
-   if(chosen && chosen!=='cobalt violet')return [{label:'Cobalt Violet reference',src:osSamsungS26Angles[0].src}];
-   return osSamsungS26Angles;
+   const chosen=(selectedColor||'Cobalt Violet').toLowerCase();
+   if(chosen==='cobalt violet')return osSamsungS26Angles;
+   // Do not pretend that the Cobalt Violet photos are the selected colour.
+   return [{label:'Available official reference',src:osSamsungS26Angles[0].src}];
  }
  if(isIphone17ProGallery()){
-   if((selectedColor||'').toLowerCase()==='cosmic orange')return [{label:'Front + Back',src:osIphone17ProImages.orange},{label:'Colour lineup',src:osIphone17ProImages.lineup}];
-   return [{label:'Official colour lineup',src:osIphone17ProImages.lineup},{label:'Cosmic Orange · Front + Back',src:osIphone17ProImages.orange}];
+   // Apple's official material has a front/back image and a colour-lineup image,
+   // not independent side-angle photos for each selected finish.
+   return [
+    {label:'Front + Back · Cosmic Orange',src:osIphone17ProImages.orange},
+    {label:'Official colour lineup',src:osIphone17ProImages.lineup}
+   ];
  }
  const img=document.getElementById('productDetailImage');
  return [{label:'Product image',src:img?img.src:''}];
@@ -967,9 +976,9 @@ function renderOsGallery(){
  if(count)count.textContent=(osGalleryIndex+1)+' / '+views.length;
  thumbs.innerHTML=views.map((v,i)=>`<button type="button" class="osGalleryThumb ${i===osGalleryIndex?'active':''}" onclick="setGalleryView(${i})" aria-label="Show ${v.label} view"><img src="${v.src||img.src}" alt="${v.label}" loading="lazy"><span>${v.label}</span></button>`).join('');
  if(note){
-  if(isSamsungS26Gallery())note.textContent=(selectedColor||'Cobalt Violet')==='Cobalt Violet'?'Official Samsung product images · multiple real viewing angles · colour shown is Cobalt Violet.':'Samsung official colour-lineup reference selected; individual multi-angle images are currently available for Cobalt Violet only.';
-  else if(isIphone17ProGallery())note.textContent=(selectedColor||'Deep Blue')==='Cosmic Orange'?'Official Apple product images · the orange image shows front + back; the lineup image shows the three official finishes.':'Official Apple colour-lineup reference · individual angle images for this selected finish are not yet available.';
-  else note.textContent='This model currently has one product image. Separate angle photos will be added when available.';
+  if(isSamsungS26Gallery())note.textContent=(selectedColor||'Cobalt Violet').toLowerCase()==='cobalt violet'?'Official Samsung product images · 6 genuine viewing images · Cobalt Violet finish. Other colours do not yet have their own angle set.':'Official Samsung reference image shown; genuine multi-angle images are currently available only for Cobalt Violet.';
+  else if(isIphone17ProGallery())note.textContent='Official Apple images · front/back and colour lineup references. Independent angle photos for every finish are not yet available.';
+  else note.textContent='Product image for this catalog model. Additional verified angle images can be added when official photos are available.';
  }
 }
 function setGalleryView(i){const views=currentGalleryViews();osGalleryIndex=(i+views.length)%views.length;renderOsGallery();syncImageViewer();}
