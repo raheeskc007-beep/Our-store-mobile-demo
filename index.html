@@ -745,6 +745,9 @@ Place Demo Order</button>
 </div>
 <script>
 const data=[
+{brand:'Apple',category:'Mobiles',name:'iPhone Duo',price:'India price TBA',spec:'256 GB · Foldable OLED · A20 Pro · 48MP Dual Fusion · iOS 27'},
+{brand:'Apple',category:'Mobiles',name:'iPhone 18 Pro Max',price:'India price TBA',spec:'12/256 GB · 6.9-inch OLED · A20 Pro · 48MP variable-aperture camera'},
+{brand:'Apple',category:'Mobiles',name:'iPhone 18 Pro',price:'India price TBA',spec:'12/256 GB · 6.3-inch OLED · A20 Pro · 48MP variable-aperture camera'},
 {brand:'Apple',category:'Mobiles',name:'iPhone 17 Pro Max',price:'₹1,49,900',spec:'12/256 GB · 5G · Pro camera'},
 {brand:'Apple',category:'Mobiles',name:'iPhone 17 Pro',price:'₹1,34,900',spec:'12/256 GB · 5G · Pro camera'},
 {brand:'Apple',category:'Mobiles',name:'iPhone 17',price:'₹89,900',spec:'8/256 GB · 5G · OLED'},
@@ -1060,6 +1063,7 @@ function openCompareFromHome(){
   },50);
 }
 function deviceImage(p){
+  if(p.name==='iPhone Duo'){const duoSvg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 300"><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f6f8fc"/><stop offset="1" stop-color="#e6ebf3"/></linearGradient><linearGradient id="screen" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8fb8ef"/><stop offset="1" stop-color="#263d70"/></linearGradient></defs><rect width="320" height="300" rx="24" fill="url(#bg)"/><g transform="translate(34 55) rotate(-7 70 90)"><rect x="0" y="0" width="116" height="188" rx="17" fill="#b8c0cd"/><rect x="5" y="5" width="106" height="178" rx="13" fill="#101722"/><rect x="10" y="10" width="96" height="168" rx="10" fill="url(#screen)"/><circle cx="58" cy="18" r="3" fill="#111827"/></g><g transform="translate(145 66) rotate(5 64 80)"><rect x="0" y="0" width="128" height="168" rx="16" fill="#b8c0cd"/><rect x="5" y="5" width="118" height="158" rx="12" fill="#111722"/><rect x="10" y="10" width="108" height="148" rx="8" fill="url(#screen)"/><path d="M12 120 Q55 60 116 100 L116 158 L10 158Z" fill="#c6dcf7" opacity=".7"/></g><text x="160" y="272" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#202b3c">iPhone Duo</text><text x="160" y="289" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" fill="#5c687a">Foldable concept illustration</text></svg>';return 'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent(duoSvg);}
   const text=(p.name||'Device').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   const brand=(p.brand||'').replace(/&/g,'&amp;');
   const svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 300"><rect width="220" height="300" rx="28" fill="#eef0f3"/><rect x="52" y="12" width="116" height="276" rx="22" fill="#20242a"/><rect x="59" y="27" width="102" height="246" rx="17" fill="#f8f9fa"/><circle cx="110" cy="40" r="4" fill="#20242a"/><text x="110" y="138" text-anchor="middle" font-size="13" font-family="Arial" fill="#222">'+brand+'</text><text x="110" y="158" text-anchor="middle" font-size="10" font-family="Arial" fill="#555">'+(text.length>18?text.slice(0,18)+'…':text)+'</text></svg>';
@@ -1076,6 +1080,7 @@ function renderCompareUI(q){
 }
 function compareSpecs(p){
   const name=p.name||'Device';
+  if(name==='iPhone Duo'){return {price:p.price,release:'Announced Sep 2026; India availability/price to confirm',screen:'7.6-inch inner + 5.4-inch outer',weight:'254 g (open)',thickness:'5.2 mm open / 11.3 mm closed',network:'5G / 4G LTE',body:'Grade 5 titanium foldable design',dimensions:'164.6 × 117.8 mm open; 84.1 × 117.8 mm closed',build:'Titanium hinge/frame · Ceramic Shield',sim:'See official regional specs',display:'Super Retina XDR OLED foldable',resolution:'1878 × 2670 inner; 1398 × 2034 outer',protection:'Ceramic Shield 2 front; Ceramic Shield back',os:'iOS 27',chipset:'Apple A20 Pro',cpu:'6-core CPU',gpu:'7-core GPU',ram:'Not specified here',card:'No',internal:'256 GB / 512 GB / 1 TB / 2 TB',mainModules:'48MP Fusion Main + 48MP Fusion Ultra Wide',mainFeatures:'2× optical-quality zoom; Smart Take; Duo Preview',mainVideo:'Up to 4K 120 fps Dolby Vision on Main camera',selfieModules:'12MP Center Stage + under-display FaceTime camera',selfieFeatures:'Center Stage; Dual Capture',selfieVideo:'1080p under-display FaceTime camera',battery:'Dual-battery architecture; capacity not listed',charging:'USB-C; details vary by region',wifi:'Wi‑Fi (official specs)',bluetooth:'Bluetooth (official specs)',nfc:'Yes / regional support',usb:'USB‑C',audio:'Stereo speakers',headphone:'No',sensors:'Face ID / accelerometer / gyro / proximity / compass',water:'IP68',extras:'Foldable multitasking; Apple Pencil (USB-C) support planned later in 2026'};}
   const flagship=/Ultra|Pro|14$|17$|X300|Find X9|GT 7 Pro|Razr/i.test(name);
   const fold=/Razr/i.test(name);
   return {
