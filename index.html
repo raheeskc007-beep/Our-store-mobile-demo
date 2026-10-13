@@ -390,6 +390,22 @@ body{background:var(--os-page)}
 @media(prefers-reduced-motion:reduce){.screen{animation:none}html{scroll-behavior:auto}}
 </style>
 
+
+<style>
+/* Our Store multi-angle gallery */
+.osGalleryCard{padding:14px!important;margin:12px 0!important}
+.osGalleryHead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;font-size:17px}
+.os360Btn{border:0;border-radius:999px;padding:9px 12px;background:#111214;color:#fff;font-weight:700}
+.osGalleryStage{height:260px;position:relative;border-radius:20px;background:linear-gradient(145deg,#f5f7fa,#e4e8ee);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.osGalleryStage img{width:100%;height:100%;object-fit:contain;padding:12px;transition:transform .25s ease,filter .25s ease}
+.osGalleryStage.demo360 img{transform:perspective(600px) rotateY(18deg) scale(.92);filter:drop-shadow(0 12px 10px #0002)}
+.osGalleryBadge{position:absolute;left:10px;bottom:10px;background:#fffE;padding:6px 10px;border-radius:999px;font-size:11px;font-weight:700}
+.osGalleryThumbs{display:flex;gap:7px;overflow-x:auto;padding:12px 0 2px;scrollbar-width:none}
+.osGalleryThumbs::-webkit-scrollbar{display:none}
+.osThumb{flex:none;border:1px solid #dfe3e8;border-radius:12px;background:#fff;padding:10px 12px;font-size:12px;font-weight:650}
+.osThumb.active{border:2px solid #111;background:#f4f6f8}
+.osGalleryNote{font-size:11px;margin:9px 0 0}
+</style>
 </head>
 <body>
 <div class="app">
@@ -511,7 +527,23 @@ body{background:var(--os-page)}
 
 <div id="catalog" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2 id="catTitle">Products</h2><div class="row" style="margin-bottom:10px"><button class="chip" onclick="brandCatalog('All')">All</button><button class="chip" onclick="brandCatalog('Apple')">Apple</button><button class="chip" onclick="brandCatalog('Samsung')">Samsung</button><button class="chip" onclick="brandCatalog('OnePlus')">OnePlus</button><button class="chip" onclick="brandCatalog('Xiaomi')">Xiaomi</button><button class="chip" onclick="brandCatalog('Vivo')">Vivo</button><button class="chip" onclick="brandCatalog('OPPO')">OPPO</button><button class="chip" onclick="brandCatalog('Google')">Google</button><button class="chip" onclick="brandCatalog('Realme')">Realme</button><button class="chip" onclick="brandCatalog('Motorola')">Motorola</button></div><div id="products"></div></div></div>
 
-<div id="product" class="screen"><div class="content"><button class="back" onclick="go('catalog')">← Products</button><div class="productHero"><div class="productVisual"><img id="productDetailImage" src="" alt="Phone product image" loading="eager" decoding="async" style="width:100%;height:100%;object-fit:contain;padding:12px;box-sizing:border-box" onerror="this.onerror=null;this.src='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 220 300%22%3E%3Crect width=%22220%22 height=%22300%22 rx=%2228%22 fill=%22%23eef2f7%22/%3E%3Crect x=%2250%22 y=%2225%22 width=%22120%22 height=%22245%22 rx=%2220%22 fill=%22%23dce4ef%22 stroke=%22%2399a8bb%22 stroke-width=%224%22/%3E%3C/svg%3E'"></div><div><div class="tag">Our Store</div><div class="tag">In Stock</div><div class="tag">Warranty</div><h2 id="pname"></h2><p class="muted">Official Our Store listing · sample catalog data</p><div class="price" id="pprice"></div></div></div><div class="card"><b>Choose variant</b><div class="variantRow" style="margin-top:10px"><button class="variant active" data-storage="12/256 GB" onclick="selectVariant(this,'storage')">12/256 GB</button><button class="variant" data-storage="12/512 GB" onclick="selectVariant(this,'storage')">12/512 GB</button><button class="variant" data-storage="16/512 GB" onclick="selectVariant(this,'storage')">16/512 GB</button></div><div class="variantRow" style="margin-top:10px"><button class="variant active" data-color="Black" onclick="selectVariant(this,'color')">Black</button><button class="variant" data-color="Blue" onclick="selectVariant(this,'color')">Blue</button><button class="variant" data-color="Silver" onclick="selectVariant(this,'color')">Silver</button></div><p class="muted" id="variantSummary" style="margin:10px 0 0">Selected: 12/256 GB · Black</p></div><div class="offer"><b>🏷️ Our Store Offer</b><p class="muted">Instant bank offers, EMI options and exchange eligibility will appear here.</p></div><div class="card"><h3>Key specifications</h3><div class="specGrid"><div class="specItem"><small>Display</small>6.7″ AMOLED</div><div class="specItem"><small>Network</small>5G</div><div class="specItem"><small>Memory</small>12 GB RAM</div><div class="specItem"><small>Storage</small>256 GB</div><div class="specItem"><small>Camera</small>50 MP main</div><div class="specItem"><small>Warranty</small>Our Store warranty</div></div></div><div class="card"><h3>Delivery & pickup</h3><p>🚚 Delivery available</p><p>🏪 Store pickup available</p><p class="muted">Final availability and delivery date will be confirmed at checkout.</p></div><div class="card"><h3>Full specifications</h3><div class="specList" id="fullSpecs"><div class="specRow"><span>Brand</span><b id="specBrand">—</b></div><div class="specRow"><span>Category</span><b id="specCategory">—</b></div><div class="specRow"><span>Display</span><b id="specDisplay">6.7″ AMOLED · demo</b></div><div class="specRow"><span>Chipset</span><b id="specChip">—</b></div><div class="specRow"><span>RAM / Storage</span><b id="specMemory">—</b></div><div class="specRow"><span>Main camera</span><b id="specCamera">50 MP · demo</b></div><div class="specRow"><span>Front camera</span><b id="specFront">—</b></div><div class="specRow"><span>Battery</span><b id="specBattery">—</b></div><div class="specRow"><span>Network</span><b id="specNetwork">5G</b></div><div class="specRow"><span>OS</span><b id="specOS">—</b></div><div class="specRow"><span>Warranty</span><b>Our Store warranty</b></div></div><p class="muted" style="margin-bottom:0">Demo specification data. Final specifications can be connected to verified product data later.</p></div><div class="card"><h3>What's in the box</h3><p>📦 Device</p><p>🔌 Charging accessories (as applicable)</p><p>📄 Documentation</p></div><div class="card"><h3>Delivery & pickup</h3><p>🚚 Delivery available</p><p>🏪 Store pickup available</p><p class="muted">Final availability and delivery date will be confirmed at checkout.</p></div><div class="card"><h3>Exchange</h3><p class="muted">Have an old device? Check its condition and get an estimated exchange value.</p><button class="btn alt" onclick="exchange()">🔄 Check Exchange Value</button></div><div class="stickyBuy"><button class="btn" onclick="addCart()">🛒 Add to Cart</button><button class="btn alt" onclick="renderCheckout();go('checkout')">Buy Now</button><button class="btn alt" onclick="go('compare')">⚖️ Compare</button></div>
+<div id="product" class="screen"><div class="content"><button class="back" onclick="go('catalog')">← Products</button><div class="productHero"><div class="productVisual"><img id="productDetailImage" src="" alt="Phone product image" loading="eager" decoding="async" style="width:100%;height:100%;object-fit:contain;padding:12px;box-sizing:border-box" onerror="this.onerror=null;this.src='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 220 300%22%3E%3Crect width=%22220%22 height=%22300%22 rx=%2228%22 fill=%22%23eef2f7%22/%3E%3Crect x=%2250%22 y=%2225%22 width=%22120%22 height=%22245%22 rx=%2220%22 fill=%22%23dce4ef%22 stroke=%22%2399a8bb%22 stroke-width=%224%22/%3E%3C/svg%3E'"></div><div><div class="tag">Our Store</div><div class="tag">In Stock</div><div class="tag">Warranty</div><h2 id="pname"></h2><p class="muted">Official Our Store listing · sample catalog data</p><div class="price" id="pprice"></div></div></div>
+<div class="card osGalleryCard">
+  <div class="osGalleryHead"><b>Product Gallery</b><button type="button" class="os360Btn" id="os360Btn" onclick="toggle360Preview()">↻ 360° View</button></div>
+  <div class="osGalleryStage" id="osGalleryStage">
+    <img id="osGalleryImage" src="" alt="Selected product angle" loading="eager" decoding="async">
+    <span class="osGalleryBadge" id="osGalleryBadge">Front view</span>
+  </div>
+  <div class="osGalleryThumbs" role="group" aria-label="Product viewing angles">
+    <button type="button" class="osThumb active" onclick="setGalleryAngle(0,this)">Front</button>
+    <button type="button" class="osThumb" onclick="setGalleryAngle(1,this)">Back</button>
+    <button type="button" class="osThumb" onclick="setGalleryAngle(2,this)">Left side</button>
+    <button type="button" class="osThumb" onclick="setGalleryAngle(3,this)">Right side</button>
+    <button type="button" class="osThumb" onclick="setGalleryAngle(4,this)">Camera</button>
+  </div>
+  <p class="muted osGalleryNote">Angle preview is a demo until separate verified images are added for each model.</p>
+</div>
+<div class="card"><b>Choose variant</b><div class="variantRow" style="margin-top:10px"><button class="variant active" data-storage="12/256 GB" onclick="selectVariant(this,'storage')">12/256 GB</button><button class="variant" data-storage="12/512 GB" onclick="selectVariant(this,'storage')">12/512 GB</button><button class="variant" data-storage="16/512 GB" onclick="selectVariant(this,'storage')">16/512 GB</button></div><div class="variantRow" style="margin-top:10px"><button class="variant active" data-color="Black" onclick="selectVariant(this,'color')">Black</button><button class="variant" data-color="Blue" onclick="selectVariant(this,'color')">Blue</button><button class="variant" data-color="Silver" onclick="selectVariant(this,'color')">Silver</button></div><p class="muted" id="variantSummary" style="margin:10px 0 0">Selected: 12/256 GB · Black</p></div><div class="offer"><b>🏷️ Our Store Offer</b><p class="muted">Instant bank offers, EMI options and exchange eligibility will appear here.</p></div><div class="card"><h3>Key specifications</h3><div class="specGrid"><div class="specItem"><small>Display</small>6.7″ AMOLED</div><div class="specItem"><small>Network</small>5G</div><div class="specItem"><small>Memory</small>12 GB RAM</div><div class="specItem"><small>Storage</small>256 GB</div><div class="specItem"><small>Camera</small>50 MP main</div><div class="specItem"><small>Warranty</small>Our Store warranty</div></div></div><div class="card"><h3>Delivery & pickup</h3><p>🚚 Delivery available</p><p>🏪 Store pickup available</p><p class="muted">Final availability and delivery date will be confirmed at checkout.</p></div><div class="card"><h3>Full specifications</h3><div class="specList" id="fullSpecs"><div class="specRow"><span>Brand</span><b id="specBrand">—</b></div><div class="specRow"><span>Category</span><b id="specCategory">—</b></div><div class="specRow"><span>Display</span><b id="specDisplay">6.7″ AMOLED · demo</b></div><div class="specRow"><span>Chipset</span><b id="specChip">—</b></div><div class="specRow"><span>RAM / Storage</span><b id="specMemory">—</b></div><div class="specRow"><span>Main camera</span><b id="specCamera">50 MP · demo</b></div><div class="specRow"><span>Front camera</span><b id="specFront">—</b></div><div class="specRow"><span>Battery</span><b id="specBattery">—</b></div><div class="specRow"><span>Network</span><b id="specNetwork">5G</b></div><div class="specRow"><span>OS</span><b id="specOS">—</b></div><div class="specRow"><span>Warranty</span><b>Our Store warranty</b></div></div><p class="muted" style="margin-bottom:0">Demo specification data. Final specifications can be connected to verified product data later.</p></div><div class="card"><h3>What's in the box</h3><p>📦 Device</p><p>🔌 Charging accessories (as applicable)</p><p>📄 Documentation</p></div><div class="card"><h3>Delivery & pickup</h3><p>🚚 Delivery available</p><p>🏪 Store pickup available</p><p class="muted">Final availability and delivery date will be confirmed at checkout.</p></div><div class="card"><h3>Exchange</h3><p class="muted">Have an old device? Check its condition and get an estimated exchange value.</p><button class="btn alt" onclick="exchange()">🔄 Check Exchange Value</button></div><div class="stickyBuy"><button class="btn" onclick="addCart()">🛒 Add to Cart</button><button class="btn alt" onclick="renderCheckout();go('checkout')">Buy Now</button><button class="btn alt" onclick="go('compare')">⚖️ Compare</button></div>
 <div class="card reviewBox">
 <h3>Customer Reviews</h3>
 <div class="reviewSummary"><b>4.7 ★</b><span> · 128 reviews · Verified purchases</span></div>
@@ -904,6 +936,37 @@ function showOffer(name){
   if(st)st.textContent=name+' — demo offer selected.';
 }
 
+let osGalleryAngle=0,os360Active=false;
+function syncProductGallery(src,name){
+  const img=document.getElementById('osGalleryImage');
+  const stage=document.getElementById('osGalleryStage');
+  const badge=document.getElementById('osGalleryBadge');
+  if(img){img.src=src||'';img.alt=(name||'Device')+' product angle preview';}
+  osGalleryAngle=0;os360Active=false;
+  if(stage)stage.classList.remove('demo360');
+  const btn=document.getElementById('os360Btn');if(btn)btn.textContent='↻ 360° View';
+  if(badge)badge.textContent='Front view';
+  document.querySelectorAll('.osThumb').forEach((b,i)=>b.classList.toggle('active',i===0));
+}
+function setGalleryAngle(angle,btn){
+  osGalleryAngle=angle;os360Active=false;
+  const stage=document.getElementById('osGalleryStage');
+  if(stage)stage.classList.remove('demo360');
+  const labels=['Front view','Back view','Left side','Right side','Camera close-up'];
+  const badge=document.getElementById('osGalleryBadge');if(badge)badge.textContent=labels[angle]||'Product view';
+  document.querySelectorAll('.osThumb').forEach((b,i)=>b.classList.toggle('active',i===angle));
+  const img=document.getElementById('osGalleryImage');
+  if(img){img.style.transform=['none','scaleX(-1)','perspective(600px) rotateY(-18deg) scale(.92)','perspective(600px) rotateY(18deg) scale(.92)','scale(1.18)'][angle]||'none';}
+}
+function toggle360Preview(){
+  os360Active=!os360Active;
+  const stage=document.getElementById('osGalleryStage');
+  const btn=document.getElementById('os360Btn');
+  if(stage)stage.classList.toggle('demo360',os360Active);
+  if(btn)btn.textContent=os360Active?'✓ 360° Preview On':'↻ 360° View';
+  const badge=document.getElementById('osGalleryBadge');
+  if(badge)badge.textContent=os360Active?'360° preview · demo':'Front view';
+}
 function product(n,pr,spec){
   localStorage.setItem('ourStoreSelectedProduct',JSON.stringify({name:n,price:pr,spec:spec}));
 
@@ -911,6 +974,7 @@ function product(n,pr,spec){
   selectedProduct={name:n,price:pr,spec:spec,brand:p.brand||'—',category:p.category||'—'};
   const detailImage=document.getElementById('productDetailImage');
   if(detailImage){detailImage.src=deviceImage(p.name?p:{name:n,brand:selectedProduct.brand,category:selectedProduct.category});detailImage.alt=n+' product image';}
+  syncProductGallery(deviceImage(p.name?p:{name:n,brand:selectedProduct.brand,category:selectedProduct.category}),n);
   document.getElementById('pname').textContent=n;
   document.getElementById('pprice').textContent=pr;
   const brandEl=document.getElementById('specBrand'); if(brandEl)brandEl.textContent=selectedProduct.brand;
