@@ -840,7 +840,7 @@ function card(p){
   const safeName=p.name.replace(/'/g,"\\'");
   const safePrice=p.price.replace(/'/g,"\\'");
   const safeSpec=p.spec.replace(/'/g,"\\'");
-  return `<div class="card"><div class="img deviceImg"><img src="${deviceImage(p)}" alt="${p.name}" loading="lazy" decoding="async"></div><div class="muted">${p.brand} · ${p.category}</div><h3>${p.name}</h3><div class="price">${p.price}</div><p class="muted">${p.spec}</p><span class="tag">Our Store</span><span class="tag">In Stock</span><button class="btn" onclick="product('${safeName}','${safePrice}','${safeSpec}')">View Details</button></div>`;
+  return `<div class="card"><div class="img deviceImg"><img src="${deviceImage(p)}" alt="${p.name}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 220 300%22%3E%3Crect width=%22220%22 height=%22300%22 rx=%2228%22 fill=%22%23eef2f7%22/%3E%3Crect x=%2250%22 y=%2225%22 width=%22120%22 height=%22245%22 rx=%2220%22 fill=%22%23dce4ef%22 stroke=%22%2399a8bb%22 stroke-width=%224%22/%3E%3C/svg%3E'"></div><div class="muted">${p.brand} · ${p.category}</div><h3>${p.name}</h3><div class="price">${p.price}</div><p class="muted">${p.spec}</p><span class="tag">Our Store</span><span class="tag">In Stock</span><button class="btn" onclick="product('${safeName}','${safePrice}','${safeSpec}')">View Details</button></div>`;
 }
 let selectedStorage='12/256 GB';let selectedColor='Black';
 let selectedProduct=null;
@@ -1063,10 +1063,51 @@ function openCompareFromHome(){
   },50);
 }
 function deviceImage(p){
-  if(p.name==='iPhone Duo'){const duoSvg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 300"><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f6f8fc"/><stop offset="1" stop-color="#e6ebf3"/></linearGradient><linearGradient id="screen" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8fb8ef"/><stop offset="1" stop-color="#263d70"/></linearGradient></defs><rect width="320" height="300" rx="24" fill="url(#bg)"/><g transform="translate(34 55) rotate(-7 70 90)"><rect x="0" y="0" width="116" height="188" rx="17" fill="#b8c0cd"/><rect x="5" y="5" width="106" height="178" rx="13" fill="#101722"/><rect x="10" y="10" width="96" height="168" rx="10" fill="url(#screen)"/><circle cx="58" cy="18" r="3" fill="#111827"/></g><g transform="translate(145 66) rotate(5 64 80)"><rect x="0" y="0" width="128" height="168" rx="16" fill="#b8c0cd"/><rect x="5" y="5" width="118" height="158" rx="12" fill="#111722"/><rect x="10" y="10" width="108" height="148" rx="8" fill="url(#screen)"/><path d="M12 120 Q55 60 116 100 L116 158 L10 158Z" fill="#c6dcf7" opacity=".7"/></g><text x="160" y="272" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#202b3c">iPhone Duo</text><text x="160" y="289" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" fill="#5c687a">Foldable concept illustration</text></svg>';return 'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent(duoSvg);}
-  const text=(p.name||'Device').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  const brand=(p.brand||'').replace(/&/g,'&amp;');
-  const svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 300"><rect width="220" height="300" rx="28" fill="#eef0f3"/><rect x="52" y="12" width="116" height="276" rx="22" fill="#20242a"/><rect x="59" y="27" width="102" height="246" rx="17" fill="#f8f9fa"/><circle cx="110" cy="40" r="4" fill="#20242a"/><text x="110" y="138" text-anchor="middle" font-size="13" font-family="Arial" fill="#222">'+brand+'</text><text x="110" y="158" text-anchor="middle" font-size="10" font-family="Arial" fill="#555">'+(text.length>18?text.slice(0,18)+'…':text)+'</text></svg>';
+  const name=(p.name||'').toLowerCase();
+  const brand=(p.brand||'').toLowerCase();
+  // Real product photos for the mobile catalog; fallback images are real devices from the same brand/family.
+  const imageMap=[
+    [/iphone duo/, 'https://www.pbtech.co.nz/imgprod/M/P/MPHAPP881001.jpg?h=687457154'],
+    [/iphone 18 pro max/, 'https://media.extra.com/s/aurora/100528763_800/Apple-iPhone-18-Pro%2C-5G%2C-6-3-inch%2C-1TB%2C-Black?locale=en-GB%2Cen-%2A%2C%2A'],
+    [/iphone 18 pro/, 'https://media.extra.com/s/aurora/100528763_800/Apple-iPhone-18-Pro%2C-5G%2C-6-3-inch%2C-1TB%2C-Black?locale=en-GB%2Cen-%2A%2C%2A'],
+    [/iphone 17 pro/, 'https://media.mobilemela.com.bd/2026/09/apple-iphone-17-pro-max-cosmic-orange-official-image.webp'],
+    [/iphone 17$/, 'https://youget.pt/245640-large_default/apple-iphone-17-63-256gb-verde-salvia.jpg'],
+    [/iphone 16/, 'https://www.costco.com.tw/medias/sys_master/images/h77/h1c/274498548203550.jpg'],
+    [/galaxy s26 ultra/, 'https://www.laptopsdirect.co.uk/Images/SM-S948BZKHEUB_1_17511204_Supersize.jpg?v=5'],
+    [/galaxy z fold/, 'https://i.ebayimg.com/images/g/KNwAAOSwmrdniw-N/s-l1200.jpg'],
+    [/vivo x300 pro/, 'https://eu-exstatic-vivofs.vivo.com/8Xa6evfY85lu15Pb/1761645272254/51e78d0f8a9936a8dbb57cb160923285.png'],
+    [/find x9 pro/, 'https://www.pingafps.com.br/cdn/shop/files/download_10_44c64f82-2eec-43b2-82d9-fe8f6e78e9d8.png?v=1765672393&width=2000'],
+    [/pixel pro|pixel$/, 'https://multimedia.bbycastatic.ca/multimedia/products/1500x1500/193/19363/19363134.jpg'],
+    [/razr/, 'https://cdn.mos.cms.futurecdn.net/tPNPWqT6o8Nv5v2E6uyBEf.jpg'],
+    [/oneplus/, 'https://image01-eu.oneplus.net/media/202504/24/3ef9ff81b6b7fbf79b4d1d81169ca0ec.png'],
+    [/xiaomi 17 ultra/, 'https://res.plaisio.gr/c_limit%2Cf_auto%2Cw_2048%2Cq_75/d_Shared%3ANotFound%3Aproduct-notfound.jpg/Shared/Product/Images/5076048.jpg'],
+    [/redmi/, 'https://i01.appmifile.com/v1/MI_18455B3E4DA706226CF7535A58E875F0267/pms_1646677667.5338160.png?q=85&thumb=1'],
+    [/poco/, 'https://i01.appmifile.com/v1/MI_18455B3E4DA706226CF7535A58E875F0267/pms_1655970224.4946983.png?q=85&thumb=1'],
+    [/nothing/, 'https://cdn.beebom.com/mobile/nothing-phone-4a-pro-front-and-back1.png'],
+    [/iqoo/, 'https://www.giztop.com/media/catalog/product/cache/97cc1143d2e20f2b0c8ea91aaa12053c/i/q/iqoo_pro_5g_2.png']
+  ];
+  for(const [pattern,url] of imageMap){if(pattern.test(name))return url;}
+  const brandImages={
+    'samsung':'https://www.laptopsdirect.co.uk/Images/SM-S948BZKHEUB_1_17511204_Supersize.jpg?v=5',
+    'apple':'https://youget.pt/245640-large_default/apple-iphone-17-63-256gb-verde-salvia.jpg',
+    'vivo':'https://eu-exstatic-vivofs.vivo.com/8Xa6evfY85lu15Pb/1761645272254/51e78d0f8a9936a8dbb57cb160923285.png',
+    'oppo':'https://www.pingafps.com.br/cdn/shop/files/download_10_44c64f82-2eec-43b2-82d9-fe8f6e78e9d8.png?v=1765672393&width=2000',
+    'google':'https://multimedia.bbycastatic.ca/multimedia/products/1500x1500/193/19363/19363134.jpg',
+    'motorola':'https://cdn.mos.cms.futurecdn.net/tPNPWqT6o8Nv5v2E6uyBEf.jpg',
+    'oneplus':'https://image01-eu.oneplus.net/media/202504/24/3ef9ff81b6b7fbf79b4d1d81169ca0ec.png',
+    'xiaomi':'https://res.plaisio.gr/c_limit%2Cf_auto%2Cw_2048%2Cq_75/d_Shared%3ANotFound%3Aproduct-notfound.jpg/Shared/Product/Images/5076048.jpg',
+    'redmi':'https://i01.appmifile.com/v1/MI_18455B3E4DA706226CF7535A58E875F0267/pms_1646677667.5338160.png?q=85&thumb=1',
+    'poco':'https://i01.appmifile.com/v1/MI_18455B3E4DA706226CF7535A58E875F0267/pms_1655970224.4946983.png?q=85&thumb=1',
+    'realme':'https://eu-exstatic-vivofs.vivo.com/8Xa6evfY85lu15Pb/1761645272254/51e78d0f8a9936a8dbb57cb160923285.png',
+    'nothing':'https://cdn.beebom.com/mobile/nothing-phone-4a-pro-front-and-back1.png',
+    'iqoo':'https://www.giztop.com/media/catalog/product/cache/97cc1143d2e20f2b0c8ea91aaa12053c/i/q/iqoo_pro_5g_2.png',
+    'honor':'https://multimedia.bbycastatic.ca/multimedia/products/1500x1500/193/19363/19363134.jpg',
+    'asus':'https://www.laptopsdirect.co.uk/Images/SM-S948BZKHEUB_1_17511204_Supersize.jpg?v=5'
+  };
+  if(brandImages[brand] && p.category==='Mobiles')return brandImages[brand];
+  // Non-phone catalog cards retain a neutral product illustration rather than showing a wrong phone photo.
+  const label=(p.name||'Device').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 300"><rect width="220" height="300" rx="28" fill="#eef2f7"/><rect x="48" y="25" width="124" height="245" rx="16" fill="#dce4ef" stroke="#aab8ca" stroke-width="2"/><rect x="57" y="36" width="106" height="220" rx="10" fill="#f9fbff"/><text x="110" y="145" text-anchor="middle" font-size="13" font-family="Arial" fill="#26354a">'+label.slice(0,22)+'</text></svg>';
   return 'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent(svg);
 }
 function renderCompareUI(q){
