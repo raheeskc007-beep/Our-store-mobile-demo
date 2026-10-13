@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Our Store — V13 Video Reviews</title>
+<meta name="our-store-build" content="V9 complete catalog gallery; existing app features preserved">
+<title>Our Store — Complete Catalog Gallery V9</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f4f5f7;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial;color:#111}
 .app{max-width:430px;margin:auto;min-height:100vh;background:#fff}.top{padding:18px 18px 10px;position:sticky;top:0;background:#fff;z-index:3;border-bottom:1px solid #eee}
@@ -954,15 +955,17 @@ function currentGalleryViews(){
    return [{label:'Available official reference',src:osSamsungS26Angles[0].src}];
  }
  if(isIphone17ProGallery()){
-   // Apple's official material has a front/back image and a colour-lineup image,
-   // not independent side-angle photos for each selected finish.
-   return [
+   // Only show the Cosmic Orange render when Cosmic Orange is selected.
+   // Other finishes use Apple's lineup reference, not a falsely colour-matched render.
+   const chosen=(selectedColor||'').toLowerCase();
+   if(chosen==='cosmic orange') return [
     {label:'Front + Back · Cosmic Orange',src:osIphone17ProImages.orange},
     {label:'Official colour lineup',src:osIphone17ProImages.lineup}
    ];
+   return [{label:'Official colour lineup · finish reference',src:osIphone17ProImages.lineup}];
  }
  const img=document.getElementById('productDetailImage');
- return [{label:'Product image',src:img?img.src:''}];
+ return [{label:'Product image · single view',src:img?img.src:''}];
 }
 function galleryColorFilter(){return 'none';}
 function renderOsGallery(){
@@ -977,8 +980,8 @@ function renderOsGallery(){
  thumbs.innerHTML=views.map((v,i)=>`<button type="button" class="osGalleryThumb ${i===osGalleryIndex?'active':''}" onclick="setGalleryView(${i})" aria-label="Show ${v.label} view"><img src="${v.src||img.src}" alt="${v.label}" loading="lazy"><span>${v.label}</span></button>`).join('');
  if(note){
   if(isSamsungS26Gallery())note.textContent=(selectedColor||'Cobalt Violet').toLowerCase()==='cobalt violet'?'Official Samsung product images · 6 genuine viewing images · Cobalt Violet finish. Other colours do not yet have their own angle set.':'Official Samsung reference image shown; genuine multi-angle images are currently available only for Cobalt Violet.';
-  else if(isIphone17ProGallery())note.textContent='Official Apple images · front/back and colour lineup references. Independent angle photos for every finish are not yet available.';
-  else note.textContent='Product image for this catalog model. Additional verified angle images can be added when official photos are available.';
+  else if(isIphone17ProGallery())note.textContent=(selectedColor||'').toLowerCase()==='cosmic orange'?'Official Apple images · Cosmic Orange front/back plus colour lineup reference. Separate side-angle images for each finish are not available.':'Official Apple colour lineup reference for the selected finish. A separate isolated render and angle photos for this finish are not available.';
+  else note.textContent='This catalog model currently has one product image. Extra viewing angles and colour-specific images are shown only when verified images are available.';
  }
 }
 function setGalleryView(i){const views=currentGalleryViews();osGalleryIndex=(i+views.length)%views.length;renderOsGallery();syncImageViewer();}
@@ -990,8 +993,9 @@ function configureProductColours(){
  let colours=['Black','Blue','Silver'];
  if(isSamsungS26Gallery())colours=['Cobalt Violet','Black','Sky Blue','White'];
  else if(isIphone17ProGallery())colours=['Deep Blue','Cosmic Orange','Silver'];
- row.innerHTML=colours.map((c,i)=>`<button class="variant ${i===0?'active':''}" data-color="${c}" onclick="selectVariant(this,'color')">${c}</button>`).join('');
- selectedColor=colours[0];
+ const activeIndex=isIphone17ProGallery()?1:0;
+ row.innerHTML=colours.map((c,i)=>`<button class="variant ${i===activeIndex?'active':''}" data-color="${c}" onclick="selectVariant(this,'color')">${c}</button>`).join('');
+ selectedColor=colours[activeIndex];
 }
 
 function product(n,pr,spec){
