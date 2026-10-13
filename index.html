@@ -626,7 +626,7 @@ body{background:var(--os-page)}
   <div id="finalExchangeValue" class="card"></div>
   <button class="btn" onclick="confirmExchange()">Confirm Exchange Request</button>
 </div>
-</div></div><div id="cart" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2>Cart</h2><div id="cartItem" class="card">Your cart is empty.</div><button class="btn" onclick="renderCheckout();go('checkout')">Checkout</button></div></div>
+</div></div><div id="cart" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2>Cart</h2><div id="cartItem" class="card">Your cart is empty.</div><button id="cartCheckoutBtn" class="btn" onclick="if(cart.length){renderCheckout();go('checkout')}" disabled aria-disabled="true">Checkout</button></div></div>
 
 <div id="checkout" class="screen"><div class="content">
 <button class="back" onclick="go('cart')">← Cart</button>
@@ -1019,6 +1019,8 @@ function escapeCartText(value){
 function renderCart(){
   const el=document.getElementById('cartItem');
   if(!el)return;
+  const checkoutBtn=document.getElementById('cartCheckoutBtn');
+  if(checkoutBtn){checkoutBtn.disabled=!cart.length;checkoutBtn.setAttribute('aria-disabled',String(!cart.length));checkoutBtn.style.opacity=cart.length?'1':'.5';checkoutBtn.style.cursor=cart.length?'pointer':'not-allowed';}
   if(!cart.length){
     el.innerHTML='<div style="text-align:center;padding:22px 10px"><div style="font-size:36px">🛒</div><b>Your cart is empty</b><p class="muted">Add a product from Shop to get started.</p><button type="button" class="btn" onclick="openShop()">Continue Shopping</button></div>';
     return;
