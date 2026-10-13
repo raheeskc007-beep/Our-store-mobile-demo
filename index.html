@@ -759,7 +759,7 @@ Place Demo Order</button>
 </div>
 <script>
 const data=[
-{brand:'Apple',category:'Mobiles',name:'iPhone Duo',price:'India price TBA',spec:'256 GB · Foldable OLED · A20 Pro · 48MP Dual Fusion · iOS 27'},
+{brand:'Apple',category:'Mobiles',name:'iPhone 17 Pro Max',price:'₹1,49,900',spec:'256 GB · 6.9-inch Super Retina XDR OLED · A19 Pro · 48MP Fusion camera system · iOS 26'},
 {brand:'Apple',category:'Mobiles',name:'iPhone 18 Pro Max',price:'India price TBA',spec:'12/256 GB · 6.9-inch OLED · A20 Pro · 48MP variable-aperture camera'},
 {brand:'Apple',category:'Mobiles',name:'iPhone 18 Pro',price:'India price TBA',spec:'12/256 GB · 6.3-inch OLED · A20 Pro · 48MP variable-aperture camera'},
 {brand:'Apple',category:'Mobiles',name:'iPhone 17 Pro Max',price:'₹1,49,900',spec:'12/256 GB · 5G · Pro camera'},
@@ -1165,7 +1165,7 @@ function renderCompareUI(q){
 }
 function compareSpecs(p){
   const name=p.name||'Device';
-  if(name==='iPhone Duo'){return {price:p.price,release:'Announced Sep 2026; India availability/price to confirm',screen:'7.6-inch inner + 5.4-inch outer',weight:'254 g (open)',thickness:'5.2 mm open / 11.3 mm closed',network:'5G / 4G LTE',body:'Grade 5 titanium foldable design',dimensions:'164.6 × 117.8 mm open; 84.1 × 117.8 mm closed',build:'Titanium hinge/frame · Ceramic Shield',sim:'See official regional specs',display:'Super Retina XDR OLED foldable',resolution:'1878 × 2670 inner; 1398 × 2034 outer',protection:'Ceramic Shield 2 front; Ceramic Shield back',os:'iOS 27',chipset:'Apple A20 Pro',cpu:'6-core CPU',gpu:'7-core GPU',ram:'Not specified here',card:'No',internal:'256 GB / 512 GB / 1 TB / 2 TB',mainModules:'48MP Fusion Main + 48MP Fusion Ultra Wide',mainFeatures:'2× optical-quality zoom; Smart Take; Duo Preview',mainVideo:'Up to 4K 120 fps Dolby Vision on Main camera',selfieModules:'12MP Center Stage + under-display FaceTime camera',selfieFeatures:'Center Stage; Dual Capture',selfieVideo:'1080p under-display FaceTime camera',battery:'Dual-battery architecture; capacity not listed',charging:'USB-C; details vary by region',wifi:'Wi‑Fi (official specs)',bluetooth:'Bluetooth (official specs)',nfc:'Yes / regional support',usb:'USB‑C',audio:'Stereo speakers',headphone:'No',sensors:'Face ID / accelerometer / gyro / proximity / compass',water:'IP68',extras:'Foldable multitasking; Apple Pencil (USB-C) support planned later in 2026'};}
+  if(name==='iPhone 17 Pro Max'){return {price:p.price,release:'Introduced September 2025',screen:'6.9-inch Super Retina XDR OLED',weight:'231 g',thickness:'8.75 mm',network:'5G / 4G LTE',body:'Aluminium unibody',dimensions:'163.4 × 78 × 8.75 mm',build:'Ceramic Shield 2 front · Ceramic Shield back',sim:'SIM support varies by region',display:'Super Retina XDR OLED · ProMotion up to 120Hz',resolution:'2868 × 1320 pixels at 460 ppi',protection:'Ceramic Shield 2 front · Ceramic Shield back',os:'iOS 26',chipset:'Apple A19 Pro',cpu:'6-core CPU',gpu:'6-core GPU',ram:'Apple does not list RAM in its public tech specs',card:'No',internal:'256 GB / 512 GB / 1 TB / 2 TB',mainModules:'48MP Fusion Main + 48MP Fusion Ultra Wide + 48MP Fusion Telephoto',mainFeatures:'4× optical zoom; up to 8× optical-quality zoom',mainVideo:'4K Dolby Vision video recording up to 120 fps (supported modes)',selfieModules:'18MP Center Stage front camera',selfieFeatures:'Center Stage; Dual Capture',selfieVideo:'4K HDR video recording supported',battery:'Apple does not publish mAh capacity',charging:'USB-C',wifi:'Wi‑Fi 7',bluetooth:'Bluetooth 6',nfc:'NFC',usb:'USB‑C',audio:'Stereo speakers',headphone:'No 3.5 mm jack',sensors:'Face ID / accelerometer / gyro / proximity / compass / barometer',water:'IP68',extras:'Available finishes: Silver, Cosmic Orange, Deep Blue'};}
   const flagship=/Ultra|Pro|14$|17$|X300|Find X9|GT 7 Pro|Razr/i.test(name);
   const fold=/Razr/i.test(name);
   return {
@@ -1429,17 +1429,17 @@ function placeOrder(){
     </div>
     <div id="osViewerLabel" style="font-size:16px;font-weight:750">Front view</div>
     <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
-      <button type="button" id="osViewer360Button" onclick="toggleViewer360()" style="border:0;border-radius:22px;background:#fff;color:#111;padding:11px 16px;font-weight:750">↻ 360° Preview</button>
+      <button type="button" id="osViewer360Button" onclick="closeImageViewer()" style="border:0;border-radius:22px;background:#fff;color:#111;padding:11px 16px;font-weight:750">Close preview</button>
       <button type="button" onclick="closeImageViewer()" style="border:1px solid #ffffff55;border-radius:22px;background:transparent;color:#fff;padding:11px 16px;font-weight:650">Done</button>
     </div>
-    <div style="font-size:11px;color:#aeb4bf;text-align:center">Expanded image preview · angle changes are illustrative until separate photos are added</div>
+    <div style="font-size:11px;color:#aeb4bf;text-align:center">Enlarged product image · only verified product photos are shown</div>
   </div>
 </div>
 <script>
 function openImageViewer(start360=false){
  const modal=document.getElementById('osImageViewer'); if(!modal)return;
  modal.style.display='flex';modal.setAttribute('aria-hidden','false');syncImageViewer();
- if(start360&&!osGalleryTimer){toggleViewer360();}
+ // No simulated 360-degree rotation: only the available product photo is shown.
 }
 function closeImageViewer(){
  const modal=document.getElementById('osImageViewer');if(modal){modal.style.display='none';modal.setAttribute('aria-hidden','true');}
