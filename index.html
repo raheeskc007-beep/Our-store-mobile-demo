@@ -1030,7 +1030,8 @@ function renderCart(){
       '<b>'+escapeCartText(item.name)+'</b>'+
       '<p class="muted">'+escapeCartText(item.spec||'')+'</p>'+
       '<p class="muted">Variant: '+escapeCartText(item.storage||'Standard')+' · '+escapeCartText(item.color||'Standard')+'</p>'+
-      '<div class="price">'+formatINR(moneyValue(item.price)*qty)+'</div>'+
+      '<p class="muted" style="margin:8px 0 2px">Unit price: '+formatINR(moneyValue(item.price))+'</p>'+
+      '<div class="price">Item total: '+formatINR(moneyValue(item.price)*qty)+'</div>'+
       '<div class="cartControls" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:10px">'+
       '<button type="button" class="btn alt cartQtyBtn" onclick="changeCartQuantity('+i+',-1)" aria-label="Decrease quantity">−</button>'+
       '<b aria-live="polite">Qty: '+qty+'</b>'+
@@ -1038,7 +1039,7 @@ function renderCart(){
       '<button type="button" class="btn alt cartRemoveBtn" onclick="removeCartItem('+i+')">Remove</button>'+
       '</div></div>';
   }).join('')+
-  '<div class="cartSubtotal" style="padding-top:16px"><b>Subtotal</b><div class="price">'+formatINR(subtotal)+'</div><p class="muted">Delivery charges, if any, are confirmed at checkout.</p></div>';
+  '<div class="cartSubtotal" style="padding-top:16px"><b>Subtotal ('+cart.reduce((n,item)=>n+Math.max(1,Number(item.quantity)||1),0)+' items)</b><div class="price">'+formatINR(subtotal)+'</div><p class="muted">Subtotal includes each unit price multiplied by its quantity. Delivery charges, if any, are confirmed at checkout.</p></div>';
 }
 function getRewardPoints(){
   return parseInt(localStorage.getItem('ourStoreRewardPoints') || '0',10);
