@@ -399,7 +399,7 @@ body{background:var(--os-page)}
 .osGallery360{position:absolute;bottom:10px;right:10px;border:0;border-radius:22px;background:#111;color:#fff;padding:9px 12px;font-weight:700;font-size:12px;z-index:3}
 .osGalleryThumbs{display:flex;gap:7px;overflow-x:auto;padding:10px 1px 3px;scrollbar-width:none}.osGalleryThumbs::-webkit-scrollbar{display:none}
 .osGalleryThumb{flex:0 0 70px;border:1px solid #e2e5ea;border-radius:13px;background:linear-gradient(145deg,#fff,#f0f3f7);padding:5px 3px 7px;color:#30343b;font-size:10px;white-space:nowrap;cursor:pointer;box-shadow:0 2px 7px #15243a0a}
-.osGalleryThumb.active{border:2px solid #1769e0;background:#eef5ff;box-shadow:0 0 0 2px #1769e018}.osGalleryThumb img{display:block;width:100%;height:54px;object-fit:contain}.osGalleryThumb span{display:block;margin-top:3px}
+.osGalleryThumb.active{border:2px solid #1769e0;background:#eef5ff;box-shadow:0 0 0 2px #1769e018}.osGalleryThumb img{display:block;width:100%;height:54px;object-fit:contain}.osGalleryThumb span{display:block;margin-top:3px}.variant[data-color]{position:relative;padding-left:30px}.variant[data-color]:before{content:'';position:absolute;left:10px;top:50%;transform:translateY(-50%);width:12px;height:12px;border-radius:50%;border:1px solid #b8bec7;background:#111}.variant[data-color='Blue']:before{background:#1769e0}.variant[data-color='Silver']:before{background:linear-gradient(135deg,#fff,#aeb6c2)}.variant[data-color='Gold']:before{background:linear-gradient(135deg,#f8d38a,#b98130)}
 @media(max-width:380px){.osGalleryStage{height:275px}.osGalleryThumb{flex-basis:61px}}
 
 </style>
@@ -932,9 +932,11 @@ const osGalleryViews=[
 let osGalleryIndex=0,osGalleryTimer=null;
 function galleryColorFilter(){
  const c=(selectedColor||'Black').toLowerCase();
- if(c==='blue')return 'hue-rotate(175deg) saturate(1.2)';
- if(c==='silver')return 'grayscale(.72) brightness(1.18)';
- if(c==='gold')return 'sepia(.62) saturate(1.35) hue-rotate(350deg)';
+ // Visual demo tint only. Real colour-specific product photos should replace these filters in production.
+ if(c==='blue')return 'grayscale(.25) sepia(.18) hue-rotate(175deg) saturate(1.65) brightness(.92)';
+ if(c==='silver')return 'grayscale(.92) brightness(1.16) contrast(.92)';
+ if(c==='gold')return 'grayscale(.25) sepia(.78) saturate(1.45) hue-rotate(350deg) brightness(1.02)';
+ if(c==='black')return 'grayscale(.88) brightness(.62) contrast(1.12)';
  return 'none';
 }
 function renderOsGallery(){
@@ -946,7 +948,7 @@ function renderOsGallery(){
  img.style.objectPosition='center';
  if(count)count.textContent=(osGalleryIndex+1)+' / '+osGalleryViews.length;
  thumbs.innerHTML=osGalleryViews.map((v,i)=>`<button type="button" class="osGalleryThumb ${i===osGalleryIndex?'active':''}" onclick="setGalleryView(${i})" aria-label="Show ${v.label} view"><img src="${img.src}" alt="${v.label} view preview" style="transform:${v.transform};filter:${[v.filter,colorFilter].filter(x=>x&&x!=='none').join(' ')||'none'}"><span>${v.label}</span></button>`).join('');
- if(note)note.textContent='Selected colour: '+selectedColor+' · Angle previews are stylized from the available product image';
+ if(note)note.textContent='Selected colour: '+selectedColor+' · Colour tint is a demo; angle views use the available product image';
 }
 function setGalleryView(i){osGalleryIndex=(i+osGalleryViews.length)%osGalleryViews.length;renderOsGallery();}
 function moveGallery(delta){setGalleryView(osGalleryIndex+delta);}
