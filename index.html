@@ -762,7 +762,6 @@ const data=[
 {brand:'Apple',category:'Mobiles',name:'iPhone 17 Pro Max',price:'₹1,49,900',spec:'256 GB · 6.9-inch Super Retina XDR OLED · A19 Pro · 48MP Fusion camera system · iOS 26'},
 {brand:'Apple',category:'Mobiles',name:'iPhone 18 Pro Max',price:'India price TBA',spec:'12/256 GB · 6.9-inch OLED · A20 Pro · 48MP variable-aperture camera'},
 {brand:'Apple',category:'Mobiles',name:'iPhone 18 Pro',price:'India price TBA',spec:'12/256 GB · 6.3-inch OLED · A20 Pro · 48MP variable-aperture camera'},
-{brand:'Apple',category:'Mobiles',name:'iPhone 17 Pro Max',price:'₹1,49,900',spec:'12/256 GB · 5G · Pro camera'},
 {brand:'Apple',category:'Mobiles',name:'iPhone 17 Pro',price:'₹1,34,900',spec:'12/256 GB · 5G · Pro camera'},
 {brand:'Apple',category:'Mobiles',name:'iPhone 17',price:'₹89,900',spec:'8/256 GB · 5G · OLED'},
 {brand:'Apple',category:'Mobiles',name:'iPhone 16',price:'₹69,900',spec:'8/128 GB · 5G · OLED'},
@@ -935,7 +934,7 @@ function renderOsGallery(){
  img.style.objectPosition='center';
  if(count){count.textContent=(osGalleryIndex+1)+' / '+osGalleryViews.length;count.style.display=osGalleryViews.length>1?'block':'none';}
  thumbs.innerHTML=osGalleryViews.map((v,i)=>`<button type="button" class="osGalleryThumb ${i===osGalleryIndex?'active':''}" onclick="setGalleryView(${i})" aria-label="Show ${v.label} view"><img src="${img.src}" alt="${v.label} view preview" style="transform:${v.transform};filter:${[v.filter,colorFilter].filter(x=>x&&x!=='none').join(' ')||'none'}"><span>${v.label}</span></button>`).join('');
- if(note)note.textContent='Selected colour: '+selectedColor+' · Representative product image; exact colour and angle photos will be shown only when verified images are available.';
+ if(note)note.textContent='Selected colour: '+selectedColor+' · Only model-specific images are used; other models show a labelled placeholder until verified photos are added.';
 }
 function setGalleryView(i){osGalleryIndex=(i+osGalleryViews.length)%osGalleryViews.length;renderOsGallery();}
 function moveGallery(delta){setGalleryView(osGalleryIndex+delta);}
@@ -1121,50 +1120,25 @@ function openCompareFromHome(){
 }
 function deviceImage(p){
   const name=(p.name||'').toLowerCase();
-  const brand=(p.brand||'').toLowerCase();
-  // Real product photos for the mobile catalog; fallback images are real devices from the same brand/family.
-  const imageMap=[
-    [/iphone duo/, 'https://www.pbtech.co.nz/imgprod/M/P/MPHAPP881001.jpg?h=687457154'],
-    [/iphone 18 pro max/, 'https://media.extra.com/s/aurora/100528763_800/Apple-iPhone-18-Pro%2C-5G%2C-6-3-inch%2C-1TB%2C-Black?locale=en-GB%2Cen-%2A%2C%2A'],
-    [/iphone 18 pro/, 'https://media.extra.com/s/aurora/100528763_800/Apple-iPhone-18-Pro%2C-5G%2C-6-3-inch%2C-1TB%2C-Black?locale=en-GB%2Cen-%2A%2C%2A'],
-    [/iphone 17 pro/, 'https://media.mobilemela.com.bd/2026/09/apple-iphone-17-pro-max-cosmic-orange-official-image.webp'],
-    [/iphone 17$/, 'https://youget.pt/245640-large_default/apple-iphone-17-63-256gb-verde-salvia.jpg'],
-    [/iphone 16/, 'https://www.costco.com.tw/medias/sys_master/images/h77/h1c/274498548203550.jpg'],
-    [/galaxy s26 ultra/, 'https://www.laptopsdirect.co.uk/Images/SM-S948BZKHEUB_1_17511204_Supersize.jpg?v=5'],
-    [/galaxy z fold/, 'https://i.ebayimg.com/images/g/KNwAAOSwmrdniw-N/s-l1200.jpg'],
-    [/vivo x300 pro/, 'https://eu-exstatic-vivofs.vivo.com/8Xa6evfY85lu15Pb/1761645272254/51e78d0f8a9936a8dbb57cb160923285.png'],
-    [/find x9 pro/, 'https://www.pingafps.com.br/cdn/shop/files/download_10_44c64f82-2eec-43b2-82d9-fe8f6e78e9d8.png?v=1765672393&width=2000'],
-    [/pixel pro|pixel$/, 'https://multimedia.bbycastatic.ca/multimedia/products/1500x1500/193/19363/19363134.jpg'],
-    [/razr/, 'https://cdn.mos.cms.futurecdn.net/tPNPWqT6o8Nv5v2E6uyBEf.jpg'],
-    [/oneplus/, 'https://image01-eu.oneplus.net/media/202504/24/3ef9ff81b6b7fbf79b4d1d81169ca0ec.png'],
-    [/xiaomi 17 ultra/, 'https://res.plaisio.gr/c_limit%2Cf_auto%2Cw_2048%2Cq_75/d_Shared%3ANotFound%3Aproduct-notfound.jpg/Shared/Product/Images/5076048.jpg'],
-    [/redmi/, 'https://i01.appmifile.com/v1/MI_18455B3E4DA706226CF7535A58E875F0267/pms_1646677667.5338160.png?q=85&thumb=1'],
-    [/poco/, 'https://i01.appmifile.com/v1/MI_18455B3E4DA706226CF7535A58E875F0267/pms_1655970224.4946983.png?q=85&thumb=1'],
-    [/nothing/, 'https://cdn.beebom.com/mobile/nothing-phone-4a-pro-front-and-back1.png'],
-    [/iqoo/, 'https://www.giztop.com/media/catalog/product/cache/97cc1143d2e20f2b0c8ea91aaa12053c/i/q/iqoo_pro_5g_2.png']
-  ];
-  for(const [pattern,url] of imageMap){if(pattern.test(name))return url;}
-  const brandImages={
-    'samsung':'https://www.laptopsdirect.co.uk/Images/SM-S948BZKHEUB_1_17511204_Supersize.jpg?v=5',
-    'apple':'https://youget.pt/245640-large_default/apple-iphone-17-63-256gb-verde-salvia.jpg',
-    'vivo':'https://eu-exstatic-vivofs.vivo.com/8Xa6evfY85lu15Pb/1761645272254/51e78d0f8a9936a8dbb57cb160923285.png',
-    'oppo':'https://www.pingafps.com.br/cdn/shop/files/download_10_44c64f82-2eec-43b2-82d9-fe8f6e78e9d8.png?v=1765672393&width=2000',
-    'google':'https://multimedia.bbycastatic.ca/multimedia/products/1500x1500/193/19363/19363134.jpg',
-    'motorola':'https://cdn.mos.cms.futurecdn.net/tPNPWqT6o8Nv5v2E6uyBEf.jpg',
-    'oneplus':'https://image01-eu.oneplus.net/media/202504/24/3ef9ff81b6b7fbf79b4d1d81169ca0ec.png',
-    'xiaomi':'https://res.plaisio.gr/c_limit%2Cf_auto%2Cw_2048%2Cq_75/d_Shared%3ANotFound%3Aproduct-notfound.jpg/Shared/Product/Images/5076048.jpg',
-    'redmi':'https://i01.appmifile.com/v1/MI_18455B3E4DA706226CF7535A58E875F0267/pms_1646677667.5338160.png?q=85&thumb=1',
-    'poco':'https://i01.appmifile.com/v1/MI_18455B3E4DA706226CF7535A58E875F0267/pms_1655970224.4946983.png?q=85&thumb=1',
-    'realme':'https://eu-exstatic-vivofs.vivo.com/8Xa6evfY85lu15Pb/1761645272254/51e78d0f8a9936a8dbb57cb160923285.png',
-    'nothing':'https://cdn.beebom.com/mobile/nothing-phone-4a-pro-front-and-back1.png',
-    'iqoo':'https://www.giztop.com/media/catalog/product/cache/97cc1143d2e20f2b0c8ea91aaa12053c/i/q/iqoo_pro_5g_2.png',
-    'honor':'https://multimedia.bbycastatic.ca/multimedia/products/1500x1500/193/19363/19363134.jpg',
-    'asus':'https://www.laptopsdirect.co.uk/Images/SM-S948BZKHEUB_1_17511204_Supersize.jpg?v=5'
-  };
-  if(brandImages[brand] && p.category==='Mobiles')return brandImages[brand];
-  // Non-phone catalog cards retain a neutral product illustration rather than showing a wrong phone photo.
+  const category=(p.category||'').toLowerCase();
+  // Keep only the model-specific image currently checked in the demo.
+  // Never substitute another model from the same brand: that caused misleading photos.
+  if(name==='iphone 17 pro max'){
+    return 'https://media.mobilemela.com.bd/2026/09/apple-iphone-17-pro-max-cosmic-orange-official-image.webp';
+  }
+  // No verified model-specific image is available yet. Use an honest labelled placeholder.
   const label=(p.name||'Device').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  const svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 300"><rect width="220" height="300" rx="28" fill="#eef2f7"/><rect x="48" y="25" width="124" height="245" rx="16" fill="#dce4ef" stroke="#aab8ca" stroke-width="2"/><rect x="57" y="36" width="106" height="220" rx="10" fill="#f9fbff"/><text x="110" y="145" text-anchor="middle" font-size="13" font-family="Arial" fill="#26354a">'+label.slice(0,22)+'</text></svg>';
+  let shape='';
+  if(category==='laptops'){
+    shape='<rect x="24" y="75" width="172" height="112" rx="8" fill="#dce4ef" stroke="#9eacbe" stroke-width="3"/><rect x="16" y="190" width="188" height="10" rx="5" fill="#9eacbe"/>';
+  }else if(category==='tablets'){
+    shape='<rect x="45" y="28" width="130" height="230" rx="16" fill="#dce4ef" stroke="#9eacbe" stroke-width="3"/><rect x="54" y="39" width="112" height="208" rx="8" fill="#f9fbff"/>';
+  }else if(category==='accessories'){
+    shape='<rect x="48" y="66" width="124" height="150" rx="20" fill="#dce4ef" stroke="#9eacbe" stroke-width="3"/><circle cx="110" cy="141" r="26" fill="#f9fbff" stroke="#9eacbe" stroke-width="3"/>';
+  }else{
+    shape='<rect x="48" y="25" width="124" height="245" rx="20" fill="#dce4ef" stroke="#9eacbe" stroke-width="3"/><rect x="57" y="36" width="106" height="220" rx="12" fill="#f9fbff"/>';
+  }
+  const svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 300"><rect width="220" height="300" rx="28" fill="#eef2f7"/>'+shape+'<text x="110" y="145" text-anchor="middle" font-size="12" font-family="Arial" fill="#26354a">Image pending</text><text x="110" y="286" text-anchor="middle" font-size="10" font-family="Arial" fill="#526174">'+label.slice(0,24)+'</text></svg>';
   return 'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent(svg);
 }
 function renderCompareUI(q){
