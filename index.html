@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="our-store-build" content="V9 complete catalog gallery; existing app features preserved">
-<title>Our Store — Complete Catalog Gallery V9</title>
+<title>Our Store — V13 Video Reviews</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f4f5f7;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial;color:#111}
 .app{max-width:430px;margin:auto;min-height:100vh;background:#fff}.top{padding:18px 18px 10px;position:sticky;top:0;background:#fff;z-index:3;border-bottom:1px solid #eee}
@@ -526,7 +525,7 @@ body{background:var(--os-page)}
 
 <div id="catalog" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2 id="catTitle">Products</h2><div class="row" style="margin-bottom:10px"><button class="chip" onclick="brandCatalog('All')">All</button><button class="chip" onclick="brandCatalog('Apple')">Apple</button><button class="chip" onclick="brandCatalog('Samsung')">Samsung</button><button class="chip" onclick="brandCatalog('OnePlus')">OnePlus</button><button class="chip" onclick="brandCatalog('Xiaomi')">Xiaomi</button><button class="chip" onclick="brandCatalog('Vivo')">Vivo</button><button class="chip" onclick="brandCatalog('OPPO')">OPPO</button><button class="chip" onclick="brandCatalog('Google')">Google</button><button class="chip" onclick="brandCatalog('Realme')">Realme</button><button class="chip" onclick="brandCatalog('Motorola')">Motorola</button></div><div id="products"></div></div></div>
 
-<div id="product" class="screen"><div class="content"><button class="back" onclick="go('catalog')">← Products</button><div class="productHero"><div class="productVisual"><div class="osGalleryStage" id="osGalleryStage"><span class="osGalleryCount" id="osGalleryCount">1 / 8</span><button class="osGalleryArrow prev" onclick="moveGallery(-1)" aria-label="Previous image">‹</button><img id="productDetailImage" src="" alt="Phone product image" onclick="openImageViewer(false)" role="button" tabindex="0" aria-label="Open full-screen product image" loading="eager" decoding="async" style="width:100%;height:100%;object-fit:contain;padding:12px;box-sizing:border-box" onerror="this.onerror=null;this.src='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 220 300%22%3E%3Crect width=%22220%22 height=%22300%22 rx=%2228%22 fill=%22%23eef2f7%22/%3E%3Crect x=%2250%22 y=%2225%22 width=%22120%22 height=%22245%22 rx=%2220%22 fill=%22%23dce4ef%22 stroke=%22%2399a8bb%22 stroke-width=%224%22/%3E%3C/svg%3E'"><button class="osGalleryArrow next" onclick="moveGallery(1)" aria-label="Next image">›</button><button class="osGallery360" id="osGallery360" onclick="openImageViewer(true)">↻ View angles</button></div><div class="osGalleryThumbs" id="osGalleryThumbs"></div><p class="muted" id="osGalleryNote" style="font-size:11px;margin:8px 2px 0">Product image gallery · available angles depend on the model</p></div><div><div class="tag">Our Store</div><div class="tag">In Stock</div><div class="tag">Warranty</div><h2 id="pname"></h2><p class="muted">Official Our Store listing · sample catalog data</p><div class="price" id="pprice"></div></div></div><div class="card"><b>Choose variant</b><div class="variantRow" style="margin-top:10px"><button class="variant active" data-storage="12/256 GB" onclick="selectVariant(this,'storage')">12/256 GB</button><button class="variant" data-storage="12/512 GB" onclick="selectVariant(this,'storage')">12/512 GB</button><button class="variant" data-storage="16/512 GB" onclick="selectVariant(this,'storage')">16/512 GB</button></div><div class="variantRow" style="margin-top:10px"><button class="variant active" data-color="Black" onclick="selectVariant(this,'color')">Black</button><button class="variant" data-color="Blue" onclick="selectVariant(this,'color')">Blue</button><button class="variant" data-color="Silver" onclick="selectVariant(this,'color')">Silver</button></div><p class="muted" id="variantSummary" style="margin:10px 0 0">Selected: 12/256 GB · Black</p></div><div class="offer"><b>🏷️ Our Store Offer</b><p class="muted">Instant bank offers, EMI options and exchange eligibility will appear here.</p></div><div class="card"><h3>Key specifications</h3><div class="specGrid"><div class="specItem"><small>Display</small>6.7″ AMOLED</div><div class="specItem"><small>Network</small>5G</div><div class="specItem"><small>Memory</small>12 GB RAM</div><div class="specItem"><small>Storage</small>256 GB</div><div class="specItem"><small>Camera</small>50 MP main</div><div class="specItem"><small>Warranty</small>Our Store warranty</div></div></div><div class="card"><h3>Delivery & pickup</h3><p>🚚 Delivery available</p><p>🏪 Store pickup available</p><p class="muted">Final availability and delivery date will be confirmed at checkout.</p></div><div class="card"><h3>Full specifications</h3><div class="specList" id="fullSpecs"><div class="specRow"><span>Brand</span><b id="specBrand">—</b></div><div class="specRow"><span>Category</span><b id="specCategory">—</b></div><div class="specRow"><span>Display</span><b id="specDisplay">6.7″ AMOLED · demo</b></div><div class="specRow"><span>Chipset</span><b id="specChip">—</b></div><div class="specRow"><span>RAM / Storage</span><b id="specMemory">—</b></div><div class="specRow"><span>Main camera</span><b id="specCamera">50 MP · demo</b></div><div class="specRow"><span>Front camera</span><b id="specFront">—</b></div><div class="specRow"><span>Battery</span><b id="specBattery">—</b></div><div class="specRow"><span>Network</span><b id="specNetwork">5G</b></div><div class="specRow"><span>OS</span><b id="specOS">—</b></div><div class="specRow"><span>Warranty</span><b>Our Store warranty</b></div></div><p class="muted" style="margin-bottom:0">Demo specification data. Final specifications can be connected to verified product data later.</p></div><div class="card"><h3>What's in the box</h3><p>📦 Device</p><p>🔌 Charging accessories (as applicable)</p><p>📄 Documentation</p></div><div class="card"><h3>Delivery & pickup</h3><p>🚚 Delivery available</p><p>🏪 Store pickup available</p><p class="muted">Final availability and delivery date will be confirmed at checkout.</p></div><div class="card"><h3>Exchange</h3><p class="muted">Have an old device? Check its condition and get an estimated exchange value.</p><button class="btn alt" onclick="exchange()">🔄 Check Exchange Value</button></div><div class="stickyBuy"><button class="btn" onclick="addCart()">🛒 Add to Cart</button><button class="btn alt" onclick="renderCheckout();go('checkout')">Buy Now</button><button class="btn alt" onclick="go('compare')">⚖️ Compare</button></div>
+<div id="product" class="screen"><div class="content"><button class="back" onclick="go('catalog')">← Products</button><div class="productHero"><div class="productVisual"><div class="osGalleryStage" id="osGalleryStage"><span class="osGalleryCount" id="osGalleryCount">1 / 8</span><button class="osGalleryArrow prev" onclick="moveGallery(-1)" aria-label="Previous image">‹</button><img id="productDetailImage" src="" alt="Phone product image" onclick="openImageViewer(false)" role="button" tabindex="0" aria-label="Open full-screen product image" loading="eager" decoding="async" style="width:100%;height:100%;object-fit:contain;padding:12px;box-sizing:border-box" onerror="this.onerror=null;this.src='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 220 300%22%3E%3Crect width=%22220%22 height=%22300%22 rx=%2228%22 fill=%22%23eef2f7%22/%3E%3Crect x=%2250%22 y=%2225%22 width=%22120%22 height=%22245%22 rx=%2220%22 fill=%22%23dce4ef%22 stroke=%22%2399a8bb%22 stroke-width=%224%22/%3E%3C/svg%3E'"><button class="osGalleryArrow next" onclick="moveGallery(1)" aria-label="Next image">›</button><button class="osGallery360" id="osGallery360" onclick="openImageViewer(true)">↻ 360° Preview</button></div><div class="osGalleryThumbs" id="osGalleryThumbs"></div><p class="muted" id="osGalleryNote" style="font-size:11px;margin:8px 2px 0">Product image preview · alternate angles are visual previews</p></div><div><div class="tag">Our Store</div><div class="tag">In Stock</div><div class="tag">Warranty</div><h2 id="pname"></h2><p class="muted">Official Our Store listing · sample catalog data</p><div class="price" id="pprice"></div></div></div><div class="card"><b>Choose variant</b><div class="variantRow" style="margin-top:10px"><button class="variant active" data-storage="12/256 GB" onclick="selectVariant(this,'storage')">12/256 GB</button><button class="variant" data-storage="12/512 GB" onclick="selectVariant(this,'storage')">12/512 GB</button><button class="variant" data-storage="16/512 GB" onclick="selectVariant(this,'storage')">16/512 GB</button></div><div class="variantRow" style="margin-top:10px"><button class="variant active" data-color="Black" onclick="selectVariant(this,'color')">Black</button><button class="variant" data-color="Blue" onclick="selectVariant(this,'color')">Blue</button><button class="variant" data-color="Silver" onclick="selectVariant(this,'color')">Silver</button></div><p class="muted" id="variantSummary" style="margin:10px 0 0">Selected: 12/256 GB · Black</p></div><div class="offer"><b>🏷️ Our Store Offer</b><p class="muted">Instant bank offers, EMI options and exchange eligibility will appear here.</p></div><div class="card"><h3>Key specifications</h3><div class="specGrid"><div class="specItem"><small>Display</small>6.7″ AMOLED</div><div class="specItem"><small>Network</small>5G</div><div class="specItem"><small>Memory</small>12 GB RAM</div><div class="specItem"><small>Storage</small>256 GB</div><div class="specItem"><small>Camera</small>50 MP main</div><div class="specItem"><small>Warranty</small>Our Store warranty</div></div></div><div class="card"><h3>Delivery & pickup</h3><p>🚚 Delivery available</p><p>🏪 Store pickup available</p><p class="muted">Final availability and delivery date will be confirmed at checkout.</p></div><div class="card"><h3>Full specifications</h3><div class="specList" id="fullSpecs"><div class="specRow"><span>Brand</span><b id="specBrand">—</b></div><div class="specRow"><span>Category</span><b id="specCategory">—</b></div><div class="specRow"><span>Display</span><b id="specDisplay">6.7″ AMOLED · demo</b></div><div class="specRow"><span>Chipset</span><b id="specChip">—</b></div><div class="specRow"><span>RAM / Storage</span><b id="specMemory">—</b></div><div class="specRow"><span>Main camera</span><b id="specCamera">50 MP · demo</b></div><div class="specRow"><span>Front camera</span><b id="specFront">—</b></div><div class="specRow"><span>Battery</span><b id="specBattery">—</b></div><div class="specRow"><span>Network</span><b id="specNetwork">5G</b></div><div class="specRow"><span>OS</span><b id="specOS">—</b></div><div class="specRow"><span>Warranty</span><b>Our Store warranty</b></div></div><p class="muted" style="margin-bottom:0">Demo specification data. Final specifications can be connected to verified product data later.</p></div><div class="card"><h3>What's in the box</h3><p>📦 Device</p><p>🔌 Charging accessories (as applicable)</p><p>📄 Documentation</p></div><div class="card"><h3>Delivery & pickup</h3><p>🚚 Delivery available</p><p>🏪 Store pickup available</p><p class="muted">Final availability and delivery date will be confirmed at checkout.</p></div><div class="card"><h3>Exchange</h3><p class="muted">Have an old device? Check its condition and get an estimated exchange value.</p><button class="btn alt" onclick="exchange()">🔄 Check Exchange Value</button></div><div class="stickyBuy"><button class="btn" onclick="addCart()">🛒 Add to Cart</button><button class="btn alt" onclick="renderCheckout();go('checkout')">Buy Now</button><button class="btn alt" onclick="go('compare')">⚖️ Compare</button></div>
 <div class="card reviewBox">
 <h3>Customer Reviews</h3>
 <div class="reviewSummary"><b>4.7 ★</b><span> · 128 reviews · Verified purchases</span></div>
@@ -920,82 +919,44 @@ function showOffer(name){
 }
 
 
-const osSamsungS26Angles=[
- {label:'Front + Back',src:'https://api.samsungmobilepress.com/file/9E8CA27DD1D38E527E4F827FA34A17AF3838F3597E244DC94F382D69E40D740AE4CE2C9ADA8976143239B8C85B8827CF8E807B5816053208E06EB80E579B5BA6CE83D2278F564091FB0DA7A4DC526749FA5EB3BA455EB8586E6BB11808FDFCF4F0768CA223EADC49C05ECF719863A86F3A119CB1C980AC0DEB4C75D0976BD15D99EE360733964C93912775E1E176F891'},
- {label:'Front',src:'https://api.samsungmobilepress.com/file/9144794D29146E5264DBDCB76297D83178E8165AF2BEFD0F1B8C45B31AF89601309D73CE0B8D1CF5207867872CC4829C5D720CEFBC74C31CF9FDB5123AFFA0D3A6F32A4F976141FECBA98B0A7BA394737AE1168805B62BCA3E172800678233E7187C78299E210F4D17F83D8AEEA072C20DA4E514CF31804AAC55CC3C9ABEB2C6D406326CBE611ED7905D191ED2B587FFE1CE8EE110C9CBFF1995B6066E742912'},
- {label:'Left angle',src:'https://api.samsungmobilepress.com/file/8D79E56027B865E8F0D5C77B2F48DDB8E11CB4CE8B6F7A37C1C646B2188EC9D17BA9B327A129F75BEC8A931C921A5EB02342F2D6053D0801C4057F225598BBF4D9A7459BF8B4925C38649935D6156CEC90DA8B2A2EBBD6123E33F2E73BCE46988CE99668C284DBAE5D881B90965F5C9C9AF9039CEBDC1C92ABF04B4BB4A8B1BBEDD7F8CC5AB3CDA8A636ACD6F6DEDCA000F476E8D741DD4EBA377EE73F133E77'},
- {label:'Right angle',src:'https://api.samsungmobilepress.com/file/7AED5D339F4CBF041B37C7F93993B999DCEAB434458343A823B3BE937A966E6DB865656DDA6865A9182D66E1D9033563C4BFD5B5FEAE342CAFE74A26ED5CD8E0B223CB80035AD5B226B03C5C7179569F1EA7E76BEAE25AD4CB67815EB8A17093104219A5A089D302419B9A427DC354FDCB632BFE8ABC4B93CF9F9F440FD4B0140D8A667FCC535CA0A4127F21F80AB08DC99B2F36DFF660995AE952C1DDA60F18'},
- {label:'Back',src:'https://api.samsungmobilepress.com/file/2D0E74680AA74C60A086416158A47742D7944063D8E727132DAEB9BE69F9D4455483B0397AFA2C55BC42D997814E6E93D98261762044C2DC8499336F636FA31532B4DFC3BE10A72B5C28BE0399B4853C77A411FC3E75D8A7D8981BED00DA554AE660C1A60CD1C39F8C94F48FD444C39D9A0BE53ABD8E0C5931B946DE1B743689B9347DC618DCCCF49048638C92A248F9'},
- {label:'Back left',src:'https://api.samsungmobilepress.com/file/11DCD90E58E7CC7FECE148DDD77DFA97D60A9A0E3E701570BB7FFC003CD77242114D414BF4D6203DDC79434B2DEE3D8B7E3897AAD763FFA74443EAB8A1BD933CC0000BDD357B53A7C85BE7BB76AA11B2CA575E29FC2BDA994DC49C9FB4D3A6854AF768863CD02C9F38A033C05D89D37912AC801AFB69386FB07915ED273E2AF17B6A43F4DBCB7B6BBF18BB9400557B3937092A4791CCED087AE0AEEC0DF33CFD'}
-];
 const osGalleryViews=[
- {label:'Product',transform:'none',filter:'none'},
- {label:'Front',transform:'none',filter:'none'},
- {label:'Left',transform:'none',filter:'none'},
- {label:'Right',transform:'none',filter:'none'},
- {label:'Back',transform:'none',filter:'none'},
- {label:'Back angle',transform:'none',filter:'none'}
+ {label:'Front',transform:'scale(1)',filter:'none'},
+ {label:'Back',transform:'scale(.94)',filter:'brightness(.96)'},
+ {label:'Left',transform:'scale(.72) skewY(-3deg) rotate(-3deg)',filter:'brightness(.92)'},
+ {label:'Right',transform:'scale(.72) skewY(3deg) rotate(3deg)',filter:'brightness(.92)'},
+ {label:'Top',transform:'scale(.82) rotate(90deg)',filter:'brightness(.96)'},
+ {label:'Bottom',transform:'scale(.82) rotate(-90deg)',filter:'brightness(.96)'},
+ {label:'Camera',transform:'scale(1.42) translateY(-8%)',filter:'contrast(1.08)'},
+ {label:'360°',transform:'scale(.94)',filter:'saturate(1.05)'}
 ];
-const osIphone17ProImages={
- orange:'https://www.apple.com/newsroom/images/2025/09/apple-unveils-iphone-17-pro-and-iphone-17-pro-max/article/Apple-iPhone-17-Pro-cosmic-orange-250909_inline.jpg.large.jpg',
- lineup:'https://www.apple.com/newsroom/images/2025/09/apple-unveils-iphone-17-pro-and-iphone-17-pro-max/article/Apple-iPhone-17-Pro-color-lineup-250909_inline.jpg.large.jpg'
-};
 let osGalleryIndex=0,osGalleryTimer=null;
-function galleryProductName(){
- return String((selectedProduct&&selectedProduct.name)||document.getElementById('pname')?.textContent||'');
+function galleryColorFilter(){
+ const c=(selectedColor||'Black').toLowerCase();
+ // Visual demo tint only. Real colour-specific product photos should replace these filters in production.
+ if(c==='blue')return 'grayscale(.25) sepia(.18) hue-rotate(175deg) saturate(1.65) brightness(.92)';
+ if(c==='silver')return 'grayscale(.92) brightness(1.16) contrast(.92)';
+ if(c==='gold')return 'grayscale(.25) sepia(.78) saturate(1.45) hue-rotate(350deg) brightness(1.02)';
+ if(c==='black')return 'grayscale(.88) brightness(.62) contrast(1.12)';
+ return 'none';
 }
-function isSamsungS26Gallery(){return /galaxy s26 ultra/i.test(galleryProductName());}
-function isIphone17ProGallery(){return /^iphone 17 pro(?: max)?$/i.test(galleryProductName());}
-function currentGalleryViews(){
- const name=galleryProductName();
- if(isSamsungS26Gallery()){
-   const chosen=(selectedColor||'Cobalt Violet').toLowerCase();
-   if(chosen==='cobalt violet')return osSamsungS26Angles;
-   // Do not pretend that the Cobalt Violet photos are the selected colour.
-   return [{label:'Available official reference',src:osSamsungS26Angles[0].src}];
- }
- if(isIphone17ProGallery()){
-   // Only show the Cosmic Orange render when Cosmic Orange is selected.
-   // Other finishes use Apple's lineup reference, not a falsely colour-matched render.
-   const chosen=(selectedColor||'').toLowerCase();
-   if(chosen==='cosmic orange') return [
-    {label:'Front + Back · Cosmic Orange',src:osIphone17ProImages.orange},
-    {label:'Official colour lineup',src:osIphone17ProImages.lineup}
-   ];
-   return [{label:'Official colour lineup · finish reference',src:osIphone17ProImages.lineup}];
- }
- const img=document.getElementById('productDetailImage');
- return [{label:'Product image · single view',src:img?img.src:''}];
-}
-function galleryColorFilter(){return 'none';}
 function renderOsGallery(){
  const img=document.getElementById('productDetailImage'),count=document.getElementById('osGalleryCount'),thumbs=document.getElementById('osGalleryThumbs'),note=document.getElementById('osGalleryNote');
  if(!img||!thumbs)return;
- const views=currentGalleryViews();
- osGalleryIndex=Math.max(0,Math.min(osGalleryIndex,views.length-1));
- const view=views[osGalleryIndex];
- if(view.src && img.src!==view.src)img.src=view.src;
- img.style.transform='none';img.style.filter='none';img.style.objectPosition='center';
- if(count)count.textContent=(osGalleryIndex+1)+' / '+views.length;
- thumbs.innerHTML=views.map((v,i)=>`<button type="button" class="osGalleryThumb ${i===osGalleryIndex?'active':''}" onclick="setGalleryView(${i})" aria-label="Show ${v.label} view"><img src="${v.src||img.src}" alt="${v.label}" loading="lazy"><span>${v.label}</span></button>`).join('');
- if(note){
-  if(isSamsungS26Gallery())note.textContent=(selectedColor||'Cobalt Violet').toLowerCase()==='cobalt violet'?'Official Samsung product images · 6 genuine viewing images · Cobalt Violet finish. Other colours do not yet have their own angle set.':'Official Samsung reference image shown; genuine multi-angle images are currently available only for Cobalt Violet.';
-  else if(isIphone17ProGallery())note.textContent=(selectedColor||'').toLowerCase()==='cosmic orange'?'Official Apple images · Cosmic Orange front/back plus colour lineup reference. Separate side-angle images for each finish are not available.':'Official Apple colour lineup reference for the selected finish. A separate isolated render and angle photos for this finish are not available.';
-  else note.textContent='This catalog model currently has one product image. Extra viewing angles and colour-specific images are shown only when verified images are available.';
- }
+ const view=osGalleryViews[osGalleryIndex], colorFilter=galleryColorFilter();
+ img.style.transform=view.transform;
+ img.style.filter=[view.filter,colorFilter].filter(x=>x&&x!=='none').join(' ')||'none';
+ img.style.objectPosition='center';
+ if(count)count.textContent=(osGalleryIndex+1)+' / '+osGalleryViews.length;
+ thumbs.innerHTML=osGalleryViews.map((v,i)=>`<button type="button" class="osGalleryThumb ${i===osGalleryIndex?'active':''}" onclick="setGalleryView(${i})" aria-label="Show ${v.label} view"><img src="${img.src}" alt="${v.label} view preview" style="transform:${v.transform};filter:${[v.filter,colorFilter].filter(x=>x&&x!=='none').join(' ')||'none'}"><span>${v.label}</span></button>`).join('');
+ if(note)note.textContent='Selected colour: '+selectedColor+' · Colour tint is a demo; angle views use the available product image';
 }
-function setGalleryView(i){const views=currentGalleryViews();osGalleryIndex=(i+views.length)%views.length;renderOsGallery();syncImageViewer();}
+function setGalleryView(i){osGalleryIndex=(i+osGalleryViews.length)%osGalleryViews.length;renderOsGallery();}
 function moveGallery(delta){setGalleryView(osGalleryIndex+delta);}
-function toggleGallery360(){openImageViewer(true);}
-function configureProductColours(){
- const row=document.querySelector('#product .variantRow:nth-of-type(2)');
- if(!row)return;
- let colours=['Black','Blue','Silver'];
- if(isSamsungS26Gallery())colours=['Cobalt Violet','Black','Sky Blue','White'];
- else if(isIphone17ProGallery())colours=['Deep Blue','Cosmic Orange','Silver'];
- const activeIndex=isIphone17ProGallery()?1:0;
- row.innerHTML=colours.map((c,i)=>`<button class="variant ${i===activeIndex?'active':''}" data-color="${c}" onclick="selectVariant(this,'color')">${c}</button>`).join('');
- selectedColor=colours[activeIndex];
+function toggleGallery360(){
+ const btn=document.getElementById('osGallery360');
+ if(osGalleryTimer){clearInterval(osGalleryTimer);osGalleryTimer=null;if(btn)btn.textContent='↻ 360° Preview';return;}
+ if(btn)btn.textContent='Ⅱ Stop Preview';
+ osGalleryTimer=setInterval(()=>setGalleryView(osGalleryIndex+1),700);
 }
 
 function product(n,pr,spec){
@@ -1003,10 +964,9 @@ function product(n,pr,spec){
 
   const p=data.find(x=>x.name===n)||{};
   selectedProduct={name:n,price:pr,spec:spec,brand:p.brand||'—',category:p.category||'—'};
-  configureProductColours();
   const detailImage=document.getElementById('productDetailImage');
-  if(detailImage){detailImage.src=deviceImage(p.name?p:{name:n,brand:selectedProduct.brand,category:selectedProduct.category});detailImage.alt=n+' product image';detailImage.style.transform='none';detailImage.style.filter='none';}
-  osGalleryIndex=0;if(osGalleryTimer){clearInterval(osGalleryTimer);osGalleryTimer=null;}const gbtn=document.getElementById('osGallery360');if(gbtn)gbtn.textContent='↻ View angles';setTimeout(renderOsGallery,50);
+  if(detailImage){detailImage.src=deviceImage(p.name?p:{name:n,brand:selectedProduct.brand,category:selectedProduct.category});detailImage.alt=n+' product image';detailImage.style.transform='scale(1)';detailImage.style.filter='none';}
+  osGalleryIndex=0;if(osGalleryTimer){clearInterval(osGalleryTimer);osGalleryTimer=null;}const gbtn=document.getElementById('osGallery360');if(gbtn)gbtn.textContent='↻ 360° Preview';setTimeout(renderOsGallery,50);
   document.getElementById('pname').textContent=n;
   document.getElementById('pprice').textContent=pr;
   const brandEl=document.getElementById('specBrand'); if(brandEl)brandEl.textContent=selectedProduct.brand;
@@ -1128,7 +1088,7 @@ function selectVariant(btn,type){
   row.querySelectorAll('.variant').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   if(type==='storage'){selectedStorage=btn.dataset.storage;}
-  if(type==='color'){selectedColor=btn.dataset.color;osGalleryIndex=0;}
+  if(type==='color'){selectedColor=btn.dataset.color;}
   const prices={'12/256 GB':'₹1,49,900','12/512 GB':'₹1,59,900','16/512 GB':'₹1,69,900'};
   document.getElementById('pprice').textContent=prices[selectedStorage] || selectedProduct.price;
   const storageText=document.querySelector('#product .specItem:nth-child(4)');
@@ -1163,20 +1123,50 @@ function openCompareFromHome(){
 }
 function deviceImage(p){
   const name=(p.name||'').toLowerCase();
-  // Only use model-specific images where the model match is explicit. Do not substitute another model from the same brand.
-  const exactImages=[
-    [/^iphone 17 pro max$/, 'https://media.mobilemela.com.bd/2026/09/apple-iphone-17-pro-max-cosmic-orange-official-image.webp'],
-    [/^iphone 17 pro$/, 'https://media.mobilemela.com.bd/2026/09/apple-iphone-17-pro-max-cosmic-orange-official-image.webp'],
-    [/^iphone 17$/, 'https://youget.pt/245640-large_default/apple-iphone-17-63-256gb-verde-salvia.jpg'],
-    [/^iphone 16$/, 'https://www.costco.com.tw/medias/sys_master/images/h77/h1c/274498548203550.jpg'],
-    [/^galaxy s26 ultra$/, 'https://www.laptopsdirect.co.uk/Images/SM-S948BZKHEUB_1_17511204_Supersize.jpg?v=5'],
-    [/^vivo x300 pro$/, 'https://eu-exstatic-vivofs.vivo.com/8Xa6evfY85lu15Pb/1761645272254/51e78d0f8a9936a8dbb57cb160923285.png'],
-    [/^oppo find x9 pro$/, 'https://www.pingafps.com.br/cdn/shop/files/download_10_44c64f82-2eec-43b2-82d9-fe8f6e78e9d8.png?v=1765672393&width=2000']
+  const brand=(p.brand||'').toLowerCase();
+  // Real product photos for the mobile catalog; fallback images are real devices from the same brand/family.
+  const imageMap=[
+    [/iphone duo/, 'https://www.pbtech.co.nz/imgprod/M/P/MPHAPP881001.jpg?h=687457154'],
+    [/iphone 18 pro max/, 'https://media.extra.com/s/aurora/100528763_800/Apple-iPhone-18-Pro%2C-5G%2C-6-3-inch%2C-1TB%2C-Black?locale=en-GB%2Cen-%2A%2C%2A'],
+    [/iphone 18 pro/, 'https://media.extra.com/s/aurora/100528763_800/Apple-iPhone-18-Pro%2C-5G%2C-6-3-inch%2C-1TB%2C-Black?locale=en-GB%2Cen-%2A%2C%2A'],
+    [/iphone 17 pro/, 'https://media.mobilemela.com.bd/2026/09/apple-iphone-17-pro-max-cosmic-orange-official-image.webp'],
+    [/iphone 17$/, 'https://youget.pt/245640-large_default/apple-iphone-17-63-256gb-verde-salvia.jpg'],
+    [/iphone 16/, 'https://www.costco.com.tw/medias/sys_master/images/h77/h1c/274498548203550.jpg'],
+    [/galaxy s26 ultra/, 'https://www.laptopsdirect.co.uk/Images/SM-S948BZKHEUB_1_17511204_Supersize.jpg?v=5'],
+    [/galaxy z fold/, 'https://i.ebayimg.com/images/g/KNwAAOSwmrdniw-N/s-l1200.jpg'],
+    [/vivo x300 pro/, 'https://eu-exstatic-vivofs.vivo.com/8Xa6evfY85lu15Pb/1761645272254/51e78d0f8a9936a8dbb57cb160923285.png'],
+    [/find x9 pro/, 'https://www.pingafps.com.br/cdn/shop/files/download_10_44c64f82-2eec-43b2-82d9-fe8f6e78e9d8.png?v=1765672393&width=2000'],
+    [/pixel pro|pixel$/, 'https://multimedia.bbycastatic.ca/multimedia/products/1500x1500/193/19363/19363134.jpg'],
+    [/razr/, 'https://cdn.mos.cms.futurecdn.net/tPNPWqT6o8Nv5v2E6uyBEf.jpg'],
+    [/oneplus/, 'https://image01-eu.oneplus.net/media/202504/24/3ef9ff81b6b7fbf79b4d1d81169ca0ec.png'],
+    [/xiaomi 17 ultra/, 'https://res.plaisio.gr/c_limit%2Cf_auto%2Cw_2048%2Cq_75/d_Shared%3ANotFound%3Aproduct-notfound.jpg/Shared/Product/Images/5076048.jpg'],
+    [/redmi/, 'https://i01.appmifile.com/v1/MI_18455B3E4DA706226CF7535A58E875F0267/pms_1646677667.5338160.png?q=85&thumb=1'],
+    [/poco/, 'https://i01.appmifile.com/v1/MI_18455B3E4DA706226CF7535A58E875F0267/pms_1655970224.4946983.png?q=85&thumb=1'],
+    [/nothing/, 'https://cdn.beebom.com/mobile/nothing-phone-4a-pro-front-and-back1.png'],
+    [/iqoo/, 'https://www.giztop.com/media/catalog/product/cache/97cc1143d2e20f2b0c8ea91aaa12053c/i/q/iqoo_pro_5g_2.png']
   ];
-  for(const [pattern,url] of exactImages){if(pattern.test(name))return url;}
-  // Unknown/unverified models get a clearly labelled neutral placeholder instead of a misleading image of another device.
-  const label=(p.name||'Product').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-  const svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 300"><rect width="240" height="300" rx="24" fill="#f4f6fa"/><rect x="65" y="25" width="110" height="205" rx="18" fill="#dfe5ed" stroke="#9aa7b8" stroke-width="3"/><rect x="73" y="35" width="94" height="185" rx="12" fill="#ffffff"/><circle cx="120" cy="239" r="4" fill="#9aa7b8"/><text x="120" y="270" text-anchor="middle" font-size="11" font-family="Arial,sans-serif" fill="#344256">Image not verified</text><text x="120" y="287" text-anchor="middle" font-size="10" font-family="Arial,sans-serif" fill="#344256">'+label.slice(0,24)+'</text></svg>';
+  for(const [pattern,url] of imageMap){if(pattern.test(name))return url;}
+  const brandImages={
+    'samsung':'https://www.laptopsdirect.co.uk/Images/SM-S948BZKHEUB_1_17511204_Supersize.jpg?v=5',
+    'apple':'https://youget.pt/245640-large_default/apple-iphone-17-63-256gb-verde-salvia.jpg',
+    'vivo':'https://eu-exstatic-vivofs.vivo.com/8Xa6evfY85lu15Pb/1761645272254/51e78d0f8a9936a8dbb57cb160923285.png',
+    'oppo':'https://www.pingafps.com.br/cdn/shop/files/download_10_44c64f82-2eec-43b2-82d9-fe8f6e78e9d8.png?v=1765672393&width=2000',
+    'google':'https://multimedia.bbycastatic.ca/multimedia/products/1500x1500/193/19363/19363134.jpg',
+    'motorola':'https://cdn.mos.cms.futurecdn.net/tPNPWqT6o8Nv5v2E6uyBEf.jpg',
+    'oneplus':'https://image01-eu.oneplus.net/media/202504/24/3ef9ff81b6b7fbf79b4d1d81169ca0ec.png',
+    'xiaomi':'https://res.plaisio.gr/c_limit%2Cf_auto%2Cw_2048%2Cq_75/d_Shared%3ANotFound%3Aproduct-notfound.jpg/Shared/Product/Images/5076048.jpg',
+    'redmi':'https://i01.appmifile.com/v1/MI_18455B3E4DA706226CF7535A58E875F0267/pms_1646677667.5338160.png?q=85&thumb=1',
+    'poco':'https://i01.appmifile.com/v1/MI_18455B3E4DA706226CF7535A58E875F0267/pms_1655970224.4946983.png?q=85&thumb=1',
+    'realme':'https://eu-exstatic-vivofs.vivo.com/8Xa6evfY85lu15Pb/1761645272254/51e78d0f8a9936a8dbb57cb160923285.png',
+    'nothing':'https://cdn.beebom.com/mobile/nothing-phone-4a-pro-front-and-back1.png',
+    'iqoo':'https://www.giztop.com/media/catalog/product/cache/97cc1143d2e20f2b0c8ea91aaa12053c/i/q/iqoo_pro_5g_2.png',
+    'honor':'https://multimedia.bbycastatic.ca/multimedia/products/1500x1500/193/19363/19363134.jpg',
+    'asus':'https://www.laptopsdirect.co.uk/Images/SM-S948BZKHEUB_1_17511204_Supersize.jpg?v=5'
+  };
+  if(brandImages[brand] && p.category==='Mobiles')return brandImages[brand];
+  // Non-phone catalog cards retain a neutral product illustration rather than showing a wrong phone photo.
+  const label=(p.name||'Device').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 300"><rect width="220" height="300" rx="28" fill="#eef2f7"/><rect x="48" y="25" width="124" height="245" rx="16" fill="#dce4ef" stroke="#aab8ca" stroke-width="2"/><rect x="57" y="36" width="106" height="220" rx="10" fill="#f9fbff"/><text x="110" y="145" text-anchor="middle" font-size="13" font-family="Arial" fill="#26354a">'+label.slice(0,22)+'</text></svg>';
   return 'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent(svg);
 }
 function renderCompareUI(q){
@@ -1454,10 +1444,10 @@ function placeOrder(){
     </div>
     <div id="osViewerLabel" style="font-size:16px;font-weight:750">Front view</div>
     <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
-      <button type="button" id="osViewer360Button" onclick="toggleViewer360()" style="border:0;border-radius:22px;background:#fff;color:#111;padding:11px 16px;font-weight:750">↻ View angles</button>
+      <button type="button" id="osViewer360Button" onclick="toggleViewer360()" style="border:0;border-radius:22px;background:#fff;color:#111;padding:11px 16px;font-weight:750">↻ 360° Preview</button>
       <button type="button" onclick="closeImageViewer()" style="border:1px solid #ffffff55;border-radius:22px;background:transparent;color:#fff;padding:11px 16px;font-weight:650">Done</button>
     </div>
-    <div style="font-size:11px;color:#aeb4bf;text-align:center">Swipe or use arrows to move between available product photos</div>
+    <div style="font-size:11px;color:#aeb4bf;text-align:center">Expanded image preview · angle changes are illustrative until separate photos are added</div>
   </div>
 </div>
 <script>
@@ -1469,34 +1459,24 @@ function openImageViewer(start360=false){
 function closeImageViewer(){
  const modal=document.getElementById('osImageViewer');if(modal){modal.style.display='none';modal.setAttribute('aria-hidden','true');}
  if(osGalleryTimer){clearInterval(osGalleryTimer);osGalleryTimer=null;}
- const a=document.getElementById('osGallery360');if(a)a.textContent='↻ View angles';
- const b=document.getElementById('osViewer360Button');if(b)b.textContent='↻ View angles';
+ const a=document.getElementById('osGallery360');if(a)a.textContent='↻ 360° Preview';
+ const b=document.getElementById('osViewer360Button');if(b)b.textContent='↻ 360° Preview';
 }
 function syncImageViewer(){
- const out=document.getElementById('osViewerImage');
- if(!out)return;
- const views=currentGalleryViews(),v=views[osGalleryIndex]||views[0];
- out.src=(v&&v.src)||document.getElementById('productDetailImage')?.src||'';
- out.alt=(document.getElementById('pname')?.textContent||'Product')+' '+(v?.label||'')+' view';
- out.style.transform='none';out.style.filter='none';
- const c=document.getElementById('osViewerCount');if(c)c.textContent=(osGalleryIndex+1)+' / '+views.length;
- const l=document.getElementById('osViewerLabel');if(l)l.textContent=(v?.label||'Product')+' view';
+ const src=document.getElementById('productDetailImage'),out=document.getElementById('osViewerImage');
+ if(!src||!out)return;
+ const v=osGalleryViews[osGalleryIndex], tint=galleryColorFilter();
+ out.src=src.src;out.alt=(document.getElementById('pname')?.textContent||'Product')+' '+v.label+' view';
+ out.style.transform=v.transform;out.style.filter=[v.filter,tint].filter(x=>x&&x!=='none').join(' ')||'none';
+ const c=document.getElementById('osViewerCount');if(c)c.textContent=(osGalleryIndex+1)+' / '+osGalleryViews.length;
+ const l=document.getElementById('osViewerLabel');if(l)l.textContent=v.label+' view';
 }
 function toggleViewer360(){
  const btn=document.getElementById('osViewer360Button');
- if(osGalleryTimer){clearInterval(osGalleryTimer);osGalleryTimer=null;if(btn)btn.textContent='↻ View angles';const a=document.getElementById('osGallery360');if(a)a.textContent='↻ View angles';return;}
+ if(osGalleryTimer){clearInterval(osGalleryTimer);osGalleryTimer=null;if(btn)btn.textContent='↻ 360° Preview';const a=document.getElementById('osGallery360');if(a)a.textContent='↻ 360° Preview';return;}
  if(btn)btn.textContent='Ⅱ Stop Preview';const a=document.getElementById('osGallery360');if(a)a.textContent='Ⅱ Stop Preview';
- osGalleryTimer=setInterval(()=>{setGalleryView(osGalleryIndex+1);syncImageViewer();},1100);
+ osGalleryTimer=setInterval(()=>{setGalleryView(osGalleryIndex+1);syncImageViewer();},850);
 }
-
-(function enableGallerySwipe(){
- let sx=0,sy=0;
- const stage=document.getElementById('osGalleryStage');
- if(stage){stage.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY},{passive:true});stage.addEventListener('touchend',e=>{if(!sx)return;const dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy))moveGallery(dx<0?1:-1);sx=0;sy=0},{passive:true});}
- const viewer=document.getElementById('osImageViewer');
- if(viewer){viewer.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY},{passive:true});viewer.addEventListener('touchend',e=>{if(!sx)return;const dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)){moveGallery(dx<0?1:-1);syncImageViewer()}sx=0;sy=0},{passive:true});}
-})();
-
 document.addEventListener('keydown',e=>{const m=document.getElementById('osImageViewer');if(!m||m.style.display==='none')return;if(e.key==='Escape')closeImageViewer();if(e.key==='ArrowRight'){moveGallery(1);syncImageViewer();}if(e.key==='ArrowLeft'){moveGallery(-1);syncImageViewer();}});
 </script>
 
