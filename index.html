@@ -1106,6 +1106,7 @@ function renderCheckout(){
   const el=document.getElementById('checkoutItem');
   const total=document.getElementById('checkoutTotal');
   const placeBtn=document.querySelector('#checkout button[onclick="placeOrder()"]');
+  if(!el||!total)return;
   if(!cart.length){
     el.innerHTML='<b>Your cart is empty.</b><p class="muted">Go back to the shop and add a product first.</p>';
     total.textContent='—';
@@ -1157,8 +1158,17 @@ function selectVariant(btn,type){
   if(selectedProduct){
     const prices={'12/256 GB':'₹1,49,900','12/512 GB':'₹1,59,900','16/512 GB':'₹1,69,900'};
     const price=(selectedProduct.name==='iPhone 17 Pro Max')?(prices[selectedStorage]||selectedProduct.basePrice||selectedProduct.price):(selectedProduct.basePrice||selectedProduct.price);
-    selectedProduct={...selectedProduct,price,storage:selectedStorage,color:selectedColor};
-    document.getElementById('pprice').textContent=price;
+    const oldSpec=String(selectedProduct.spec||'');
+    const specParts=oldSpec.split(' · ');
+    const firstPart=/^\d+\s*\/\s*\d+\s*GB$/i.test(specParts[0]||'');
+    const updatedSpec=firstPart?[selectedStorage,...specParts.slice(1)].join(' · '):oldSpec;
+    selectedProduct={...selectedProduct,price,spec:updatedSpec,storage:selectedStorage,color:selectedColor};
+    const priceNode=document.getElementById('pprice');
+    if(priceNode)priceNode.textContent=price;
+    const memoryNode=document.querySelector('#product .specItem:nth-child(3)');
+    const storageNode=document.querySelector('#product .specItem:nth-child(4)');
+    if(storageNode)storageNode.innerHTML='<small>Storage</small>'+String(selectedStorage.split('/')[1]||'—');
+    if(memoryNode)memoryNode.innerHTML='<small>Memory</small>'+String(selectedStorage.split('/')[0]||'—')+' GB RAM';
     localStorage.setItem('ourStoreSelectedProduct',JSON.stringify(selectedProduct));
   }
   const storageText=document.querySelector('#product .specItem:nth-child(4)');
@@ -1467,6 +1477,8 @@ function placeOrder(){
   const address=(document.getElementById('deliveryAddress').value||'').trim();
   if(!address){alert('Please select a saved delivery address or enter one for the demo order.');return;}
   const payment=document.querySelector('input[name="payment"]:checked')?.value||'UPI';
+  const invalidItem=cart.find(item=>moneyValue(item.price)<=0);
+  if(invalidItem){alert('A product in your cart has no valid price. Remove it or choose a listed-price product before checkout.');return;}
   const baseTotal=getCheckoutBaseTotal();
   if(baseTotal<=0){alert('The order total must be greater than ₹0.');return;}
   const rewardUsed=getRewardDiscount();
@@ -1491,7 +1503,15 @@ function placeOrder(){
   go('order');
 }
 </script>
-<script>document.addEventListener('DOMContentLoaded',function(){updateRewardPoints();updateCheckoutWalletBalance();});</script>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  try{updateRewardPoints();updateCheckoutWalletBalance();renderCart();}
+  catch(err){console.error('Our Store startup check failed:',err);}
+});
+window.addEventListener('error',function(event){
+  console.error('Our Store runtime error:',event.message,event.filename,event.lineno);
+});
+</script>
 
 <!-- Our Store immersive product image viewer -->
 <div id="osImageViewer" aria-hidden="true" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(10,12,16,.96);color:#fff;align-items:center;justify-content:center;padding:18px 14px calc(22px + env(safe-area-inset-bottom));">
