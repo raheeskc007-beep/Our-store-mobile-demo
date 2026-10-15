@@ -452,7 +452,39 @@ body{background:var(--os-page)}
   #catalog #products,.productGrid,.grid.products{grid-template-columns:repeat(5,minmax(0,1fr))}
   #home .content{padding-left:32px;padding-right:32px}
 }
-@media (max-width:899px){#our-store-reference-layout-v1{display:none}}
+/* Mobile adaptation of the same reference design; do not disable the stylesheet. */
+@media (max-width:899px){
+  html,body{background:#f4f5f8!important}
+  .app{width:100%;max-width:none;margin:0;min-height:100vh;border-radius:0;background:#f8f9fb;box-shadow:none}
+  .top{position:sticky;top:0;z-index:30;background:#101820;color:#fff;padding:12px 14px;gap:10px;border:0;border-radius:0;display:flex;flex-wrap:wrap;align-items:center}
+  .top h1{color:#fff;font-size:21px;margin:0;white-space:nowrap}
+  .top .search{order:3;flex:1 0 100%;width:100%;max-width:none;margin:0;background:#fff;color:#111;border-radius:24px;padding:12px 15px}
+  .top #searchResults{order:4;flex:1 0 100%;max-width:none;background:#fff;color:#111}
+  .content{margin:0;padding:14px 12px 88px;max-width:none}
+  .bottom{left:0;right:0;top:auto;bottom:0;width:100%;max-width:none;margin:0;padding:7px 4px calc(7px + env(safe-area-inset-bottom));display:flex;flex-direction:row;justify-content:space-around;gap:2px;background:#fff;border:1px solid #e6e9ef;border-radius:0;overflow-x:auto;z-index:40}
+  .bottom button{flex:1 0 auto;min-width:48px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-align:center;padding:7px 5px;min-height:52px;border-radius:10px;color:#4b5563;font-size:11px;font-weight:600;line-height:1.15}
+  .bottom button br{display:none}
+  .bottom button:first-child{background:#edf4ff;color:#1769e8}
+  #home .content{padding-top:12px}
+  #home .heroStore{min-height:210px;margin:0 0 14px;padding:24px 20px;border-radius:18px!important;background:linear-gradient(110deg,#090d12 0%,#18202a 48%,#9a542a 100%)!important;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;overflow:hidden}
+  #home .heroStore h2{font-size:clamp(27px,7vw,38px)!important;max-width:100%;color:#fff}
+  #home .heroStore p{max-width:100%;color:#e2e5e9;font-size:14px}
+  #home .heroStore .heroPill{margin-top:12px;background:#fff!important;color:#111!important;padding:9px 15px;font-size:12px}
+  #home .content>.row{display:flex;gap:8px;padding-bottom:5px;overflow-x:auto;scrollbar-width:none}
+  #home .content>.row::-webkit-scrollbar{display:none}
+  #home .chip{flex:0 0 auto;border-radius:14px;padding:12px 14px;background:#fff;border-color:#e8eaf0;box-shadow:0 3px 12px #14213b0a;font-weight:650}
+  #home .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  #home .grid .btn{margin:0!important;min-height:44px}
+  #home .homeSection.card{background:transparent;border:0;padding:0;box-shadow:none}
+  #home .homeSection .card{background:#fff}
+  #home .homeSection[style*="margin:18px 0"]{margin:16px 0!important}
+  #home .homeSection[style*="margin:18px 0"]>div[style*="overflow-x:auto"]{display:flex!important;gap:10px;overflow-x:auto!important;grid-template-columns:none}
+  #catalog #products,.productGrid,.grid.products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .card{border-radius:16px}
+  .btn{background:#1769e8}
+  .btn.alt{background:#edf1f7;color:#151922}
+  .screen .content{max-width:none}
+}
 </style>
 
 </head>
