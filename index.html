@@ -579,6 +579,40 @@ body{background:var(--os-page)}
 }
 </style>
 
+
+<style id="os-v9-home-complete">
+/* V9: consolidate home spacing and prevent fixed-nav overlap without changing app handlers */
+@media (max-width: 899px) {
+  #home .content { padding: 8px 12px calc(150px + env(safe-area-inset-bottom)) !important; }
+  #home .heroStore { min-height: 0 !important; padding: 17px 15px !important; margin-bottom: 10px !important; }
+  #home .heroStore h2 { font-size: clamp(23px, 5.8vw, 30px) !important; line-height: 1.08 !important; max-width: 64% !important; }
+  #home .heroStore p { font-size: 12px !important; line-height: 1.32 !important; max-width: 64% !important; }
+  #home .heroStore .heroPill { margin-top: 7px !important; padding: 6px 9px !important; font-size: 10px !important; }
+  #home .content > h3 { margin: 12px 2px 7px !important; font-size: 19px !important; }
+  #home .content > .row { margin-bottom: 0 !important; }
+  #popularBrands { margin: 12px 0 16px !important; }
+  #popularBrands .osSectionHead, #featuredSection .osSectionHead { margin-bottom: 8px !important; }
+  #popularBrands .osBrandRow { padding: 2px 0 4px !important; }
+  #featuredSection { margin: 12px 0 20px !important; scroll-margin-bottom: 140px; }
+  #home #featured { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 9px !important; }
+  #home #featured .card { min-width: 0 !important; display: flex; flex-direction: column; overflow: hidden; }
+  #home #featured .img { height: 118px !important; min-height: 118px !important; }
+  #home #featured .card img { max-width: 100%; object-fit: contain; }
+  #home #featured .btn { width: 100%; margin-top: auto; }
+}
+@media (max-width: 380px) {
+  #home .heroStore h2 { max-width: 60% !important; font-size: 22px !important; }
+  #home .heroStore p { max-width: 60% !important; font-size: 11px !important; }
+  #home #featured .img { height: 105px !important; min-height: 105px !important; }
+}
+@media (min-width: 900px) {
+  #home .content { padding-bottom: 48px !important; }
+  #home .heroStore { min-height: 240px; }
+  #home #featured { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; gap: 16px !important; }
+  #home #featured .card { min-width: 0; }
+  #home #featured .img { height: 155px !important; }
+}
+</style>
 </head>
 <body>
 <div class="app">
