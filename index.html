@@ -547,6 +547,38 @@ body{background:var(--os-page)}
   #home #featured { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 </style>
+
+<style id="os-v8-home-compact-fix">
+/* V8: compact mobile home spacing so Featured Products appears above the fixed bottom bar */
+@media (max-width: 899px) {
+  #home .content { padding-top: 10px !important; padding-bottom: calc(120px + env(safe-area-inset-bottom)) !important; }
+  #home .heroStore { min-height: 0 !important; margin: 0 0 12px !important; padding: 20px 16px !important; }
+  #home .heroStore h2 { font-size: clamp(25px, 6.2vw, 32px) !important; line-height: 1.08 !important; max-width: 61% !important; margin-bottom: 7px !important; }
+  #home .heroStore p { font-size: 13px !important; line-height: 1.38 !important; max-width: 62% !important; }
+  #home .heroStore .heroPill { margin-top: 9px !important; padding: 7px 10px !important; font-size: 10px !important; }
+  #home .content > h3 { font-size: 20px !important; margin: 14px 2px 8px !important; }
+  #home .content > .row { gap: 7px !important; }
+  #home .chip { padding: 10px 11px !important; }
+  #popularBrands { margin: 14px 0 !important; }
+  #popularBrands .osSectionHead { margin-bottom: 7px !important; }
+  #popularBrands .osSectionHead h3, #featuredSection .osSectionHead h3 { font-size: 19px !important; }
+  #popularBrands .osBrandRow { gap: 4px !important; padding-bottom: 4px !important; }
+  #popularBrands .osBrand { flex-basis: 68px !important; gap: 4px !important; font-size: 11px !important; }
+  #popularBrands .osBrandLogo { width: 46px !important; height: 46px !important; }
+  #featuredSection { margin: 14px 0 24px !important; scroll-margin-bottom: 110px; }
+  #home #featured { gap: 8px !important; }
+  #home #featured .card { padding: 9px !important; }
+}
+@media (max-width: 380px) {
+  #home .heroStore h2 { max-width: 58% !important; font-size: 24px !important; }
+  #home .heroStore p { max-width: 60% !important; font-size: 12px !important; }
+  #popularBrands .osBrand { flex-basis: 62px !important; }
+}
+@media (min-width: 900px) {
+  #home #featured { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+</style>
+
 </head>
 <body>
 <div class="app">
