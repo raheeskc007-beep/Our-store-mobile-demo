@@ -658,9 +658,55 @@ body{background:var(--os-page)}
 }
 </style>
 
+
+<style id="os-v11-complete-layout">
+/* V11: make complete product cards reachable and add real desktop sidebar navigation. */
+#home .content { padding-bottom: calc(190px + env(safe-area-inset-bottom)) !important; }
+#home #featuredSection { padding-bottom: 16px !important; margin-bottom: 28px !important; }
+#home #featured .card { min-width: 0 !important; display:flex; flex-direction:column; height:auto !important; overflow:hidden; }
+#home #featured .card .img { flex: 0 0 auto; }
+#home #featured .card h3 { display:block; min-height:2.4em; overflow-wrap:anywhere; }
+#home #featured .card .price { display:block; margin:5px 0; }
+#home #featured .card .btn { display:block; width:100%; margin-top:auto; }
+.osDesktopSidebar { display:none; }
+@media (min-width: 900px) {
+  .app { display:grid !important; grid-template-columns:240px minmax(0,1fr); align-items:start; }
+  .osDesktopSidebar { display:flex; flex-direction:column; gap:7px; grid-column:1; grid-row:1 / span 20; position:sticky; top:0; height:100vh; overflow:auto; background:#101820; color:#fff; padding:20px 14px; box-sizing:border-box; z-index:30; }
+  .osSidebarBrand { display:grid; grid-template-columns:44px 1fr; column-gap:10px; align-items:center; margin:0 0 18px; padding:4px 5px 16px; border-bottom:1px solid #34404b; }
+  .osSidebarBrand span { grid-row:span 2; display:grid; place-items:center; width:44px; height:44px; border-radius:13px; background:#1769e8; font-weight:800; }
+  .osSidebarBrand strong { font-size:20px; }
+  .osSidebarBrand small { grid-column:2; font-size:10px; color:#c5ced8; }
+  .osDesktopSidebar button { display:flex; align-items:center; gap:12px; width:100%; padding:13px 12px; border:0; border-radius:10px; background:transparent; color:#f8fafc; text-align:left; font:inherit; cursor:pointer; }
+  .osDesktopSidebar button:hover { background:#1c65d8; }
+  .osDesktopSidebar button span { font-size:14px; }
+  .app > .top, .app > .screen, .app > .bottom { grid-column:2; min-width:0; }
+  .app > .top { grid-row:1; }
+  .app > .screen { grid-row:auto; }
+  .app > .bottom { position:sticky !important; bottom:0; width:100%; z-index:25; }
+  #home .content { padding-bottom:48px !important; }
+  #home #featured { grid-template-columns:repeat(4,minmax(0,1fr)) !important; }
+}
+@media (max-width: 899px) {
+  .osDesktopSidebar { display:none !important; }
+  #home .content { padding-bottom:calc(190px + env(safe-area-inset-bottom)) !important; }
+}
+</style>
 </head>
 <body>
 <div class="app">
+<nav class="osDesktopSidebar" aria-label="Main navigation">
+  <div class="osSidebarBrand"><span>OS</span><strong>Our Store</strong><small>Mobiles · Laptops · Tablets</small></div>
+  <button onclick="go('home')">⌂ <span>Home</span></button>
+  <button onclick="catalog('Mobiles')">▢ <span>Shop</span></button>
+  <button onclick="go('find')">⌕ <span>Find My Device</span></button>
+  <button onclick="go('compare')">⇄ <span>Compare</span></button>
+  <button onclick="catalog('Mobiles')">✦ <span>New Launch</span></button>
+  <button onclick="go('exchange')">⇆ <span>Exchange</span></button>
+  <button onclick="catalog('Mobiles')">◇ <span>Offers</span></button>
+  <button onclick="go('wallet')">▱ <span>Wallet</span></button>
+  <button onclick="go('profile')">□ <span>Orders / Profile</span></button>
+  <button onclick="go('support')">☏ <span>Support</span></button>
+</nav>
 <div id="home" class="screen active">
 <div class="top"><h1>Our Store</h1><input class="search" placeholder="Search mobiles, laptops, tablets..." autocomplete="off" autocapitalize="none" oninput="queueSearch(this.value)"><div id="searchResults" style="display:none"></div></div>
 <div class="content">
