@@ -693,7 +693,7 @@ body{background:var(--os-page)}
 <div id="support" class="screen"><div class="content">
 <button class="back" onclick="go('profile')">← Profile</button>
 <h2>Support</h2>
-<div class="card"><b>Order Support</b><p class="muted">Need help with order #OS-1001?</p><button class="btn" onclick="alert('Demo support request created for order OS-1001.')">Contact Our Store</button></div>
+<div class="card"><b>Order Support</b><p class="muted" id="supportOrderLabel">Need help with your latest order?</p><button class="btn" onclick="createSupportRequest()">Contact Our Store</button></div>
 <div class="card"><b>Returns & Refunds</b><p>Return eligibility, pickup and refund support will be handled through Our Store.</p><button class="btn alt" onclick="alert('Demo return request flow opened.')">Start Return</button></div>
 </div></div>
 <div id="warranty" class="screen"><div class="content">
@@ -746,12 +746,10 @@ body{background:var(--os-page)}
 <div class="card"><h3>My Account</h3><p class="muted">Our Store customer · Demo profile</p><div class="grid"><button class="btn alt" onclick="openAddresses()">📍 Addresses</button><button class="btn alt" onclick="go('support')">🛟 Support</button></div></div>
 <div class="card"><b>My Orders</b><div id="profileOrders"><p class="muted">No demo orders yet.</p></div><button class="btn" onclick="showOrderTracking()">Track Latest Order</button></div>
 <div id="trackingCard" class="card" style="display:none"><b>Order Tracking</b>
-<p class="muted">Order #OS-1001</p>
-<div class="track"><div class="trackStep active"><span>✓</span><b>Processing</b><small>Order confirmed</small></div>
-<div class="trackLine"></div>
-<div class="trackStep active"><span>✓</span><b>Ready</b><small>Ready for dispatch</small></div>
-<div class="trackLine"></div>
-<div class="trackStep active"><span>✓</span><b>Delivered</b><small>Demo order completed</small></div></div></div>
+<p class="muted" id="trackingOrderLabel">No order selected</p>
+<div class="track"><div class="trackStep active"><span>✓</span><b>Order placed</b><small>Order received</small></div>
+<div class="trackLine"></div><div class="trackStep"><span>2</span><b>Preparing</b><small>Demo status</small></div>
+<div class="trackLine"></div><div class="trackStep"><span>3</span><b>Delivered</b><small>Awaiting delivery confirmation</small></div></div></div>
 <div class="card"><b>Account</b>
 <p><button class="linkBtn" onclick="openAddresses()">Delivery addresses</button></p>
 <p>Payment methods</p>
@@ -854,7 +852,7 @@ function search(q){
 }
 
 function demoVideoReview(name){alert('Demo video review: '+name+'\n\nReal product review video can be connected here in production.');}
-function go(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');scrollTo(0,0);if(id!=='home'){const sr=document.getElementById('searchResults');if(sr)sr.style.display='none';}if(id==='compare'){setTimeout(renderCompareUI,0)}if(id==='cart'){setTimeout(renderCart,0)}if(id==='checkout'){setTimeout(renderCheckout,0)}if(id==='profile'){setTimeout(renderProfileOrders,0)}if(id==='wallet'){setTimeout(updateWalletUI,0)}}
+function go(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');scrollTo(0,0);if(id!=='home'){const sr=document.getElementById('searchResults');if(sr)sr.style.display='none';}if(id==='compare'){setTimeout(renderCompareUI,0)}if(id==='cart'){setTimeout(renderCart,0)}if(id==='checkout'){setTimeout(renderCheckout,0)}if(id==='profile'){setTimeout(renderProfileOrders,0)}if(id==='wallet'){setTimeout(updateWalletUI,0)}if(id==='support'){setTimeout(updateSupportOrderLabel,0)}}
 function card(p){
   const safeName=p.name.replace(/'/g,"\\'");
   const safePrice=p.price.replace(/'/g,"\\'");
@@ -1106,7 +1104,6 @@ function renderCheckout(){
   const el=document.getElementById('checkoutItem');
   const total=document.getElementById('checkoutTotal');
   const placeBtn=document.querySelector('#checkout button[onclick="placeOrder()"]');
-  if(!el||!total)return;
   if(!cart.length){
     el.innerHTML='<b>Your cart is empty.</b><p class="muted">Go back to the shop and add a product first.</p>';
     total.textContent='—';
@@ -1158,17 +1155,8 @@ function selectVariant(btn,type){
   if(selectedProduct){
     const prices={'12/256 GB':'₹1,49,900','12/512 GB':'₹1,59,900','16/512 GB':'₹1,69,900'};
     const price=(selectedProduct.name==='iPhone 17 Pro Max')?(prices[selectedStorage]||selectedProduct.basePrice||selectedProduct.price):(selectedProduct.basePrice||selectedProduct.price);
-    const oldSpec=String(selectedProduct.spec||'');
-    const specParts=oldSpec.split(' · ');
-    const firstPart=/^\d+\s*\/\s*\d+\s*GB$/i.test(specParts[0]||'');
-    const updatedSpec=firstPart?[selectedStorage,...specParts.slice(1)].join(' · '):oldSpec;
-    selectedProduct={...selectedProduct,price,spec:updatedSpec,storage:selectedStorage,color:selectedColor};
-    const priceNode=document.getElementById('pprice');
-    if(priceNode)priceNode.textContent=price;
-    const memoryNode=document.querySelector('#product .specItem:nth-child(3)');
-    const storageNode=document.querySelector('#product .specItem:nth-child(4)');
-    if(storageNode)storageNode.innerHTML='<small>Storage</small>'+String(selectedStorage.split('/')[1]||'—');
-    if(memoryNode)memoryNode.innerHTML='<small>Memory</small>'+String(selectedStorage.split('/')[0]||'—')+' GB RAM';
+    selectedProduct={...selectedProduct,price,storage:selectedStorage,color:selectedColor};
+    document.getElementById('pprice').textContent=price;
     localStorage.setItem('ourStoreSelectedProduct',JSON.stringify(selectedProduct));
   }
   const storageText=document.querySelector('#product .specItem:nth-child(4)');
@@ -1325,7 +1313,10 @@ function renderProfileOrders(){
   if(!o){el.innerHTML='<p class="muted">No demo orders yet. Complete a demo checkout to see your latest order here.</p>';return;}
   el.innerHTML='<div class="card" style="margin:10px 0 0;background:#fafafa"><b>Order #'+o.id+'</b><p style="margin:6px 0">'+String(o.name).replace(/</g,'&lt;')+'</p><p class="muted" style="margin:4px 0">Payment: '+String(o.payment).replace(/</g,'&lt;')+'</p><span class="tag">'+o.status+'</span></div>';
 }
-function showOrderTracking(){document.getElementById('trackingCard').style.display='block';renderProfileOrders();}function writeReview(){alert('Demo: review form opened. Production version will support rating, text, photos/video, verification and moderation.')} 
+function showOrderTracking(){const card=document.getElementById('trackingCard');if(card)card.style.display='block';let o=null;try{o=JSON.parse(localStorage.getItem('ourStoreLatestOrder')||'null')}catch(e){}const label=document.getElementById('trackingOrderLabel');if(label)label.textContent=o?'Order #'+o.id+' · '+(o.status||'Order placed'):'No demo order found';renderProfileOrders();}
+function createSupportRequest(){let o=null;try{o=JSON.parse(localStorage.getItem('ourStoreLatestOrder')||'null')}catch(e){}if(!o){alert('No demo order found. Place a demo order first.');return;}alert('Demo support request created for order '+o.id+'.');}
+function updateSupportOrderLabel(){let o=null;try{o=JSON.parse(localStorage.getItem('ourStoreLatestOrder')||'null')}catch(e){}const el=document.getElementById('supportOrderLabel');if(el)el.textContent=o?'Need help with order #'+o.id+'?':'No demo order found yet.';}
+function writeReview(){alert('Demo: review form opened. Production version will support rating, text, photos/video, verification and moderation.')} 
 
 let ex={category:'',brand:'',model:null,step:1,view:'Front',conditions:{},tests:{},maxValue:0};
 const brandIcons={Apple:'',Samsung:'▦',OnePlus:'1+',Xiaomi:'Mi',Vivo:'V',OPPO:'O',Google:'G',Realme:'R',Motorola:'M',Dell:'D',HP:'HP',Lenovo:'L',Asus:'A',Acer:'A',Microsoft:'MS'};
@@ -1477,8 +1468,6 @@ function placeOrder(){
   const address=(document.getElementById('deliveryAddress').value||'').trim();
   if(!address){alert('Please select a saved delivery address or enter one for the demo order.');return;}
   const payment=document.querySelector('input[name="payment"]:checked')?.value||'UPI';
-  const invalidItem=cart.find(item=>moneyValue(item.price)<=0);
-  if(invalidItem){alert('A product in your cart has no valid price. Remove it or choose a listed-price product before checkout.');return;}
   const baseTotal=getCheckoutBaseTotal();
   if(baseTotal<=0){alert('The order total must be greater than ₹0.');return;}
   const rewardUsed=getRewardDiscount();
@@ -1503,15 +1492,7 @@ function placeOrder(){
   go('order');
 }
 </script>
-<script>
-document.addEventListener('DOMContentLoaded',function(){
-  try{updateRewardPoints();updateCheckoutWalletBalance();renderCart();}
-  catch(err){console.error('Our Store startup check failed:',err);}
-});
-window.addEventListener('error',function(event){
-  console.error('Our Store runtime error:',event.message,event.filename,event.lineno);
-});
-</script>
+<script>document.addEventListener('DOMContentLoaded',function(){updateRewardPoints();updateCheckoutWalletBalance();});</script>
 
 <!-- Our Store immersive product image viewer -->
 <div id="osImageViewer" aria-hidden="true" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(10,12,16,.96);color:#fff;align-items:center;justify-content:center;padding:18px 14px calc(22px + env(safe-area-inset-bottom));">
