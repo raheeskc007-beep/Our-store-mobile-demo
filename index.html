@@ -414,6 +414,47 @@ body{background:var(--os-page)}
 #checkout button:disabled{opacity:.45;cursor:not-allowed}
 </style>
 
+
+<style id="our-store-reference-layout-v1">
+/* Reference-layout pass: desktop storefront; mobile layout and existing handlers preserved. */
+@media (min-width: 900px){
+  html,body{min-height:100%;background:#f4f5f8!important}
+  .app{max-width:none;width:100%;min-height:100vh;margin:0;background:#f8f9fb;box-shadow:none}
+  .top{position:sticky;top:0;display:grid;grid-template-columns:260px minmax(260px,1fr);align-items:center;gap:24px;padding:16px 28px 16px 286px;background:#101820;color:#fff;border:0;min-height:76px}
+  .top h1{font-size:25px;letter-spacing:-.7px;margin:0;color:#fff;white-space:nowrap}
+  .top .search{width:100%;max-width:760px;background:#fff;color:#111;border-radius:28px;padding:15px 20px}
+  .top #searchResults{grid-column:2;max-width:760px;background:#fff;color:#111}
+  .content{margin-left:222px;padding:22px 28px 42px;max-width:none}
+  .bottom{left:0;right:auto;top:76px;bottom:0;width:222px;max-width:none;margin:0;padding:16px 10px;display:flex;flex-direction:column;justify-content:flex-start;gap:5px;background:#101820;border:0;border-radius:0;overflow-y:auto}
+  .bottom button{display:flex;align-items:center;gap:14px;text-align:left;padding:13px 14px;min-height:46px;border-radius:12px;color:#f7f8fa;font-size:14px;font-weight:600;line-height:1.2}
+  .bottom button br{display:none}
+  .bottom button:first-child{background:#1769e8}
+  #home .content{padding-top:18px}
+  #home .heroStore{min-height:250px;margin:0 0 18px;padding:38px 42px;border-radius:22px!important;background:linear-gradient(110deg,#090d12 0%,#18202a 48%,#9a542a 100%)!important;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;overflow:hidden}
+  #home .heroStore h2{font-size:clamp(34px,3.3vw,54px)!important;max-width:620px;color:#fff}
+  #home .heroStore p{max-width:560px;color:#e2e5e9;font-size:16px}
+  #home .heroStore .heroPill{margin-top:18px;background:#fff!important;color:#111!important;padding:10px 18px;font-size:13px}
+  #home .content>.row{gap:12px;padding-bottom:4px}
+  #home .chip{border-radius:16px;padding:16px 22px;background:#fff;border-color:#e8eaf0;box-shadow:0 3px 12px #14213b0a;font-weight:650}
+  #home .grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+  #home .grid .btn{margin:0!important;min-height:48px}
+  #home .homeSection.card{background:transparent;border:0;padding:0;box-shadow:none}
+  #home .homeSection .card{background:#fff}
+  #home .homeSection[style*="margin:18px 0"]{margin:22px 0!important}
+  #home .homeSection[style*="margin:18px 0"]>div[style*="overflow-x:auto"]{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));overflow:visible!important}
+  #catalog #products,.productGrid,.grid.products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+  .card{border-radius:18px}
+  .btn{background:#1769e8}
+  .btn.alt{background:#edf1f7;color:#151922}
+  .screen .content{max-width:1500px}
+}
+@media (min-width:1250px){
+  #catalog #products,.productGrid,.grid.products{grid-template-columns:repeat(5,minmax(0,1fr))}
+  #home .content{padding-left:32px;padding-right:32px}
+}
+@media (max-width:899px){#our-store-reference-layout-v1{display:none}}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -693,7 +734,7 @@ body{background:var(--os-page)}
 <div id="support" class="screen"><div class="content">
 <button class="back" onclick="go('profile')">← Profile</button>
 <h2>Support</h2>
-<div class="card"><b>Order Support</b><p class="muted" id="supportOrderText">Need help with your latest order?</p><button class="btn" onclick="contactOrderSupport()">Contact Our Store</button></div>
+<div class="card"><b>Order Support</b><p class="muted">Need help with order #OS-1001?</p><button class="btn" onclick="alert('Demo support request created for order OS-1001.')">Contact Our Store</button></div>
 <div class="card"><b>Returns & Refunds</b><p>Return eligibility, pickup and refund support will be handled through Our Store.</p><button class="btn alt" onclick="alert('Demo return request flow opened.')">Start Return</button></div>
 </div></div>
 <div id="warranty" class="screen"><div class="content">
@@ -746,7 +787,7 @@ body{background:var(--os-page)}
 <div class="card"><h3>My Account</h3><p class="muted">Our Store customer · Demo profile</p><div class="grid"><button class="btn alt" onclick="openAddresses()">📍 Addresses</button><button class="btn alt" onclick="go('support')">🛟 Support</button></div></div>
 <div class="card"><b>My Orders</b><div id="profileOrders"><p class="muted">No demo orders yet.</p></div><button class="btn" onclick="showOrderTracking()">Track Latest Order</button></div>
 <div id="trackingCard" class="card" style="display:none"><b>Order Tracking</b>
-<p class="muted" id="trackingOrderNumber">No order selected yet.</p>
+<p class="muted">Order #OS-1001</p>
 <div class="track"><div class="trackStep active"><span>✓</span><b>Processing</b><small>Order confirmed</small></div>
 <div class="trackLine"></div>
 <div class="trackStep active"><span>✓</span><b>Ready</b><small>Ready for dispatch</small></div>
@@ -1315,10 +1356,7 @@ function renderProfileOrders(){
   if(!o){el.innerHTML='<p class="muted">No demo orders yet. Complete a demo checkout to see your latest order here.</p>';return;}
   el.innerHTML='<div class="card" style="margin:10px 0 0;background:#fafafa"><b>Order #'+o.id+'</b><p style="margin:6px 0">'+String(o.name).replace(/</g,'&lt;')+'</p><p class="muted" style="margin:4px 0">Payment: '+String(o.payment).replace(/</g,'&lt;')+'</p><span class="tag">'+o.status+'</span></div>';
 }
-function showOrderTracking(){const card=document.getElementById('trackingCard');if(card)card.style.display='block';const order=getLatestStoreOrder();const label=document.getElementById('trackingOrderNumber');if(label)label.textContent=order?'Order #'+order.id:'No demo order found. Complete checkout to track an order.';renderProfileOrders();}
-function getLatestStoreOrder(){try{return JSON.parse(localStorage.getItem('ourStoreLatestOrder')||'null')}catch(e){return null}}
-function contactOrderSupport(){const order=getLatestStoreOrder();if(!order){alert('No demo order found yet. Complete checkout first.');return;}alert('Demo support request created for order '+order.id+'.');}
-function writeReview(){alert('Demo: review form opened. Production version will support rating, text, photos/video, verification and moderation.')} 
+function showOrderTracking(){document.getElementById('trackingCard').style.display='block';renderProfileOrders();}function writeReview(){alert('Demo: review form opened. Production version will support rating, text, photos/video, verification and moderation.')} 
 
 let ex={category:'',brand:'',model:null,step:1,view:'Front',conditions:{},tests:{},maxValue:0};
 const brandIcons={Apple:'',Samsung:'▦',OnePlus:'1+',Xiaomi:'Mi',Vivo:'V',OPPO:'O',Google:'G',Realme:'R',Motorola:'M',Dell:'D',HP:'HP',Lenovo:'L',Asus:'A',Acer:'A',Microsoft:'MS'};
@@ -1494,7 +1532,7 @@ function placeOrder(){
   go('order');
 }
 </script>
-<script>document.addEventListener('DOMContentLoaded',function(){updateRewardPoints();updateCheckoutWalletBalance();const order=typeof getLatestStoreOrder==='function'?getLatestStoreOrder():null;const support=document.getElementById('supportOrderText');if(support)support.textContent=order?'Need help with order #'+order.id+'?':'No demo order yet. Place an order to request support.';renderProfileOrders();});</script>
+<script>document.addEventListener('DOMContentLoaded',function(){updateRewardPoints();updateCheckoutWalletBalance();});</script>
 
 <!-- Our Store immersive product image viewer -->
 <div id="osImageViewer" aria-hidden="true" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(10,12,16,.96);color:#fff;align-items:center;justify-content:center;padding:18px 14px calc(22px + env(safe-area-inset-bottom));">
