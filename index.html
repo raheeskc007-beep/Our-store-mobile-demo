@@ -238,6 +238,27 @@ h3{font-size:21px}
   .card{border-radius:20px}
 }
 
+/* V4: reference-matching home polish — visual-only, preserve existing flows */
+#home .heroStore{position:relative;isolation:isolate;background:linear-gradient(110deg,#090d12 0%,#18202a 54%,#9a542a 100%)!important}
+#home .heroStore:after{content:"";position:absolute;z-index:-1;right:5%;top:12%;width:clamp(90px,20vw,230px);height:78%;border-radius:28px;background:linear-gradient(145deg,#e9d4c2 0%,#a96c4b 32%,#15171b 33%,#08090c 100%);border:3px solid #d9c1ad;box-shadow:-24px 12px 0 -5px #d9dce2, -24px 12px 0 -2px #9ba2ac, -35px 18px 38px #0008;transform:rotate(7deg);opacity:.9}
+#home .heroStore:before{content:"";position:absolute;z-index:-1;right:calc(5% + 18px);top:20%;width:clamp(50px,11vw,118px);height:60%;border-radius:20px;background:radial-gradient(circle at 25% 18%,#111 0 7px,transparent 8px),radial-gradient(circle at 45% 18%,#111 0 7px,transparent 8px),radial-gradient(circle at 25% 31%,#111 0 7px,transparent 8px),linear-gradient(145deg,#e6b28e,#8c4a2a);border:2px solid #d4a88b;transform:rotate(-5deg);opacity:.92}
+#home .heroStore h2,#home .heroStore p,#home .heroStore .heroPill{position:relative;z-index:1}
+#home .heroStore h2{max-width:min(68%,650px)!important}
+#home .heroStore p{max-width:min(62%,560px)!important}
+.osBrandLogo{font-size:0!important;position:relative;overflow:hidden}
+.osBrandLogo:after{font-size:24px;line-height:1;font-weight:800}
+.osBrandLogo.apple:after{content:"●";font-size:27px;color:#111}
+.osBrandLogo:not(.apple):not(.samsung):not(.xiaomi):not(.vivo):not(.oppo):not(.oneplus):not(.google):not(.moto):after{content:"●";font-size:27px;color:#111}
+.osBrandLogo.samsung:after{content:"SAMSUNG";font-size:10px;font-style:italic}
+.osBrandLogo.xiaomi:after{content:"mi";font-size:23px}
+.osBrandLogo.vivo:after{content:"vivo";font-size:15px;font-style:italic}
+.osBrandLogo.oppo:after{content:"oppo";font-size:14px}
+.osBrandLogo.oneplus:after{content:"1+";font-size:23px}
+.osBrandLogo.google:after{content:"G";font-size:28px;color:#4285f4}
+.osBrandLogo.moto:after{content:"M";font-size:26px}
+@media(max-width:899px){#home .heroStore h2{max-width:68%!important}#home .heroStore p{max-width:68%!important}#home .heroStore:after{right:4%;width:100px;height:72%;top:14%}#home .heroStore:before{right:calc(4% + 15px);width:54px;height:54%;top:23%}}
+@media(max-width:380px){#home .heroStore h2{font-size:25px!important}#home .heroStore p{font-size:12px!important}#home .heroStore:after{right:2%;width:78px}#home .heroStore:before{right:calc(2% + 12px);width:42px}}
+
 </style>
 
 <style>
@@ -507,29 +528,6 @@ body{background:var(--os-page)}
 #home #featured .card{min-width:0;margin:0;padding:12px;border:1px solid #e4e7ed;border-radius:17px;background:#fff;box-shadow:0 4px 14px #1720330a}
 @media(min-width:900px){#home #featured{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}.osBrandRow{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));overflow:visible}.osBrand{width:100%}}
 @media(max-width:899px){#home #featured{grid-template-columns:repeat(2,minmax(0,1fr))}.osBrandRow{gap:6px}.osBrand{flex-basis:76px}.osBrandLogo{width:52px;height:52px}}
-
-/* Consolidated V4 reference-layout CSS */
-/* V4: reference-matching home polish — visual-only, preserve existing flows */
-#home .heroStore{position:relative;isolation:isolate;background:linear-gradient(110deg,#090d12 0%,#18202a 54%,#9a542a 100%)!important}
-#home .heroStore:after{content:"";position:absolute;z-index:-1;right:5%;top:12%;width:clamp(90px,20vw,230px);height:78%;border-radius:28px;background:linear-gradient(145deg,#e9d4c2 0%,#a96c4b 32%,#15171b 33%,#08090c 100%);border:3px solid #d9c1ad;box-shadow:-24px 12px 0 -5px #d9dce2, -24px 12px 0 -2px #9ba2ac, -35px 18px 38px #0008;transform:rotate(7deg);opacity:.9}
-#home .heroStore:before{content:"";position:absolute;z-index:-1;right:calc(5% + 18px);top:20%;width:clamp(50px,11vw,118px);height:60%;border-radius:20px;background:radial-gradient(circle at 25% 18%,#111 0 7px,transparent 8px),radial-gradient(circle at 45% 18%,#111 0 7px,transparent 8px),radial-gradient(circle at 25% 31%,#111 0 7px,transparent 8px),linear-gradient(145deg,#e6b28e,#8c4a2a);border:2px solid #d4a88b;transform:rotate(-5deg);opacity:.92}
-#home .heroStore h2,#home .heroStore p,#home .heroStore .heroPill{position:relative;z-index:1}
-#home .heroStore h2{max-width:min(68%,650px)!important}
-#home .heroStore p{max-width:min(62%,560px)!important}
-.osBrandLogo{font-size:0!important;position:relative;overflow:hidden}
-.osBrandLogo:after{font-size:24px;line-height:1;font-weight:800}
-.osBrandLogo.apple:after{content:"●";font-size:27px;color:#111}
-.osBrandLogo:not(.apple):not(.samsung):not(.xiaomi):not(.vivo):not(.oppo):not(.oneplus):not(.google):not(.moto):after{content:"●";font-size:27px;color:#111}
-.osBrandLogo.samsung:after{content:"SAMSUNG";font-size:10px;font-style:italic}
-.osBrandLogo.xiaomi:after{content:"mi";font-size:23px}
-.osBrandLogo.vivo:after{content:"vivo";font-size:15px;font-style:italic}
-.osBrandLogo.oppo:after{content:"oppo";font-size:14px}
-.osBrandLogo.oneplus:after{content:"1+";font-size:23px}
-.osBrandLogo.google:after{content:"G";font-size:28px;color:#4285f4}
-.osBrandLogo.moto:after{content:"M";font-size:26px}
-@media(max-width:899px){#home .heroStore h2{max-width:68%!important}#home .heroStore p{max-width:68%!important}#home .heroStore:after{right:4%;width:100px;height:72%;top:14%}#home .heroStore:before{right:calc(4% + 15px);width:54px;height:54%;top:23%}}
-@media(max-width:380px){#home .heroStore h2{font-size:25px!important}#home .heroStore p{font-size:12px!important}#home .heroStore:after{right:2%;width:78px}#home .heroStore:before{right:calc(2% + 12px);width:42px}}
-
 </style>
 
 
