@@ -487,6 +487,28 @@ body{background:var(--os-page)}
 }
 </style>
 
+
+<style id="os-home-reference-v3">
+.osSectionHead{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0 0 12px}
+.osSectionHead h3{margin:0!important;font-size:20px!important}
+.osViewAll{border:0;background:transparent;color:#1769e8;font-weight:700;padding:8px;white-space:nowrap;cursor:pointer}
+.osBrandRow{display:flex;gap:12px;overflow-x:auto;padding:3px 2px 10px;scrollbar-width:none}
+.osBrandRow::-webkit-scrollbar{display:none}
+.osBrand{flex:0 0 88px;display:flex;flex-direction:column;align-items:center;gap:6px;border:0;background:transparent;color:#111;padding:4px;cursor:pointer;font-size:12px}
+.osBrandLogo{width:58px;height:58px;display:grid;place-items:center;border-radius:50%;background:#fff;border:1px solid #e4e7ed;box-shadow:0 3px 12px #1720330c;font-size:30px;font-weight:800;color:#111}
+.osBrandLogo.samsung{font-size:24px;font-style:italic;color:#fff;background:#1749b5}
+.osBrandLogo.xiaomi{font-size:23px;color:#fff;background:#ff6900;border-radius:16px}
+.osBrandLogo.vivo{color:#fff;background:#2467ed;font-style:italic}
+.osBrandLogo.oppo{font-size:20px;color:#fff;background:#087b48}
+.osBrandLogo.oneplus{color:#fff;background:#d91e35}
+.osBrandLogo.google{background:#fff;color:#4285f4}
+.osBrandLogo.moto{color:#fff;background:#182b75}
+#home #featured{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+#home #featured .card{min-width:0;margin:0;padding:12px;border:1px solid #e4e7ed;border-radius:17px;background:#fff;box-shadow:0 4px 14px #1720330a}
+@media(min-width:900px){#home #featured{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}.osBrandRow{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));overflow:visible}.osBrand{width:100%}}
+@media(max-width:899px){#home #featured{grid-template-columns:repeat(2,minmax(0,1fr))}.osBrandRow{gap:6px}.osBrand{flex-basis:76px}.osBrandLogo{width:52px;height:52px}}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -595,7 +617,20 @@ body{background:var(--os-page)}
   </div>
 </div>
 
-<h3>Featured</h3><div id="featured"></div>
+<section id="popularBrands" class="homeSection" style="margin:22px 0">
+  <div class="osSectionHead"><h3>Popular Brands</h3><button class="osViewAll" onclick="catalog('Mobiles')">View All →</button></div>
+  <div class="osBrandRow">
+    <button class="osBrand" onclick="brandCatalog('Apple')"><span class="osBrandLogo">●</span><b>Apple</b></button>
+    <button class="osBrand" onclick="brandCatalog('Samsung')"><span class="osBrandLogo samsung">S</span><b>Samsung</b></button>
+    <button class="osBrand" onclick="brandCatalog('Xiaomi')"><span class="osBrandLogo xiaomi">mi</span><b>Xiaomi</b></button>
+    <button class="osBrand" onclick="brandCatalog('Vivo')"><span class="osBrandLogo vivo">v</span><b>vivo</b></button>
+    <button class="osBrand" onclick="brandCatalog('OPPO')"><span class="osBrandLogo oppo">op</span><b>OPPO</b></button>
+    <button class="osBrand" onclick="brandCatalog('OnePlus')"><span class="osBrandLogo oneplus">1+</span><b>OnePlus</b></button>
+    <button class="osBrand" onclick="brandCatalog('Google')"><span class="osBrandLogo google">G</span><b>Google</b></button>
+    <button class="osBrand" onclick="brandCatalog('Motorola')"><span class="osBrandLogo moto">M</span><b>Motorola</b></button>
+  </div>
+</section>
+<section id="featuredSection" class="homeSection" style="margin:22px 0"><div class="osSectionHead"><h3>Featured Products</h3><button class="osViewAll" onclick="catalog('Mobiles')">View All →</button></div><div id="featured"></div></section>
 </div></div>
 
 <div id="videoReviews" class="screen"><div class="content">
