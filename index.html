@@ -548,6 +548,21 @@ body{background:var(--os-page)}
 <h3>What are you looking for?</h3><div class="row">
 <button class="chip" onclick="catalog('Mobiles')">📱 Mobiles</button><button class="chip" onclick="catalog('Laptops')">💻 Laptops</button><button class="chip" onclick="catalog('Tablets')">📲 Tablets</button><button class="chip" onclick="catalog('Accessories')">🎧 Accessories</button>
 </div>
+
+<section id="popularBrands" class="homeSection" style="margin:22px 0">
+  <div class="osSectionHead"><h3>Popular Brands</h3><button class="osViewAll" onclick="catalog('Mobiles')">View All →</button></div>
+  <div class="osBrandRow">
+    <button class="osBrand" onclick="brandCatalog('Apple')"><span class="osBrandLogo apple"></span><b>Apple</b></button>
+    <button class="osBrand" onclick="brandCatalog('Samsung')"><span class="osBrandLogo samsung">S</span><b>Samsung</b></button>
+    <button class="osBrand" onclick="brandCatalog('Xiaomi')"><span class="osBrandLogo xiaomi">mi</span><b>Xiaomi</b></button>
+    <button class="osBrand" onclick="brandCatalog('Vivo')"><span class="osBrandLogo vivo">v</span><b>vivo</b></button>
+    <button class="osBrand" onclick="brandCatalog('OPPO')"><span class="osBrandLogo oppo">op</span><b>OPPO</b></button>
+    <button class="osBrand" onclick="brandCatalog('OnePlus')"><span class="osBrandLogo oneplus">1+</span><b>OnePlus</b></button>
+    <button class="osBrand" onclick="brandCatalog('Google')"><span class="osBrandLogo google">G</span><b>Google</b></button>
+    <button class="osBrand" onclick="brandCatalog('Motorola')"><span class="osBrandLogo moto">M</span><b>Motorola</b></button>
+  </div>
+</section>
+<section id="featuredSection" class="homeSection" style="margin:22px 0"><div class="osSectionHead"><h3>Featured Products</h3><button class="osViewAll" onclick="catalog('Mobiles')">View All →</button></div><div id="featured"></div></section>
 <div class="grid" style="margin-top:14px"><button class="btn" onclick="find()">🎯 Find My Device</button><button class="btn alt" onclick="openCompareFromHome()" type="button">⚖️ Compare</button><button class="btn alt" onclick="exchange()">🔄 Exchange</button></div>
 <button class="btn" style="width:100%;margin-top:12px" onclick="go('videoReviews')">🎥 Video Reviews</button>
 <button class="btn" style="width:100%;margin:12px 0" onclick="openNewLaunches()">🆕 New Launches</button>
@@ -641,20 +656,8 @@ body{background:var(--os-page)}
   </div>
 </div>
 
-<section id="popularBrands" class="homeSection" style="margin:22px 0">
-  <div class="osSectionHead"><h3>Popular Brands</h3><button class="osViewAll" onclick="catalog('Mobiles')">View All →</button></div>
-  <div class="osBrandRow">
-    <button class="osBrand" onclick="brandCatalog('Apple')"><span class="osBrandLogo apple"></span><b>Apple</b></button>
-    <button class="osBrand" onclick="brandCatalog('Samsung')"><span class="osBrandLogo samsung">S</span><b>Samsung</b></button>
-    <button class="osBrand" onclick="brandCatalog('Xiaomi')"><span class="osBrandLogo xiaomi">mi</span><b>Xiaomi</b></button>
-    <button class="osBrand" onclick="brandCatalog('Vivo')"><span class="osBrandLogo vivo">v</span><b>vivo</b></button>
-    <button class="osBrand" onclick="brandCatalog('OPPO')"><span class="osBrandLogo oppo">op</span><b>OPPO</b></button>
-    <button class="osBrand" onclick="brandCatalog('OnePlus')"><span class="osBrandLogo oneplus">1+</span><b>OnePlus</b></button>
-    <button class="osBrand" onclick="brandCatalog('Google')"><span class="osBrandLogo google">G</span><b>Google</b></button>
-    <button class="osBrand" onclick="brandCatalog('Motorola')"><span class="osBrandLogo moto">M</span><b>Motorola</b></button>
-  </div>
-</section>
-<section id="featuredSection" class="homeSection" style="margin:22px 0"><div class="osSectionHead"><h3>Featured Products</h3><button class="osViewAll" onclick="catalog('Mobiles')">View All →</button></div><div id="featured"></div></section>
+
+
 </div></div>
 
 <div id="videoReviews" class="screen"><div class="content">
