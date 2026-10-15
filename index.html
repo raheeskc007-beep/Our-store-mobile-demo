@@ -533,6 +533,20 @@ body{background:var(--os-page)}
 
 
 
+
+<style id="os-v7-layout-fix">
+/* V7: keep fixed mobile navigation from covering the final home sections */
+@media (max-width: 899px) {
+  #home .content { padding-bottom: calc(190px + env(safe-area-inset-bottom)) !important; }
+  #home #featuredSection { margin-bottom: 28px !important; }
+  #home #featured { align-items: stretch; }
+  #home #featured .card { min-width: 0; }
+}
+@media (min-width: 900px) {
+  #home .content { padding-bottom: 40px !important; }
+  #home #featured { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+</style>
 </head>
 <body>
 <div class="app">
@@ -1437,7 +1451,7 @@ function runCompare(){
 function exchange(){resetExchange();go('exchange')}
 
 
-document.getElementById('featured').innerHTML=data.slice(0,8).map(card).join('');
+document.getElementById('featured').innerHTML=data.filter(item=>item.price && !/TBA|coming soon|not available/i.test(item.price)).slice(0,8).map(card).join('');
 setWalletBalance(getWalletBalance());
 updateWalletUI();
 try{
