@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Our Store — V10 Home & Catalog</title>
+<title>Our Store — V13 Home Screen Correction</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f4f5f7;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial;color:#111}
 .app{max-width:430px;margin:auto;min-height:100vh;background:#fff}.top{padding:18px 18px 10px;position:sticky;top:0;background:#fff;z-index:3;border-bottom:1px solid #eee}
@@ -709,50 +709,53 @@ body{background:var(--os-page)}
 </style>
 
 
-<style id="os-v13-viewport-final-fix">
-/* V13 targeted fix: prevent a narrow centered app on phones; keep content fluid. */
-html,body{width:100%;min-width:0;max-width:100%;margin:0;overflow-x:hidden}
-.app{width:100%;max-width:none;margin:0;min-height:100dvh}
-.top,#home,.screen{min-width:0;width:100%}
-#home .content{width:100%;max-width:1500px;margin-inline:auto}
-#home #featured{width:100%;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
-#home #featured .card{min-width:0;max-width:100%;}
-#home #featured .deviceImg{background:#f1f4f8!important;border-radius:14px;overflow:hidden}
-#home #featured .deviceImg img{width:100%;height:100%;object-fit:contain;object-position:center;mix-blend-mode:multiply}
-#popularBrands{max-width:100%;overflow:hidden}
-#popularBrands .osBrandRow{max-width:100%;overflow-x:auto;grid-template-columns:repeat(12,minmax(56px,1fr));scrollbar-width:none}
-#popularBrands .osBrandRow::-webkit-scrollbar{display:none}
-@media(min-width:900px){
- .app{display:grid!important;grid-template-columns:240px minmax(0,1fr);align-items:start}
- #home #featured{grid-template-columns:repeat(4,minmax(0,1fr))!important}
-}
+<style id="os-v13-home-correction">
+/* V13: screenshot-led home layout fixes; keep existing navigation and feature handlers. */
+html,body{width:100%;max-width:100%;overflow-x:hidden!important;}
+.deviceImg{background:#f1f4f8!important;}
+.deviceImg img{object-fit:contain!important;object-position:center!important;background:transparent!important;padding:4px!important;mix-blend-mode:multiply!important;}
+#home #featured .card{min-width:0!important;overflow:hidden!important;}
+#home #featured .card .img{background:#f1f4f8!important;border-radius:14px!important;}
+#home #featured .card .price{white-space:normal;overflow-wrap:anywhere;}
+#popularBrands .osBrandRow{overflow-x:auto!important;overscroll-behavior-x:contain;scrollbar-width:none;-webkit-overflow-scrolling:touch;touch-action:pan-x pan-y;}
+#popularBrands .osBrandRow::-webkit-scrollbar{display:none;}
 @media(max-width:899px){
- .app{max-width:none!important;width:100%!important}
- #home .content{padding:16px 12px calc(120px + env(safe-area-inset-bottom))!important}
- #home #featured .img{height:112px!important;min-height:112px!important}
- .bottom{max-width:none!important;width:100%!important}
+ .app{width:100%!important;max-width:none!important;margin:0!important;}
+ .top{padding:14px 16px 12px!important;}
+ .top h1{font-size:24px!important;margin-bottom:10px!important;}
+ .top .search{width:100%!important;font-size:15px!important;}
+ #home .content{padding:10px 12px calc(170px + env(safe-area-inset-bottom))!important;}
+ #home .heroStore{margin:4px 0 14px!important;border-radius:20px!important;}
+ #home .content > h3{font-size:20px!important;line-height:1.2!important;}
+ #home .content > .row{display:flex!important;gap:8px!important;overflow-x:auto!important;}
+ #home .content > .row .chip{flex:0 0 auto!important;}
+ #popularBrands .osBrandRow{display:flex!important;gap:10px!important;padding:4px 4px 10px!important;overflow-x:auto!important;scroll-snap-type:x proximity!important;}
+ #popularBrands .osBrand{flex:0 0 68px!important;scroll-snap-align:start!important;}
+ #popularBrands .osBrandLogo{width:48px!important;height:48px!important;}
+ #home #featured{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;}
+ #home #featured .card{padding:9px!important;margin:0!important;border-radius:16px!important;}
+ #home #featured .img{height:112px!important;min-height:112px!important;padding:0!important;}
+ #home #featured .card img{display:block!important;width:100%!important;max-width:100%!important;max-height:100%!important;object-fit:contain!important;object-position:center!important;background:transparent!important;mix-blend-mode:normal!important;background:transparent!important;}
+ #home #featured .card h3,#home #featured .card h4{font-size:13px!important;line-height:1.25!important;}
+ #home #featured .price{font-size:15px!important;}
+ .bottom{width:100%!important;max-width:560px!important;left:50%!important;transform:translateX(-50%)!important;}
+}
+@media(min-width:900px){
+ .app{max-width:none!important;width:100%!important;}
+ #home .content{max-width:1560px!important;margin:0 auto!important;}
+ #home #featured{grid-template-columns:repeat(4,minmax(0,1fr))!important;}
 }
 </style>
 
 
-<style id="os-v13-final-viewport-scroll-fix">
-/* Final targeted fixes from the latest phone preview. */
-html,body{width:100%;max-width:100%;min-width:0;overflow-x:hidden}
-.app{width:100%!important;max-width:none!important;margin:0 auto!important}
-.app>.screen{width:100%!important;max-width:none!important;min-width:0!important}
-#home{width:100%!important;max-width:none!important;min-width:0!important}
-#home .content{width:100%!important;max-width:1500px!important;box-sizing:border-box;margin:0 auto!important}
-#home #featured{width:100%!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;align-items:stretch}
-#home #featured .card{min-width:0!important;max-width:100%!important;box-sizing:border-box}
-#home #featured .deviceImg{background:#f1f4f8!important;overflow:hidden!important}
-#home #featured .deviceImg img{display:block;width:100%;height:100%;object-fit:contain;object-position:center;mix-blend-mode:multiply}
-#popularBrands{width:100%;max-width:100%;overflow:hidden}
-#popularBrands .osBrandRow{display:flex!important;gap:12px;overflow-x:auto!important;overflow-y:hidden;max-width:100%;scrollbar-width:none;-webkit-overflow-scrolling:touch}
-#popularBrands .osBrandRow::-webkit-scrollbar{display:none}
-#popularBrands .osBrand{flex:0 0 70px!important}
-#home .content{padding-bottom:calc(160px + env(safe-area-inset-bottom))!important}
-@media(min-width:900px){.app{display:grid!important;grid-template-columns:240px minmax(0,1fr)!important}.app>.top,.app>.screen,.app>.bottom{grid-column:2;min-width:0}#home #featured{grid-template-columns:repeat(4,minmax(0,1fr))!important}#home .content{padding:22px 28px 48px!important}}
-@media(max-width:899px){.app>.screen{max-width:none!important}#home .content{padding:16px 12px calc(160px + env(safe-area-inset-bottom))!important}#home #featured .img{height:112px!important;min-height:112px!important}.bottom{width:100%!important;max-width:none!important}}
+<style id="os-v14-brand-product-polish">
+/* V14: consistent brand/product presentation, with no change to existing feature handlers. */
+.osBrandLogo{flex-shrink:0!important;object-fit:contain!important;}
+#popularBrands .osBrandRow{scrollbar-width:none!important;}
+#popularBrands .osBrandRow::-webkit-scrollbar{display:none!important;}
+#home #featured .deviceImg{display:flex!important;align-items:center!important;justify-content:center!important;overflow:hidden!important;background:#f1f4f8!important;}
+#home #featured .deviceImg img{width:100%!important;height:100%!important;object-fit:contain!important;object-position:center!important;background:transparent!important;mix-blend-mode:normal!important;}
+@media(max-width:899px){#popularBrands .osBrand{min-width:68px!important;}#home #featured .card .img{height:112px!important;min-height:112px!important;}}
 </style>
 
 </head>
@@ -1567,7 +1570,7 @@ function deviceImage(p){
     [/iphone 18 pro max/, 'https://media.extra.com/s/aurora/100528763_800/Apple-iPhone-18-Pro%2C-5G%2C-6-3-inch%2C-1TB%2C-Black?locale=en-GB%2Cen-%2A%2C%2A'],
     [/iphone 18 pro/, 'https://media.extra.com/s/aurora/100528763_800/Apple-iPhone-18-Pro%2C-5G%2C-6-3-inch%2C-1TB%2C-Black?locale=en-GB%2Cen-%2A%2C%2A'],
     [/iphone 17 pro max/, 'https://media.mobilemela.com.bd/2026/09/apple-iphone-17-pro-max-cosmic-orange-official-image.webp'],
-    [/iphone 17 pro$/, 'https://media.mobilemela.com.bd/2026/09/apple-iphone-17-pro-max-cosmic-orange-official-image.webp'],
+    [/iphone 17 pro$/, 'https://www.apple.com/newsroom/images/2025/09/apple-unveils-iphone-17-pro-and-iphone-17-pro-max/article/Apple-iPhone-17-Pro-cosmic-orange-250909_inline.jpg.large.jpg'],
     [/iphone 17$/, 'https://youget.pt/245640-large_default/apple-iphone-17-63-256gb-verde-salvia.jpg'],
     [/iphone 16/, 'https://www.costco.com.tw/medias/sys_master/images/h77/h1c/274498548203550.jpg'],
     [/galaxy s26 ultra/, 'https://www.laptopsdirect.co.uk/Images/SM-S948BZKHEUB_1_17511204_Supersize.jpg?v=5'],
@@ -1673,7 +1676,7 @@ function runCompare(){
 function exchange(){resetExchange();go('exchange')}
 
 
-document.getElementById('featured').innerHTML=data.filter(item=>item.price && !/TBA|coming soon|not available/i.test(item.price)).slice(0,8).map(card).join('');
+document.getElementById('featured').innerHTML=data.filter(item=>item.price && !/TBA|coming soon|not available|not announced/i.test(item.price) && !/concept|unconfirmed/i.test(item.name||'') && !/concept|unconfirmed/i.test(item.specs||'')).slice(0,8).map(card).join('');
 setWalletBalance(getWalletBalance());
 updateWalletUI();
 try{
