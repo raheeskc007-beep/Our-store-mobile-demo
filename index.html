@@ -747,6 +747,17 @@ html,body{width:100%;max-width:100%;overflow-x:hidden!important;}
 }
 </style>
 
+
+<style id="os-v14-brand-product-polish">
+/* V14: consistent brand/product presentation, with no change to existing feature handlers. */
+.osBrandLogo{flex-shrink:0!important;object-fit:contain!important;}
+#popularBrands .osBrandRow{scrollbar-width:none!important;}
+#popularBrands .osBrandRow::-webkit-scrollbar{display:none!important;}
+#home #featured .deviceImg{display:flex!important;align-items:center!important;justify-content:center!important;overflow:hidden!important;background:#f1f4f8!important;}
+#home #featured .deviceImg img{width:100%!important;height:100%!important;object-fit:contain!important;object-position:center!important;mix-blend-mode:multiply!important;}
+@media(max-width:899px){#popularBrands .osBrand{min-width:68px!important;}#home #featured .card .img{height:112px!important;min-height:112px!important;}}
+</style>
+
 </head>
 <body>
 <div class="app">
