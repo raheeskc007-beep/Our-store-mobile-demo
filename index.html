@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Our Store — V13 Home Screen Correction</title>
+<title>Our Store — V14 Brand & Product Accuracy</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f4f5f7;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial;color:#111}
 .app{max-width:430px;margin:auto;min-height:100vh;background:#fff}.top{padding:18px 18px 10px;position:sticky;top:0;background:#fff;z-index:3;border-bottom:1px solid #eee}
@@ -744,6 +744,17 @@ body{background:var(--os-page)}
  #home .content{max-width:1560px!important;margin:0 auto!important;}
  #home #featured{grid-template-columns:repeat(4,minmax(0,1fr))!important;}
 }
+</style>
+
+
+<style id="os-v14-brand-product-accuracy">
+/* V14: consistent logo chips, image framing, and clear treatment of unannounced concepts. */
+.osBrandLogo{flex-shrink:0!important;overflow:hidden!important;}
+#popularBrands .osBrand{min-width:0!important;text-align:center!important;}
+#popularBrands .osBrandLogo:after{max-width:100%;overflow:hidden;}
+#home #featured .deviceImg img{object-fit:contain!important;object-position:center!important;}
+#home #featured .card .img{display:flex!important;align-items:center!important;justify-content:center!important;background:#f1f4f8!important;}
+/* Unannounced devices remain in the catalog but are not promoted as buyable featured products. */
 </style>
 
 </head>
