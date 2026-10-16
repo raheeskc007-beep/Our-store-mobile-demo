@@ -734,6 +734,27 @@ html,body{width:100%;min-width:0;max-width:100%;margin:0;overflow-x:hidden}
 }
 </style>
 
+
+<style id="os-v13-final-viewport-scroll-fix">
+/* Final targeted fixes from the latest phone preview. */
+html,body{width:100%;max-width:100%;min-width:0;overflow-x:hidden}
+.app{width:100%!important;max-width:none!important;margin:0 auto!important}
+.app>.screen{width:100%!important;max-width:none!important;min-width:0!important}
+#home{width:100%!important;max-width:none!important;min-width:0!important}
+#home .content{width:100%!important;max-width:1500px!important;box-sizing:border-box;margin:0 auto!important}
+#home #featured{width:100%!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;align-items:stretch}
+#home #featured .card{min-width:0!important;max-width:100%!important;box-sizing:border-box}
+#home #featured .deviceImg{background:#f1f4f8!important;overflow:hidden!important}
+#home #featured .deviceImg img{display:block;width:100%;height:100%;object-fit:contain;object-position:center;mix-blend-mode:multiply}
+#popularBrands{width:100%;max-width:100%;overflow:hidden}
+#popularBrands .osBrandRow{display:flex!important;gap:12px;overflow-x:auto!important;overflow-y:hidden;max-width:100%;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+#popularBrands .osBrandRow::-webkit-scrollbar{display:none}
+#popularBrands .osBrand{flex:0 0 70px!important}
+#home .content{padding-bottom:calc(160px + env(safe-area-inset-bottom))!important}
+@media(min-width:900px){.app{display:grid!important;grid-template-columns:240px minmax(0,1fr)!important}.app>.top,.app>.screen,.app>.bottom{grid-column:2;min-width:0}#home #featured{grid-template-columns:repeat(4,minmax(0,1fr))!important}#home .content{padding:22px 28px 48px!important}}
+@media(max-width:899px){.app>.screen{max-width:none!important}#home .content{padding:16px 12px calc(160px + env(safe-area-inset-bottom))!important}#home #featured .img{height:112px!important;min-height:112px!important}.bottom{width:100%!important;max-width:none!important}}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -1546,7 +1567,7 @@ function deviceImage(p){
     [/iphone 18 pro max/, 'https://media.extra.com/s/aurora/100528763_800/Apple-iPhone-18-Pro%2C-5G%2C-6-3-inch%2C-1TB%2C-Black?locale=en-GB%2Cen-%2A%2C%2A'],
     [/iphone 18 pro/, 'https://media.extra.com/s/aurora/100528763_800/Apple-iPhone-18-Pro%2C-5G%2C-6-3-inch%2C-1TB%2C-Black?locale=en-GB%2Cen-%2A%2C%2A'],
     [/iphone 17 pro max/, 'https://media.mobilemela.com.bd/2026/09/apple-iphone-17-pro-max-cosmic-orange-official-image.webp'],
-    [/iphone 17 pro$/, 'https://www.apple.com/newsroom/images/2025/09/apple-unveils-iphone-17-pro-and-iphone-17-pro-max/article/Apple-iPhone-17-Pro-cosmic-orange-250909_inline.jpg.large.jpg'],
+    [/iphone 17 pro$/, 'https://media.mobilemela.com.bd/2026/09/apple-iphone-17-pro-max-cosmic-orange-official-image.webp'],
     [/iphone 17$/, 'https://youget.pt/245640-large_default/apple-iphone-17-63-256gb-verde-salvia.jpg'],
     [/iphone 16/, 'https://www.costco.com.tw/medias/sys_master/images/h77/h1c/274498548203550.jpg'],
     [/galaxy s26 ultra/, 'https://www.laptopsdirect.co.uk/Images/SM-S948BZKHEUB_1_17511204_Supersize.jpg?v=5'],
