@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Our Store — V13 Video Reviews</title>
+<title>Our Store — V13 Home Screen Correction</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f4f5f7;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial;color:#111}
 .app{max-width:430px;margin:auto;min-height:100vh;background:#fff}.top{padding:18px 18px 10px;position:sticky;top:0;background:#fff;z-index:3;border-bottom:1px solid #eee}
@@ -238,6 +238,27 @@ h3{font-size:21px}
   .card{border-radius:20px}
 }
 
+/* V4: reference-matching home polish — visual-only, preserve existing flows */
+#home .heroStore{position:relative;isolation:isolate;background:linear-gradient(110deg,#090d12 0%,#18202a 54%,#9a542a 100%)!important}
+#home .heroStore:after{content:"";position:absolute;z-index:-1;right:5%;top:12%;width:clamp(90px,20vw,230px);height:78%;border-radius:28px;background:linear-gradient(145deg,#e9d4c2 0%,#a96c4b 32%,#15171b 33%,#08090c 100%);border:3px solid #d9c1ad;box-shadow:-24px 12px 0 -5px #d9dce2, -24px 12px 0 -2px #9ba2ac, -35px 18px 38px #0008;transform:rotate(7deg);opacity:.9}
+#home .heroStore:before{content:"";position:absolute;z-index:-1;right:calc(5% + 18px);top:20%;width:clamp(50px,11vw,118px);height:60%;border-radius:20px;background:radial-gradient(circle at 25% 18%,#111 0 7px,transparent 8px),radial-gradient(circle at 45% 18%,#111 0 7px,transparent 8px),radial-gradient(circle at 25% 31%,#111 0 7px,transparent 8px),linear-gradient(145deg,#e6b28e,#8c4a2a);border:2px solid #d4a88b;transform:rotate(-5deg);opacity:.92}
+#home .heroStore h2,#home .heroStore p,#home .heroStore .heroPill{position:relative;z-index:1}
+#home .heroStore h2{max-width:min(68%,650px)!important}
+#home .heroStore p{max-width:min(62%,560px)!important}
+.osBrandLogo{font-size:0!important;position:relative;overflow:hidden}
+.osBrandLogo:after{font-size:24px;line-height:1;font-weight:800}
+.osBrandLogo.apple:after{content:"●";font-size:27px;color:#111}
+.osBrandLogo:not(.apple):not(.samsung):not(.xiaomi):not(.vivo):not(.oppo):not(.oneplus):not(.google):not(.moto):after{content:"●";font-size:27px;color:#111}
+.osBrandLogo.samsung:after{content:"SAMSUNG";font-size:10px;font-style:italic}
+.osBrandLogo.xiaomi:after{content:"mi";font-size:23px}
+.osBrandLogo.vivo:after{content:"vivo";font-size:15px;font-style:italic}
+.osBrandLogo.oppo:after{content:"oppo";font-size:14px}
+.osBrandLogo.oneplus:after{content:"1+";font-size:23px}
+.osBrandLogo.google:after{content:"G";font-size:28px;color:#4285f4}
+.osBrandLogo.moto:after{content:"M";font-size:26px}
+@media(max-width:899px){#home .heroStore h2{max-width:68%!important}#home .heroStore p{max-width:68%!important}#home .heroStore:after{right:4%;width:100px;height:72%;top:14%}#home .heroStore:before{right:calc(4% + 15px);width:54px;height:54%;top:23%}}
+@media(max-width:380px){#home .heroStore h2{font-size:25px!important}#home .heroStore p{font-size:12px!important}#home .heroStore:after{right:2%;width:78px}#home .heroStore:before{right:calc(2% + 12px);width:42px}}
+
 </style>
 
 <style>
@@ -404,9 +425,365 @@ body{background:var(--os-page)}
 
 </style>
 
+
+<style>
+/* Cart controls: mobile-friendly quantity and remove actions */
+#cartItem .cartQtyBtn{margin-top:0;min-width:42px;min-height:42px;padding:8px 13px;font-size:18px;box-shadow:none}
+#cartItem .cartRemoveBtn{margin-top:0;min-height:42px;padding:8px 12px;box-shadow:none}
+#cartItem .cartLine:last-of-type{border-bottom:0!important}
+#cartItem .cartSubtotal{border-top:1px solid #e5e7eb;margin-top:10px}
+#checkout button:disabled{opacity:.45;cursor:not-allowed}
+</style>
+
+
+<style id="our-store-reference-layout-v1">
+/* Reference-layout pass: desktop storefront; mobile layout and existing handlers preserved. */
+@media (min-width: 900px){
+  html,body{min-height:100%;background:#f4f5f8!important}
+  .app{max-width:none;width:100%;min-height:100vh;margin:0;background:#f8f9fb;box-shadow:none}
+  .top{position:sticky;top:0;display:grid;grid-template-columns:260px minmax(260px,1fr);align-items:center;gap:24px;padding:16px 28px 16px 286px;background:#101820;color:#fff;border:0;min-height:76px}
+  .top h1{font-size:25px;letter-spacing:-.7px;margin:0;color:#fff;white-space:nowrap}
+  .top .search{width:100%;max-width:760px;background:#fff;color:#111;border-radius:28px;padding:15px 20px}
+  .top #searchResults{grid-column:2;max-width:760px;background:#fff;color:#111}
+  .content{margin-left:222px;padding:22px 28px 42px;max-width:none}
+  .bottom{left:0;right:auto;top:76px;bottom:0;width:222px;max-width:none;margin:0;padding:16px 10px;display:flex;flex-direction:column;justify-content:flex-start;gap:5px;background:#101820;border:0;border-radius:0;overflow-y:auto}
+  .bottom button{display:flex;align-items:center;gap:14px;text-align:left;padding:13px 14px;min-height:46px;border-radius:12px;color:#f7f8fa;font-size:14px;font-weight:600;line-height:1.2}
+  .bottom button br{display:none}
+  .bottom button:first-child{background:#1769e8}
+  #home .content{padding-top:18px}
+  #home .heroStore{min-height:250px;margin:0 0 18px;padding:38px 42px;border-radius:22px!important;background:linear-gradient(110deg,#090d12 0%,#18202a 48%,#9a542a 100%)!important;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;overflow:hidden}
+  #home .heroStore h2{font-size:clamp(34px,3.3vw,54px)!important;max-width:620px;color:#fff}
+  #home .heroStore p{max-width:560px;color:#e2e5e9;font-size:16px}
+  #home .heroStore .heroPill{margin-top:18px;background:#fff!important;color:#111!important;padding:10px 18px;font-size:13px}
+  #home .content>.row{gap:12px;padding-bottom:4px}
+  #home .chip{border-radius:16px;padding:16px 22px;background:#fff;border-color:#e8eaf0;box-shadow:0 3px 12px #14213b0a;font-weight:650}
+  #home .grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+  #home .grid .btn{margin:0!important;min-height:48px}
+  #home .homeSection.card{background:transparent;border:0;padding:0;box-shadow:none}
+  #home .homeSection .card{background:#fff}
+  #home .homeSection[style*="margin:18px 0"]{margin:22px 0!important}
+  #home .homeSection[style*="margin:18px 0"]>div[style*="overflow-x:auto"]{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));overflow:visible!important}
+  #catalog #products,.productGrid,.grid.products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+  .card{border-radius:18px}
+  .btn{background:#1769e8}
+  .btn.alt{background:#edf1f7;color:#151922}
+  .screen .content{max-width:1500px}
+}
+@media (min-width:1250px){
+  #catalog #products,.productGrid,.grid.products{grid-template-columns:repeat(5,minmax(0,1fr))}
+  #home .content{padding-left:32px;padding-right:32px}
+}
+/* Mobile adaptation of the same reference design; do not disable the stylesheet. */
+@media (max-width:899px){
+  html,body{background:#f4f5f8!important}
+  .app{width:100%;max-width:none;margin:0;min-height:100vh;border-radius:0;background:#f8f9fb;box-shadow:none}
+  .top{position:sticky;top:0;z-index:30;background:#101820;color:#fff;padding:12px 14px;gap:10px;border:0;border-radius:0;display:flex;flex-wrap:wrap;align-items:center}
+  .top h1{color:#fff;font-size:21px;margin:0;white-space:nowrap}
+  .top .search{order:3;flex:1 0 100%;width:100%;max-width:none;margin:0;background:#fff;color:#111;border-radius:24px;padding:12px 15px}
+  .top #searchResults{order:4;flex:1 0 100%;max-width:none;background:#fff;color:#111}
+  .content{margin:0;padding:14px 12px 88px;max-width:none}
+  .bottom{left:0;right:0;top:auto;bottom:0;width:100%;max-width:none;margin:0;padding:7px 4px calc(7px + env(safe-area-inset-bottom));display:flex;flex-direction:row;justify-content:space-around;gap:2px;background:#fff;border:1px solid #e6e9ef;border-radius:0;overflow-x:auto;z-index:40}
+  .bottom button{flex:1 0 auto;min-width:48px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-align:center;padding:7px 5px;min-height:52px;border-radius:10px;color:#4b5563;font-size:11px;font-weight:600;line-height:1.15}
+  .bottom button br{display:none}
+  .bottom button:first-child{background:#edf4ff;color:#1769e8}
+  #home .content{padding-top:12px}
+  #home .heroStore{min-height:210px;margin:0 0 14px;padding:24px 20px;border-radius:18px!important;background:linear-gradient(110deg,#090d12 0%,#18202a 48%,#9a542a 100%)!important;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;overflow:hidden}
+  #home .heroStore h2{font-size:clamp(27px,7vw,38px)!important;max-width:100%;color:#fff}
+  #home .heroStore p{max-width:100%;color:#e2e5e9;font-size:14px}
+  #home .heroStore .heroPill{margin-top:12px;background:#fff!important;color:#111!important;padding:9px 15px;font-size:12px}
+  #home .content>.row{display:flex;gap:8px;padding-bottom:5px;overflow-x:auto;scrollbar-width:none}
+  #home .content>.row::-webkit-scrollbar{display:none}
+  #home .chip{flex:0 0 auto;border-radius:14px;padding:12px 14px;background:#fff;border-color:#e8eaf0;box-shadow:0 3px 12px #14213b0a;font-weight:650}
+  #home .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  #home .grid .btn{margin:0!important;min-height:44px}
+  #home .homeSection.card{background:transparent;border:0;padding:0;box-shadow:none}
+  #home .homeSection .card{background:#fff}
+  #home .homeSection[style*="margin:18px 0"]{margin:16px 0!important}
+  #home .homeSection[style*="margin:18px 0"]>div[style*="overflow-x:auto"]{display:flex!important;gap:10px;overflow-x:auto!important;grid-template-columns:none}
+  #catalog #products,.productGrid,.grid.products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .card{border-radius:16px}
+  .btn{background:#1769e8}
+  .btn.alt{background:#edf1f7;color:#151922}
+  .screen .content{max-width:none}
+}
+</style>
+
+
+<style id="os-home-reference-v3">
+.osSectionHead{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0 0 12px}
+.osSectionHead h3{margin:0!important;font-size:20px!important}
+.osViewAll{border:0;background:transparent;color:#1769e8;font-weight:700;padding:8px;white-space:nowrap;cursor:pointer}
+.osBrandRow{display:flex;gap:12px;overflow-x:auto;padding:3px 2px 10px;scrollbar-width:none}
+.osBrandRow::-webkit-scrollbar{display:none}
+.osBrand{flex:0 0 88px;display:flex;flex-direction:column;align-items:center;gap:6px;border:0;background:transparent;color:#111;padding:4px;cursor:pointer;font-size:12px}
+.osBrandLogo{width:58px;height:58px;display:grid;place-items:center;border-radius:50%;background:#fff;border:1px solid #e4e7ed;box-shadow:0 3px 12px #1720330c;font-size:30px;font-weight:800;color:#111}
+.osBrandLogo.samsung{font-size:24px;font-style:italic;color:#fff;background:#1749b5}
+.osBrandLogo.xiaomi{font-size:23px;color:#fff;background:#ff6900;border-radius:16px}
+.osBrandLogo.vivo{color:#fff;background:#2467ed;font-style:italic}
+.osBrandLogo.oppo{font-size:20px;color:#fff;background:#087b48}
+.osBrandLogo.oneplus{color:#fff;background:#d91e35}
+.osBrandLogo.google{background:#fff;color:#4285f4}
+.osBrandLogo.moto{color:#fff;background:#182b75}
+#home #featured{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+#home #featured .card{min-width:0;margin:0;padding:12px;border:1px solid #e4e7ed;border-radius:17px;background:#fff;box-shadow:0 4px 14px #1720330a}
+@media(min-width:900px){#home #featured{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}.osBrandRow{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));overflow:visible}.osBrand{width:100%}}
+@media(max-width:899px){#home #featured{grid-template-columns:repeat(2,minmax(0,1fr))}.osBrandRow{gap:6px}.osBrand{flex-basis:76px}.osBrandLogo{width:52px;height:52px}}
+</style>
+
+
+
+
+
+<style id="os-v7-layout-fix">
+/* V7: keep fixed mobile navigation from covering the final home sections */
+@media (max-width: 899px) {
+  #home .content { padding-bottom: calc(190px + env(safe-area-inset-bottom)) !important; }
+  #home #featuredSection { margin-bottom: 28px !important; }
+  #home #featured { align-items: stretch; }
+  #home #featured .card { min-width: 0; }
+}
+@media (min-width: 900px) {
+  #home .content { padding-bottom: 40px !important; }
+  #home #featured { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+</style>
+
+<style id="os-v8-home-compact-fix">
+/* V8: compact mobile home spacing so Featured Products appears above the fixed bottom bar */
+@media (max-width: 899px) {
+  #home .content { padding-top: 10px !important; padding-bottom: calc(120px + env(safe-area-inset-bottom)) !important; }
+  #home .heroStore { min-height: 0 !important; margin: 0 0 12px !important; padding: 20px 16px !important; }
+  #home .heroStore h2 { font-size: clamp(25px, 6.2vw, 32px) !important; line-height: 1.08 !important; max-width: 61% !important; margin-bottom: 7px !important; }
+  #home .heroStore p { font-size: 13px !important; line-height: 1.38 !important; max-width: 62% !important; }
+  #home .heroStore .heroPill { margin-top: 9px !important; padding: 7px 10px !important; font-size: 10px !important; }
+  #home .content > h3 { font-size: 20px !important; margin: 14px 2px 8px !important; }
+  #home .content > .row { gap: 7px !important; }
+  #home .chip { padding: 10px 11px !important; }
+  #popularBrands { margin: 14px 0 !important; }
+  #popularBrands .osSectionHead { margin-bottom: 7px !important; }
+  #popularBrands .osSectionHead h3, #featuredSection .osSectionHead h3 { font-size: 19px !important; }
+  #popularBrands .osBrandRow { gap: 4px !important; padding-bottom: 4px !important; }
+  #popularBrands .osBrand { flex-basis: 68px !important; gap: 4px !important; font-size: 11px !important; }
+  #popularBrands .osBrandLogo { width: 46px !important; height: 46px !important; }
+  #featuredSection { margin: 14px 0 24px !important; scroll-margin-bottom: 110px; }
+  #home #featured { gap: 8px !important; }
+  #home #featured .card { padding: 9px !important; }
+}
+@media (max-width: 380px) {
+  #home .heroStore h2 { max-width: 58% !important; font-size: 24px !important; }
+  #home .heroStore p { max-width: 60% !important; font-size: 12px !important; }
+  #popularBrands .osBrand { flex-basis: 62px !important; }
+}
+@media (min-width: 900px) {
+  #home #featured { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+</style>
+
+
+<style id="os-v9-home-complete">
+/* V9: consolidate home spacing and prevent fixed-nav overlap without changing app handlers */
+@media (max-width: 899px) {
+  #home .content { padding: 8px 12px calc(150px + env(safe-area-inset-bottom)) !important; }
+  #home .heroStore { min-height: 0 !important; padding: 17px 15px !important; margin-bottom: 10px !important; }
+  #home .heroStore h2 { font-size: clamp(23px, 5.8vw, 30px) !important; line-height: 1.08 !important; max-width: 64% !important; }
+  #home .heroStore p { font-size: 12px !important; line-height: 1.32 !important; max-width: 64% !important; }
+  #home .heroStore .heroPill { margin-top: 7px !important; padding: 6px 9px !important; font-size: 10px !important; }
+  #home .content > h3 { margin: 12px 2px 7px !important; font-size: 19px !important; }
+  #home .content > .row { margin-bottom: 0 !important; }
+  #popularBrands { margin: 12px 0 16px !important; }
+  #popularBrands .osSectionHead, #featuredSection .osSectionHead { margin-bottom: 8px !important; }
+  #popularBrands .osBrandRow { padding: 2px 0 4px !important; }
+  #featuredSection { margin: 12px 0 20px !important; scroll-margin-bottom: 140px; }
+  #home #featured { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 9px !important; }
+  #home #featured .card { min-width: 0 !important; display: flex; flex-direction: column; overflow: hidden; }
+  #home #featured .img { height: 118px !important; min-height: 118px !important; }
+  #home #featured .card img { max-width: 100%; object-fit: contain; }
+  #home #featured .btn { width: 100%; margin-top: auto; }
+}
+@media (max-width: 380px) {
+  #home .heroStore h2 { max-width: 60% !important; font-size: 22px !important; }
+  #home .heroStore p { max-width: 60% !important; font-size: 11px !important; }
+  #home #featured .img { height: 105px !important; min-height: 105px !important; }
+}
+@media (min-width: 900px) {
+  #home .content { padding-bottom: 48px !important; }
+  #home .heroStore { min-height: 240px; }
+  #home #featured { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; gap: 16px !important; }
+  #home #featured .card { min-width: 0; }
+  #home #featured .img { height: 155px !important; }
+}
+</style>
+
+<style id="os-v10-catalog-desktop-fix">
+/* V10: product card visibility, brand mark sizing, and wider desktop catalog */
+@media (max-width: 899px) {
+  #home .content { padding-bottom: calc(180px + env(safe-area-inset-bottom)) !important; }
+  #home #featuredSection { margin-bottom: 26px !important; }
+  #home #featured .card { min-height: 100%; gap: 5px; }
+  #home #featured .img { height: 104px !important; min-height: 104px !important; }
+  #home #featured .card .muted { font-size: 11px; line-height: 1.3; }
+  #home #featured .card h4, #home #featured .card h3 { font-size: 14px; line-height: 1.25; overflow-wrap: anywhere; }
+  #home #featured .price { font-size: 16px; line-height: 1.2; }
+  #home #featured .btn { min-height: 40px; padding: 9px 7px; font-size: 12px; white-space: normal; }
+  .osBrandLogo.samsung:after { content: "SAMSUNG"; font-size: 8px; letter-spacing: -.35px; }
+  .osBrandLogo.xiaomi:after { font-size: 22px; }
+  .osBrandLogo.vivo:after { font-size: 14px; }
+  .osBrandLogo.oppo:after { font-size: 13px; }
+  .osBrandLogo.oneplus:after { font-size: 21px; }
+  #home .osBrand { flex-basis: 70px !important; }
+  #home .osBrandLogo { flex-shrink: 0; }
+}
+@media (min-width: 900px) {
+  body { background: #eef1f5; }
+  .app { max-width: none; width: 100%; min-height: 100vh; box-shadow: none; }
+  .top { padding: 18px 32px 16px; display: grid; grid-template-columns: minmax(220px, 300px) minmax(320px, 1fr); align-items: center; gap: 28px; }
+  .top h1 { margin: 0; font-size: 28px; }
+  .top .search { width: 100%; max-width: 760px; }
+  #home .content { max-width: 1500px; margin: 0 auto; padding: 22px 28px 48px !important; }
+  #home .heroStore { min-height: 270px; padding: 38px 44px; }
+  #home .heroStore h2 { font-size: clamp(34px, 3vw, 48px); }
+  #home .heroStore p { font-size: 18px; }
+  #home .content > h3 { margin-top: 28px; }
+  #home .content > .row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); overflow: visible; }
+  #home .content > .row .chip { width: 100%; text-align: center; }
+  #popularBrands .osBrandRow { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+  #popularBrands .osBrandLogo { width: 68px; height: 68px; }
+  #home #featured { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; gap: 18px !important; }
+  #home #featured .card { padding: 16px !important; }
+  #home #featured .img { height: 180px !important; min-height: 180px !important; }
+  #home #featured .price { font-size: 20px; }
+  #home #featured .btn { width: 100%; }
+  .bottom { max-width: none; justify-content: center; gap: 34px; padding: 12px 20px; }
+  .bottom button { min-width: 90px; font-size: 14px !important; }
+}
+</style>
+
+
+<style id="os-v11-complete-layout">
+/* V11: make complete product cards reachable and add real desktop sidebar navigation. */
+#home .content { padding-bottom: calc(190px + env(safe-area-inset-bottom)) !important; }
+#home #featuredSection { padding-bottom: 16px !important; margin-bottom: 28px !important; }
+#home #featured .card { min-width: 0 !important; display:flex; flex-direction:column; height:auto !important; overflow:hidden; }
+#home #featured .card .img { flex: 0 0 auto; }
+#home #featured .card h3 { display:block; min-height:2.4em; overflow-wrap:anywhere; }
+#home #featured .card .price { display:block; margin:5px 0; }
+#home #featured .card .btn { display:block; width:100%; margin-top:auto; }
+.osDesktopSidebar { display:none; }
+@media (min-width: 900px) {
+  .app { display:grid !important; grid-template-columns:240px minmax(0,1fr); align-items:start; }
+  .osDesktopSidebar { display:flex; flex-direction:column; gap:7px; grid-column:1; grid-row:1 / span 20; position:sticky; top:0; height:100vh; overflow:auto; background:#101820; color:#fff; padding:20px 14px; box-sizing:border-box; z-index:30; }
+  .osSidebarBrand { display:grid; grid-template-columns:44px 1fr; column-gap:10px; align-items:center; margin:0 0 18px; padding:4px 5px 16px; border-bottom:1px solid #34404b; }
+  .osSidebarBrand span { grid-row:span 2; display:grid; place-items:center; width:44px; height:44px; border-radius:13px; background:#1769e8; font-weight:800; }
+  .osSidebarBrand strong { font-size:20px; }
+  .osSidebarBrand small { grid-column:2; font-size:10px; color:#c5ced8; }
+  .osDesktopSidebar button { display:flex; align-items:center; gap:12px; width:100%; padding:13px 12px; border:0; border-radius:10px; background:transparent; color:#f8fafc; text-align:left; font:inherit; cursor:pointer; }
+  .osDesktopSidebar button:hover { background:#1c65d8; }
+  .osDesktopSidebar button span { font-size:14px; }
+  .app > .top, .app > .screen, .app > .bottom { grid-column:2; min-width:0; }
+  .app > .top { grid-row:1; }
+  .app > .screen { grid-row:auto; }
+  .app > .bottom { position:sticky !important; bottom:0; width:100%; z-index:25; }
+  #home .content { padding-bottom:48px !important; }
+  #home #featured { grid-template-columns:repeat(4,minmax(0,1fr)) !important; }
+}
+@media (max-width: 899px) {
+  .osDesktopSidebar { display:none !important; }
+  #home .content { padding-bottom:calc(190px + env(safe-area-inset-bottom)) !important; }
+}
+</style>
+
+<style id="os-v12-brand-catalog-accuracy">
+/* V12: legible brand marks and conservative catalog claims; preserve existing app flows. */
+.osBrandLogo{position:relative!important;display:grid!important;place-items:center!important;overflow:hidden!important;font-size:0!important;line-height:1!important;text-align:center!important}
+.osBrandLogo:after{position:absolute!important;inset:0!important;display:flex!important;align-items:center!important;justify-content:center!important;white-space:nowrap!important;line-height:1!important;font-weight:800!important;letter-spacing:-.25px!important}
+.osBrandLogo.apple:after{content:"A"!important;font-size:25px!important;color:#111!important;font-family:Arial,sans-serif!important}
+.osBrandLogo.samsung:after{content:"SAMSUNG"!important;font-size:9px!important;letter-spacing:-.5px!important;color:#fff!important}
+.osBrandLogo.xiaomi:after{content:"mi"!important;font-size:24px!important;color:#fff!important}
+.osBrandLogo.vivo:after{content:"vivo"!important;font-size:14px!important;font-style:italic!important;color:#fff!important}
+.osBrandLogo.oppo:after{content:"oppo"!important;font-size:13px!important;color:#fff!important}
+.osBrandLogo.oneplus:after{content:"1+"!important;font-size:22px!important;color:#fff!important}
+.osBrandLogo.google:after{content:"G"!important;font-size:27px!important;color:#4285f4!important}
+.osBrandLogo.moto:after{content:"M"!important;font-size:25px!important;color:#fff!important}
+@media(max-width:899px){.osBrandLogo.samsung:after{font-size:8px!important;letter-spacing:-.55px!important}.osBrandLogo.xiaomi:after{font-size:23px!important}.osBrandLogo.vivo:after{font-size:13px!important}.osBrandLogo.oppo:after{font-size:12px!important}}
+/* Unannounced models stay marked as unconfirmed rather than displaying invented specifications. */
+</style>
+
+
+<style id="os-v13-home-correction">
+/* V13: screenshot-led home layout fixes; keep existing navigation and feature handlers. */
+html,body{width:100%;max-width:100%;overflow-x:hidden!important;}
+.deviceImg{background:#f1f4f8!important;}
+.deviceImg img{object-fit:contain!important;object-position:center!important;background:transparent!important;padding:4px!important;mix-blend-mode:multiply!important;}
+#home #featured .card{min-width:0!important;overflow:hidden!important;}
+#home #featured .card .img{background:#f1f4f8!important;border-radius:14px!important;}
+#home #featured .card .price{white-space:normal;overflow-wrap:anywhere;}
+#popularBrands .osBrandRow{overflow-x:auto!important;overscroll-behavior-x:contain;scrollbar-width:none;-webkit-overflow-scrolling:touch;touch-action:pan-x pan-y;}
+#popularBrands .osBrandRow::-webkit-scrollbar{display:none;}
+@media(max-width:899px){
+ .app{width:100%!important;max-width:none!important;margin:0!important;}
+ .top{padding:14px 16px 12px!important;}
+ .top h1{font-size:24px!important;margin-bottom:10px!important;}
+ .top .search{width:100%!important;font-size:15px!important;}
+ #home .content{padding:10px 12px calc(170px + env(safe-area-inset-bottom))!important;}
+ #home .heroStore{margin:4px 0 14px!important;border-radius:20px!important;}
+ #home .content > h3{font-size:20px!important;line-height:1.2!important;}
+ #home .content > .row{display:flex!important;gap:8px!important;overflow-x:auto!important;}
+ #home .content > .row .chip{flex:0 0 auto!important;}
+ #popularBrands .osBrandRow{display:flex!important;gap:10px!important;padding:4px 4px 10px!important;overflow-x:auto!important;scroll-snap-type:x proximity!important;}
+ #popularBrands .osBrand{flex:0 0 68px!important;scroll-snap-align:start!important;}
+ #popularBrands .osBrandLogo{width:48px!important;height:48px!important;}
+ #home #featured{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;}
+ #home #featured .card{padding:9px!important;margin:0!important;border-radius:16px!important;}
+ #home #featured .img{height:112px!important;min-height:112px!important;padding:0!important;}
+ #home #featured .card img{display:block!important;width:100%!important;max-width:100%!important;max-height:100%!important;object-fit:contain!important;object-position:center!important;background:transparent!important;mix-blend-mode:normal!important;background:transparent!important;}
+ #home #featured .card h3,#home #featured .card h4{font-size:13px!important;line-height:1.25!important;}
+ #home #featured .price{font-size:15px!important;}
+ .bottom{width:100%!important;max-width:560px!important;left:50%!important;transform:translateX(-50%)!important;}
+}
+@media(min-width:900px){
+ .app{max-width:none!important;width:100%!important;}
+ #home .content{max-width:1560px!important;margin:0 auto!important;}
+ #home #featured{grid-template-columns:repeat(4,minmax(0,1fr))!important;}
+}
+</style>
+
+
+<style id="os-v14-brand-product-polish">
+/* V14: consistent brand/product presentation, with no change to existing feature handlers. */
+.osBrandLogo{flex-shrink:0!important;object-fit:contain!important;}
+#popularBrands .osBrandRow{scrollbar-width:none!important;}
+#popularBrands .osBrandRow::-webkit-scrollbar{display:none!important;}
+#home #featured .deviceImg{display:flex!important;align-items:center!important;justify-content:center!important;overflow:hidden!important;background:#f1f4f8!important;}
+#home #featured .deviceImg img{width:100%!important;height:100%!important;object-fit:contain!important;object-position:center!important;background:transparent!important;mix-blend-mode:normal!important;}
+@media(max-width:899px){#popularBrands .osBrand{min-width:68px!important;}#home #featured .card .img{height:112px!important;min-height:112px!important;}}
+</style>
+
+
+<style id="os-v15-featured-product-polish">
+/* V15: consistent product image frame and card layout without changing existing navigation/actions. */
+#home #featured .deviceImg{background:#f1f4f8!important;border-radius:14px!important;overflow:hidden!important;display:flex!important;align-items:center!important;justify-content:center!important;}
+#home #featured .deviceImg img{width:100%!important;height:100%!important;object-fit:contain!important;object-position:center!important;background:transparent!important;}
+#home #featured .card{min-width:0!important;display:flex!important;flex-direction:column!important;}
+#home #featured .card .btn{margin-top:auto!important;}
+@media(max-width:899px){#home #featured{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;}#home #featured .deviceImg{height:112px!important;min-height:112px!important;}}
+@media(min-width:900px){#home #featured{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:16px!important;}#home #featured .deviceImg{height:170px!important;}}
+</style>
 </head>
 <body>
 <div class="app">
+<nav class="osDesktopSidebar" aria-label="Main navigation">
+  <div class="osSidebarBrand"><span>OS</span><strong>Our Store</strong><small>Mobiles · Laptops · Tablets</small></div>
+  <button onclick="go('home')">⌂ <span>Home</span></button>
+  <button onclick="catalog('Mobiles')">▢ <span>Shop</span></button>
+  <button onclick="go('find')">⌕ <span>Find My Device</span></button>
+  <button onclick="go('compare')">⇄ <span>Compare</span></button>
+  <button onclick="catalog('Mobiles')">✦ <span>New Launch</span></button>
+  <button onclick="go('exchange')">⇆ <span>Exchange</span></button>
+  <button onclick="catalog('Mobiles')">◇ <span>Offers</span></button>
+  <button onclick="go('wallet')">▱ <span>Wallet</span></button>
+  <button onclick="go('profile')">□ <span>Orders / Profile</span></button>
+  <button onclick="go('support')">☏ <span>Support</span></button>
+</nav>
 <div id="home" class="screen active">
 <div class="top"><h1>Our Store</h1><input class="search" placeholder="Search mobiles, laptops, tablets..." autocomplete="off" autocapitalize="none" oninput="queueSearch(this.value)"><div id="searchResults" style="display:none"></div></div>
 <div class="content">
@@ -419,6 +796,21 @@ body{background:var(--os-page)}
 <h3>What are you looking for?</h3><div class="row">
 <button class="chip" onclick="catalog('Mobiles')">📱 Mobiles</button><button class="chip" onclick="catalog('Laptops')">💻 Laptops</button><button class="chip" onclick="catalog('Tablets')">📲 Tablets</button><button class="chip" onclick="catalog('Accessories')">🎧 Accessories</button>
 </div>
+
+<section id="popularBrands" class="homeSection" style="margin:22px 0">
+  <div class="osSectionHead"><h3>Popular Brands</h3><button class="osViewAll" onclick="catalog('Mobiles')">View All →</button></div>
+  <div class="osBrandRow">
+    <button class="osBrand" onclick="brandCatalog('Apple')"><span class="osBrandLogo apple"></span><b>Apple</b></button>
+    <button class="osBrand" onclick="brandCatalog('Samsung')"><span class="osBrandLogo samsung">S</span><b>Samsung</b></button>
+    <button class="osBrand" onclick="brandCatalog('Xiaomi')"><span class="osBrandLogo xiaomi">mi</span><b>Xiaomi</b></button>
+    <button class="osBrand" onclick="brandCatalog('Vivo')"><span class="osBrandLogo vivo">v</span><b>vivo</b></button>
+    <button class="osBrand" onclick="brandCatalog('OPPO')"><span class="osBrandLogo oppo">op</span><b>OPPO</b></button>
+    <button class="osBrand" onclick="brandCatalog('OnePlus')"><span class="osBrandLogo oneplus">1+</span><b>OnePlus</b></button>
+    <button class="osBrand" onclick="brandCatalog('Google')"><span class="osBrandLogo google">G</span><b>Google</b></button>
+    <button class="osBrand" onclick="brandCatalog('Motorola')"><span class="osBrandLogo moto">M</span><b>Motorola</b></button>
+  </div>
+</section>
+<section id="featuredSection" class="homeSection" style="margin:22px 0"><div class="osSectionHead"><h3>Featured Products</h3><button class="osViewAll" onclick="catalog('Mobiles')">View All →</button></div><div id="featured"></div></section>
 <div class="grid" style="margin-top:14px"><button class="btn" onclick="find()">🎯 Find My Device</button><button class="btn alt" onclick="openCompareFromHome()" type="button">⚖️ Compare</button><button class="btn alt" onclick="exchange()">🔄 Exchange</button></div>
 <button class="btn" style="width:100%;margin-top:12px" onclick="go('videoReviews')">🎥 Video Reviews</button>
 <button class="btn" style="width:100%;margin:12px 0" onclick="openNewLaunches()">🆕 New Launches</button>
@@ -512,7 +904,8 @@ body{background:var(--os-page)}
   </div>
 </div>
 
-<h3>Featured</h3><div id="featured"></div>
+
+
 </div></div>
 
 <div id="videoReviews" class="screen"><div class="content">
@@ -525,7 +918,7 @@ body{background:var(--os-page)}
 
 <div id="catalog" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2 id="catTitle">Products</h2><div class="row" style="margin-bottom:10px"><button class="chip" onclick="brandCatalog('All')">All</button><button class="chip" onclick="brandCatalog('Apple')">Apple</button><button class="chip" onclick="brandCatalog('Samsung')">Samsung</button><button class="chip" onclick="brandCatalog('OnePlus')">OnePlus</button><button class="chip" onclick="brandCatalog('Xiaomi')">Xiaomi</button><button class="chip" onclick="brandCatalog('Vivo')">Vivo</button><button class="chip" onclick="brandCatalog('OPPO')">OPPO</button><button class="chip" onclick="brandCatalog('Google')">Google</button><button class="chip" onclick="brandCatalog('Realme')">Realme</button><button class="chip" onclick="brandCatalog('Motorola')">Motorola</button></div><div id="products"></div></div></div>
 
-<div id="product" class="screen"><div class="content"><button class="back" onclick="go('catalog')">← Products</button><div class="productHero"><div class="productVisual"><div class="osGalleryStage" id="osGalleryStage"><span class="osGalleryCount" id="osGalleryCount">1 / 8</span><button class="osGalleryArrow prev" onclick="moveGallery(-1)" aria-label="Previous image">‹</button><img id="productDetailImage" src="" alt="Phone product image" onclick="openImageViewer(false)" role="button" tabindex="0" aria-label="Open full-screen product image" loading="eager" decoding="async" style="width:100%;height:100%;object-fit:contain;padding:12px;box-sizing:border-box" onerror="this.onerror=null;this.src='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 220 300%22%3E%3Crect width=%22220%22 height=%22300%22 rx=%2228%22 fill=%22%23eef2f7%22/%3E%3Crect x=%2250%22 y=%2225%22 width=%22120%22 height=%22245%22 rx=%2220%22 fill=%22%23dce4ef%22 stroke=%22%2399a8bb%22 stroke-width=%224%22/%3E%3C/svg%3E'"><button class="osGalleryArrow next" onclick="moveGallery(1)" aria-label="Next image">›</button><button class="osGallery360" id="osGallery360" onclick="openImageViewer(true)">↻ 360° Preview</button></div><div class="osGalleryThumbs" id="osGalleryThumbs"></div><p class="muted" id="osGalleryNote" style="font-size:11px;margin:8px 2px 0">Product image preview · alternate angles are visual previews</p></div><div><div class="tag">Our Store</div><div class="tag">In Stock</div><div class="tag">Warranty</div><h2 id="pname"></h2><p class="muted">Official Our Store listing · sample catalog data</p><div class="price" id="pprice"></div></div></div><div class="card"><b>Choose variant</b><div class="variantRow" style="margin-top:10px"><button class="variant active" data-storage="12/256 GB" onclick="selectVariant(this,'storage')">12/256 GB</button><button class="variant" data-storage="12/512 GB" onclick="selectVariant(this,'storage')">12/512 GB</button><button class="variant" data-storage="16/512 GB" onclick="selectVariant(this,'storage')">16/512 GB</button></div><div class="variantRow" style="margin-top:10px"><button class="variant active" data-color="Black" onclick="selectVariant(this,'color')">Black</button><button class="variant" data-color="Blue" onclick="selectVariant(this,'color')">Blue</button><button class="variant" data-color="Silver" onclick="selectVariant(this,'color')">Silver</button></div><p class="muted" id="variantSummary" style="margin:10px 0 0">Selected: 12/256 GB · Black</p></div><div class="offer"><b>🏷️ Our Store Offer</b><p class="muted">Instant bank offers, EMI options and exchange eligibility will appear here.</p></div><div class="card"><h3>Key specifications</h3><div class="specGrid"><div class="specItem"><small>Display</small>6.7″ AMOLED</div><div class="specItem"><small>Network</small>5G</div><div class="specItem"><small>Memory</small>12 GB RAM</div><div class="specItem"><small>Storage</small>256 GB</div><div class="specItem"><small>Camera</small>50 MP main</div><div class="specItem"><small>Warranty</small>Our Store warranty</div></div></div><div class="card"><h3>Delivery & pickup</h3><p>🚚 Delivery available</p><p>🏪 Store pickup available</p><p class="muted">Final availability and delivery date will be confirmed at checkout.</p></div><div class="card"><h3>Full specifications</h3><div class="specList" id="fullSpecs"><div class="specRow"><span>Brand</span><b id="specBrand">—</b></div><div class="specRow"><span>Category</span><b id="specCategory">—</b></div><div class="specRow"><span>Display</span><b id="specDisplay">6.7″ AMOLED · demo</b></div><div class="specRow"><span>Chipset</span><b id="specChip">—</b></div><div class="specRow"><span>RAM / Storage</span><b id="specMemory">—</b></div><div class="specRow"><span>Main camera</span><b id="specCamera">50 MP · demo</b></div><div class="specRow"><span>Front camera</span><b id="specFront">—</b></div><div class="specRow"><span>Battery</span><b id="specBattery">—</b></div><div class="specRow"><span>Network</span><b id="specNetwork">5G</b></div><div class="specRow"><span>OS</span><b id="specOS">—</b></div><div class="specRow"><span>Warranty</span><b>Our Store warranty</b></div></div><p class="muted" style="margin-bottom:0">Demo specification data. Final specifications can be connected to verified product data later.</p></div><div class="card"><h3>What's in the box</h3><p>📦 Device</p><p>🔌 Charging accessories (as applicable)</p><p>📄 Documentation</p></div><div class="card"><h3>Delivery & pickup</h3><p>🚚 Delivery available</p><p>🏪 Store pickup available</p><p class="muted">Final availability and delivery date will be confirmed at checkout.</p></div><div class="card"><h3>Exchange</h3><p class="muted">Have an old device? Check its condition and get an estimated exchange value.</p><button class="btn alt" onclick="exchange()">🔄 Check Exchange Value</button></div><div class="stickyBuy"><button class="btn" onclick="addCart()">🛒 Add to Cart</button><button class="btn alt" onclick="buyNow()">Buy Now</button><button class="btn alt" onclick="go('compare')">⚖️ Compare</button></div>
+<div id="product" class="screen"><div class="content"><button class="back" onclick="go('catalog')">← Products</button><div class="productHero"><div class="productVisual"><div class="osGalleryStage" id="osGalleryStage"><span class="osGalleryCount" id="osGalleryCount">1 / 8</span><button class="osGalleryArrow prev" onclick="moveGallery(-1)" aria-label="Previous image">‹</button><img id="productDetailImage" src="" alt="Phone product image" onclick="openImageViewer(false)" role="button" tabindex="0" aria-label="Open full-screen product image" loading="eager" decoding="async" style="width:100%;height:100%;object-fit:contain;padding:12px;box-sizing:border-box" onerror="this.onerror=null;this.src='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 220 300%22%3E%3Crect width=%22220%22 height=%22300%22 rx=%2228%22 fill=%22%23eef2f7%22/%3E%3Crect x=%2250%22 y=%2225%22 width=%22120%22 height=%22245%22 rx=%2220%22 fill=%22%23dce4ef%22 stroke=%22%2399a8bb%22 stroke-width=%224%22/%3E%3C/svg%3E'"><button class="osGalleryArrow next" onclick="moveGallery(1)" aria-label="Next image">›</button><button class="osGallery360" id="osGallery360" onclick="openImageViewer(true)">↻ 360° Preview</button></div><div class="osGalleryThumbs" id="osGalleryThumbs"></div><p class="muted" id="osGalleryNote" style="font-size:11px;margin:8px 2px 0">Product image preview · alternate angles are visual previews</p></div><div><div class="tag">Our Store</div><div class="tag">In Stock</div><div class="tag">Warranty</div><h2 id="pname"></h2><p class="muted">Official Our Store listing · sample catalog data</p><div class="price" id="pprice"></div></div></div><div class="card"><b>Choose variant</b><div class="variantRow" style="margin-top:10px"><button class="variant" data-storage="8/128 GB" onclick="selectVariant(this,'storage')">8/128 GB</button><button class="variant" data-storage="8/256 GB" onclick="selectVariant(this,'storage')">8/256 GB</button><button class="variant active" data-storage="12/256 GB" onclick="selectVariant(this,'storage')">12/256 GB</button><button class="variant" data-storage="12/512 GB" onclick="selectVariant(this,'storage')">12/512 GB</button><button class="variant" data-storage="16/512 GB" onclick="selectVariant(this,'storage')">16/512 GB</button></div><div class="variantRow" style="margin-top:10px"><button class="variant active" data-color="Black" onclick="selectVariant(this,'color')">Black</button><button class="variant" data-color="Blue" onclick="selectVariant(this,'color')">Blue</button><button class="variant" data-color="Silver" onclick="selectVariant(this,'color')">Silver</button></div><p class="muted" id="variantSummary" style="margin:10px 0 0">Selected: 12/256 GB · Black</p></div><div class="offer"><b>🏷️ Our Store Offer</b><p class="muted">Instant bank offers, EMI options and exchange eligibility will appear here.</p></div><div class="card"><h3>Key specifications</h3><div class="specGrid"><div class="specItem"><small>Display</small>6.7″ AMOLED</div><div class="specItem"><small>Network</small>5G</div><div class="specItem"><small>Memory</small>12 GB RAM</div><div class="specItem"><small>Storage</small>256 GB</div><div class="specItem"><small>Camera</small>50 MP main</div><div class="specItem"><small>Warranty</small>Our Store warranty</div></div></div><div class="card"><h3>Delivery & pickup</h3><p>🚚 Delivery available</p><p>🏪 Store pickup available</p><p class="muted">Final availability and delivery date will be confirmed at checkout.</p></div><div class="card"><h3>Full specifications</h3><div class="specList" id="fullSpecs"><div class="specRow"><span>Brand</span><b id="specBrand">—</b></div><div class="specRow"><span>Category</span><b id="specCategory">—</b></div><div class="specRow"><span>Display</span><b id="specDisplay">6.7″ AMOLED · demo</b></div><div class="specRow"><span>Chipset</span><b id="specChip">—</b></div><div class="specRow"><span>RAM / Storage</span><b id="specMemory">—</b></div><div class="specRow"><span>Main camera</span><b id="specCamera">50 MP · demo</b></div><div class="specRow"><span>Front camera</span><b id="specFront">—</b></div><div class="specRow"><span>Battery</span><b id="specBattery">—</b></div><div class="specRow"><span>Network</span><b id="specNetwork">5G</b></div><div class="specRow"><span>OS</span><b id="specOS">—</b></div><div class="specRow"><span>Warranty</span><b>Our Store warranty</b></div></div><p class="muted" style="margin-bottom:0">Demo specification data. Final specifications can be connected to verified product data later.</p></div><div class="card"><h3>What's in the box</h3><p>📦 Device</p><p>🔌 Charging accessories (as applicable)</p><p>📄 Documentation</p></div><div class="card"><h3>Delivery & pickup</h3><p>🚚 Delivery available</p><p>🏪 Store pickup available</p><p class="muted">Final availability and delivery date will be confirmed at checkout.</p></div><div class="card"><h3>Exchange</h3><p class="muted">Have an old device? Check its condition and get an estimated exchange value.</p><button class="btn alt" onclick="exchange()">🔄 Check Exchange Value</button></div><div class="stickyBuy"><button class="btn" onclick="addCart()">🛒 Add to Cart</button><button class="btn alt" onclick="buyNow()">Buy Now</button><button class="btn alt" onclick="go('compare')">⚖️ Compare</button></div>
 <div class="card reviewBox">
 <h3>Customer Reviews</h3>
 <div class="reviewSummary"><b>4.7 ★</b><span> · 128 reviews · Verified purchases</span></div>
@@ -616,7 +1009,7 @@ body{background:var(--os-page)}
   <div id="finalExchangeValue" class="card"></div>
   <button class="btn" onclick="confirmExchange()">Confirm Exchange Request</button>
 </div>
-</div></div><div id="cart" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2>Cart</h2><div id="cartItem" class="card">Your cart is empty.</div><button class="btn" onclick="renderCheckout();go('checkout')">Checkout</button></div></div>
+</div></div><div id="cart" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2>Cart</h2><div id="cartItem" class="card">Your cart is empty.</div><button id="cartCheckoutBtn" class="btn" onclick="if(cart.length){renderCheckout();go('checkout')}" disabled aria-disabled="true">Checkout</button></div></div>
 
 <div id="checkout" class="screen"><div class="content">
 <button class="back" onclick="go('cart')">← Cart</button>
@@ -754,11 +1147,11 @@ body{background:var(--os-page)}
 </div>
 <script>
 const data=[
-{brand:'Apple',category:'Mobiles',name:'iPhone Duo',price:'India price TBA',spec:'256 GB · Foldable OLED · A20 Pro · 48MP Dual Fusion · iOS 27'},
-{brand:'Apple',category:'Mobiles',name:'iPhone 18 Pro Max',price:'India price TBA',spec:'12/256 GB · 6.9-inch OLED · A20 Pro · 48MP variable-aperture camera'},
-{brand:'Apple',category:'Mobiles',name:'iPhone 18 Pro',price:'India price TBA',spec:'12/256 GB · 6.3-inch OLED · A20 Pro · 48MP variable-aperture camera'},
-{brand:'Apple',category:'Mobiles',name:'iPhone 17 Pro Max',price:'₹1,49,900',spec:'12/256 GB · 5G · Pro camera'},
-{brand:'Apple',category:'Mobiles',name:'iPhone 17 Pro',price:'₹1,34,900',spec:'12/256 GB · 5G · Pro camera'},
+{brand:'Apple',category:'Mobiles',name:'iPhone Duo',price:'India price TBA',spec:'Foldable design · 48MP Dual Fusion camera · A20 Pro · price to be confirmed'},
+{brand:'Apple',category:'Mobiles',name:'iPhone 18 Pro Max',price:'India price TBA',spec:'Model and specifications not confirmed in the official India listing'},
+{brand:'Apple',category:'Mobiles',name:'iPhone 18 Pro',price:'India price TBA',spec:'6.3-inch display · A20 Pro · 48MP Fusion Main camera with variable aperture'},
+{brand:'Apple',category:'Mobiles',name:'iPhone 17 Pro Max',price:'₹1,49,900',spec:'256 GB · 5G · 6.9-inch OLED · Pro camera'},
+{brand:'Apple',category:'Mobiles',name:'iPhone 17 Pro',price:'₹1,34,900',spec:'256 GB · 5G · 6.3-inch OLED · Pro camera'},
 {brand:'Apple',category:'Mobiles',name:'iPhone 17',price:'₹89,900',spec:'8/256 GB · 5G · OLED'},
 {brand:'Apple',category:'Mobiles',name:'iPhone 16',price:'₹69,900',spec:'8/128 GB · 5G · OLED'},
 {brand:'Samsung',category:'Mobiles',name:'Galaxy S26 Ultra',price:'₹1,29,999',spec:'12/256 GB · 5G · AMOLED · 200MP'},
@@ -961,7 +1354,9 @@ function toggleGallery360(){
 
 function product(n,pr,spec){
   const p=data.find(x=>x.name===n)||{};
-  selectedStorage='12/256 GB';selectedColor='Black';
+  const storageMatch=String(spec||'').match(/\b(\d+\s*\/\s*\d+\s*GB)\b/i);
+  selectedStorage=storageMatch?storageMatch[1].replace(/\s*\/\s*/,'/').replace(/\s*GB/i,' GB'):'Standard';
+  selectedColor='Black';
   selectedProduct={name:n,price:pr,spec:spec,brand:p.brand||'—',category:p.category||'—',basePrice:pr,storage:selectedStorage,color:selectedColor};
   localStorage.setItem('ourStoreSelectedProduct',JSON.stringify(selectedProduct));
   const detailImage=document.getElementById('productDetailImage');
@@ -969,7 +1364,7 @@ function product(n,pr,spec){
   osGalleryIndex=0;if(osGalleryTimer){clearInterval(osGalleryTimer);osGalleryTimer=null;}const gbtn=document.getElementById('osGallery360');if(gbtn)gbtn.textContent='↻ 360° Preview';setTimeout(renderOsGallery,50);
   document.getElementById('pname').textContent=n;
   document.getElementById('pprice').textContent=pr;
-  document.querySelectorAll('#product .variantRow .variant').forEach(b=>{b.classList.toggle('active',b.dataset.storage==='12/256 GB'||b.dataset.color==='Black');});
+  document.querySelectorAll('#product .variantRow .variant').forEach(b=>{b.classList.toggle('active',b.dataset.storage===selectedStorage||b.dataset.color==='Black');});
   const brandEl=document.getElementById('specBrand'); if(brandEl)brandEl.textContent=selectedProduct.brand;
   const catEl=document.getElementById('specCategory'); if(catEl)catEl.textContent=selectedProduct.category;
   const memEl=document.getElementById('specMemory'); if(memEl)memEl.textContent=spec.split(' · ')[0]||'—';
@@ -981,8 +1376,8 @@ function product(n,pr,spec){
   const summary=document.getElementById('variantSummary'); if(summary)summary.textContent='Selected: '+selectedStorage+' · '+selectedColor;
   const storageText=document.querySelector('#product .specItem:nth-child(4)');
   const memoryText=document.querySelector('#product .specItem:nth-child(3)');
-  if(storageText)storageText.innerHTML='<small>Storage</small>256 GB';
-  if(memoryText)memoryText.innerHTML='<small>Memory</small>12 GB RAM';
+  if(storageText)storageText.innerHTML='<small>Storage</small>'+(selectedStorage.split('/')[1]||'—');
+  if(memoryText)memoryText.innerHTML='<small>Memory</small>'+(selectedStorage.split('/')[0]||'—')+' GB RAM';
   go('product');
 }
 function currentProductForCart(){
@@ -1003,10 +1398,35 @@ function addCart(){if(!addCurrentProductToCart())return;renderCart();go('cart');
 function buyNow(){const item=currentProductForCart();if(!item)return;if(!moneyValue(item.price)){alert('This product price is not available yet. Please choose a product with a listed price.');return;}cart=[{...item,quantity:1}];saveCart();renderCheckout();go('checkout');}
 function changeCartQuantity(index,delta){const item=cart[index];if(!item)return;item.quantity=(Number(item.quantity)||1)+delta;if(item.quantity<=0)cart.splice(index,1);saveCart();renderCart();}
 function removeCartItem(index){if(index<0||index>=cart.length)return;cart.splice(index,1);saveCart();renderCart();}
+function escapeCartText(value){
+  return String(value==null?'':value).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
 function renderCart(){
-  const el=document.getElementById('cartItem');if(!el)return;
-  if(!cart.length){el.innerHTML='Your cart is empty.';return;}
-  el.innerHTML=cart.map((item,i)=>'<div class="cartLine" style="padding:12px 0;border-bottom:1px solid #e5e7eb"><b>'+String(item.name).replace(/</g,'&lt;')+'</b><p class="muted">'+String(item.spec||'').replace(/</g,'&lt;')+'</p><p class="muted">Variant: '+String(item.storage||'Standard').replace(/</g,'&lt;')+' · '+String(item.color||'Standard').replace(/</g,'&lt;')+'</p><div class="price">'+formatINR(moneyValue(item.price)*Math.max(1,Number(item.quantity)||1))+'</div><div style="display:flex;align-items:center;gap:8px;margin-top:8px"><button type="button" class="btn alt" onclick="changeCartQuantity('+i+',-1)" aria-label="Decrease quantity">−</button><b>'+Math.max(1,Number(item.quantity)||1)+'</b><button type="button" class="btn alt" onclick="changeCartQuantity('+i+',1)" aria-label="Increase quantity">+</button><button type="button" class="btn alt" onclick="removeCartItem('+i+')">Remove</button></div></div>').join('')+'<div style="padding-top:12px"><b>Subtotal</b><div class="price">'+formatINR(cart.reduce((sum,item)=>sum+moneyValue(item.price)*Math.max(1,Number(item.quantity)||1),0))+'</div></div>';
+  const el=document.getElementById('cartItem');
+  if(!el)return;
+  const checkoutBtn=document.getElementById('cartCheckoutBtn');
+  if(checkoutBtn){checkoutBtn.disabled=!cart.length;checkoutBtn.setAttribute('aria-disabled',String(!cart.length));checkoutBtn.style.opacity=cart.length?'1':'.5';checkoutBtn.style.cursor=cart.length?'pointer':'not-allowed';}
+  if(!cart.length){
+    el.innerHTML='<div style="text-align:center;padding:22px 10px"><div style="font-size:36px">🛒</div><b>Your cart is empty</b><p class="muted">Add a product from Shop to get started.</p><button type="button" class="btn" onclick="openShop()">Continue Shopping</button></div>';
+    return;
+  }
+  const subtotal=cart.reduce((sum,item)=>sum+moneyValue(item.price)*Math.max(1,Number(item.quantity)||1),0);
+  el.innerHTML=cart.map((item,i)=>{
+    const qty=Math.max(1,Number(item.quantity)||1);
+    return '<div class="cartLine" style="padding:14px 0;border-bottom:1px solid #e5e7eb">'+
+      '<b>'+escapeCartText(item.name)+'</b>'+
+      '<p class="muted">'+escapeCartText(item.spec||'')+'</p>'+
+      '<p class="muted">Variant: '+escapeCartText(item.storage||'Standard')+' · '+escapeCartText(item.color||'Standard')+'</p>'+
+      '<p class="muted" style="margin:8px 0 2px">Unit price: '+formatINR(moneyValue(item.price))+'</p>'+
+      '<div class="price">Item total: '+formatINR(moneyValue(item.price)*qty)+'</div>'+
+      '<div class="cartControls" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:10px">'+
+      '<button type="button" class="btn alt cartQtyBtn" onclick="changeCartQuantity('+i+',-1)" aria-label="Decrease quantity">−</button>'+
+      '<b aria-live="polite">Qty: '+qty+'</b>'+
+      '<button type="button" class="btn alt cartQtyBtn" onclick="changeCartQuantity('+i+',1)" aria-label="Increase quantity">+</button>'+
+      '<button type="button" class="btn alt cartRemoveBtn" onclick="removeCartItem('+i+')">Remove</button>'+
+      '</div></div>';
+  }).join('')+
+  '<div class="cartSubtotal" style="padding-top:16px"><b>Subtotal ('+cart.reduce((n,item)=>n+Math.max(1,Number(item.quantity)||1),0)+' items)</b><div class="price">'+formatINR(subtotal)+'</div><p class="muted">Subtotal includes each unit price multiplied by its quantity. Delivery charges, if any, are confirmed at checkout.</p></div>';
 }
 function getRewardPoints(){
   return parseInt(localStorage.getItem('ourStoreRewardPoints') || '0',10);
@@ -1154,12 +1574,17 @@ function openCompareFromHome(){
 function deviceImage(p){
   const name=(p.name||'').toLowerCase();
   const brand=(p.brand||'').toLowerCase();
-  // Real product photos for the mobile catalog; fallback images are real devices from the same brand/family.
+  // V15: use model-specific images where available; use a clearly neutral illustration rather than a misleading duplicate photo.
+  if(name==='iphone 17 pro'){
+    const svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 300"><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f8fafc"/><stop offset="1" stop-color="#e8edf3"/></linearGradient><linearGradient id="body" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f6a36c"/><stop offset="1" stop-color="#d96b2b"/></linearGradient></defs><rect width="220" height="300" rx="24" fill="url(#bg)"/><ellipse cx="110" cy="263" rx="60" ry="8" fill="#94a3b8" opacity=".18"/><rect x="47" y="28" width="78" height="235" rx="16" fill="url(#body)" stroke="#bd6a39" stroke-width="2"/><rect x="55" y="36" width="62" height="219" rx="11" fill="#e9874c"/><rect x="59" y="42" width="31" height="43" rx="8" fill="#b45b31"/><circle cx="68" cy="52" r="7" fill="#18202a"/><circle cx="82" cy="52" r="7" fill="#18202a"/><circle cx="68" cy="70" r="7" fill="#18202a"/><rect x="137" y="28" width="48" height="235" rx="13" fill="#25252a" stroke="#c4c9d1" stroke-width="2"/><rect x="143" y="35" width="36" height="221" rx="9" fill="#101116"/><path d="M147 80 Q160 58 176 76 L176 95 Q161 87 147 108Z" fill="#ef8b4d"/><path d="M147 125 Q162 108 176 127 L176 145 Q162 137 147 155Z" fill="#d76f37"/><path d="M147 174 Q161 155 176 173 L176 194 Q162 184 147 203Z" fill="#f29a5b"/></svg>';
+    return 'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent(svg);
+  }
   const imageMap=[
     [/iphone duo/, 'https://www.pbtech.co.nz/imgprod/M/P/MPHAPP881001.jpg?h=687457154'],
     [/iphone 18 pro max/, 'https://media.extra.com/s/aurora/100528763_800/Apple-iPhone-18-Pro%2C-5G%2C-6-3-inch%2C-1TB%2C-Black?locale=en-GB%2Cen-%2A%2C%2A'],
     [/iphone 18 pro/, 'https://media.extra.com/s/aurora/100528763_800/Apple-iPhone-18-Pro%2C-5G%2C-6-3-inch%2C-1TB%2C-Black?locale=en-GB%2Cen-%2A%2C%2A'],
-    [/iphone 17 pro/, 'https://media.mobilemela.com.bd/2026/09/apple-iphone-17-pro-max-cosmic-orange-official-image.webp'],
+    [/iphone 17 pro max/, 'https://media.mobilemela.com.bd/2026/09/apple-iphone-17-pro-max-cosmic-orange-official-image.webp'],
+    [/iphone 17 pro$/, 'https://www.apple.com/newsroom/images/2025/09/apple-unveils-iphone-17-pro-and-iphone-17-pro-max/article/Apple-iPhone-17-Pro-cosmic-orange-250909_inline.jpg.large.jpg'],
     [/iphone 17$/, 'https://youget.pt/245640-large_default/apple-iphone-17-63-256gb-verde-salvia.jpg'],
     [/iphone 16/, 'https://www.costco.com.tw/medias/sys_master/images/h77/h1c/274498548203550.jpg'],
     [/galaxy s26 ultra/, 'https://www.laptopsdirect.co.uk/Images/SM-S948BZKHEUB_1_17511204_Supersize.jpg?v=5'],
@@ -1265,7 +1690,7 @@ function runCompare(){
 function exchange(){resetExchange();go('exchange')}
 
 
-document.getElementById('featured').innerHTML=data.slice(0,8).map(card).join('');
+document.getElementById('featured').innerHTML=data.filter(item=>item.price && !/TBA|coming soon|not available|not announced/i.test(item.price) && !/concept|unconfirmed/i.test(item.name||'') && !/concept|unconfirmed/i.test(item.specs||'')).slice(0,8).map(card).join('');
 setWalletBalance(getWalletBalance());
 updateWalletUI();
 try{
