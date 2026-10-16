@@ -691,6 +691,23 @@ body{background:var(--os-page)}
   #home .content { padding-bottom:calc(190px + env(safe-area-inset-bottom)) !important; }
 }
 </style>
+
+<style id="os-v12-brand-catalog-accuracy">
+/* V12: legible brand marks and conservative catalog claims; preserve existing app flows. */
+.osBrandLogo{position:relative!important;display:grid!important;place-items:center!important;overflow:hidden!important;font-size:0!important;line-height:1!important;text-align:center!important}
+.osBrandLogo:after{position:absolute!important;inset:0!important;display:flex!important;align-items:center!important;justify-content:center!important;white-space:nowrap!important;line-height:1!important;font-weight:800!important;letter-spacing:-.25px!important}
+.osBrandLogo.apple:after{content:"A"!important;font-size:25px!important;color:#111!important;font-family:Arial,sans-serif!important}
+.osBrandLogo.samsung:after{content:"SAMSUNG"!important;font-size:9px!important;letter-spacing:-.5px!important;color:#fff!important}
+.osBrandLogo.xiaomi:after{content:"mi"!important;font-size:24px!important;color:#fff!important}
+.osBrandLogo.vivo:after{content:"vivo"!important;font-size:14px!important;font-style:italic!important;color:#fff!important}
+.osBrandLogo.oppo:after{content:"oppo"!important;font-size:13px!important;color:#fff!important}
+.osBrandLogo.oneplus:after{content:"1+"!important;font-size:22px!important;color:#fff!important}
+.osBrandLogo.google:after{content:"G"!important;font-size:27px!important;color:#4285f4!important}
+.osBrandLogo.moto:after{content:"M"!important;font-size:25px!important;color:#fff!important}
+@media(max-width:899px){.osBrandLogo.samsung:after{font-size:8px!important;letter-spacing:-.55px!important}.osBrandLogo.xiaomi:after{font-size:23px!important}.osBrandLogo.vivo:after{font-size:13px!important}.osBrandLogo.oppo:after{font-size:12px!important}}
+/* Unannounced models stay marked as unconfirmed rather than displaying invented specifications. */
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -1070,11 +1087,11 @@ body{background:var(--os-page)}
 </div>
 <script>
 const data=[
-{brand:'Apple',category:'Mobiles',name:'iPhone Duo',price:'India price TBA',spec:'256 GB · Foldable OLED · A20 Pro · 48MP Dual Fusion · iOS 27'},
-{brand:'Apple',category:'Mobiles',name:'iPhone 18 Pro Max',price:'India price TBA',spec:'12/256 GB · 6.9-inch OLED · A20 Pro · 48MP variable-aperture camera'},
-{brand:'Apple',category:'Mobiles',name:'iPhone 18 Pro',price:'India price TBA',spec:'12/256 GB · 6.3-inch OLED · A20 Pro · 48MP variable-aperture camera'},
-{brand:'Apple',category:'Mobiles',name:'iPhone 17 Pro Max',price:'₹1,49,900',spec:'12/256 GB · 5G · Pro camera'},
-{brand:'Apple',category:'Mobiles',name:'iPhone 17 Pro',price:'₹1,34,900',spec:'12/256 GB · 5G · Pro camera'},
+{brand:'Apple',category:'Mobiles',name:'iPhone Duo',price:'India price TBA',spec:'Foldable design · 48MP Dual Fusion camera · A20 Pro · price to be confirmed'},
+{brand:'Apple',category:'Mobiles',name:'iPhone 18 Pro Max',price:'India price TBA',spec:'Model and specifications not confirmed in the official India listing'},
+{brand:'Apple',category:'Mobiles',name:'iPhone 18 Pro',price:'India price TBA',spec:'6.3-inch display · A20 Pro · 48MP Fusion Main camera with variable aperture'},
+{brand:'Apple',category:'Mobiles',name:'iPhone 17 Pro Max',price:'₹1,49,900',spec:'256 GB · 5G · 6.9-inch OLED · Pro camera'},
+{brand:'Apple',category:'Mobiles',name:'iPhone 17 Pro',price:'₹1,34,900',spec:'256 GB · 5G · 6.3-inch OLED · Pro camera'},
 {brand:'Apple',category:'Mobiles',name:'iPhone 17',price:'₹89,900',spec:'8/256 GB · 5G · OLED'},
 {brand:'Apple',category:'Mobiles',name:'iPhone 16',price:'₹69,900',spec:'8/128 GB · 5G · OLED'},
 {brand:'Samsung',category:'Mobiles',name:'Galaxy S26 Ultra',price:'₹1,29,999',spec:'12/256 GB · 5G · AMOLED · 200MP'},
@@ -1502,7 +1519,8 @@ function deviceImage(p){
     [/iphone duo/, 'https://www.pbtech.co.nz/imgprod/M/P/MPHAPP881001.jpg?h=687457154'],
     [/iphone 18 pro max/, 'https://media.extra.com/s/aurora/100528763_800/Apple-iPhone-18-Pro%2C-5G%2C-6-3-inch%2C-1TB%2C-Black?locale=en-GB%2Cen-%2A%2C%2A'],
     [/iphone 18 pro/, 'https://media.extra.com/s/aurora/100528763_800/Apple-iPhone-18-Pro%2C-5G%2C-6-3-inch%2C-1TB%2C-Black?locale=en-GB%2Cen-%2A%2C%2A'],
-    [/iphone 17 pro/, 'https://media.mobilemela.com.bd/2026/09/apple-iphone-17-pro-max-cosmic-orange-official-image.webp'],
+    [/iphone 17 pro max/, 'https://media.mobilemela.com.bd/2026/09/apple-iphone-17-pro-max-cosmic-orange-official-image.webp'],
+    [/iphone 17 pro$/, 'https://www.apple.com/newsroom/images/2025/09/apple-unveils-iphone-17-pro-and-iphone-17-pro-max/article/Apple-iPhone-17-Pro-cosmic-orange-250909_inline.jpg.large.jpg'],
     [/iphone 17$/, 'https://youget.pt/245640-large_default/apple-iphone-17-63-256gb-verde-salvia.jpg'],
     [/iphone 16/, 'https://www.costco.com.tw/medias/sys_master/images/h77/h1c/274498548203550.jpg'],
     [/galaxy s26 ultra/, 'https://www.laptopsdirect.co.uk/Images/SM-S948BZKHEUB_1_17511204_Supersize.jpg?v=5'],
