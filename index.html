@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Our Store — V10 Home & Catalog</title>
+<title>Our Store — V13 Home Reference Layout</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f4f5f7;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial;color:#111}
 .app{max-width:430px;margin:auto;min-height:100vh;background:#fff}.top{padding:18px 18px 10px;position:sticky;top:0;background:#fff;z-index:3;border-bottom:1px solid #eee}
@@ -706,6 +706,50 @@ body{background:var(--os-page)}
 .osBrandLogo.moto:after{content:"M"!important;font-size:25px!important;color:#fff!important}
 @media(max-width:899px){.osBrandLogo.samsung:after{font-size:8px!important;letter-spacing:-.55px!important}.osBrandLogo.xiaomi:after{font-size:23px!important}.osBrandLogo.vivo:after{font-size:13px!important}.osBrandLogo.oppo:after{font-size:12px!important}}
 /* Unannounced models stay marked as unconfirmed rather than displaying invented specifications. */
+</style>
+
+
+<style id="os-v13-home-reference-match">
+/* V13: align the home screen with the supplied reference while preserving existing app flows. */
+@media(min-width:900px){
+  .app{grid-template-columns:222px minmax(0,1fr)!important;background:#f8f9fb!important}
+  .osDesktopSidebar{padding:18px 10px!important;background:#101820!important}
+  .osDesktopSidebar button{min-height:46px;padding:12px 12px!important;border-radius:11px!important}
+  .osDesktopSidebar button:first-of-type{background:#1769e8!important}
+  .app>.top{display:grid!important;grid-template-columns:minmax(180px,1fr) minmax(280px,2.5fr)!important;gap:20px!important;align-items:center!important;padding:14px 26px!important;min-height:76px!important;background:#101820!important;color:#fff!important}
+  .app>.top h1{font-size:26px!important;margin:0!important;color:#fff!important}
+  .app>.top .search{width:100%!important;max-width:none!important;padding:14px 20px!important;border-radius:30px!important;background:#fff!important;color:#101820!important}
+  .app>.top #searchResults{grid-column:2!important;max-width:none!important}
+  #home .content{padding:16px 18px 48px!important;background:#fff!important}
+  #home .heroStore{min-height:270px!important;width:calc(70% - 8px)!important;margin:0 0 16px!important;padding:34px 36px!important;border-radius:20px!important;background:linear-gradient(110deg,#080a0d 0%,#171b22 55%,#a95d2c 100%)!important}
+  #home .heroStore:after{width:clamp(125px,18vw,230px)!important;right:4%!important}
+  #home .heroStore:before{right:calc(4% + 18px)!important}
+  #home .heroStore h2{font-size:clamp(36px,3.2vw,52px)!important;max-width:65%!important}
+  #home .heroStore p{font-size:16px!important;max-width:62%!important}
+  #home .heroStore .heroPill{padding:11px 18px!important;font-size:13px!important}
+  #home .content>.row{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:10px!important;overflow:visible!important;margin-bottom:16px!important}
+  #home .content>.row .chip{min-width:0!important;text-align:center!important;white-space:normal!important;padding:16px 10px!important;border-radius:16px!important}
+  #popularBrands .osBrandRow{display:grid!important;grid-template-columns:repeat(8,minmax(0,1fr))!important;gap:8px!important;overflow:visible!important}
+  #popularBrands .osBrand{min-width:0!important;flex-basis:auto!important}
+  #popularBrands .osBrandLogo{width:58px!important;height:58px!important}
+  #home #featured{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:12px!important}
+  #home #featured .card{padding:10px!important;border-radius:16px!important}
+  #home #featured .img{height:130px!important}
+  #home #featured .card h3{font-size:14px!important;min-height:2.3em!important}
+  #home #featured .price{font-size:17px!important}
+  #home .homeSection{margin:18px 0!important}
+  #home .homeSection .osSectionHead h3{font-size:20px!important}
+  #home .content>.grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+}
+@media(min-width:1450px){
+  #home .heroStore{width:calc(70% - 8px)!important}
+  #home #featured{grid-template-columns:repeat(6,minmax(0,1fr))!important}
+}
+@media(max-width:899px){
+  #home .heroStore{width:100%!important}
+  #home .content>.row{display:flex!important;overflow-x:auto!important}
+  #home #featured{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
 </style>
 
 </head>
