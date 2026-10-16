@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Our Store — V13 Home Reference Layout</title>
+<title>Our Store — V14 Brand & Product Accuracy</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f4f5f7;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial;color:#111}
 .app{max-width:430px;margin:auto;min-height:100vh;background:#fff}.top{padding:18px 18px 10px;position:sticky;top:0;background:#fff;z-index:3;border-bottom:1px solid #eee}
@@ -752,6 +752,17 @@ body{background:var(--os-page)}
 }
 </style>
 
+
+<style id="os-v14-brand-product-accuracy">
+/* V14: clear brand text marks; these are stylized labels, not official logo artwork. */
+.osBrandLogo.realme:after{content:"realme";font-size:11px;color:#111;letter-spacing:-.4px}
+.osBrandLogo.asus:after{content:"ASUS";font-size:13px;color:#fff;letter-spacing:-.4px}
+.osBrandLogo.dell:after{content:"DELL";font-size:13px;color:#fff;letter-spacing:-.4px}
+.osBrandLogo.hp:after{content:"hp";font-size:25px;color:#fff;font-style:italic}
+@media(min-width:900px){#popularBrands .osBrandRow{grid-template-columns:repeat(12,minmax(0,1fr))!important}}
+@media(max-width:899px){#popularBrands .osBrandRow{display:flex!important;overflow-x:auto!important}.osBrand{flex:0 0 76px!important}}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -792,6 +803,10 @@ body{background:var(--os-page)}
     <button class="osBrand" onclick="brandCatalog('OnePlus')"><span class="osBrandLogo oneplus">1+</span><b>OnePlus</b></button>
     <button class="osBrand" onclick="brandCatalog('Google')"><span class="osBrandLogo google">G</span><b>Google</b></button>
     <button class="osBrand" onclick="brandCatalog('Motorola')"><span class="osBrandLogo moto">M</span><b>Motorola</b></button>
+    <button class="osBrand" onclick="brandCatalog('realme')"><span class="osBrandLogo realme">realme</span><b>realme</b></button>
+    <button class="osBrand" onclick="brandCatalog('ASUS')"><span class="osBrandLogo asus">ASUS</span><b>ASUS</b></button>
+    <button class="osBrand" onclick="brandCatalog('Dell')"><span class="osBrandLogo dell">D</span><b>Dell</b></button>
+    <button class="osBrand" onclick="brandCatalog('HP')"><span class="osBrandLogo hp">hp</span><b>HP</b></button>
   </div>
 </section>
 <section id="featuredSection" class="homeSection" style="margin:22px 0"><div class="osSectionHead"><h3>Featured Products</h3><button class="osViewAll" onclick="catalog('Mobiles')">View All →</button></div><div id="featured"></div></section>
@@ -1131,9 +1146,9 @@ body{background:var(--os-page)}
 </div>
 <script>
 const data=[
-{brand:'Apple',category:'Mobiles',name:'iPhone Duo',price:'India price TBA',spec:'Foldable design · 48MP Dual Fusion camera · A20 Pro · price to be confirmed'},
-{brand:'Apple',category:'Mobiles',name:'iPhone 18 Pro Max',price:'India price TBA',spec:'Model and specifications not confirmed in the official India listing'},
-{brand:'Apple',category:'Mobiles',name:'iPhone 18 Pro',price:'India price TBA',spec:'6.3-inch display · A20 Pro · 48MP Fusion Main camera with variable aperture'},
+{brand:'Apple',category:'Mobiles',name:'iPhone Duo (Concept)',price:'Not announced',spec:'Concept placeholder only · no official model or specifications confirmed'},
+{brand:'Apple',category:'Mobiles',name:'iPhone 18 Pro Max (Unconfirmed)',price:'Not announced',spec:'Future-model placeholder · official specifications and India price not confirmed'},
+{brand:'Apple',category:'Mobiles',name:'iPhone 18 Pro (Unconfirmed)',price:'Not announced',spec:'Future-model placeholder · official specifications and India price not confirmed'},
 {brand:'Apple',category:'Mobiles',name:'iPhone 17 Pro Max',price:'₹1,49,900',spec:'256 GB · 5G · 6.9-inch OLED · Pro camera'},
 {brand:'Apple',category:'Mobiles',name:'iPhone 17 Pro',price:'₹1,34,900',spec:'256 GB · 5G · 6.3-inch OLED · Pro camera'},
 {brand:'Apple',category:'Mobiles',name:'iPhone 17',price:'₹89,900',spec:'8/256 GB · 5G · OLED'},
