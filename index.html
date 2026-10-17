@@ -781,6 +781,18 @@ html,body{width:100%;max-width:100%;overflow-x:hidden!important;}
 .osV19FilterRow{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:8px 10px;margin:12px 0;font-size:13px;font-weight:650;color:#334155}.osV19FilterRow select{min-width:0;width:100%;padding:10px 12px;border:1px solid #d8e0eb;border-radius:11px;background:#fff;color:#172033;font:inherit;font-weight:500}.osV19-data-note{margin:8px 0 12px;padding:10px 12px;border-radius:10px;background:#fff7e6;border:1px solid #f2d7a0;color:#6b4a13;font-size:12px;line-height:1.45}#products .card .tag{overflow-wrap:anywhere}@media(min-width:900px){.osV19FilterRow{grid-template-columns:auto minmax(160px,1fr) auto minmax(160px,1fr)}}@media(max-width:380px){.osV19FilterRow{font-size:12px;gap:7px}}
 </style>
 
+
+<style id="our-store-v20-mobile-catalog-layout">
+/* V20: keep catalog notice full-width so it never occupies a product-card column. */
+#catalog #products{min-width:0!important;width:100%!important;box-sizing:border-box!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;align-items:stretch!important;}
+#catalog #products>.osV19-data-note{grid-column:1/-1!important;width:auto!important;min-width:0!important;box-sizing:border-box!important;margin:0 0 2px!important;padding:8px 10px!important;font-size:11px!important;line-height:1.4!important;}
+#catalog #products>.card{min-width:0!important;width:auto!important;max-width:100%!important;box-sizing:border-box!important;overflow:hidden!important;}
+#catalog #products .card img,#catalog #products .deviceImg{max-width:100%!important;box-sizing:border-box!important;object-fit:contain!important;}
+#catalog #products .card .btn{max-width:100%!important;white-space:normal!important;}
+@media(min-width:900px){#catalog #products{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:16px!important;}#catalog #products>.osV19-data-note{font-size:12px!important;}}
+@media(max-width:360px){#catalog #products{gap:8px!important;}#catalog #products>.card{padding:10px!important;}}
+</style>
+
 </head>
 <body>
 <div class="app">
