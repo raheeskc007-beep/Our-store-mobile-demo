@@ -1181,9 +1181,7 @@ const data=[
 {brand:'Apple',category:'Mobiles',name:'iPhone 17 Pro',price:'₹1,34,900',spec:'256 GB · 5G · 6.3-inch OLED · Pro camera'},
 {brand:'Apple',category:'Mobiles',name:'iPhone 17',price:'₹89,900',spec:'8/256 GB · 5G · OLED'},
 {brand:'Apple',category:'Mobiles',name:'iPhone 16',price:'₹69,900',spec:'8/128 GB · 5G · OLED'},
-{brand:'Apple',category:'Mobiles',name:'iPhone Duo',price:'India price TBA',spec:'Foldable design · 48MP Dual Fusion camera · A20 Pro · price to be confirmed'},
-{brand:'Apple',category:'Mobiles',name:'iPhone 18 Pro Max',price:'India price TBA',spec:'Model and specifications not confirmed in the official India listing'},
-{brand:'Apple',category:'Mobiles',name:'iPhone 18 Pro',price:'India price TBA',spec:'6.3-inch display · A20 Pro · 48MP Fusion Main camera with variable aperture'},
+/* V23: Removed unconfirmed/price-TBA concept models from the customer-facing catalog until verified. */
 {brand:'Samsung',category:'Mobiles',name:'Galaxy S26 Ultra',price:'₹1,29,999',spec:'12/256 GB · 5G · AMOLED · 200MP'},
 {brand:'Samsung',category:'Mobiles',name:'Galaxy S26',price:'₹79,999',spec:'12/256 GB · 5G · AMOLED'},
 {brand:'Samsung',category:'Mobiles',name:'Galaxy A57 5G',price:'₹49,999',spec:'8/256 GB · 5G · AMOLED'},
@@ -1598,7 +1596,7 @@ function findResult(){
   const budget=Number(document.getElementById('budget')?.value||0);
   const category=(document.getElementById('findCategory')?.value||'Mobiles').toLowerCase();
   let list=data.filter(p=>p.category.toLowerCase()===category);
-  if(budget>0) list=list.filter(p=>Number(String(p.price).replace(/[^0-9]/g,''))<=budget);
+  if(budget>0) list=list.filter(p=>{const raw=String(p.price??'');const amount=Number(raw.replace(/[^0-9]/g,''));return /₹/.test(raw)&&Number.isFinite(amount)&&amount>0&&amount<=budget;});
   list=list.slice(0,4);
   const out=document.getElementById('findResult');
   if(!list.length){
@@ -1941,6 +1939,7 @@ function placeOrder(){
   cart=[];saveCart();
   go('order');
 }
+/* V23 budget filter: price-TBA and unpriced products are excluded whenever a budget is entered. */
 </script>
 <script>document.addEventListener('DOMContentLoaded',function(){updateRewardPoints();updateCheckoutWalletBalance();});</script>
 
