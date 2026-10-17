@@ -3,7 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Our Store — V17 Exchange, Wallet & Orders</title>
+<meta name="theme-color" content="#111820">
+<meta name="description" content="Our Store — compare devices, browse products, manage exchange and demo orders.">
+<link rel="manifest" href="./manifest.json">
+<link rel="apple-touch-icon" href="./icon-192.png">
+<title>Our Store — V22 PWA Ready</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f4f5f7;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial;color:#111}
 .app{max-width:430px;margin:auto;min-height:100vh;background:#fff}.top{padding:18px 18px 10px;position:sticky;top:0;background:#fff;z-index:3;border-bottom:1px solid #eee}
@@ -2068,4 +2072,12 @@ renderCompareUI=function(q){
 
 <!-- Our Store V18: checkout clarity, demo payment notice, order history -->
 <!-- Our Store V19: combined category/brand/search filters, safer sorting and catalog data disclaimer -->
+
+<script id="os-v22-pwa-registration">
+if ('serviceWorker' in navigator && location.protocol === 'https:') {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('./sw.js').catch(function (err) { console.warn('PWA offline setup unavailable:', err); });
+  });
+}
+</script>
 </body></html>
