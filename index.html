@@ -768,6 +768,14 @@ html,body{width:100%;max-width:100%;overflow-x:hidden!important;}
 @media(max-width:899px){#home #featured{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;}#home #featured .deviceImg{height:112px!important;min-height:112px!important;}}
 @media(min-width:900px){#home #featured{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:16px!important;}#home #featured .deviceImg{height:170px!important;}}
 </style>
+
+<style id="our-store-v18-checkout-orders">
+.v18-payment-note{background:#fff7e6;border:1px solid #f4d9a4;padding:10px 12px;border-radius:12px;font-size:13px;line-height:1.45}
+.v18-checkout-actions{margin:14px 0 26px}.v18-checkout-actions .btn{width:100%;min-height:48px}.v18-checkout-actions p{font-size:12px;margin:8px 2px}
+.v18-order-list{display:grid;gap:10px;margin-top:10px}.v18-order-card{border:1px solid #e2e8f0;border-radius:14px;padding:13px;background:#fff}.v18-order-card .v18-order-top{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}.v18-order-card .v18-order-meta{font-size:12px;color:#64748b;margin-top:6px;line-height:1.5}.v18-order-card .v18-order-status{display:inline-block;background:#eaf3ff;color:#1459b8;padding:5px 9px;border-radius:999px;font-size:12px;font-weight:700}
+@media(max-width:899px){#checkout .content,#order .content{padding-bottom:calc(100px + env(safe-area-inset-bottom))}.v18-order-card{font-size:14px}}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -1021,6 +1029,7 @@ html,body{width:100%;max-width:100%;overflow-x:hidden!important;}
 <p class="muted" style="margin:8px 0 0">You can choose a saved address above or enter a new one.</p>
 </div>
 <div class="card"><h3>Payment Method</h3>
+<p class="muted v18-payment-note">Prototype checkout only: UPI/Card choices do not process real payments. Cash on Delivery and Wallet are demo flows.</p>
 <label class="payOption"><input type="radio" name="payment" value="UPI" checked> UPI</label>
 <label class="payOption"><input type="radio" name="payment" value="Card"> Card</label>
 <label class="payOption"><input type="radio" name="payment" value="Cash on Delivery"> Cash on Delivery</label>
@@ -1040,10 +1049,10 @@ html,body{width:100%;max-width:100%;overflow-x:hidden!important;}
   <div id="rewardDiscountLine" class="muted" style="display:none;margin-top:6px"></div>
 </div>
 
-<button class="btn" type="button" onclick="placeOrder()">Place Demo Order</button>
+<div class="v18-checkout-actions"><button class="btn" type="button" onclick="placeOrder()">Place Demo Order</button><p class="muted">By placing this demo order, you confirm the delivery details above.</p></div>
 </div></div>
 
-<div id="order" class="screen"><div class="content"><h2>Order Confirmed ✅</h2><div class="card"><b id="orderNumber">Order #OS-1001</b><p id="orderSummary">Processing → Ready → Delivered</p><p class="muted" id="orderPayment"></p><p class="muted" id="orderAddress"></p></div><div class="card"><h3>Order status</h3><div class="track"><div class="trackStep active"><span>✓</span><b>Order placed</b><small>Order received by Our Store</small></div><div class="trackLine"></div><div class="trackStep"><span>2</span><b>Preparing</b><small>Demo status</small></div><div class="trackLine"></div><div class="trackStep"><span>3</span><b>Delivered</b><small>Delivery confirmation later</small></div></div></div><button class="btn" onclick="go('home')">Back to Home</button><button class="btn alt" onclick="go('cart')">View Cart</button></div></div>
+<div id="order" class="screen"><div class="content"><h2>Demo Order Confirmed ✅</h2><p class="muted">This is a prototype order confirmation, not a live purchase or payment receipt.</p><div class="card"><b id="orderNumber">Order #OS-1001</b><p id="orderSummary">Processing → Ready → Delivered</p><p class="muted" id="orderPayment"></p><p class="muted" id="orderAddress"></p></div><div class="card"><h3>Order status</h3><div class="track"><div class="trackStep active"><span>✓</span><b>Order placed</b><small>Order received by Our Store</small></div><div class="trackLine"></div><div class="trackStep"><span>2</span><b>Preparing</b><small>Demo status</small></div><div class="trackLine"></div><div class="trackStep"><span>3</span><b>Delivered</b><small>Delivery confirmation later</small></div></div></div><button class="btn" onclick="go('home')">Back to Home</button><button class="btn alt" onclick="go('cart')">View Cart</button></div></div>
 
 
 
@@ -1701,9 +1710,17 @@ try{
 }catch(e){}
 function renderProfileOrders(){
   const el=document.getElementById('profileOrders'); if(!el)return;
-  let o=null; try{o=JSON.parse(localStorage.getItem('ourStoreLatestOrder')||'null')}catch(e){}
-  if(!o){el.innerHTML='<p class="muted">No demo orders yet. Complete a demo checkout to see your latest order here.</p>';return;}
-  el.innerHTML='<div class="card" style="margin:10px 0 0;background:#fafafa"><b>Order #'+o.id+'</b><p style="margin:6px 0">'+String(o.name).replace(/</g,'&lt;')+'</p><p class="muted" style="margin:4px 0">Payment: '+String(o.payment).replace(/</g,'&lt;')+'</p><span class="tag">'+o.status+'</span></div>';
+  let history=[];
+  try{history=JSON.parse(localStorage.getItem('ourStoreOrderHistory')||'[]')}catch(e){history=[]}
+  let latest=null;try{latest=JSON.parse(localStorage.getItem('ourStoreLatestOrder')||'null')}catch(e){}
+  if(!Array.isArray(history))history=[];
+  if(latest && latest.id && !history.some(o=>o.id===latest.id))history.unshift(latest);
+  if(!history.length){el.innerHTML='<p class="muted">No demo orders yet. Complete a demo checkout to see orders here.</p>';return;}
+  el.innerHTML='<div class="v18-order-list">'+history.slice(0,10).map(o=>{
+    const safe=v=>String(v||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    const items=Array.isArray(o.items)?o.items.map(i=>safe(i.name)+' × '+Math.max(1,Number(i.quantity)||1)).join(', '):safe(o.name);
+    return '<div class="v18-order-card"><div class="v18-order-top"><b>Order #'+safe(o.id)+'</b><span class="v18-order-status">'+safe(o.status||'Order placed')+'</span></div><div style="margin-top:8px">'+items+'</div><div class="v18-order-meta">Total: '+safe(formatINR(Number(o.price)||0))+' · Payment: '+safe(o.payment)+'<br>'+safe(o.address)+'</div></div>';
+  }).join('')+'</div>';
 }
 function showOrderTracking(){document.getElementById('trackingCard').style.display='block';renderProfileOrders();}function writeReview(){alert('Demo: review form opened. Production version will support rating, text, photos/video, verification and moderation.')} 
 
@@ -1877,6 +1894,10 @@ function placeOrder(){
   const a=document.getElementById('orderAddress');if(a)a.textContent='Delivery: '+address;
   const order={id:orderNo,items:cart.map(item=>({...item})),name:names.join(', '),price:finalTotal,payment,address,status:'Order placed',rewardUsed,rewardEarned:earned};
   localStorage.setItem('ourStoreLatestOrder',JSON.stringify(order));
+  let history=[];try{history=JSON.parse(localStorage.getItem('ourStoreOrderHistory')||'[]')}catch(e){history=[]}
+  if(!Array.isArray(history))history=[];
+  history=history.filter(o=>o && o.id!==order.id);history.unshift(order);history=history.slice(0,20);
+  localStorage.setItem('ourStoreOrderHistory',JSON.stringify(history));
   cart=[];saveCart();
   go('order');
 }
@@ -2005,4 +2026,5 @@ renderCompareUI=function(q){
 }
 </style>
 
+<!-- Our Store V18: checkout clarity, demo payment notice, order history -->
 </body></html>
