@@ -758,6 +758,16 @@ html,body{width:100%;max-width:100%;overflow-x:hidden!important;}
 @media(max-width:899px){#popularBrands .osBrand{min-width:68px!important;}#home #featured .card .img{height:112px!important;min-height:112px!important;}}
 </style>
 
+
+<style id="os-v15-featured-product-polish">
+/* V15: consistent product image frame and card layout without changing existing navigation/actions. */
+#home #featured .deviceImg{background:#f1f4f8!important;border-radius:14px!important;overflow:hidden!important;display:flex!important;align-items:center!important;justify-content:center!important;}
+#home #featured .deviceImg img{width:100%!important;height:100%!important;object-fit:contain!important;object-position:center!important;background:transparent!important;}
+#home #featured .card{min-width:0!important;display:flex!important;flex-direction:column!important;}
+#home #featured .card .btn{margin-top:auto!important;}
+@media(max-width:899px){#home #featured{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;}#home #featured .deviceImg{height:112px!important;min-height:112px!important;}}
+@media(min-width:900px){#home #featured{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:16px!important;}#home #featured .deviceImg{height:170px!important;}}
+</style>
 </head>
 <body>
 <div class="app">
@@ -906,7 +916,7 @@ html,body{width:100%;max-width:100%;overflow-x:hidden!important;}
 <div class="card"><h3>Galaxy Ultra</h3><p class="muted">Display, battery and performance.</p><button class="btn" style="width:100%" onclick="demoVideoReview('Galaxy Ultra')">▶ Watch Review</button></div>
 </div></div>
 
-<div id="catalog" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2 id="catTitle">Products</h2><div class="row" style="margin-bottom:10px"><button class="chip" onclick="brandCatalog('All')">All</button><button class="chip" onclick="brandCatalog('Apple')">Apple</button><button class="chip" onclick="brandCatalog('Samsung')">Samsung</button><button class="chip" onclick="brandCatalog('OnePlus')">OnePlus</button><button class="chip" onclick="brandCatalog('Xiaomi')">Xiaomi</button><button class="chip" onclick="brandCatalog('Vivo')">Vivo</button><button class="chip" onclick="brandCatalog('OPPO')">OPPO</button><button class="chip" onclick="brandCatalog('Google')">Google</button><button class="chip" onclick="brandCatalog('Realme')">Realme</button><button class="chip" onclick="brandCatalog('Motorola')">Motorola</button></div><div id="products"></div></div></div>
+<div id="catalog" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2 id="catTitle">Products</h2><div class="card osV16ShopTools"><input id="shopSearch" class="search" placeholder="Search products or brands..." oninput="filterShopProducts()" autocomplete="off" aria-label="Search products or brands"><div class="osV16QuickFilters"><button class="chip active" onclick="setShopSort('featured',this)">Featured</button><button class="chip" onclick="setShopSort('priceLow',this)">Price: Low to High</button><button class="chip" onclick="setShopSort('priceHigh',this)">Price: High to Low</button></div></div><div class="row" style="margin-bottom:10px"><button class="chip" onclick="brandCatalog('All')">All</button><button class="chip" onclick="brandCatalog('Apple')">Apple</button><button class="chip" onclick="brandCatalog('Samsung')">Samsung</button><button class="chip" onclick="brandCatalog('OnePlus')">OnePlus</button><button class="chip" onclick="brandCatalog('Xiaomi')">Xiaomi</button><button class="chip" onclick="brandCatalog('Vivo')">Vivo</button><button class="chip" onclick="brandCatalog('OPPO')">OPPO</button><button class="chip" onclick="brandCatalog('Google')">Google</button><button class="chip" onclick="brandCatalog('Realme')">Realme</button><button class="chip" onclick="brandCatalog('Motorola')">Motorola</button></div><div id="products"></div></div></div>
 
 <div id="product" class="screen"><div class="content"><button class="back" onclick="go('catalog')">← Products</button><div class="productHero"><div class="productVisual"><div class="osGalleryStage" id="osGalleryStage"><span class="osGalleryCount" id="osGalleryCount">1 / 8</span><button class="osGalleryArrow prev" onclick="moveGallery(-1)" aria-label="Previous image">‹</button><img id="productDetailImage" src="" alt="Phone product image" onclick="openImageViewer(false)" role="button" tabindex="0" aria-label="Open full-screen product image" loading="eager" decoding="async" style="width:100%;height:100%;object-fit:contain;padding:12px;box-sizing:border-box" onerror="this.onerror=null;this.src='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 220 300%22%3E%3Crect width=%22220%22 height=%22300%22 rx=%2228%22 fill=%22%23eef2f7%22/%3E%3Crect x=%2250%22 y=%2225%22 width=%22120%22 height=%22245%22 rx=%2220%22 fill=%22%23dce4ef%22 stroke=%22%2399a8bb%22 stroke-width=%224%22/%3E%3C/svg%3E'"><button class="osGalleryArrow next" onclick="moveGallery(1)" aria-label="Next image">›</button><button class="osGallery360" id="osGallery360" onclick="openImageViewer(true)">↻ 360° Preview</button></div><div class="osGalleryThumbs" id="osGalleryThumbs"></div><p class="muted" id="osGalleryNote" style="font-size:11px;margin:8px 2px 0">Product image preview · alternate angles are visual previews</p></div><div><div class="tag">Our Store</div><div class="tag">In Stock</div><div class="tag">Warranty</div><h2 id="pname"></h2><p class="muted">Official Our Store listing · sample catalog data</p><div class="price" id="pprice"></div></div></div><div class="card"><b>Choose variant</b><div class="variantRow" style="margin-top:10px"><button class="variant" data-storage="8/128 GB" onclick="selectVariant(this,'storage')">8/128 GB</button><button class="variant" data-storage="8/256 GB" onclick="selectVariant(this,'storage')">8/256 GB</button><button class="variant active" data-storage="12/256 GB" onclick="selectVariant(this,'storage')">12/256 GB</button><button class="variant" data-storage="12/512 GB" onclick="selectVariant(this,'storage')">12/512 GB</button><button class="variant" data-storage="16/512 GB" onclick="selectVariant(this,'storage')">16/512 GB</button></div><div class="variantRow" style="margin-top:10px"><button class="variant active" data-color="Black" onclick="selectVariant(this,'color')">Black</button><button class="variant" data-color="Blue" onclick="selectVariant(this,'color')">Blue</button><button class="variant" data-color="Silver" onclick="selectVariant(this,'color')">Silver</button></div><p class="muted" id="variantSummary" style="margin:10px 0 0">Selected: 12/256 GB · Black</p></div><div class="offer"><b>🏷️ Our Store Offer</b><p class="muted">Instant bank offers, EMI options and exchange eligibility will appear here.</p></div><div class="card"><h3>Key specifications</h3><div class="specGrid"><div class="specItem"><small>Display</small>6.7″ AMOLED</div><div class="specItem"><small>Network</small>5G</div><div class="specItem"><small>Memory</small>12 GB RAM</div><div class="specItem"><small>Storage</small>256 GB</div><div class="specItem"><small>Camera</small>50 MP main</div><div class="specItem"><small>Warranty</small>Our Store warranty</div></div></div><div class="card"><h3>Delivery & pickup</h3><p>🚚 Delivery available</p><p>🏪 Store pickup available</p><p class="muted">Final availability and delivery date will be confirmed at checkout.</p></div><div class="card"><h3>Full specifications</h3><div class="specList" id="fullSpecs"><div class="specRow"><span>Brand</span><b id="specBrand">—</b></div><div class="specRow"><span>Category</span><b id="specCategory">—</b></div><div class="specRow"><span>Display</span><b id="specDisplay">6.7″ AMOLED · demo</b></div><div class="specRow"><span>Chipset</span><b id="specChip">—</b></div><div class="specRow"><span>RAM / Storage</span><b id="specMemory">—</b></div><div class="specRow"><span>Main camera</span><b id="specCamera">50 MP · demo</b></div><div class="specRow"><span>Front camera</span><b id="specFront">—</b></div><div class="specRow"><span>Battery</span><b id="specBattery">—</b></div><div class="specRow"><span>Network</span><b id="specNetwork">5G</b></div><div class="specRow"><span>OS</span><b id="specOS">—</b></div><div class="specRow"><span>Warranty</span><b>Our Store warranty</b></div></div><p class="muted" style="margin-bottom:0">Demo specification data. Final specifications can be connected to verified product data later.</p></div><div class="card"><h3>What's in the box</h3><p>📦 Device</p><p>🔌 Charging accessories (as applicable)</p><p>📄 Documentation</p></div><div class="card"><h3>Delivery & pickup</h3><p>🚚 Delivery available</p><p>🏪 Store pickup available</p><p class="muted">Final availability and delivery date will be confirmed at checkout.</p></div><div class="card"><h3>Exchange</h3><p class="muted">Have an old device? Check its condition and get an estimated exchange value.</p><button class="btn alt" onclick="exchange()">🔄 Check Exchange Value</button></div><div class="stickyBuy"><button class="btn" onclick="addCart()">🛒 Add to Cart</button><button class="btn alt" onclick="buyNow()">Buy Now</button><button class="btn alt" onclick="go('compare')">⚖️ Compare</button></div>
 <div class="card reviewBox">
@@ -918,9 +928,9 @@ html,body{width:100%;max-width:100%;overflow-x:hidden!important;}
 </div>
 </div></div>
 
-<div id="find" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2>Find My Device</h2><p class="muted">Tell us what you need.</p><div id="qs"></div><button class="btn" onclick="findResult()">Show Recommendations</button><div class="card"><h3>Find My Device</h3><p class="muted">Choose a category and optional budget.</p><select id="findCategory" style="width:100%;padding:12px;border-radius:10px;border:1px solid #ddd"><option>Mobiles</option><option>Tablets</option><option>Laptops</option><option>Accessories</option></select><input id="budget" inputmode="numeric" placeholder="Budget in ₹ (optional)" style="width:100%;padding:12px;margin-top:8px;border-radius:10px;border:1px solid #ddd"><button class="btn" onclick="findResult()">Find Devices</button></div><div id="findResult"></div></div></div>
+<div id="find" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2>Find My Device</h2><p class="muted">Tell us what you need.</p><div id="qs"></div><button class="btn" onclick="findResult()">Show Recommendations</button><div class="card"><h3>Find My Device</h3><p class="muted">Choose a category and optional budget.</p><select id="findCategory" style="width:100%;padding:12px;border-radius:10px;border:1px solid #ddd"><option>Mobiles</option><option>Tablets</option><option>Laptops</option><option>Accessories</option></select><input id="budget" inputmode="numeric" placeholder="Budget in ₹ (optional)" style="width:100%;padding:12px;margin-top:8px;border-radius:10px;border:1px solid #ddd"><button class="btn" onclick="findResult()">Find Devices</button></div><p class="muted osV16FindHint">Results use the demo catalog and listed prices; confirm availability before purchase.</p><div id="findResult"></div></div></div>
 
-<div id="compare" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2>Compare Devices</h2><p class="muted">Choose exactly 2 devices to compare side by side.</p><div class="card"><input class="search" id="compareSearch" placeholder="Search model..." oninput="renderCompareUI(this.value)" autocomplete="off"><div id="compareChoices" class="compareDeviceGrid"></div><button id="compareBtn" type="button" class="btn">Compare 2 Devices</button></div><div id="compareResult"></div></div></div>
+<div id="compare" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2>Compare Devices</h2><p class="muted">Choose exactly 2 devices to compare side by side.</p><div class="card"><input class="search" id="compareSearch" placeholder="Search model..." oninput="renderCompareUI(this.value)" autocomplete="off"><div id="compareChoices" class="compareDeviceGrid"></div><p id="compareSelectionCount" class="muted osV16CompareCount">0 of 2 devices selected</p><button id="compareBtn" type="button" class="btn">Compare 2 Devices</button></div><div id="compareResult"></div></div></div>
 
 <div id="exchange" class="screen"><div class="content">
 <button class="back" onclick="go('home')">← Home</button>
@@ -1254,6 +1264,8 @@ function openShop(){showShopScreen();}
 function catalog(category){
   const title=document.getElementById('catTitle');
   if(title)title.textContent=category+' Products';
+  const q=document.getElementById('shopSearch');if(q)q.value='';
+  osV16ShopSort='featured';
   brandCatalog('All',category);
   go('catalog');
 }
@@ -1564,7 +1576,11 @@ function openCompareFromHome(){
 function deviceImage(p){
   const name=(p.name||'').toLowerCase();
   const brand=(p.brand||'').toLowerCase();
-  // Real product photos for the mobile catalog; fallback images are real devices from the same brand/family.
+  // V15: use model-specific images where available; use a clearly neutral illustration rather than a misleading duplicate photo.
+  if(name==='iphone 17 pro'){
+    const svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 300"><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f8fafc"/><stop offset="1" stop-color="#e8edf3"/></linearGradient><linearGradient id="body" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f6a36c"/><stop offset="1" stop-color="#d96b2b"/></linearGradient></defs><rect width="220" height="300" rx="24" fill="url(#bg)"/><ellipse cx="110" cy="263" rx="60" ry="8" fill="#94a3b8" opacity=".18"/><rect x="47" y="28" width="78" height="235" rx="16" fill="url(#body)" stroke="#bd6a39" stroke-width="2"/><rect x="55" y="36" width="62" height="219" rx="11" fill="#e9874c"/><rect x="59" y="42" width="31" height="43" rx="8" fill="#b45b31"/><circle cx="68" cy="52" r="7" fill="#18202a"/><circle cx="82" cy="52" r="7" fill="#18202a"/><circle cx="68" cy="70" r="7" fill="#18202a"/><rect x="137" y="28" width="48" height="235" rx="13" fill="#25252a" stroke="#c4c9d1" stroke-width="2"/><rect x="143" y="35" width="36" height="221" rx="9" fill="#101116"/><path d="M147 80 Q160 58 176 76 L176 95 Q161 87 147 108Z" fill="#ef8b4d"/><path d="M147 125 Q162 108 176 127 L176 145 Q162 137 147 155Z" fill="#d76f37"/><path d="M147 174 Q161 155 176 173 L176 194 Q162 184 147 203Z" fill="#f29a5b"/></svg>';
+    return 'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent(svg);
+  }
   const imageMap=[
     [/iphone duo/, 'https://www.pbtech.co.nz/imgprod/M/P/MPHAPP881001.jpg?h=687457154'],
     [/iphone 18 pro max/, 'https://media.extra.com/s/aurora/100528763_800/Apple-iPhone-18-Pro%2C-5G%2C-6-3-inch%2C-1TB%2C-Black?locale=en-GB%2Cen-%2A%2C%2A'],
@@ -1913,6 +1929,56 @@ function toggleViewer360(){
  osGalleryTimer=setInterval(()=>{setGalleryView(osGalleryIndex+1);syncImageViewer();},850);
 }
 document.addEventListener('keydown',e=>{const m=document.getElementById('osImageViewer');if(!m||m.style.display==='none')return;if(e.key==='Escape')closeImageViewer();if(e.key==='ArrowRight'){moveGallery(1);syncImageViewer();}if(e.key==='ArrowLeft'){moveGallery(-1);syncImageViewer();}});
+</script>
+
+
+<style id="os-v16-shop-find-compare">
+/* V16: focused Shop, Find My Device and Compare usability improvements. */
+.osV16ShopTools{margin:10px 0 12px;padding:12px!important}
+.osV16ShopTools .search{width:100%;box-sizing:border-box;margin:0 0 10px}
+.osV16QuickFilters{display:flex;gap:7px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+.osV16QuickFilters::-webkit-scrollbar{display:none}
+.osV16QuickFilters .chip{white-space:nowrap;flex:0 0 auto}
+.osV16QuickFilters .chip.active{background:#e8f1ff;border-color:#2563eb;color:#145bd7}
+.osV16FindHint{font-size:12px;margin:10px 2px}
+.osV16CompareCount{font-size:12px;margin:10px 0}
+#findCategory,#budget,#shopSearch,#compareSearch{max-width:100%;box-sizing:border-box}
+#findResult .productCard,#products .productCard{min-width:0}
+@media(max-width:600px){.osV16QuickFilters{margin-right:-2px}.compareDeviceGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+<script id="os-v16-shop-find-compare-js">
+let osV16ShopSort='featured';
+function filterShopProducts(){
+  const input=document.getElementById('shopSearch');
+  const title=document.getElementById('catTitle');
+  const category=(title?.textContent||'Mobiles Products').replace(' Products','');
+  const q=(input?.value||'').trim().toLowerCase();
+  let list=data.filter(p=>p.category===category);
+  if(q)list=list.filter(p=>((p.name||'')+' '+(p.brand||'')+' '+(p.spec||'')).toLowerCase().includes(q));
+  if(osV16ShopSort==='priceLow')list.sort((a,b)=>Number(String(a.price).replace(/[^0-9]/g,''))-Number(String(b.price).replace(/[^0-9]/g,'')));
+  if(osV16ShopSort==='priceHigh')list.sort((a,b)=>Number(String(b.price).replace(/[^0-9]/g,''))-Number(String(a.price).replace(/[^0-9]/g,'')));
+  const out=document.getElementById('products');if(!out)return;
+  out.innerHTML=list.length?list.map(card).join(''):'<div class="card"><b>No matching products</b><p class="muted">Try another search or brand.</p></div>';
+}
+function setShopSort(sort,button){
+  osV16ShopSort=sort;
+  document.querySelectorAll('.osV16QuickFilters .chip').forEach(x=>x.classList.toggle('active',x===button));
+  filterShopProducts();
+}
+function updateV16CompareCount(){
+  const n=document.querySelectorAll('.compareCheck:checked').length;
+  const el=document.getElementById('compareSelectionCount');if(el)el.textContent=n+' of 2 devices selected'+(n>2?' — select only two':'');
+  document.querySelectorAll('.compareCheck').forEach(c=>{c.disabled=!c.checked&&n>=2;});
+}
+const osV16OriginalRenderCompareUI=renderCompareUI;
+renderCompareUI=function(q){
+  osV16OriginalRenderCompareUI(q);
+  const el=document.getElementById('compareChoices');if(el&&!el.dataset.v16Bound){
+    el.addEventListener('change',function(e){if(e.target&&e.target.classList.contains('compareCheck'))updateV16CompareCount();});
+    el.dataset.v16Bound='1';
+  }
+  updateV16CompareCount();
+};
 </script>
 
 </body></html>
