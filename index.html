@@ -1605,9 +1605,12 @@ function findResult(){
   // Only a real, positive rupee price is eligible for budget matching. TBA/unpriced products never pass.
   if(budget>0){
     list=list.filter(p=>{
+      // Never show unpriced / future-concept products for a numeric budget.
       const raw=String(p.price??'').trim();
-      if(!raw || !raw.includes('₹') || /tba|to be confirmed|price on request|not available/i.test(raw)) return false;
-      const amount=Number(raw.replace(/[^0-9.]/g,''));
+      if(!raw || /tba|to be confirmed|price on request|not available|price pending/i.test(raw)) return false;
+      const match=raw.match(/₹\s*([0-9][0-9,]*(?:\.[0-9]+)?)/);
+      if(!match) return false;
+      const amount=Number(match[1].replace(/,/g,''));
       return Number.isFinite(amount)&&amount>0&&amount<=budget;
     });
   }
@@ -2085,12 +2088,23 @@ renderCompareUI=function(q){
 
 <!-- Our Store V18: checkout clarity, demo payment notice, order history -->
 <!-- Our Store V19: combined category/brand/search filters, safer sorting and catalog data disclaimer -->
-<!-- Our Store V24: strict budget filtering and versioned service-worker script URL -->
+<!-- Our Store V25: strict budget filtering and stale-cache reset -->
 
-<script id="os-v22-pwa-registration">
+<script id="os-v25-pwa-registration">
 if ('serviceWorker' in navigator && location.protocol === 'https:') {
-  window.addEventListener('load', function () {
-    navigator.serviceWorker.register('./sw.js?v=24').catch(function (err) { console.warn('PWA offline setup unavailable:', err); });
+  window.addEventListener('load', async function () {
+    try {
+      // Remove stale app caches so GitHub Pages does not keep showing the old budget filter.
+      if ('caches' in window) {
+        const keys = await caches.keys();
+        await Promise.all(keys.filter(k => /our.?store|os-|github-pages/i.test(k)).map(k => caches.delete(k)));
+      }
+      const registrations = await navigator.serviceWorker.getRegistrations();
+      await Promise.all(registrations.map(reg => reg.unregister()));
+      await navigator.serviceWorker.register('./sw.js?v=25').catch(function (err) { console.warn('PWA offline setup unavailable:', err); });
+    } catch (err) {
+      console.warn('Cache refresh unavailable:', err);
+    }
   });
 }
 </script>
