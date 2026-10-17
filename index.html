@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Our Store — V13 Home Screen Correction</title>
+<title>Our Store — V17 Exchange, Wallet & Orders</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f4f5f7;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial;color:#111}
 .app{max-width:430px;margin:auto;min-height:100vh;background:#fff}.top{padding:18px 18px 10px;position:sticky;top:0;background:#fff;z-index:3;border-bottom:1px solid #eee}
@@ -1980,5 +1980,29 @@ renderCompareUI=function(q){
   updateV16CompareCount();
 };
 </script>
+
+
+<style id="os-v17-exchange-wallet-orders">
+/* V17: clearer form spacing and readable status panels for Exchange, Wallet and Orders. */
+#exchange .content input:not([type=checkbox]),#exchange .content select,#exchange .content textarea,
+#wallet .content input:not([type=checkbox]),#wallet .content select,
+#orders .content input:not([type=checkbox]),#orders .content select,
+#checkout .content input:not([type=checkbox]),#checkout .content select{
+  max-width:100%;box-sizing:border-box;border-radius:12px;
+}
+#exchange .content .card,#wallet .content .card,#orders .content .card,#checkout .content .card{
+  overflow-wrap:anywhere;
+}
+#exchange .content button,#wallet .content button,#orders .content button,#checkout .content button{
+  touch-action:manipulation;min-height:42px;
+}
+#exchange .muted,#wallet .muted,#orders .muted,#checkout .muted{line-height:1.45}
+#exchange .price,#wallet .price,#orders .price,#checkout .price{font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+@media(max-width:600px){
+  #exchange .content,#wallet .content,#orders .content,#checkout .content{padding-left:12px;padding-right:12px}
+  #exchange .content .grid,#wallet .content .grid,#orders .content .grid,#checkout .content .grid{min-width:0}
+  #exchange .content button,#wallet .content button,#orders .content button,#checkout .content button{max-width:100%}
+}
+</style>
 
 </body></html>
