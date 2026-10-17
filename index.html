@@ -7,7 +7,7 @@
 <meta name="description" content="Our Store — compare devices, browse products, manage exchange and demo orders.">
 <link rel="manifest" href="./manifest.json">
 <link rel="apple-touch-icon" href="./icon-192.png">
-<title>Our Store — V22 PWA Ready</title>
+<title>Our Store — V24 PWA + Budget Fix</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f4f5f7;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial;color:#111}
 .app{max-width:430px;margin:auto;min-height:100vh;background:#fff}.top{padding:18px 18px 10px;position:sticky;top:0;background:#fff;z-index:3;border-bottom:1px solid #eee}
@@ -1593,14 +1593,28 @@ function selectVariant(btn,type){
 }
 function find(){document.getElementById('qs').innerHTML=['Budget','Main usage','Camera priority','Battery priority'].map(x=>`<div class="question">${x}<br><span class="muted">Tap to choose</span></div>`).join('');go('find')}
 function findResult(){
-  const budget=Number(document.getElementById('budget')?.value||0);
-  const category=(document.getElementById('findCategory')?.value||'Mobiles').toLowerCase();
-  let list=data.filter(p=>p.category.toLowerCase()===category);
-  if(budget>0) list=list.filter(p=>{const raw=String(p.price??'');const amount=Number(raw.replace(/[^0-9]/g,''));return /₹/.test(raw)&&Number.isFinite(amount)&&amount>0&&amount<=budget;});
-  list=list.slice(0,4);
+  const budgetInput=String(document.getElementById('budget')?.value??'').replace(/[,₹\s]/g,'').trim();
+  const budget=budgetInput===''?0:Number(budgetInput);
+  const category=(document.getElementById('findCategory')?.value||'Mobiles').trim().toLowerCase();
   const out=document.getElementById('findResult');
+  if(!Number.isFinite(budget)||budget<0){
+    out.innerHTML='<div class="card"><h3>Enter a valid budget</h3><p class="muted">Use a positive amount in rupees, or leave the budget empty.</p></div>';
+    return;
+  }
+  let list=data.filter(p=>String(p.category||'').trim().toLowerCase()===category);
+  // Only a real, positive rupee price is eligible for budget matching. TBA/unpriced products never pass.
+  if(budget>0){
+    list=list.filter(p=>{
+      const raw=String(p.price??'').trim();
+      if(!raw || !raw.includes('₹') || /tba|to be confirmed|price on request|not available/i.test(raw)) return false;
+      const amount=Number(raw.replace(/[^0-9.]/g,''));
+      return Number.isFinite(amount)&&amount>0&&amount<=budget;
+    });
+  }
+  list=list.slice(0,4);
   if(!list.length){
-    out.innerHTML='<div class="card"><h3>No matching devices</h3><p class="muted">No '+category+' are available within ₹'+budget.toLocaleString('en-IN')+'. Try increasing your budget or changing the category.</p></div>';
+    const message=budget>0?'No priced '+category+' match your budget of ₹'+budget.toLocaleString('en-IN')+'. Products with price TBA are excluded. Try increasing your budget or changing the category.':'No devices found in this category. Try another category.';
+    out.innerHTML='<div class="card"><h3>No matching devices</h3><p class="muted">'+message+'</p></div>';
     return;
   }
   out.innerHTML=list.map(card).join('');
@@ -2071,11 +2085,12 @@ renderCompareUI=function(q){
 
 <!-- Our Store V18: checkout clarity, demo payment notice, order history -->
 <!-- Our Store V19: combined category/brand/search filters, safer sorting and catalog data disclaimer -->
+<!-- Our Store V24: strict budget filtering and versioned service-worker script URL -->
 
 <script id="os-v22-pwa-registration">
 if ('serviceWorker' in navigator && location.protocol === 'https:') {
   window.addEventListener('load', function () {
-    navigator.serviceWorker.register('./sw.js').catch(function (err) { console.warn('PWA offline setup unavailable:', err); });
+    navigator.serviceWorker.register('./sw.js?v=24').catch(function (err) { console.warn('PWA offline setup unavailable:', err); });
   });
 }
 </script>
