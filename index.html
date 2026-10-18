@@ -1048,6 +1048,15 @@ body{background:#edf1f7!important;color:var(--os-v26-ink)}
 }
 </style>
 
+
+<style id="os-v28-category-overflow-fix">
+/* V28: prevent the home category chips (especially Accessories) from clipping on phones. */
+@media(max-width:899px){
+  #home .content>h3+.row{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important;width:100%!important;min-width:0!important;overflow:visible!important;box-sizing:border-box!important;margin:10px 0 16px!important}
+  #home .content>h3+.row>.chip{display:flex!important;align-items:center!important;justify-content:center!important;min-width:0!important;width:100%!important;max-width:100%!important;box-sizing:border-box!important;padding:11px 7px!important;font-size:13px!important;white-space:normal!important;text-align:center!important;line-height:1.25!important;overflow-wrap:anywhere!important}
+}
+</style>
+
 </head>
 <body>
 <div class="app">
