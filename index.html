@@ -1012,6 +1012,42 @@ body{background:#edf1f7!important;color:var(--os-v26-ink)}
 @media(max-width:390px){#home .heroStore{padding:21px 16px!important;min-height:225px!important}#home .heroStore h2{max-width:67%!important;font-size:27px!important}#home .heroStore p{max-width:67%!important;font-size:12px!important}#home .osHeroArtwork{right:-4%!important;width:39%!important;transform:scale(.9)}#home .osTrustStrip>div{gap:6px!important;padding:9px 6px!important}}
 @media(prefers-reduced-motion:reduce){#home .osPromoCard{transition:none}}
 </style>
+
+<style id="os-v27-mobile-layout-polish">
+/* V27: mobile-only layout polish. Keeps existing HTML and JavaScript functionality. */
+@media(max-width:899px){
+  #home .content{padding-bottom:112px!important}
+  #home .heroStore{min-height:0!important;padding:25px 20px 22px!important;overflow:hidden!important;border-radius:24px!important}
+  #home .heroStore h2{max-width:76%!important;font-size:clamp(27px,6.7vw,35px)!important;line-height:1.06!important;letter-spacing:-1.1px!important;margin:0 0 10px!important;overflow-wrap:normal!important}
+  #home .heroStore p{max-width:74%!important;font-size:14px!important;line-height:1.45!important;margin:0!important}
+  #home .osHeroArtwork{right:0!important;width:30%!important;max-width:130px!important;opacity:.82!important}
+  #home .heroStore:after{right:3%!important;width:clamp(76px,22vw,102px)!important;height:57%!important;top:10%!important}
+  #home .heroStore:before{right:calc(3% + 12px)!important;width:clamp(40px,12vw,54px)!important;height:44%!important;top:19%!important}
+  #home .osHeroActions{display:flex!important;flex-direction:row!important;align-items:stretch!important;flex-wrap:wrap!important;gap:8px!important;margin-top:16px!important;max-width:100%!important}
+  #home .osHeroPrimary,#home .osHeroSecondary{min-height:44px!important;padding:11px 14px!important;font-size:13px!important;white-space:normal!important;border-radius:13px!important}
+  #home .heroStore .heroPill{display:inline-block!important;max-width:100%!important;margin-top:10px!important;padding:8px 11px!important;font-size:10px!important;line-height:1.3!important}
+  #home .osTrustStrip{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:8px!important;padding:10px!important;margin-bottom:18px!important}
+  #home .osTrustStrip>div{min-width:0!important;padding:10px 7px!important;align-items:flex-start!important;flex-direction:column!important;gap:7px!important}
+  #home .osTrustStrip b{font-size:11px!important;line-height:1.25!important;overflow-wrap:anywhere!important}
+  #home .osTrustStrip small{font-size:10px!important;line-height:1.3!important;overflow-wrap:anywhere!important}
+  #home .osTrustIcon{width:30px!important;height:30px!important;min-width:30px!important}
+  .bottom{z-index:50!important}
+}
+@media(max-width:380px){
+  #home .heroStore{padding:21px 15px 18px!important}
+  #home .heroStore h2{max-width:74%!important;font-size:26px!important}
+  #home .heroStore p{max-width:72%!important;font-size:12px!important}
+  #home .heroStore:after{width:72px!important;right:2%!important}
+  #home .heroStore:before{width:38px!important;right:calc(2% + 10px)!important}
+  #home .osHeroActions{gap:6px!important}
+  #home .osHeroPrimary,#home .osHeroSecondary{font-size:12px!important;padding:10px 11px!important}
+  #home .osTrustStrip{gap:5px!important;padding:7px!important}
+  #home .osTrustStrip>div{padding:8px 5px!important}
+  #home .osTrustStrip b{font-size:10px!important}
+  #home .osTrustStrip small{font-size:9px!important}
+}
+</style>
+
 </head>
 <body>
 <div class="app">
