@@ -7,7 +7,7 @@
 <meta name="description" content="Our Store — compare devices, browse products, manage exchange and demo orders.">
 <link rel="manifest" href="./manifest.json">
 <link rel="apple-touch-icon" href="./icon-192.png">
-<title>Our Store — V24 PWA + Budget Fix</title>
+<title>Our Store — Investor Demo</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f4f5f7;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial;color:#111}
 .app{max-width:430px;margin:auto;min-height:100vh;background:#fff}.top{padding:18px 18px 10px;position:sticky;top:0;background:#fff;z-index:3;border-bottom:1px solid #eee}
@@ -797,6 +797,221 @@ html,body{width:100%;max-width:100%;overflow-x:hidden!important;}
 @media(max-width:360px){#catalog #products{gap:8px!important;}#catalog #products>.card{padding:10px!important;}}
 </style>
 
+
+<style id="os-investor-demo-design-v1">
+/* Investor-demo visual refresh: presentation layer only; existing app logic remains intact. */
+:root{--os-ink:#142033;--os-blue:#1769e8;--os-pale:#eef4ff;--os-border:#e5eaf2;--os-muted:#687386}
+body{background:#f3f5f9!important;color:var(--os-ink)}
+.app{background:#f8f9fc!important}
+.top{box-shadow:0 3px 18px #17243a0b}
+.top h1{letter-spacing:-.8px}
+.top h1:before{box-shadow:0 4px 10px #1769e83b}
+#home .content{max-width:1560px;margin:0 auto}
+#home .heroStore{isolation:isolate;position:relative;display:flex;align-items:center;min-height:270px;padding:30px 30px!important;overflow:hidden;border:1px solid #26394d!important;background:radial-gradient(ellipse at 78% 40%,#294f79 0%,transparent 36%),linear-gradient(115deg,#0d1725 0%,#142b45 62%,#1d4265 100%)!important;box-shadow:0 16px 34px #10243c20!important}
+#home .heroStore:before,#home .heroStore:after{display:none!important}
+.osHeroCopy{position:relative;z-index:2;max-width:62%}
+.osHeroEyebrow{display:inline-block;margin-bottom:12px;color:#a9d0ff;font-size:10px;letter-spacing:1.7px;font-weight:800}
+#home .heroStore h2{max-width:520px!important;font-size:clamp(27px,4vw,43px)!important;line-height:1.02!important;letter-spacing:-1.3px!important;margin:0 0 11px!important;color:#fff}
+#home .heroStore p{max-width:480px!important;color:#d8e3f1!important;font-size:14px!important;line-height:1.55!important}
+.osHeroActions{display:flex;gap:9px;flex-wrap:wrap;margin-top:17px}
+.osHeroActions button{min-height:42px;padding:11px 15px;border-radius:12px;font-size:12px;font-weight:800;cursor:pointer}
+.osHeroPrimary{border:0;background:#fff;color:#13233a}.osHeroPrimary span{margin-left:8px}.osHeroSecondary{border:1px solid #ffffff55;background:#ffffff12;color:#fff}
+#home .heroStore .heroPill{display:inline-block;margin-top:13px;background:#ffffff12!important;color:#dcecff!important;border:1px solid #ffffff2b!important;padding:6px 10px;font-size:10px!important}
+.osHeroArtwork{position:absolute;right:5%;top:0;bottom:0;width:34%;pointer-events:none;z-index:1}
+.osHeroOrb{position:absolute;width:230px;height:230px;border-radius:50%;right:4%;top:50%;transform:translateY(-50%);background:radial-gradient(circle at 35% 30%,#9fcaff5c,#5a8fc51c 62%,transparent 70%);border:1px solid #ffffff14}
+.osDevice{position:absolute;border-radius:25px;border:3px solid #bac7d5;box-shadow:0 22px 34px #0005}
+.osDeviceBack{width:104px;height:194px;right:34%;top:42px;transform:rotate(-13deg);background:linear-gradient(145deg,#b9c9d8,#33465c 45%,#172333);}
+.osDeviceBack:before{content:'';position:absolute;left:10px;top:10px;width:43px;height:43px;border-radius:14px;background:radial-gradient(circle at 30% 30%,#121a25 0 6px,#9daebf 7px 9px,transparent 10px),radial-gradient(circle at 70% 30%,#121a25 0 6px,#9daebf 7px 9px,transparent 10px),radial-gradient(circle at 30% 70%,#121a25 0 6px,#9daebf 7px 9px,transparent 10px),#9baec0}
+.osDeviceFront{width:108px;height:210px;right:8%;top:50px;transform:rotate(10deg);background:linear-gradient(150deg,#e6effa,#86b4ee 45%,#244d86);border-color:#d8e3f0}
+.osDeviceFront i{position:absolute;top:7px;left:35%;width:30%;height:11px;border-radius:20px;background:#111d2b}
+.osDeviceFront b{position:absolute;left:13px;right:13px;bottom:18px;height:65px;border-radius:12px;background:linear-gradient(145deg,#ffffff75,#ffffff08)}
+.osDeviceFront span{position:absolute;left:13px;top:44px;width:52px;height:52px;border-radius:50%;background:linear-gradient(145deg,#ffffff7a,#ffffff08)}
+.osTrustStrip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:13px 0 23px}
+.osTrustStrip>div{display:flex;align-items:center;gap:10px;min-width:0;padding:12px;border:1px solid var(--os-border);border-radius:15px;background:#fff;box-shadow:0 3px 12px #17243a05}
+.osTrustIcon{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:11px;background:#edf4ff;color:var(--os-blue);font-size:22px;font-weight:800}
+.osTrustStrip b,.osTrustStrip small{display:block}.osTrustStrip b{font-size:11px;line-height:1.3}.osTrustStrip small{margin-top:3px;font-size:10px;color:var(--os-muted);line-height:1.3}
+#home .content>h3{font-size:20px!important;font-weight:800;letter-spacing:-.5px}
+#home .chip{border-radius:13px!important;padding:11px 14px!important;background:#fff!important;border:1px solid #e2e8f1!important;box-shadow:0 3px 10px #17243a06!important}
+.osPromoGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:16px 0 24px}
+.osPromoCard{position:relative;isolation:isolate;min-height:158px;overflow:hidden;border:1px solid #dbe4f1;border-radius:19px;padding:16px;text-align:left;cursor:pointer;box-shadow:0 5px 16px #17243a0a}
+.osPromoBlue{background:linear-gradient(125deg,#e7f1ff,#c7ddff);color:#142b4a}.osPromoGold{background:linear-gradient(125deg,#fff4dc,#f5dca6);color:#3a2c17}
+.osPromoLabel{display:block;font-size:9px;font-weight:850;letter-spacing:1.1px;opacity:.7;margin-bottom:8px}
+.osPromoCard>b{position:relative;z-index:2;display:block;font-size:18px;line-height:1.12;letter-spacing:-.45px}
+.osPromoAction{position:relative;z-index:2;display:inline-block;margin-top:14px;font-size:10px;font-weight:800}.osPromoAction strong{margin-left:5px;font-size:14px}
+.osPromoArt{position:absolute;right:8px;bottom:-20px;opacity:.8;transform:rotate(13deg)}
+.osPromoPhone{width:66px;height:115px;border:4px solid #f8fbff;border-radius:17px;background:linear-gradient(145deg,#4c84ca,#122e58);box-shadow:-12px -6px 0 -3px #fff8,0 10px 20px #193c6925}
+.osPromoPhone:before{content:'';position:absolute;top:6px;left:7px;width:23px;height:23px;border-radius:8px;background:radial-gradient(circle at 30% 30%,#101a2a 0 4px,#d2e0f2 5px 6px,transparent 7px),radial-gradient(circle at 70% 30%,#101a2a 0 4px,#d2e0f2 5px 6px,transparent 7px),#91b8e8}
+.osPromoLaptop{width:100px;height:66px;right:10px;bottom:6px;border:5px solid #7b8797;border-bottom-width:9px;border-radius:8px;background:linear-gradient(135deg,#f9fbff,#8aa4c4);box-shadow:0 12px 18px #5e4c2630}
+.osPromoLaptop:after{content:'';position:absolute;width:120px;height:8px;left:-15px;bottom:-16px;border-radius:0 0 8px 8px;background:#7e8b9b}
+#popularBrands .osBrandLogo{box-shadow:0 4px 13px #17243a0a!important}
+#home #featured .card{border-radius:18px!important;border-color:#e3e8f0!important;box-shadow:0 5px 18px #17243a0a!important}
+#home #featured .img{background:linear-gradient(145deg,#f6f8fb,#e7edf5)!important}
+#home .homeSection.card{border-color:#e3e8f0;box-shadow:0 5px 18px #17243a07}
+#catalog .content{max-width:1560px;margin:0 auto}
+#catalog #products .card{background:#fff;border-color:#e2e8f0;box-shadow:0 4px 16px #17243a09}
+.btn{transition:transform .15s ease,box-shadow .15s ease}.btn:active{transform:scale(.985)}
+@media(min-width:900px){
+ #home .content{padding:28px 36px 52px!important}
+ #home .heroStore{min-height:310px;padding:40px!important}
+ .osHeroArtwork{right:9%;width:30%}.osDeviceBack{width:126px;height:230px;top:44px}.osDeviceFront{width:130px;height:250px;top:40px}
+ .osTrustStrip{margin:16px 0 28px}.osTrustStrip>div{padding:15px 18px}.osTrustStrip b{font-size:13px}.osTrustStrip small{font-size:11px}
+ .osPromoCard{min-height:190px;padding:22px}.osPromoCard>b{font-size:24px}.osPromoPhone{width:82px;height:140px}.osPromoLaptop{width:130px;height:84px}
+}
+@media(max-width:520px){
+ #home .heroStore{min-height:228px!important;padding:20px 16px!important}
+ .osHeroCopy{max-width:72%}.osHeroEyebrow{font-size:8px;letter-spacing:1px;margin-bottom:9px}
+ #home .heroStore h2{font-size:26px!important;max-width:100%!important}
+ #home .heroStore p{font-size:11px!important;max-width:100%!important}
+ .osHeroActions{gap:6px;margin-top:12px}.osHeroActions button{font-size:10px;padding:10px 11px;min-height:37px}
+ #home .heroStore .heroPill{font-size:9px!important;margin-top:10px}
+ .osHeroArtwork{right:-5%;width:43%;opacity:.88}.osDeviceBack{width:70px;height:136px;right:35%;top:51px;border-radius:18px}.osDeviceFront{width:76px;height:150px;right:3%;top:46px;border-radius:18px}.osDeviceFront b{height:45px}.osDeviceFront span{width:35px;height:35px}.osHeroOrb{width:150px;height:150px;right:0}
+ .osTrustStrip{gap:6px;margin:10px 0 18px}.osTrustStrip>div{padding:8px 6px;gap:5px;border-radius:12px;align-items:flex-start;flex-direction:column}.osTrustIcon{width:27px;height:27px;border-radius:8px;font-size:17px}.osTrustStrip b{font-size:10px}.osTrustStrip small{font-size:9px}
+ .osPromoGrid{gap:8px;margin:12px 0 20px}.osPromoCard{min-height:145px;padding:11px;border-radius:15px}.osPromoCard>b{font-size:16px}.osPromoLabel{font-size:8px}.osPromoAction{font-size:9px;margin-top:12px}.osPromoPhone{width:49px;height:88px;right:3px;bottom:-12px;border-width:3px}.osPromoPhone:before{width:17px;height:17px;left:5px;top:5px}.osPromoLaptop{width:66px;height:47px;right:6px;bottom:9px;border-width:3px;border-bottom-width:6px}.osPromoLaptop:after{width:78px;left:-9px;bottom:-12px;height:6px}
+}
+@media(max-width:360px){.osHeroCopy{max-width:76%}.osHeroArtwork{right:-12%;opacity:.72}.osTrustStrip b{font-size:9px}.osTrustStrip small{font-size:8px}.osPromoCard>b{font-size:14px}}
+</style>
+
+<style id="our-store-apple-premium-v1">
+/* Apple-inspired premium visual layer. CSS-only: existing app logic and event handlers are preserved. */
+:root{--os-brand:#0071e3;--os-brand-dark:#0058b9;--os-ink:#1d1d1f;--os-muted:#6e6e73;--os-canvas:#f5f5f7;--os-white:#fff;--os-border:#e8e8ed;--os-card-radius:24px}
+html,body{background:var(--os-canvas)!important;color:var(--os-ink)!important;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text",Arial,sans-serif!important;-webkit-font-smoothing:antialiased}
+.app{background:var(--os-canvas)!important;box-shadow:none!important;color:var(--os-ink)}
+.top{background:rgba(255,255,255,.92)!important;color:var(--os-ink)!important;border-bottom:1px solid rgba(0,0,0,.07)!important;backdrop-filter:saturate(180%) blur(22px)!important;-webkit-backdrop-filter:saturate(180%) blur(22px)!important}
+.top h1{color:var(--os-ink)!important;font-size:26px!important;letter-spacing:-.9px!important;font-weight:750!important}
+.top h1:before{background:var(--os-ink)!important;color:#fff!important;border-radius:12px!important;width:34px!important;height:34px!important}
+.top .search,.search{background:#f5f5f7!important;border:1px solid #e5e5ea!important;color:var(--os-ink)!important;border-radius:15px!important;box-shadow:none!important}
+.top .search:focus,.search:focus{background:#fff!important;border-color:#a1a1a6!important;box-shadow:0 0 0 3px rgba(0,113,227,.12)!important}
+.content{color:var(--os-ink)}
+h2,h3,h4{color:var(--os-ink);letter-spacing:-.55px}
+.content>h3,.osSectionHead h3{font-size:21px!important;font-weight:730!important;letter-spacing:-.55px!important}
+.muted{color:var(--os-muted)!important}
+.card{background:#fff!important;border:1px solid rgba(0,0,0,.055)!important;border-radius:var(--os-card-radius)!important;box-shadow:0 3px 16px rgba(0,0,0,.035)!important}
+.btn{background:var(--os-brand)!important;color:#fff!important;border:0!important;border-radius:999px!important;box-shadow:none!important;font-weight:650!important;transition:transform .15s ease,opacity .15s ease}
+.btn:active{transform:scale(.98)}
+.btn.alt{background:#f5f5f7!important;color:var(--os-brand)!important;border:1px solid #e5e5ea!important;box-shadow:none!important}
+.back,.osViewAll,.linkBtn{color:var(--os-brand)!important}
+.chip{background:#fff!important;border:1px solid #e5e5ea!important;border-radius:999px!important;box-shadow:none!important;color:var(--os-ink)!important;font-weight:600!important}
+.heroStore{background:linear-gradient(125deg,#101114 0%,#24262c 70%,#3a3b40 100%)!important;border-radius:28px!important;box-shadow:0 14px 34px rgba(0,0,0,.10)!important;isolation:isolate}
+.heroStore:before,.heroStore:after{opacity:.25!important}
+.osHeroEyebrow{letter-spacing:1.6px!important;font-size:10px!important;font-weight:750!important;color:#c7c7cc!important}
+.heroStore h2{font-size:clamp(28px,5vw,42px)!important;line-height:1.03!important;letter-spacing:-1.25px!important;font-weight:760!important;color:#fff!important}
+.heroStore p{color:#dedee3!important;line-height:1.5!important}
+.heroPill{background:rgba(255,255,255,.12)!important;color:#fff!important;border:1px solid rgba(255,255,255,.18)!important;font-weight:650!important}
+.osHeroPrimary{background:#fff!important;color:#111!important;border:0!important;border-radius:999px!important;font-weight:700!important}
+.osHeroSecondary{background:rgba(255,255,255,.12)!important;color:#fff!important;border:1px solid rgba(255,255,255,.22)!important;border-radius:999px!important}
+.osTrustStrip{background:#fff!important;border:1px solid var(--os-border)!important;border-radius:20px!important;box-shadow:0 2px 12px rgba(0,0,0,.025)!important}
+.osTrustIcon{background:#f5f5f7!important;color:var(--os-ink)!important;border-radius:50%!important}
+.osPromoCard{border-radius:24px!important;box-shadow:none!important;border:1px solid rgba(0,0,0,.04)!important}
+.osPromoBlue{background:linear-gradient(145deg,#f4f7fc,#e8eef8)!important;color:#1d1d1f!important}
+.osPromoGold{background:linear-gradient(145deg,#f6f6f7,#e9e9ec)!important;color:#1d1d1f!important}
+.osPromoCard b{letter-spacing:-.8px!important;font-weight:740!important}
+.osPromoLabel{color:#6e6e73!important;letter-spacing:1.2px!important}
+.osPromoAction{color:var(--os-brand)!important}
+.osBrandLogo{box-shadow:none!important;border:1px solid #e8e8ed!important;background:#fff!important}
+.osBrandLogo.samsung{background:#1749b5!important}.osBrandLogo.xiaomi{background:#ff6900!important}.osBrandLogo.vivo{background:#2467ed!important}.osBrandLogo.oppo{background:#087b48!important}.osBrandLogo.oneplus{background:#d91e35!important}.osBrandLogo.moto{background:#182b75!important}
+.osBrand{font-weight:600!important;color:var(--os-ink)!important}
+#home #featured .card,#products .card{border-radius:20px!important;border:1px solid #e8e8ed!important;box-shadow:0 3px 14px rgba(0,0,0,.035)!important;background:#fff!important}
+#home #featured .img,#products .img{background:#f5f5f7!important;border-radius:15px!important}
+#home #featured .price,#products .price{color:var(--os-ink)!important;font-weight:760!important;letter-spacing:-.45px!important}
+#home #featured .btn,#products .btn{border-radius:999px!important}
+#catalog .content>h2{font-size:30px!important;font-weight:760!important;letter-spacing:-1px!important}
+#catalog .osV16ShopTools,#catalog .card{border-radius:20px!important}
+.variant,.exChoice,.question,.addressItem,.checkoutAddressBtn,.payOption,.paymentOption{border-color:#e5e5ea!important;border-radius:16px!important;box-shadow:none!important}
+.variant.active,.exChoice.selected,.question.selected,.addressItem.selected,.checkoutAddressBtn.selected{border-color:var(--os-brand)!important;box-shadow:0 0 0 1px var(--os-brand) inset!important;background:#f5f9ff!important}
+.productVisual,.osGalleryStage{background:linear-gradient(145deg,#fff,#f5f5f7)!important;border-color:#e8e8ed!important;border-radius:24px!important;box-shadow:none!important}
+.offer{background:#f5f9ff!important;border:1px solid #e2edff!important;border-radius:18px!important}
+.specItem,.specRow{background:#f5f5f7!important;border-radius:14px!important;border-bottom-color:#e8e8ed!important}
+.compareTable th{background:#f5f5f7!important;color:var(--os-ink)!important}
+.compareGroup td{background:#1d1d1f!important}
+.bottom{background:rgba(255,255,255,.94)!important;backdrop-filter:blur(20px)!important;-webkit-backdrop-filter:blur(20px)!important;border-top:1px solid rgba(0,0,0,.09)!important;box-shadow:0 -4px 18px rgba(0,0,0,.035)!important}
+.bottom button{color:#6e6e73!important;font-weight:600!important}
+.bottom button:first-child{background:#f5f5f7!important;color:var(--os-brand)!important}
+.osDesktopSidebar{background:#fff!important;color:var(--os-ink)!important;border-right:1px solid #e8e8ed!important}
+.osSidebarBrand{border-bottom-color:#e8e8ed!important}
+.osSidebarBrand span{background:#1d1d1f!important;border-radius:13px!important}
+.osSidebarBrand strong{color:var(--os-ink)!important}.osSidebarBrand small{color:var(--os-muted)!important}
+.osDesktopSidebar button{color:#424245!important;border-radius:12px!important}
+.osDesktopSidebar button:hover{background:#f5f5f7!important;color:var(--os-brand)!important}
+.osDesktopSidebar button:first-of-type{background:#f5f9ff!important;color:var(--os-brand)!important}
+.stickyBuy{background:rgba(255,255,255,.94)!important;backdrop-filter:blur(18px)!important;border-top:1px solid #e8e8ed!important}
+#newsModal>div,#newLaunchesModal>div{border:1px solid #e8e8ed!important;box-shadow:0 15px 50px rgba(0,0,0,.15)!important}
+button,input,select,textarea{font-family:inherit}
+button:focus-visible{outline:3px solid rgba(0,113,227,.4)!important;outline-offset:3px!important}
+@media(min-width:900px){
+ body,.app{background:#f5f5f7!important}
+ .app{grid-template-columns:248px minmax(0,1fr)!important}
+ .top{background:rgba(255,255,255,.92)!important}
+ .osDesktopSidebar{padding:22px 16px!important}
+ #home .content{max-width:1540px!important;margin:0 auto!important;padding:28px 36px 50px!important}
+ #home .heroStore{min-height:290px!important;padding:44px!important}
+ #home .heroStore h2{font-size:48px!important;max-width:560px!important}
+ #home .heroStore p{font-size:16px!important;max-width:520px!important}
+ #home #featured{gap:18px!important}
+}
+@media(max-width:899px){
+ .top{padding:14px 16px 13px!important}
+ .top h1{font-size:24px!important}
+ .content{padding-left:15px!important;padding-right:15px!important}
+ #home .heroStore{padding:23px 19px!important;border-radius:24px!important;min-height:210px!important}
+ #home .heroStore h2{font-size:clamp(26px,7vw,34px)!important;max-width:68%!important}
+ #home .heroStore p{font-size:13px!important;max-width:68%!important}
+ #home .osHeroActions{display:flex!important;gap:8px!important;flex-wrap:wrap!important}
+ #home .osHeroPrimary,#home .osHeroSecondary{padding:11px 14px!important;font-size:12px!important}
+ #home .osTrustStrip{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:5px!important;padding:11px 7px!important}
+ #home .osTrustStrip>div{gap:6px!important;min-width:0!important}
+ #home .osTrustStrip b{font-size:10px!important}
+ #home .osTrustStrip small{font-size:9px!important}
+ #home .osTrustIcon{width:28px!important;height:28px!important;min-width:28px!important}
+ #home .osPromoGrid{gap:10px!important}
+ #home .osPromoCard{min-height:180px!important;padding:15px!important}
+ #home #featured{gap:10px!important}
+ #home #featured .card{padding:10px!important}
+ #home #featured .img{height:120px!important;min-height:120px!important}
+ .bottom{min-height:68px!important}
+}
+@media(max-width:380px){#home .heroStore h2{font-size:24px!important;max-width:62%!important}#home .heroStore p{max-width:62%!important;font-size:12px!important}#home .osTrustStrip{grid-template-columns:1fr!important}.osTrustStrip>div{justify-content:flex-start!important}}
+@media(prefers-reduced-motion:reduce){.screen{animation:none!important}html{scroll-behavior:auto!important}}
+</style>
+
+<style id="os-option-d-v26-visible-redesign">
+/* V26 — visible Option D redesign: premium presentation + practical commerce */
+:root{--os-v26-blue:#1769e8;--os-v26-ink:#111b2b;--os-v26-line:#e0e7f0}
+body{background:#edf1f7!important;color:var(--os-v26-ink)}
+.app{background:#f8faff!important}
+#home .top{background:#101a29!important;border-bottom:1px solid #263448!important}
+#home .top h1{color:#fff!important;letter-spacing:-.9px!important}
+#home .top h1:before{background:linear-gradient(145deg,#398cff,#1555c8)!important;box-shadow:0 5px 16px #1769e855}
+#home .top .search{border:1px solid #d9e4f3!important;box-shadow:0 3px 12px #0000000c!important}
+#home .heroStore{min-height:250px!important;padding:27px 24px!important;margin:3px 0 16px!important;border:1px solid #2a4668!important;border-radius:25px!important;background:radial-gradient(ellipse at 82% 18%,#2c6cbd 0%,transparent 35%),linear-gradient(120deg,#0d1726 0%,#142b46 57%,#1c4775 100%)!important;box-shadow:0 18px 38px #112b4a25!important}
+#home .heroStore h2{font-size:clamp(29px,7vw,39px)!important;line-height:1.02!important;letter-spacing:-1.5px!important;max-width:66%!important}
+#home .heroStore p{max-width:64%!important;font-size:13px!important;line-height:1.5!important}
+#home .osHeroEyebrow{font-size:9px!important;letter-spacing:1.6px!important;color:#a8d0ff!important}
+#home .osHeroActions{gap:8px!important}
+#home .osHeroPrimary{background:#fff!important;color:#10223a!important;border-radius:13px!important;box-shadow:0 5px 14px #0002!important}
+#home .osHeroSecondary{background:#ffffff12!important;border-color:#ffffff55!important;color:#fff!important;border-radius:13px!important}
+#home .heroStore .heroPill{background:#ffffff12!important;border-color:#ffffff2b!important;color:#e8f2ff!important}
+#home .osHeroArtwork{right:1%!important;width:38%!important;transform:scale(1.05)}
+#home .osTrustStrip{gap:8px!important;margin:14px 0 25px!important}
+#home .osTrustStrip>div{padding:10px 8px!important;border:1px solid #e0e7f0!important;border-radius:16px!important;box-shadow:0 5px 16px #172b4d08!important}
+#home .osTrustIcon{width:31px!important;height:31px!important;border-radius:10px!important;background:#e8f1ff!important;color:#1769e8!important}
+#home .osTrustStrip b{font-size:10px!important}#home .osTrustStrip small{font-size:9px!important}
+#home .osPromoCard{min-height:172px!important;border-radius:21px!important;padding:17px!important;box-shadow:0 8px 20px #152c490c!important;transition:transform .16s ease,box-shadow .16s ease}
+#home .osPromoBlue{background:linear-gradient(135deg,#e9f2ff,#c9dfff)!important;border-color:#d1e2fb!important}
+#home .osPromoGold{background:linear-gradient(135deg,#fff7e7,#f1d7a0)!important;border-color:#f0dfb9!important}
+#home .osPromoCard:active{transform:scale(.985)}
+#home #popularBrands .osBrandLogo{box-shadow:0 5px 14px #1c31500e!important;border-color:#e1e7f0!important}
+#home #featured .card{border:1px solid #e0e7f0!important;border-radius:20px!important;background:linear-gradient(180deg,#fff 0%,#fbfcff 100%)!important;box-shadow:0 7px 22px #172b4d0b!important;padding:11px!important}
+#home #featured .img{background:linear-gradient(145deg,#f7f9fc,#e9eef5)!important;border:1px solid #edf0f5!important;border-radius:15px!important}
+#home #featured .price{color:#10223a!important;font-weight:850!important}
+#home #featured .btn{background:#1769e8!important;border-radius:12px!important;box-shadow:0 4px 12px #1769e822!important}
+#home .content>h3,#home .osSectionHead h3{color:#142238!important;letter-spacing:-.45px!important}
+#home .content>.row .chip{background:#fff!important;border-color:#dfe6f0!important;box-shadow:0 3px 10px #172b4d08!important}
+#home .grid .btn{border-radius:14px!important}#home .grid .btn:first-child{background:#1769e8!important}
+#home .grid .btn.alt{background:#fff!important;border:1px solid #dce4ef!important;color:#142238!important}
+#home .bottom{box-shadow:0 -7px 22px #172b4d0c!important;border-top:1px solid #e0e7f0!important}
+@media(max-width:390px){#home .heroStore{padding:21px 16px!important;min-height:225px!important}#home .heroStore h2{max-width:67%!important;font-size:27px!important}#home .heroStore p{max-width:67%!important;font-size:12px!important}#home .osHeroArtwork{right:-4%!important;width:39%!important;transform:scale(.9)}#home .osTrustStrip>div{gap:6px!important;padding:9px 6px!important}}
+@media(prefers-reduced-motion:reduce){#home .osPromoCard{transition:none}}
+</style>
 </head>
 <body>
 <div class="app">
@@ -818,13 +1033,20 @@ html,body{width:100%;max-width:100%;overflow-x:hidden!important;}
 <div class="content">
 
 <div class="heroStore">
-  <h2>Tech, made simple.</h2>
-  <p>Find the right device, compare models, exchange your old device, and buy directly from Our Store.</p>
-  <span class="heroPill">Trusted · Simple · Our Store</span>
-</div>
+   <div class="osHeroCopy">
+    <span class="osHeroEyebrow">THE SMARTER WAY TO SHOP TECH</span>
+    <h2>Find your next favourite tech.</h2>
+    <p>Explore devices, compare specs, discover offers and trade in your old phone — all in one place.</p>
+    <div class="osHeroActions"><button class="osHeroPrimary" onclick="catalog('Mobiles')" type="button">Shop devices <span>→</span></button><button class="osHeroSecondary" onclick="find()" type="button">Find my device</button></div>
+    <span class="heroPill">Compare smarter · Shop confidently</span>
+   </div>
+   <div class="osHeroArtwork" aria-hidden="true"><div class="osDevice osDeviceBack"></div><div class="osDevice osDeviceFront"><i></i><b></b><span></span></div><div class="osHeroOrb"></div></div>
+  </div>
+  <div class="osTrustStrip" aria-label="Our Store features"><div><span class="osTrustIcon">↔</span><span><b>Compare devices</b><small>Specs side by side</small></span></div><div><span class="osTrustIcon">⌕</span><span><b>Find your fit</b><small>Explore by budget</small></span></div><div><span class="osTrustIcon">↻</span><span><b>Exchange</b><small>Trade-in journey</small></span></div></div>
 <h3>What are you looking for?</h3><div class="row">
 <button class="chip" onclick="catalog('Mobiles')">📱 Mobiles</button><button class="chip" onclick="catalog('Laptops')">💻 Laptops</button><button class="chip" onclick="catalog('Tablets')">📲 Tablets</button><button class="chip" onclick="catalog('Accessories')">🎧 Accessories</button>
 </div>
+<section class="osPromoGrid" aria-label="Explore Our Store"><button class="osPromoCard osPromoBlue" onclick="catalog('Mobiles')" type="button"><span class="osPromoLabel">DISCOVER</span><b>Smartphones<br>that fit you.</b><span class="osPromoAction">Explore mobiles <strong>→</strong></span><span class="osPromoArt osPromoPhone" aria-hidden="true"></span></button><button class="osPromoCard osPromoGold" onclick="catalog('Laptops')" type="button"><span class="osPromoLabel">WORK · CREATE · PLAY</span><b>Power up your<br>everyday.</b><span class="osPromoAction">Explore laptops <strong>→</strong></span><span class="osPromoArt osPromoLaptop" aria-hidden="true"></span></button></section>
 
 <section id="popularBrands" class="homeSection" style="margin:22px 0">
   <div class="osSectionHead"><h3>Popular Brands</h3><button class="osViewAll" onclick="catalog('Mobiles')">View All →</button></div>
