@@ -2476,21 +2476,10 @@ renderCompareUI=function(q){
 <!-- BUYBIT V19: combined category/brand/search filters, safer sorting and catalog data disclaimer -->
 <!-- BUYBIT V25: strict budget filtering and stale-cache reset -->
 
-<script id="os-v25-pwa-registration">
+<script id="buybit-pwa-registration-v1">
 if ('serviceWorker' in navigator && location.protocol === 'https:') {
-  window.addEventListener('load', async function () {
-    try {
-      // Remove stale app caches so GitHub Pages does not keep showing the old budget filter.
-      if ('caches' in window) {
-        const keys = await caches.keys();
-        await Promise.all(keys.filter(k => /our.?store|os-|github-pages/i.test(k)).map(k => caches.delete(k)));
-      }
-      const registrations = await navigator.serviceWorker.getRegistrations();
-      await Promise.all(registrations.map(reg => reg.unregister()));
-      await navigator.serviceWorker.register('./sw.js?v=25').catch(function (err) { console.warn('PWA offline setup unavailable:', err); });
-    } catch (err) {
-      console.warn('Cache refresh unavailable:', err);
-    }
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('./sw.js?v=1').catch(function (err) { console.warn('BUYBIT offline setup unavailable:', err); });
   });
 }
 </script>
