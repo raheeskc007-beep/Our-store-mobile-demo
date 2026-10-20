@@ -1290,6 +1290,112 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
 }
 
 </style>
+
+<style>
+/* Final mobile header polish: balanced sizing, spacing and proper microphone icon */
+#home .top.osHomeHeader{
+  box-sizing:border-box!important;
+  padding:12px 12px 11px!important;
+  gap:10px!important;
+  margin-bottom:10px!important;
+  border-radius:0 0 20px 20px!important;
+}
+#home .osHomeHeader .osHeaderTopRow{
+  display:grid!important;
+  grid-template-columns:42px minmax(0,1fr)!important;
+  gap:8px!important;
+  min-height:44px!important;
+  align-items:center!important;
+}
+#home .osHomeHeader .osHeaderIcon,
+#home .osHomeHeader .osProfileShortcut{
+  box-sizing:border-box!important;
+  width:42px!important;
+  height:42px!important;
+  min-width:42px!important;
+  min-height:42px!important;
+  flex:0 0 42px!important;
+  padding:9px!important;
+  border-radius:50%!important;
+}
+#home .osHomeHeader .osHeaderIcon svg{
+  width:22px!important;
+  height:22px!important;
+}
+#home .osHomeHeader .osHeaderRight{
+  gap:7px!important;
+  min-width:0!important;
+}
+#home .osHomeHeader .osWalletReward{
+  box-sizing:border-box!important;
+  min-height:40px!important;
+  height:40px!important;
+  padding:6px 10px!important;
+  gap:7px!important;
+  border-radius:22px!important;
+  flex:0 1 auto!important;
+}
+#home .osHomeHeader .osWalletReward svg{
+  width:20px!important;
+  height:20px!important;
+}
+#home .osHomeHeader .osWalletAmount{font-size:16px!important;line-height:1!important}
+#home .osHomeHeader .osRewardCoin{
+  width:23px!important;height:23px!important;font-size:14px!important;
+}
+#home .osHomeHeader .osNotificationShortcut{
+  width:42px!important;height:42px!important;min-width:42px!important;
+  min-height:42px!important;flex:0 0 42px!important;padding:9px!important;
+}
+#home .osHomeHeader .osNotificationDot{top:5px!important;right:5px!important}
+#home .osHomeHeader .osHeaderSearchRow{
+  box-sizing:border-box!important;
+  min-height:52px!important;height:52px!important;
+  border-radius:17px!important;
+  gap:0!important;
+}
+#home .osHomeHeader .osHeaderSearchRow .search{
+  box-sizing:border-box!important;
+  height:50px!important;min-height:50px!important;
+  padding:0 8px 0 12px!important;
+  font-size:14px!important;line-height:1.2!important;
+}
+#home .osHomeHeader .osSearchTools{
+  flex:0 0 auto!important;
+  gap:9px!important;
+  padding:0 10px 0 11px!important;
+}
+#home .osHomeHeader .osMicIcon{
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  width:20px!important;height:24px!important;font-size:0!important;transform:none!important;
+}
+#home .osHomeHeader .osMicIcon svg{
+  width:19px!important;height:19px!important;
+  fill:none!important;stroke:currentColor!important;stroke-width:1.8!important;
+  stroke-linecap:round!important;stroke-linejoin:round!important;
+}
+#home .osHomeHeader .osCameraIcon{
+  padding-left:9px!important;
+}
+#home .osHomeHeader .osCameraIcon svg{width:23px!important;height:23px!important}
+@media(max-width:380px){
+  #home .top.osHomeHeader{padding:10px 9px!important;gap:9px!important}
+  #home .osHomeHeader .osHeaderTopRow{grid-template-columns:40px minmax(0,1fr)!important;gap:7px!important}
+  #home .osHomeHeader .osHeaderIcon,
+  #home .osHomeHeader .osProfileShortcut,
+  #home .osHomeHeader .osNotificationShortcut{
+    width:40px!important;height:40px!important;min-width:40px!important;
+    min-height:40px!important;flex-basis:40px!important;
+  }
+  #home .osHomeHeader .osHeaderRight{gap:6px!important}
+  #home .osHomeHeader .osWalletReward{padding:5px 8px!important;gap:5px!important}
+  #home .osHomeHeader .osWalletAmount{font-size:15px!important}
+  #home .osHomeHeader .osRewardCoin{width:21px!important;height:21px!important;font-size:13px!important}
+  #home .osHomeHeader .osHeaderSearchRow .search{font-size:13px!important;padding-left:10px!important}
+  #home .osHomeHeader .osSearchTools{gap:7px!important;padding-right:8px!important;padding-left:9px!important}
+}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -1315,7 +1421,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
       <button class="osHeaderIcon osNotificationShortcut" type="button" onclick="go('support')" aria-label="Notifications" title="Notifications"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"></path></svg><span class="osNotificationDot" aria-hidden="true"></span></button>
     </div>
   </div>
-  <div class="osHeaderSearchRow"><input class="search" placeholder="Search mobiles, laptops, tablets..." autocomplete="off" autocapitalize="none" oninput="queueSearch(this.value)" aria-label="Search mobiles, laptops and tablets"><div class="osSearchTools" aria-hidden="true"><span class="osMicIcon">♩</span><span class="osCameraIcon"><svg viewBox="0 0 24 24"><path d="M3 7h4l2-3h6l2 3h4v13H3z"></path><circle cx="12" cy="13" r="4"></circle></svg></span></div></div>
+  <div class="osHeaderSearchRow"><input class="search" placeholder="Search mobiles, laptops, tablets..." autocomplete="off" autocapitalize="none" oninput="queueSearch(this.value)" aria-label="Search mobiles, laptops and tablets"><div class="osSearchTools" aria-hidden="true"><span class="osMicIcon"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="12" rx="3"></rect><path d="M5 11a7 7 0 0 0 14 0M12 18v3M9 21h6"></path></svg></span><span class="osCameraIcon"><svg viewBox="0 0 24 24"><path d="M3 7h4l2-3h6l2 3h4v13H3z"></path><circle cx="12" cy="13" r="4"></circle></svg></span></div></div>
   <div id="searchResults" style="display:none"></div>
 </div>
 <div class="content">
