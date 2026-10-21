@@ -1396,6 +1396,151 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
 }
 </style>
 
+
+<style id="os-category-strip-v1">
+/* Category shortcuts: clean matching line icons directly below the search bar */
+.osCategoryStrip{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:8px;
+  padding:12px 12px 10px;
+  background:#f8f9fb;
+  border-bottom:1px solid #e8ebf0;
+}
+.osCategoryItem{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  gap:7px;
+  padding:0 2px 3px;
+  border:0;
+  background:transparent;
+  color:#172b4d;
+  font:600 12px/1.2 -apple-system,BlinkMacSystemFont,"SF Pro Text",Arial,sans-serif;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+.osCategoryIcon{
+  width:52px;
+  height:52px;
+  display:grid;
+  place-items:center;
+  border:1px solid #e3e8ef;
+  border-radius:16px;
+  background:linear-gradient(145deg,#fff,#f0f3f7);
+  box-shadow:0 3px 9px rgba(23,43,77,.055),inset 0 1px 0 #fff;
+}
+.osCategoryIcon svg{
+  width:25px;
+  height:25px;
+  fill:none;
+  stroke:#172b4d;
+  stroke-width:1.7;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.osCategoryItem:active .osCategoryIcon{transform:scale(.96);background:#eaf1fb}
+.osCategoryItem:focus-visible{outline:2px solid #1769e8;outline-offset:3px;border-radius:12px}
+@media(min-width:900px){
+  .osCategoryStrip{padding:16px 28px 12px;gap:14px;grid-template-columns:repeat(4,minmax(110px,150px));justify-content:start}
+  .osCategoryItem{font-size:13px;gap:8px}
+  .osCategoryIcon{width:58px;height:58px;border-radius:18px}
+  .osCategoryIcon svg{width:28px;height:28px}
+}
+@media(max-width:380px){
+  .osCategoryStrip{padding:10px 7px 9px;gap:4px}
+  .osCategoryItem{font-size:11px;gap:6px}
+  .osCategoryIcon{width:46px;height:46px;border-radius:14px}
+  .osCategoryIcon svg{width:23px;height:23px}
+}
+</style>
+
+
+/* Premium polish: search + home category strip */
+<style id="os-premium-search-polish">
+.os-category-strip-v1{
+  display:grid !important;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px !important;
+  padding:12px 16px 16px !important;
+  margin:0 !important;
+  align-items:start;
+}
+.os-category-strip-v1 button,
+.os-category-strip-v1 a{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  gap:8px;
+  padding:11px 4px 9px !important;
+  border:1px solid #e8ebf0 !important;
+  border-radius:16px !important;
+  background:linear-gradient(180deg,#ffffff 0%,#f8f9fb 100%) !important;
+  box-shadow:0 3px 12px rgba(18,35,64,.045) !important;
+  color:#17243b !important;
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.os-category-strip-v1 button:active,
+.os-category-strip-v1 a:active{
+  transform:scale(.97);
+}
+.os-category-strip-v1 svg{
+  width:25px !important;
+  height:25px !important;
+  stroke:#243d66 !important;
+  stroke-width:1.7 !important;
+}
+.os-category-strip-v1 button span,
+.os-category-strip-v1 a span,
+.os-category-strip-v1 button small,
+.os-category-strip-v1 a small{
+  font-size:11px !important;
+  line-height:1.25 !important;
+  font-weight:600 !important;
+  letter-spacing:.05px;
+  text-align:center;
+  white-space:normal;
+}
+@media(min-width:520px){
+  .os-category-strip-v1{gap:14px !important;padding:14px 20px 18px !important;}
+  .os-category-strip-v1 button,.os-category-strip-v1 a{padding:13px 6px 11px !important;border-radius:18px !important;}
+  .os-category-strip-v1 svg{width:28px !important;height:28px !important;}
+  .os-category-strip-v1 button span,.os-category-strip-v1 a span,.os-category-strip-v1 button small,.os-category-strip-v1 a small{font-size:12px !important;}
+}
+/* Refine the existing search control without changing its handlers */
+header input[type="search"],
+header input[placeholder*="Search" i],
+header input[placeholder*="search" i],
+.search-bar input,
+.searchBox input,
+.search-box input,
+.search-container input{
+  border:1px solid #e4e8ef !important;
+  border-radius:17px !important;
+  background:#f7f8fa !important;
+  box-shadow:inset 0 1px 1px rgba(20,35,60,.025) !important;
+  min-height:46px;
+  padding-left:15px !important;
+  padding-right:12px !important;
+  outline:none;
+}
+header input[type="search"]:focus,
+header input[placeholder*="Search" i]:focus,
+header input[placeholder*="search" i]:focus,
+.search-bar input:focus,
+.searchBox input:focus,
+.search-box input:focus,
+.search-container input:focus{
+  border-color:#b9c7dc !important;
+  background:#fff !important;
+  box-shadow:0 0 0 3px rgba(44,78,125,.08) !important;
+}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -1424,6 +1569,26 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
   <div class="osHeaderSearchRow"><input class="search" placeholder="Search mobiles, laptops, tablets..." autocomplete="off" autocapitalize="none" oninput="queueSearch(this.value)" aria-label="Search mobiles, laptops and tablets"><div class="osSearchTools" aria-hidden="true"><span class="osMicIcon"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="12" rx="3"></rect><path d="M5 11a7 7 0 0 0 14 0M12 18v3M9 21h6"></path></svg></span><span class="osCameraIcon"><svg viewBox="0 0 24 24"><path d="M3 7h4l2-3h6l2 3h4v13H3z"></path><circle cx="12" cy="13" r="4"></circle></svg></span></div></div>
   <div id="searchResults" style="display:none"></div>
 </div>
+
+<nav class="osCategoryStrip" aria-label="Shop by category">
+  <button class="osCategoryItem" type="button" onclick="catalog('Mobiles')" aria-label="Shop mobiles">
+    <span class="osCategoryIcon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.2"></rect><path d="M10 5h4M11 18.5h2"></path></svg></span>
+    <span>Mobile</span>
+  </button>
+  <button class="osCategoryItem" type="button" onclick="catalog('Tablets')" aria-label="Shop tablets">
+    <span class="osCategoryIcon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="2.5" width="15" height="19" rx="2.2"></rect><path d="M10.5 5h3M11 18.5h2"></path></svg></span>
+    <span>Tablet</span>
+  </button>
+  <button class="osCategoryItem" type="button" onclick="catalog('Laptops')" aria-label="Shop laptops">
+    <span class="osCategoryIcon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3.5" width="16" height="13" rx="1.6"></rect><path d="M2.5 20h19l-1.5-3.5h-16z"></path></svg></span>
+    <span>Laptop</span>
+  </button>
+  <button class="osCategoryItem" type="button" onclick="catalog('Accessories')" aria-label="Shop accessories">
+    <span class="osCategoryIcon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13V8a7 7 0 0 1 14 0v5"></path><rect x="3.5" y="12" width="4" height="7" rx="1.5"></rect><rect x="16.5" y="12" width="4" height="7" rx="1.5"></rect><path d="M17 20h-4"></path></svg></span>
+    <span>Accessories</span>
+  </button>
+</nav>
+
 <div class="content">
 
 <div class="heroStore">
@@ -1437,9 +1602,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
    <div class="osHeroArtwork" aria-hidden="true"><div class="osDevice osDeviceBack"></div><div class="osDevice osDeviceFront"><i></i><b></b><span></span></div><div class="osHeroOrb"></div></div>
   </div>
   <div class="osTrustStrip" aria-label="BUYBIT features"><div><span class="osTrustIcon">↔</span><span><b>Compare devices</b><small>Specs side by side</small></span></div><div><span class="osTrustIcon">⌕</span><span><b>Find your fit</b><small>Explore by budget</small></span></div><div><span class="osTrustIcon">↻</span><span><b>Exchange</b><small>Trade-in journey</small></span></div></div>
-<h3>What are you looking for?</h3><div class="row">
-<button class="chip" onclick="catalog('Mobiles')">📱 Mobiles</button><button class="chip" onclick="catalog('Laptops')">💻 Laptops</button><button class="chip" onclick="catalog('Tablets')">📲 Tablets</button><button class="chip" onclick="catalog('Accessories')">🎧 Accessories</button>
-</div>
+
 <section class="osPromoGrid" aria-label="Explore BUYBIT"><button class="osPromoCard osPromoBlue" onclick="catalog('Mobiles')" type="button"><span class="osPromoLabel">DISCOVER</span><b>Smartphones<br>that fit you.</b><span class="osPromoAction">Explore mobiles <strong>→</strong></span><span class="osPromoArt osPromoPhone" aria-hidden="true"></span></button><button class="osPromoCard osPromoGold" onclick="catalog('Laptops')" type="button"><span class="osPromoLabel">WORK · CREATE · PLAY</span><b>Power up your<br>everyday.</b><span class="osPromoAction">Explore laptops <strong>→</strong></span><span class="osPromoArt osPromoLaptop" aria-hidden="true"></span></button></section>
 
 <section id="popularBrands" class="homeSection" style="margin:22px 0">
