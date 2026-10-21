@@ -1459,39 +1459,97 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
 
 
 <style id="os-premium-search-polish">
+/* Premium polish for the actual Our Store home header */
+#home .top.osHomeHeader{
+  background:linear-gradient(145deg,#14263d 0%,#1b3452 100%) !important;
+  padding:14px 14px 13px !important;
+  gap:12px !important;
+  border-radius:0 0 24px 24px !important;
+  box-shadow:0 10px 26px rgba(19,39,65,.12) !important;
+}
+#home .osHomeHeader .osHeaderSearchRow{
+  display:flex !important;
+  align-items:center !important;
+  min-height:58px !important;
+  padding:5px 8px 5px 15px !important;
+  gap:0 !important;
+  border:1px solid #e1e7ef !important;
+  border-radius:18px !important;
+  background:#fff !important;
+  box-shadow:0 3px 10px rgba(12,28,48,.07) !important;
+  overflow:hidden !important;
+}
+#home .osHomeHeader .osHeaderSearchRow .search{
+  flex:1 1 auto !important;
+  min-width:0 !important;
+  width:100% !important;
+  min-height:44px !important;
+  padding:0 10px 0 0 !important;
+  border:0 !important;
+  border-radius:0 !important;
+  outline:none !important;
+  background:transparent !important;
+  box-shadow:none !important;
+  color:#17243a !important;
+  font-size:15px !important;
+}
+#home .osHomeHeader .osHeaderSearchRow .search::placeholder{
+  color:#7c8799 !important;
+  opacity:1 !important;
+}
+#home .osHomeHeader .osHeaderSearchRow .search:focus{
+  border:0 !important;
+  box-shadow:none !important;
+}
+#home .osHomeHeader .osSearchTools{
+  display:flex !important;
+  flex:0 0 auto !important;
+  align-items:center !important;
+  gap:10px !important;
+  padding:0 5px 0 12px !important;
+  border-left:1px solid #e7ebf1 !important;
+}
+#home .osHomeHeader .osSearchTools svg{
+  width:22px !important;
+  height:22px !important;
+  stroke:#35445b !important;
+  stroke-width:1.8 !important;
+}
+#home .osHomeHeader .osMicIcon,
+#home .osHomeHeader .osCameraIcon{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+}
 .os-category-strip-v1{
   display:grid !important;
-  grid-template-columns:repeat(4,minmax(0,1fr));
+  grid-template-columns:repeat(4,minmax(0,1fr)) !important;
   gap:10px !important;
-  padding:12px 16px 16px !important;
+  padding:12px 14px 16px !important;
   margin:0 !important;
-  align-items:start;
+  align-items:start !important;
+  background:#f6f8fb !important;
 }
 .os-category-strip-v1 button,
 .os-category-strip-v1 a{
-  min-width:0;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:flex-start;
-  gap:8px;
-  padding:11px 4px 9px !important;
-  border:1px solid #e8ebf0 !important;
-  border-radius:16px !important;
-  background:linear-gradient(180deg,#ffffff 0%,#f8f9fb 100%) !important;
-  box-shadow:0 3px 12px rgba(18,35,64,.045) !important;
-  color:#17243b !important;
-  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-}
-.os-category-strip-v1 button:active,
-.os-category-strip-v1 a:active{
-  transform:scale(.97);
+  min-width:0 !important;
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:8px !important;
+  padding:12px 3px 10px !important;
+  border:1px solid #e1e7f0 !important;
+  border-radius:17px !important;
+  background:linear-gradient(180deg,#fff 0%,#f9fbff 100%) !important;
+  box-shadow:0 4px 14px rgba(23,43,72,.055) !important;
+  color:#192b45 !important;
 }
 .os-category-strip-v1 svg{
-  width:25px !important;
-  height:25px !important;
-  stroke:#243d66 !important;
-  stroke-width:1.7 !important;
+  width:26px !important;
+  height:26px !important;
+  stroke:#24456f !important;
+  stroke-width:1.8 !important;
 }
 .os-category-strip-v1 button span,
 .os-category-strip-v1 a span,
@@ -1499,44 +1557,18 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
 .os-category-strip-v1 a small{
   font-size:11px !important;
   line-height:1.25 !important;
-  font-weight:600 !important;
-  letter-spacing:.05px;
-  text-align:center;
-  white-space:normal;
+  font-weight:650 !important;
+  text-align:center !important;
 }
-@media(min-width:520px){
-  .os-category-strip-v1{gap:14px !important;padding:14px 20px 18px !important;}
-  .os-category-strip-v1 button,.os-category-strip-v1 a{padding:13px 6px 11px !important;border-radius:18px !important;}
-  .os-category-strip-v1 svg{width:28px !important;height:28px !important;}
-  .os-category-strip-v1 button span,.os-category-strip-v1 a span,.os-category-strip-v1 button small,.os-category-strip-v1 a small{font-size:12px !important;}
+@media(max-width:390px){
+  #home .osHomeHeader .osHeaderSearchRow{min-height:54px!important;padding-left:12px!important}
+  #home .osHomeHeader .osHeaderSearchRow .search{font-size:13px!important}
+  #home .osHomeHeader .osSearchTools{gap:7px!important;padding-left:9px!important}
+  .os-category-strip-v1{gap:7px!important;padding-left:10px!important;padding-right:10px!important}
+  .os-category-strip-v1 button,.os-category-strip-v1 a{border-radius:14px!important;padding-top:10px!important}
 }
-/* Refine the existing search control without changing its handlers */
-header input[type="search"],
-header input[placeholder*="Search" i],
-header input[placeholder*="search" i],
-.search-bar input,
-.searchBox input,
-.search-box input,
-.search-container input{
-  border:1px solid #e4e8ef !important;
-  border-radius:17px !important;
-  background:#f7f8fa !important;
-  box-shadow:inset 0 1px 1px rgba(20,35,60,.025) !important;
-  min-height:46px;
-  padding-left:15px !important;
-  padding-right:12px !important;
-  outline:none;
-}
-header input[type="search"]:focus,
-header input[placeholder*="Search" i]:focus,
-header input[placeholder*="search" i]:focus,
-.search-bar input:focus,
-.searchBox input:focus,
-.search-box input:focus,
-.search-container input:focus{
-  border-color:#b9c7dc !important;
-  background:#fff !important;
-  box-shadow:0 0 0 3px rgba(44,78,125,.08) !important;
+@media(prefers-reduced-motion:reduce){
+  .os-category-strip-v1 button,.os-category-strip-v1 a{transition:none!important}
 }
 </style>
 
