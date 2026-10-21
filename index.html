@@ -1441,6 +1441,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
   box-shadow:0 4px 12px rgba(18,39,64,.06);
 }
 #home .osHeaderSearchRow .search::placeholder{color:#7c8799;opacity:1}
+/* Ensure category shortcuts remain visible directly beneath the search bar on mobile */
+#home nav.os-category-strip{
+  display:grid!important;
+  visibility:visible!important;
+  opacity:1!important;
+  position:relative!important;
+  z-index:4!important;
+  width:100%;
+  min-height:108px;
+}
+#home nav.os-category-strip button{display:flex!important;visibility:visible!important}
 @media(max-width:370px){
   .os-category-strip{gap:6px;padding-left:10px;padding-right:10px}
   .os-category-strip button{font-size:10px;border-radius:14px}
