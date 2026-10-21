@@ -1397,178 +1397,54 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
 </style>
 
 
-<style id="os-category-strip-v1">
-/* Category shortcuts: clean matching line icons directly below the search bar */
-.osCategoryStrip{
+<style id="os-category-premium-final">
+.os-category-strip{
   display:grid;
   grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:8px;
-  padding:12px 12px 10px;
-  background:#f8f9fb;
-  border-bottom:1px solid #e8ebf0;
+  gap:9px;
+  padding:14px 14px 16px;
+  margin:0;
+  background:#f4f6f9;
 }
-.osCategoryItem{
+.os-category-strip button{
   min-width:0;
   display:flex;
   flex-direction:column;
   align-items:center;
-  justify-content:flex-start;
-  gap:7px;
-  padding:0 2px 3px;
-  border:0;
-  background:transparent;
-  color:#172b4d;
-  font:600 12px/1.2 -apple-system,BlinkMacSystemFont,"SF Pro Text",Arial,sans-serif;
-  cursor:pointer;
+  justify-content:center;
+  gap:8px;
+  padding:11px 3px 10px;
+  border:1px solid #e0e6ef;
+  border-radius:17px;
+  background:linear-gradient(180deg,#fff 0%,#f9fbff 100%);
+  color:#192b45;
+  font:600 11px/1.25 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  box-shadow:0 4px 13px rgba(22,42,70,.05);
   -webkit-tap-highlight-color:transparent;
 }
-.osCategoryIcon{
-  width:52px;
-  height:52px;
-  display:grid;
-  place-items:center;
-  border:1px solid #e3e8ef;
-  border-radius:16px;
-  background:linear-gradient(145deg,#fff,#f0f3f7);
-  box-shadow:0 3px 9px rgba(23,43,77,.055),inset 0 1px 0 #fff;
+.os-category-strip button:active{transform:scale(.97)}
+.os-category-icon{
+  width:44px;height:44px;display:flex;align-items:center;justify-content:center;
+  border-radius:14px;background:#eaf1ff;color:#24528a;
 }
-.osCategoryIcon svg{
-  width:25px;
-  height:25px;
-  fill:none;
-  stroke:#172b4d;
-  stroke-width:1.7;
-  stroke-linecap:round;
-  stroke-linejoin:round;
+.os-category-icon svg{
+  width:25px;height:25px;fill:none;stroke:currentColor;stroke-width:1.8;
+  stroke-linecap:round;stroke-linejoin:round;
 }
-.osCategoryItem:active .osCategoryIcon{transform:scale(.96);background:#eaf1fb}
-.osCategoryItem:focus-visible{outline:2px solid #1769e8;outline-offset:3px;border-radius:12px}
-@media(min-width:900px){
-  .osCategoryStrip{padding:16px 28px 12px;gap:14px;grid-template-columns:repeat(4,minmax(110px,150px));justify-content:start}
-  .osCategoryItem{font-size:13px;gap:8px}
-  .osCategoryIcon{width:58px;height:58px;border-radius:18px}
-  .osCategoryIcon svg{width:28px;height:28px}
+#home .osHomeHeader{
+  background:linear-gradient(140deg,#14263e 0%,#1c3553 100%);
+  box-shadow:0 9px 22px rgba(18,39,64,.10);
 }
-@media(max-width:380px){
-  .osCategoryStrip{padding:10px 7px 9px;gap:4px}
-  .osCategoryItem{font-size:11px;gap:6px}
-  .osCategoryIcon{width:46px;height:46px;border-radius:14px}
-  .osCategoryIcon svg{width:23px;height:23px}
+#home .osHeaderSearchRow{
+  border:1px solid #e2e7ef;
+  border-radius:18px;
+  box-shadow:0 4px 12px rgba(18,39,64,.06);
 }
-</style>
-
-
-<style id="os-premium-search-polish">
-/* Premium polish for the actual Our Store home header */
-#home .top.osHomeHeader{
-  background:linear-gradient(145deg,#14263d 0%,#1b3452 100%) !important;
-  padding:14px 14px 13px !important;
-  gap:12px !important;
-  border-radius:0 0 24px 24px !important;
-  box-shadow:0 10px 26px rgba(19,39,65,.12) !important;
-}
-#home .osHomeHeader .osHeaderSearchRow{
-  display:flex !important;
-  align-items:center !important;
-  min-height:58px !important;
-  padding:5px 8px 5px 15px !important;
-  gap:0 !important;
-  border:1px solid #e1e7ef !important;
-  border-radius:18px !important;
-  background:#fff !important;
-  box-shadow:0 3px 10px rgba(12,28,48,.07) !important;
-  overflow:hidden !important;
-}
-#home .osHomeHeader .osHeaderSearchRow .search{
-  flex:1 1 auto !important;
-  min-width:0 !important;
-  width:100% !important;
-  min-height:44px !important;
-  padding:0 10px 0 0 !important;
-  border:0 !important;
-  border-radius:0 !important;
-  outline:none !important;
-  background:transparent !important;
-  box-shadow:none !important;
-  color:#17243a !important;
-  font-size:15px !important;
-}
-#home .osHomeHeader .osHeaderSearchRow .search::placeholder{
-  color:#7c8799 !important;
-  opacity:1 !important;
-}
-#home .osHomeHeader .osHeaderSearchRow .search:focus{
-  border:0 !important;
-  box-shadow:none !important;
-}
-#home .osHomeHeader .osSearchTools{
-  display:flex !important;
-  flex:0 0 auto !important;
-  align-items:center !important;
-  gap:10px !important;
-  padding:0 5px 0 12px !important;
-  border-left:1px solid #e7ebf1 !important;
-}
-#home .osHomeHeader .osSearchTools svg{
-  width:22px !important;
-  height:22px !important;
-  stroke:#35445b !important;
-  stroke-width:1.8 !important;
-}
-#home .osHomeHeader .osMicIcon,
-#home .osHomeHeader .osCameraIcon{
-  display:flex !important;
-  align-items:center !important;
-  justify-content:center !important;
-}
-.os-category-strip-v1{
-  display:grid !important;
-  grid-template-columns:repeat(4,minmax(0,1fr)) !important;
-  gap:10px !important;
-  padding:12px 14px 16px !important;
-  margin:0 !important;
-  align-items:start !important;
-  background:#f6f8fb !important;
-}
-.os-category-strip-v1 button,
-.os-category-strip-v1 a{
-  min-width:0 !important;
-  display:flex !important;
-  flex-direction:column !important;
-  align-items:center !important;
-  justify-content:center !important;
-  gap:8px !important;
-  padding:12px 3px 10px !important;
-  border:1px solid #e1e7f0 !important;
-  border-radius:17px !important;
-  background:linear-gradient(180deg,#fff 0%,#f9fbff 100%) !important;
-  box-shadow:0 4px 14px rgba(23,43,72,.055) !important;
-  color:#192b45 !important;
-}
-.os-category-strip-v1 svg{
-  width:26px !important;
-  height:26px !important;
-  stroke:#24456f !important;
-  stroke-width:1.8 !important;
-}
-.os-category-strip-v1 button span,
-.os-category-strip-v1 a span,
-.os-category-strip-v1 button small,
-.os-category-strip-v1 a small{
-  font-size:11px !important;
-  line-height:1.25 !important;
-  font-weight:650 !important;
-  text-align:center !important;
-}
-@media(max-width:390px){
-  #home .osHomeHeader .osHeaderSearchRow{min-height:54px!important;padding-left:12px!important}
-  #home .osHomeHeader .osHeaderSearchRow .search{font-size:13px!important}
-  #home .osHomeHeader .osSearchTools{gap:7px!important;padding-left:9px!important}
-  .os-category-strip-v1{gap:7px!important;padding-left:10px!important;padding-right:10px!important}
-  .os-category-strip-v1 button,.os-category-strip-v1 a{border-radius:14px!important;padding-top:10px!important}
-}
-@media(prefers-reduced-motion:reduce){
-  .os-category-strip-v1 button,.os-category-strip-v1 a{transition:none!important}
+#home .osHeaderSearchRow .search::placeholder{color:#7c8799;opacity:1}
+@media(max-width:370px){
+  .os-category-strip{gap:6px;padding-left:10px;padding-right:10px}
+  .os-category-strip button{font-size:10px;border-radius:14px}
+  .os-category-icon{width:39px;height:39px;border-radius:12px}
 }
 </style>
 
@@ -1600,26 +1476,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
   <div class="osHeaderSearchRow"><input class="search" placeholder="Search mobiles, laptops, tablets..." autocomplete="off" autocapitalize="none" oninput="queueSearch(this.value)" aria-label="Search mobiles, laptops and tablets"><div class="osSearchTools" aria-hidden="true"><span class="osMicIcon"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="12" rx="3"></rect><path d="M5 11a7 7 0 0 0 14 0M12 18v3M9 21h6"></path></svg></span><span class="osCameraIcon"><svg viewBox="0 0 24 24"><path d="M3 7h4l2-3h6l2 3h4v13H3z"></path><circle cx="12" cy="13" r="4"></circle></svg></span></div></div>
   <div id="searchResults" style="display:none"></div>
 </div>
-
-<nav class="osCategoryStrip" aria-label="Shop by category">
-  <button class="osCategoryItem" type="button" onclick="catalog('Mobiles')" aria-label="Shop mobiles">
-    <span class="osCategoryIcon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.2"></rect><path d="M10 5h4M11 18.5h2"></path></svg></span>
-    <span>Mobile</span>
+<nav class="os-category-strip" aria-label="Shop by category">
+  <button type="button" onclick="catalog('Mobiles')" aria-label="Shop mobiles">
+    <span class="os-category-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.2"></rect><path d="M10 5h4M11 18.5h2"></path></svg></span><span>Mobile</span>
   </button>
-  <button class="osCategoryItem" type="button" onclick="catalog('Tablets')" aria-label="Shop tablets">
-    <span class="osCategoryIcon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="2.5" width="15" height="19" rx="2.2"></rect><path d="M10.5 5h3M11 18.5h2"></path></svg></span>
-    <span>Tablet</span>
+  <button type="button" onclick="catalog('Tablets')" aria-label="Shop tablets">
+    <span class="os-category-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2.2"></rect><path d="M10 5h4M11 18.5h2"></path></svg></span><span>Tablet</span>
   </button>
-  <button class="osCategoryItem" type="button" onclick="catalog('Laptops')" aria-label="Shop laptops">
-    <span class="osCategoryIcon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3.5" width="16" height="13" rx="1.6"></rect><path d="M2.5 20h19l-1.5-3.5h-16z"></path></svg></span>
-    <span>Laptop</span>
+  <button type="button" onclick="catalog('Laptops')" aria-label="Shop laptops">
+    <span class="os-category-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3.5" width="16" height="13" rx="1.5"></rect><path d="M2 20h20l-2-3H4z"></path></svg></span><span>Laptop</span>
   </button>
-  <button class="osCategoryItem" type="button" onclick="catalog('Accessories')" aria-label="Shop accessories">
-    <span class="osCategoryIcon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13V8a7 7 0 0 1 14 0v5"></path><rect x="3.5" y="12" width="4" height="7" rx="1.5"></rect><rect x="16.5" y="12" width="4" height="7" rx="1.5"></rect><path d="M17 20h-4"></path></svg></span>
-    <span>Accessories</span>
+  <button type="button" onclick="catalog('Accessories')" aria-label="Shop accessories">
+    <span class="os-category-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13v-2a8 8 0 0 1 16 0v2"></path><rect x="3" y="12" width="4" height="7" rx="2"></rect><rect x="17" y="12" width="4" height="7" rx="2"></rect><path d="M19 19c0 2-2 3-5 3"></path></svg></span><span>Accessories</span>
   </button>
 </nav>
-
 <div class="content">
 
 <div class="heroStore">
@@ -1633,7 +1503,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
    <div class="osHeroArtwork" aria-hidden="true"><div class="osDevice osDeviceBack"></div><div class="osDevice osDeviceFront"><i></i><b></b><span></span></div><div class="osHeroOrb"></div></div>
   </div>
   <div class="osTrustStrip" aria-label="BUYBIT features"><div><span class="osTrustIcon">↔</span><span><b>Compare devices</b><small>Specs side by side</small></span></div><div><span class="osTrustIcon">⌕</span><span><b>Find your fit</b><small>Explore by budget</small></span></div><div><span class="osTrustIcon">↻</span><span><b>Exchange</b><small>Trade-in journey</small></span></div></div>
-
 <section class="osPromoGrid" aria-label="Explore BUYBIT"><button class="osPromoCard osPromoBlue" onclick="catalog('Mobiles')" type="button"><span class="osPromoLabel">DISCOVER</span><b>Smartphones<br>that fit you.</b><span class="osPromoAction">Explore mobiles <strong>→</strong></span><span class="osPromoArt osPromoPhone" aria-hidden="true"></span></button><button class="osPromoCard osPromoGold" onclick="catalog('Laptops')" type="button"><span class="osPromoLabel">WORK · CREATE · PLAY</span><b>Power up your<br>everyday.</b><span class="osPromoAction">Explore laptops <strong>→</strong></span><span class="osPromoArt osPromoLaptop" aria-hidden="true"></span></button></section>
 
 <section id="popularBrands" class="homeSection" style="margin:22px 0">
