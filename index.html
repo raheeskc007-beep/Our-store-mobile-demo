@@ -1512,9 +1512,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
   </div>
   <div class="osHeaderSearchRow"><input class="search" placeholder="Search mobiles, laptops, tablets..." autocomplete="off" autocapitalize="none" oninput="queueSearch(this.value)" aria-label="Search mobiles, laptops and tablets"><div class="osSearchTools" aria-hidden="true"><span class="osMicIcon"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="12" rx="3"></rect><path d="M5 11a7 7 0 0 0 14 0M12 18v3M9 21h6"></path></svg></span><span class="osCameraIcon"><svg viewBox="0 0 24 24"><path d="M3 7h4l2-3h6l2 3h4v13H3z"></path><circle cx="12" cy="13" r="4"></circle></svg></span></div></div>
   <div id="searchResults" style="display:none"></div>
-<section id="osOffersSection" class="homeSection osAddedProductSection" style="margin:22px 0"><div class="osSectionHead"><h3>Offers & Highlights</h3><button class="osViewAll" onclick="catalog('Mobiles')">Explore →</button></div><div id="osOffersRow" class="osAddedProductRow"></div></section>
-<section id="osLatestSection" class="homeSection osAddedProductSection" style="margin:22px 0"><div class="osSectionHead"><h3>Latest Products</h3><button class="osViewAll" onclick="catalog('Mobiles')">View All →</button></div><div id="osLatestRow" class="osAddedProductRow"></div></section>
-
 <nav class="os-category-strip" aria-label="Shop by category">
   <button type="button" onclick="catalog('Mobiles')" aria-label="Shop mobiles">
     <span class="os-category-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.2"></rect><path d="M10 5h4M11 18.5h2"></path></svg></span><span>Mobile</span>
@@ -1531,6 +1528,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
 </nav>
 </div>
 <div class="content">
+<section id="osOffersSection" class="homeSection osAddedProductSection" style="margin:22px 0"><div class="osSectionHead"><h3>Offers & Highlights</h3><button class="osViewAll" onclick="catalog('Mobiles')">Explore →</button></div><div id="osOffersRow" class="osAddedProductRow"></div></section>
+<section id="osLatestSection" class="homeSection osAddedProductSection" style="margin:22px 0"><div class="osSectionHead"><h3>Latest Products</h3><button class="osViewAll" onclick="catalog('Mobiles')">View All →</button></div><div id="osLatestRow" class="osAddedProductRow"></div></section>
+
 
 <div class="heroStore">
    <div class="osHeroCopy">
@@ -1558,6 +1558,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
     <button class="osBrand" onclick="brandCatalog('Motorola')"><span class="osBrandLogo moto">M</span><b>Motorola</b></button>
   </div>
 </section>
+
+
 <section id="featuredSection" class="homeSection" style="margin:22px 0"><div class="osSectionHead"><h3>Featured Products</h3><button class="osViewAll" onclick="catalog('Mobiles')">View All →</button></div><div id="featured"></div></section>
 <div class="grid" style="margin-top:14px"><button class="btn" onclick="find()">🎯 Find My Device</button><button class="btn alt" onclick="openCompareFromHome()" type="button">⚖️ Compare</button><button class="btn alt" onclick="exchange()">🔄 Exchange</button></div>
 <button class="btn" style="width:100%;margin-top:12px" onclick="go('videoReviews')">🎥 Video Reviews</button>
