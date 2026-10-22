@@ -1459,6 +1459,21 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
 }
 </style>
 
+<style id="os-v29-category-visibility-fix">
+/* V29: keep the four category shortcuts visible immediately below search on mobile. */
+#home .top.osHomeHeader{overflow:visible!important}
+#home nav.os-category-strip{
+  order:5!important;flex:0 0 auto!important;align-self:stretch!important;
+  display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  width:100%!important;min-width:0!important;max-width:100%!important;
+  visibility:visible!important;opacity:1!important;position:relative!important;
+  margin:0!important;box-sizing:border-box!important;overflow:visible!important;
+}
+#home nav.os-category-strip>button{min-width:0!important;width:100%!important;max-width:100%!important;display:flex!important;visibility:visible!important;opacity:1!important}
+#home nav.os-category-strip .os-category-icon{flex:0 0 44px}
+@media(max-width:370px){#home nav.os-category-strip{gap:5px!important;padding-left:8px!important;padding-right:8px!important}#home nav.os-category-strip .os-category-icon{flex-basis:38px;width:38px;height:38px}}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -2791,7 +2806,7 @@ if ('serviceWorker' in navigator && location.protocol === 'https:') {
       }
       const registrations = await navigator.serviceWorker.getRegistrations();
       await Promise.all(registrations.map(reg => reg.unregister()));
-      await navigator.serviceWorker.register('./sw.js?v=25').catch(function (err) { console.warn('PWA offline setup unavailable:', err); });
+      await navigator.serviceWorker.register('./sw.js?v=29').catch(function (err) { console.warn('PWA offline setup unavailable:', err); });
     } catch (err) {
       console.warn('Cache refresh unavailable:', err);
     }
