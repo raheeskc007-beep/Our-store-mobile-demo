@@ -1485,7 +1485,45 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
 @media(max-width:370px){#home nav.os-category-strip{gap:5px!important;padding-left:8px!important;padding-right:8px!important}#home nav.os-category-strip .os-category-icon{flex-basis:38px;width:38px;height:38px}}
 </style>
 
-</head>
+
+<style id="os-promotional-banners-v1">
+/* Offers & Highlights: promotional advertising banners only; other sections untouched */
+#osOffersSection.osOffersAds{margin:18px 0 26px!important}
+#osOffersSection .osSectionHead{margin:0 2px 13px}
+#osOffersSection .osSectionHead h3{font-size:22px!important;letter-spacing:-.65px}
+#osOffersSection .osOffersCarousel{display:grid;gap:14px}
+#osOffersSection .osAdBanner{position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(110px,.85fr);align-items:center;min-height:205px;padding:23px 20px;border-radius:22px;overflow:hidden;color:#fff;box-shadow:0 9px 24px #14213b18}
+#osOffersSection .osAdBanner:before{content:"";position:absolute;inset:0;z-index:-2;background:var(--ad-bg)}
+#osOffersSection .osAdBanner:after{content:"";position:absolute;right:-42px;bottom:-85px;width:210px;height:210px;border:1px solid #ffffff35;border-radius:50%;background:#ffffff0d;z-index:-1}
+#osOffersSection .osAdCopy{min-width:0;position:relative;z-index:2}
+#osOffersSection .osAdEyebrow{display:block;font-size:10px;font-weight:800;letter-spacing:1.8px;text-transform:uppercase;opacity:.82;margin-bottom:9px}
+#osOffersSection .osAdBanner h4{font-size:clamp(21px,5.4vw,29px);line-height:1.06;letter-spacing:-.8px;margin:0 0 9px;font-weight:850}
+#osOffersSection .osAdBanner p{font-size:12px;line-height:1.45;margin:0;color:inherit;opacity:.88;max-width:290px}
+#osOffersSection .osAdButton{display:inline-flex;align-items:center;gap:12px;margin-top:15px;border:0;border-radius:999px;padding:10px 14px;background:#fff;color:#18243a;font-size:12px;font-weight:800;cursor:pointer}
+#osOffersSection .osAdVisual{height:160px;min-width:0;display:flex;align-items:center;justify-content:center;position:relative}
+#osOffersSection .osAdVisual img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 13px 12px #0004);position:relative;z-index:1}
+#osOffersSection .osAdBanner.bank{--ad-bg:linear-gradient(115deg,#421d22 0%,#7b3938 58%,#d78a77 100%)}
+#osOffersSection .osAdBanner.bank .osAdButton{color:#572a2d}
+#osOffersSection .osAdBanner.laptop{--ad-bg:linear-gradient(115deg,#063b77 0%,#1769b8 56%,#76b6ed 100%)}
+#osOffersSection .osAdBanner.trade{--ad-bg:linear-gradient(115deg,#101820 0%,#26384f 57%,#637b9a 100%)}
+#osOffersSection .osOfferDots{display:flex;justify-content:center;gap:5px;margin-top:11px}
+#osOffersSection .osOfferDots span{width:6px;height:6px;border-radius:10px;background:#cbd2dc}
+#osOffersSection .osOfferDots span.active{width:19px;background:#1769e8}
+@media(max-width:380px){
+ #osOffersSection .osAdBanner{grid-template-columns:minmax(0,1.15fr) minmax(86px,.8fr);min-height:185px;padding:18px 14px;border-radius:18px}
+ #osOffersSection .osAdVisual{height:135px}
+ #osOffersSection .osAdBanner h4{font-size:21px}
+ #osOffersSection .osAdBanner p{font-size:11px}
+ #osOffersSection .osAdEyebrow{font-size:9px;letter-spacing:1.1px}
+}
+@media(min-width:900px){
+ #osOffersSection .osOffersCarousel{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #osOffersSection .osAdBanner{min-height:250px;padding:28px}
+ #osOffersSection .osAdVisual{height:190px}
+ #osOffersSection .osOfferDots{display:none}
+}
+</style>
+\n</head>
 <body>
 <div class="app">
 <nav class="osDesktopSidebar" aria-label="Main navigation">
@@ -1528,7 +1566,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
 </nav>
 </div>
 <div class="content">
-<section id="osOffersSection" class="homeSection osAddedProductSection" style="margin:22px 0"><div class="osSectionHead"><h3>Offers & Highlights</h3><button class="osViewAll" onclick="catalog('Mobiles')">Explore →</button></div><div id="osOffersRow" class="osAddedProductRow"></div></section>
+<section id="osOffersSection" class="homeSection osOffersAds" aria-label="Offers and highlights">
+  <div class="osSectionHead"><h3>Offers & Highlights</h3><button class="osViewAll" onclick="catalog('Mobiles')">Explore →</button></div>
+  <div id="osOffersRow" class="osOffersCarousel" aria-label="Promotional banners"></div>
+  <div class="osOfferDots" aria-hidden="true"><span class="active"></span><span></span><span></span></div>
+</section>
 <section id="osLatestSection" class="homeSection osAddedProductSection" style="margin:22px 0"><div class="osSectionHead"><h3>Latest Products</h3><button class="osViewAll" onclick="catalog('Mobiles')">View All →</button></div><div id="osLatestRow" class="osAddedProductRow"></div></section>
 
 
@@ -2490,9 +2532,14 @@ function exchange(){resetExchange();go('exchange')}
 
 document.getElementById('featured').innerHTML=data.filter(item=>item.price && !/TBA|coming soon|not available|not announced/i.test(item.price) && !/concept|unconfirmed/i.test(item.name||'') && !/concept|unconfirmed/i.test(item.specs||'')).slice(0,8).map(card).join('');
 const osAddedByName=(name)=>data.find(item=>item.name===name);
-const osOfferItems=[osAddedByName('iPhone 18 Pro Burgundy (Concept)'),osAddedByName('Galaxy S26 Ultra'),osAddedByName('Vivo X300 FE'),osAddedByName('Galaxy Book')].filter(Boolean);
+const osOfferItems=[osAddedByName('Galaxy S26 Ultra'),osAddedByName('Galaxy Book'),osAddedByName('Vivo X300 FE')].filter(Boolean);
+const osOfferBanner=(kind,eyebrow,title,description,button,category,product)=>'<article class="osAdBanner '+kind+'"><div class="osAdCopy"><span class="osAdEyebrow">'+eyebrow+'</span><h4>'+title+'</h4><p>'+description+'</p><button class="osAdButton" type="button" onclick="'+(category==='Exchange'?'exchange()':"catalog('"+category+"')")+'">'+button+' <span aria-hidden="true">→</span></button></div><div class="osAdVisual">'+(product?'<img src="'+deviceImage(product)+'" alt="'+product.name+'" loading="lazy">':'<span aria-hidden="true" style="font-size:68px;filter:drop-shadow(0 12px 12px #0004)">↻</span>')+'</div></article>';
+document.getElementById('osOffersRow').innerHTML=[
+ osOfferBanner('bank','SPECIAL BANK OFFERS','More ways to save.','Explore eligible bank discounts, cashback and EMI options on selected devices.','Shop mobiles','Mobiles',osAddedByName('Galaxy S26 Ultra')),
+ osOfferBanner('laptop','LAPTOP DEALS','Your next upgrade starts here.','Discover laptops and check available card offers before you buy.','Explore laptops','Laptop',osAddedByName('Galaxy Book')),
+ osOfferBanner('trade','TRADE IN & UPGRADE','Make room for something new.','Explore a phone upgrade and start your used-device exchange journey.','Start exchange','Exchange',osAddedByName('Vivo X300 FE'))
+].join('');
 const osLatestItems=[osAddedByName('Galaxy S26 Ultra'),osAddedByName('Vivo X300 FE'),osAddedByName('Galaxy Book'),osAddedByName('iPhone 18 Pro Burgundy (Concept)')].filter(Boolean);
-document.getElementById('osOffersRow').innerHTML=osOfferItems.map(card).join('');
 document.getElementById('osLatestRow').innerHTML=osLatestItems.map(card).join('');
 setWalletBalance(getWalletBalance());
 updateWalletUI();
