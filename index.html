@@ -1491,9 +1491,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
 #osOffersSection.osOffersAds{margin:18px 0 26px!important}
 #osOffersSection .osSectionHead{margin:0 2px 13px}
 #osOffersSection .osSectionHead h3{font-size:22px!important;letter-spacing:-.65px}
-#osOffersSection .osOffersCarousel{display:flex;flex-flow:row nowrap;gap:14px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;scrollbar-width:none;padding:0 0 2px;touch-action:pan-x pan-y;}
+#osOffersSection .osOffersCarousel{display:flex;gap:14px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;scrollbar-width:none;padding:0 0 2px;}
 #osOffersSection .osOffersCarousel::-webkit-scrollbar{display:none}
-#osOffersSection .osAdBanner{flex:0 0 100%;width:100%;min-width:100%;max-width:100%;scroll-snap-align:start;scroll-snap-stop:always;box-sizing:border-box}
+#osOffersSection .osAdBanner{flex:0 0 100%;width:100%;min-width:100%;scroll-snap-align:start;box-sizing:border-box}
 #osOffersSection .osAdBanner{position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(110px,.85fr);align-items:center;min-height:205px;padding:23px 20px;border-radius:22px;overflow:hidden;color:#fff;box-shadow:0 9px 24px #14213b18}
 #osOffersSection .osAdBanner:before{content:"";position:absolute;inset:0;z-index:-2;background:var(--ad-bg)}
 #osOffersSection .osAdBanner:after{content:"";position:absolute;right:-42px;bottom:-85px;width:210px;height:210px;border:1px solid #ffffff35;border-radius:50%;background:#ffffff0d;z-index:-1}
@@ -1574,17 +1574,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
 <section id="osLatestSection" class="homeSection osAddedProductSection" style="margin:22px 0"><div class="osSectionHead"><h3>Latest Products</h3><button class="osViewAll" onclick="catalog('Mobiles')">View All →</button></div><div id="osLatestRow" class="osAddedProductRow"></div></section>
 
 
-<div class="heroStore">
-   <div class="osHeroCopy">
-    <span class="osHeroEyebrow">THE SMARTER WAY TO SHOP TECH</span>
-    <h2>Find your next favourite tech.</h2>
-    <p>Explore devices, compare specs, discover offers and trade in your old phone — all in one place.</p>
-    <div class="osHeroActions"><button class="osHeroPrimary" onclick="catalog('Mobiles')" type="button">Shop devices <span>→</span></button><button class="osHeroSecondary" onclick="find()" type="button">Find my device</button></div>
-    <span class="heroPill">Compare smarter · Shop confidently</span>
-   </div>
-   <div class="osHeroArtwork" aria-hidden="true"><div class="osDevice osDeviceBack"></div><div class="osDevice osDeviceFront"><i></i><b></b><span></span></div><div class="osHeroOrb"></div></div>
-  </div>
-  <div class="osTrustStrip" aria-label="Our Store features"><div><span class="osTrustIcon">↔</span><span><b>Compare devices</b><small>Specs side by side</small></span></div><div><span class="osTrustIcon">⌕</span><span><b>Find your fit</b><small>Explore by budget</small></span></div><div><span class="osTrustIcon">↻</span><span><b>Exchange</b><small>Trade-in journey</small></span></div></div>
 <section class="osPromoGrid" aria-label="Explore Our Store"><button class="osPromoCard osPromoBlue" onclick="catalog('Mobiles')" type="button"><span class="osPromoLabel">DISCOVER</span><b>Smartphones<br>that fit you.</b><span class="osPromoAction">Explore mobiles <strong>→</strong></span><span class="osPromoArt osPromoPhone" aria-hidden="true"></span></button><button class="osPromoCard osPromoGold" onclick="catalog('Laptops')" type="button"><span class="osPromoLabel">WORK · CREATE · PLAY</span><b>Power up your<br>everyday.</b><span class="osPromoAction">Explore laptops <strong>→</strong></span><span class="osPromoArt osPromoLaptop" aria-hidden="true"></span></button></section>
 
 <section id="popularBrands" class="homeSection" style="margin:22px 0">
@@ -1936,7 +1925,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
 </div>
 </div></div></div>
 
-<div class="bottom"><button type="button" onclick="go('home')">🏠<br>Home</button><button type="button" class="shopNavLink" onclick="catalog('Mobiles')">🔎<br>Shop</button><button type="button" onclick="go('wallet')">💳<br>Wallet</button><button type="button" onclick="go('cart')">🛒<br>Cart</button><button type="button" onclick="go('profile')">👤<br>Profile</button></div>
+<div class="bottom"><button type="button" onclick="go('home')">🏠<br>Home</button><button type="button" class="shopNavLink" onclick="catalog('Mobiles')">🔎<br>Shop</button><button type="button" onclick="go('cart')">🛒<br>Cart</button></div>
 </div>
 <script>
 const data=[
@@ -2548,22 +2537,15 @@ document.getElementById('osOffersRow').innerHTML=[
   const slides=[...row.querySelectorAll('.osAdBanner')];
   if(!slides.length)return;
   let current=0, timer=null, resumeTimer=null, userInteracting=false;
-  const step=()=>{
-    const first=slides[0];
-    if(!first)return row.clientWidth||1;
-    const styles=getComputedStyle(row);
-    const gap=parseFloat(styles.columnGap||styles.gap||'0')||0;
-    return first.getBoundingClientRect().width+gap;
-  };
   const syncDots=()=>{
-    const width=step()||1;
+    const width=row.clientWidth||1;
     current=Math.max(0,Math.min(slides.length-1,Math.round(row.scrollLeft/width)));
     dots.forEach((dot,i)=>dot.classList.toggle('active',i===current));
   };
   const goTo=(index)=>{
     current=(index+slides.length)%slides.length;
-    row.scrollTo({left:current*step(),behavior:'smooth'});
-    dots.forEach((dot,i)=>dot.classList.toggle('active',i===current));
+    row.scrollTo({left:slides[current].offsetLeft-row.offsetLeft,behavior:'smooth'});
+    syncDots();
   };
   const stop=()=>{if(timer){clearInterval(timer);timer=null;}};
   const start=()=>{stop();timer=setInterval(()=>{if(!userInteracting&&!document.hidden)goTo(current+1);},4500);};
