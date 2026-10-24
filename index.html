@@ -1491,7 +1491,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
 #osOffersSection.osOffersAds{margin:18px 0 26px!important}
 #osOffersSection .osSectionHead{margin:0 2px 13px}
 #osOffersSection .osSectionHead h3{font-size:22px!important;letter-spacing:-.65px}
-#osOffersSection .osOffersCarousel{display:grid;gap:14px}
+#osOffersSection .osOffersCarousel{display:flex;flex-flow:row nowrap;gap:14px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;scrollbar-width:none;padding:0 0 2px;touch-action:pan-x pan-y;}
+#osOffersSection .osOffersCarousel::-webkit-scrollbar{display:none}
+#osOffersSection .osAdBanner{flex:0 0 100%;width:100%;min-width:100%;max-width:100%;scroll-snap-align:start;scroll-snap-stop:always;box-sizing:border-box}
 #osOffersSection .osAdBanner{position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(110px,.85fr);align-items:center;min-height:205px;padding:23px 20px;border-radius:22px;overflow:hidden;color:#fff;box-shadow:0 9px 24px #14213b18}
 #osOffersSection .osAdBanner:before{content:"";position:absolute;inset:0;z-index:-2;background:var(--ad-bg)}
 #osOffersSection .osAdBanner:after{content:"";position:absolute;right:-42px;bottom:-85px;width:210px;height:210px;border:1px solid #ffffff35;border-radius:50%;background:#ffffff0d;z-index:-1}
@@ -1517,10 +1519,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
  #osOffersSection .osAdEyebrow{font-size:9px;letter-spacing:1.1px}
 }
 @media(min-width:900px){
- #osOffersSection .osOffersCarousel{grid-template-columns:repeat(2,minmax(0,1fr))}
  #osOffersSection .osAdBanner{min-height:250px;padding:28px}
  #osOffersSection .osAdVisual{height:190px}
- #osOffersSection .osOfferDots{display:none}
 }
 </style>
 \n</head>
@@ -2539,6 +2539,43 @@ document.getElementById('osOffersRow').innerHTML=[
  osOfferBanner('laptop','LAPTOP DEALS','Your next upgrade starts here.','Discover laptops and check available card offers before you buy.','Explore laptops','Laptop',osAddedByName('Galaxy Book')),
  osOfferBanner('trade','TRADE IN & UPGRADE','Make room for something new.','Explore a phone upgrade and start your used-device exchange journey.','Start exchange','Exchange',osAddedByName('Vivo X300 FE'))
 ].join('');
+// Horizontal, swipeable promotional carousel with automatic advance and synced dots.
+(function initOsOffersCarousel(){
+  const row=document.getElementById('osOffersRow');
+  const section=document.getElementById('osOffersSection');
+  if(!row||!section)return;
+  const dots=[...section.querySelectorAll('.osOfferDots span')];
+  const slides=[...row.querySelectorAll('.osAdBanner')];
+  if(!slides.length)return;
+  let current=0, timer=null, resumeTimer=null, userInteracting=false;
+  const step=()=>{
+    const first=slides[0];
+    if(!first)return row.clientWidth||1;
+    const styles=getComputedStyle(row);
+    const gap=parseFloat(styles.columnGap||styles.gap||'0')||0;
+    return first.getBoundingClientRect().width+gap;
+  };
+  const syncDots=()=>{
+    const width=step()||1;
+    current=Math.max(0,Math.min(slides.length-1,Math.round(row.scrollLeft/width)));
+    dots.forEach((dot,i)=>dot.classList.toggle('active',i===current));
+  };
+  const goTo=(index)=>{
+    current=(index+slides.length)%slides.length;
+    row.scrollTo({left:current*step(),behavior:'smooth'});
+    dots.forEach((dot,i)=>dot.classList.toggle('active',i===current));
+  };
+  const stop=()=>{if(timer){clearInterval(timer);timer=null;}};
+  const start=()=>{stop();timer=setInterval(()=>{if(!userInteracting&&!document.hidden)goTo(current+1);},4500);};
+  row.addEventListener('scroll',()=>{window.requestAnimationFrame(syncDots);},{passive:true});
+  row.addEventListener('touchstart',()=>{userInteracting=true;stop();if(resumeTimer)clearTimeout(resumeTimer);},{passive:true});
+  row.addEventListener('touchend',()=>{userInteracting=false;syncDots();if(resumeTimer)clearTimeout(resumeTimer);resumeTimer=setTimeout(start,1800);},{passive:true});
+  row.addEventListener('pointerdown',()=>{userInteracting=true;stop();});
+  row.addEventListener('pointerup',()=>{userInteracting=false;syncDots();if(resumeTimer)clearTimeout(resumeTimer);resumeTimer=setTimeout(start,1800);});
+  dots.forEach((dot,i)=>{dot.style.cursor='pointer';dot.setAttribute('role','button');dot.setAttribute('aria-label','Show offer '+(i+1));dot.addEventListener('click',()=>{userInteracting=true;goTo(i);if(resumeTimer)clearTimeout(resumeTimer);resumeTimer=setTimeout(()=>{userInteracting=false;start();},1800);});});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();else start();});
+  syncDots();start();
+})();
 const osLatestItems=[osAddedByName('Galaxy S26 Ultra'),osAddedByName('Vivo X300 FE'),osAddedByName('Galaxy Book'),osAddedByName('iPhone 18 Pro Burgundy (Concept)')].filter(Boolean);
 document.getElementById('osLatestRow').innerHTML=osLatestItems.map(card).join('');
 setWalletBalance(getWalletBalance());
