@@ -1502,6 +1502,26 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
 @media(max-width:370px){.os-category-strip{gap:6px!important;padding-left:9px!important;padding-right:9px!important}.os-category-icon{width:46px!important;height:46px!important;flex-basis:46px!important;border-radius:15px!important}.os-category-icon svg{width:26px!important;height:26px!important}.os-category-strip button{font-size:10px!important}}
 </style>
 
+
+<style id="os-offers-highlights-banner-fix">
+#osOffersSection .osOffersCarousel{display:flex;gap:12px;overflow-x:auto;overflow-y:hidden;padding:2px 2px 12px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+#osOffersSection .osOffersCarousel::-webkit-scrollbar{display:none}
+#osOffersSection .osOfferBanner{position:relative;isolation:isolate;flex:0 0 min(86%,360px);min-height:188px;border:0;border-radius:20px;padding:19px 20px;text-align:left;overflow:hidden;scroll-snap-align:start;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:7px;box-shadow:0 6px 18px rgba(30,50,40,.08);cursor:pointer}
+#osOffersSection .osOfferBannerSage{background:#e1e7de;color:#263b30}
+#osOffersSection .osOfferBannerDark{background:#25372f;color:#f7f6ef}
+#osOffersSection .osOfferBannerIvory{background:#f1eee3;color:#34463a}
+#osOffersSection .osOfferEyebrow{font-size:9px;font-weight:800;letter-spacing:1.5px;z-index:1}
+#osOffersSection .osOfferBanner strong{font-size:24px;line-height:1.06;letter-spacing:-.6px;z-index:1;max-width:72%}
+#osOffersSection .osOfferSub{font-size:11px;line-height:1.35;max-width:72%;opacity:.85;z-index:1}
+#osOffersSection .osOfferArrow{font-size:11px;font-weight:750;margin-top:3px;z-index:1}
+#osOffersSection .osOfferDevice{position:absolute;right:16px;bottom:20px;width:78px;height:126px;border-radius:17px;border:3px solid rgba(255,255,255,.8);background:linear-gradient(145deg,#91a99a,#dbe4d7);transform:rotate(11deg);box-shadow:0 12px 20px rgba(0,0,0,.16);z-index:-0}
+#osOffersSection .osOfferPhoneArt:before{content:'';position:absolute;inset:8px;border-radius:11px;background:radial-gradient(circle at 70% 25%,#e5eddf 0 8%,transparent 9%),linear-gradient(145deg,#627c6d,#bac8b7)}
+#osOffersSection .osOfferLaptopArt{width:100px;height:72px;bottom:44px;right:15px;border-radius:9px 9px 4px 4px;transform:rotate(-8deg);background:linear-gradient(135deg,#b6c5b7,#e5e9df);border:3px solid #dce5db}
+#osOffersSection .osOfferLaptopArt:after{content:'';position:absolute;left:-12px;right:-12px;bottom:-10px;height:9px;border-radius:2px 2px 8px 8px;background:#91a99a}
+#osOffersSection .osOfferExchangeArt{width:84px;height:84px;right:18px;bottom:45px;border:2px solid #8ca28e;border-radius:50%;background:#dfe6d9;color:#557767;font-size:44px;display:flex;align-items:center;justify-content:center;transform:rotate(-10deg)}
+@media(min-width:900px){#osOffersSection .osOfferBanner{flex-basis:360px;min-height:200px}}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -1545,7 +1565,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
 </nav>
 </div>
 <div class="content">
-<section id="osOffersSection" class="homeSection osAddedProductSection" style="margin:22px 0"><div class="osSectionHead"><h3>Offers & Highlights</h3><button class="osViewAll" onclick="catalog('Mobiles')">Explore →</button></div><div id="osOffersRow" class="osAddedProductRow"></div></section>
+<section id="osOffersSection" class="homeSection osAddedProductSection" style="margin:22px 0"><div class="osSectionHead"><h3>Offers &amp; Highlights</h3><button class="osViewAll" onclick="catalog('Mobiles')">Explore →</button></div><div id="osOffersRow" class="osOffersCarousel" aria-label="Offers and highlights">
+<button class="osOfferBanner osOfferBannerSage" type="button" onclick="catalog('Mobiles')"><span class="osOfferEyebrow">OUR STORE PICKS</span><strong>Find your next<br>everyday favourite.</strong><span class="osOfferSub">Explore smartphones from top brands</span><span class="osOfferArrow">Explore mobiles&nbsp; →</span><span class="osOfferDevice osOfferPhoneArt" aria-hidden="true"></span></button>
+<button class="osOfferBanner osOfferBannerDark" type="button" onclick="catalog('Laptops')"><span class="osOfferEyebrow">WORK · CREATE · PLAY</span><strong>More power for<br>what’s next.</strong><span class="osOfferSub">Discover laptops for work and study</span><span class="osOfferArrow">Explore laptops&nbsp; →</span><span class="osOfferDevice osOfferLaptopArt" aria-hidden="true"></span></button>
+<button class="osOfferBanner osOfferBannerIvory" type="button" onclick="go('exchange')"><span class="osOfferEyebrow">SMARTER UPGRADE</span><strong>Ready for a<br>new device?</strong><span class="osOfferSub">Check your old phone’s exchange value</span><span class="osOfferArrow">Explore exchange&nbsp; →</span><span class="osOfferDevice osOfferExchangeArt" aria-hidden="true">↗</span></button>
+</div></section>
 <section id="osLatestSection" class="homeSection osAddedProductSection" style="margin:22px 0"><div class="osSectionHead"><h3>Latest Products</h3><button class="osViewAll" onclick="catalog('Mobiles')">View All →</button></div><div id="osLatestRow" class="osAddedProductRow"></div></section>
 
 
@@ -1567,7 +1591,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
 
 
 <section id="featuredSection" class="homeSection" style="margin:22px 0"><div class="osSectionHead"><h3>Featured Products</h3><button class="osViewAll" onclick="catalog('Mobiles')">View All →</button></div><div id="featured"></div></section>
-<div class="grid" style="margin-top:14px"><button class="btn" onclick="find()">🎯 Find My Device</button><button class="btn alt" onclick="openCompareFromHome()" type="button">⚖️ Compare</button><button class="btn alt" onclick="exchange()">🔄 Exchange</button></div>
+<!-- Removed per approved home layout: Find My Device / Compare / Exchange feature-card row. -->
 <button class="btn" style="width:100%;margin-top:12px" onclick="go('videoReviews')">🎥 Video Reviews</button>
 <button class="btn" style="width:100%;margin:12px 0" onclick="openNewLaunches()">🆕 New Launches</button>
 <button class="btn" style="width:100%;margin:12px 0" onclick="openNews()">📰 News</button>
@@ -2498,7 +2522,7 @@ document.getElementById('featured').innerHTML=data.filter(item=>item.price && !/
 const osAddedByName=(name)=>data.find(item=>item.name===name);
 const osOfferItems=[osAddedByName('iPhone 18 Pro Burgundy (Concept)'),osAddedByName('Galaxy S26 Ultra'),osAddedByName('Vivo X300 FE'),osAddedByName('Galaxy Book')].filter(Boolean);
 const osLatestItems=[osAddedByName('Galaxy S26 Ultra'),osAddedByName('Vivo X300 FE'),osAddedByName('Galaxy Book'),osAddedByName('iPhone 18 Pro Burgundy (Concept)')].filter(Boolean);
-document.getElementById('osOffersRow').innerHTML=osOfferItems.map(card).join('');
+// Offers & Highlights uses the wide banner carousel in the home markup.
 document.getElementById('osLatestRow').innerHTML=osLatestItems.map(card).join('');
 setWalletBalance(getWalletBalance());
 updateWalletUI();
