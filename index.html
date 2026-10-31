@@ -1650,20 +1650,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
 }
 </style>
 
-<style id="os-gallery-click-to-view-only">
-/* Product page: show one clean main image only. All gallery controls and
-   alternate views are available inside the full-screen viewer after a tap. */
-#product .osGalleryThumbs,
-#product #osGalleryNote,
-#product .osGalleryCount,
-#product .osGalleryArrow,
-#product .osGallery360{display:none!important}
-#product .osGalleryStage{cursor:zoom-in;position:relative!important}
-#product .osGalleryStage #productDetailImage{cursor:zoom-in}
-#osImageViewer .osGalleryCount,
-#osImageViewer #osViewerCount{display:block!important}
-#osImageViewer #osViewer360Button{display:inline-flex!important}
-</style>
 </head>
 <body>
 <div class="app">
@@ -1836,7 +1822,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
 
 <div id="catalog" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2 id="catTitle">Products</h2><div class="card osV16ShopTools"><input id="shopSearch" class="search" placeholder="Search products or brands..." oninput="filterShopProducts()" autocomplete="off" aria-label="Search products or brands"><div class="osV19FilterRow"><label for="shopBrandFilter">Brand</label><select id="shopBrandFilter" onchange="filterShopProducts()" aria-label="Filter by brand"><option value="All">All brands</option></select><label for="shopCategoryFilter">Category</label><select id="shopCategoryFilter" onchange="setShopCategory(this.value)" aria-label="Filter by category"><option>Mobiles</option><option>Laptops</option><option>Tablets</option><option>Accessories</option></select></div><div class="osV16QuickFilters"><button class="chip active" onclick="setShopSort('featured',this)">Featured</button><button class="chip" onclick="setShopSort('priceLow',this)">Price: Low to High</button><button class="chip" onclick="setShopSort('priceHigh',this)">Price: High to Low</button></div></div><div class="row" style="margin-bottom:10px"><button class="chip" onclick="brandCatalog('All')">All</button><button class="chip" onclick="brandCatalog('Apple')">Apple</button><button class="chip" onclick="brandCatalog('Samsung')">Samsung</button><button class="chip" onclick="brandCatalog('OnePlus')">OnePlus</button><button class="chip" onclick="brandCatalog('Xiaomi')">Xiaomi</button><button class="chip" onclick="brandCatalog('Vivo')">Vivo</button><button class="chip" onclick="brandCatalog('OPPO')">OPPO</button><button class="chip" onclick="brandCatalog('Google')">Google</button><button class="chip" onclick="brandCatalog('Realme')">Realme</button><button class="chip" onclick="brandCatalog('Motorola')">Motorola</button></div><div id="products"></div></div></div>
 
-<div id="product" class="screen"><div class="content"><button class="back" onclick="go('catalog')">← Products</button><div class="productHero"><div class="productVisual"><div class="osGalleryStage" id="osGalleryStage"><span class="osGalleryCount" id="osGalleryCount">1 / 8</span><button class="osGalleryArrow prev" onclick="moveGallery(-1)" aria-label="Previous image">‹</button><img id="productDetailImage" src="" alt="Phone product image" onclick="openImageViewer(false)" role="button" tabindex="0" aria-label="Open full-screen product image" loading="eager" decoding="async" style="width:100%;height:100%;object-fit:contain;padding:12px;box-sizing:border-box" onerror="this.onerror=null;this.src='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 220 300%22%3E%3Crect width=%22220%22 height=%22300%22 rx=%2228%22 fill=%22%23eef2f7%22/%3E%3Crect x=%2250%22 y=%2225%22 width=%22120%22 height=%22245%22 rx=%2220%22 fill=%22%23dce4ef%22 stroke=%22%2399a8bb%22 stroke-width=%224%22/%3E%3C/svg%3E'"><button class="osGalleryArrow next" onclick="moveGallery(1)" aria-label="Next image">›</button><button class="osGallery360" id="osGallery360" onclick="openImageViewer(true)">↻ 360° Preview</button></div><div class="osGalleryThumbs" id="osGalleryThumbs"></div><p class="muted" id="osGalleryNote" style="font-size:11px;margin:8px 2px 0">Product image preview · alternate angles are visual previews</p></div><div><div class="tag">Our Store</div><div class="tag">In Stock</div><div class="tag">Warranty</div><h2 id="pname"></h2><p class="muted">Our Store prototype listing · verify exact variant, availability and price before purchase.</p><div class="price" id="pprice"></div><button type="button" class="btn alt osCompareTopBtn" onclick="addCurrentProductToCompare()">⚖️ Add to Compare</button></div></div><div class="card"><b>Choose variant</b><div class="variantRow" style="margin-top:10px"><button class="variant" data-storage="8/128 GB" onclick="selectVariant(this,'storage')">8/128 GB</button><button class="variant" data-storage="8/256 GB" onclick="selectVariant(this,'storage')">8/256 GB</button><button class="variant active" data-storage="12/256 GB" onclick="selectVariant(this,'storage')">12/256 GB</button><button class="variant" data-storage="12/512 GB" onclick="selectVariant(this,'storage')">12/512 GB</button><button class="variant" data-storage="16/512 GB" onclick="selectVariant(this,'storage')">16/512 GB</button></div><div class="variantRow" style="margin-top:10px"><button class="variant active" data-color="Black" onclick="selectVariant(this,'color')">Black</button><button class="variant" data-color="Blue" onclick="selectVariant(this,'color')">Blue</button><button class="variant" data-color="Silver" onclick="selectVariant(this,'color')">Silver</button></div><p class="muted" id="variantSummary" style="margin:10px 0 0">Selected: 12/256 GB · Black</p></div><div class="offer"><b>🏷️ Our Store Offer</b><p class="muted">Instant bank offers, EMI options and exchange eligibility will appear here.</p></div><div class="card"><h3>Key specifications</h3><div class="specGrid"><div class="specItem"><small>Display</small>6.7″ AMOLED</div><div class="specItem"><small>Network</small>5G</div><div class="specItem"><small>Memory</small>12 GB RAM</div><div class="specItem"><small>Storage</small>256 GB</div><div class="specItem"><small>Camera</small>50 MP main</div><div class="specItem"><small>Warranty</small>Our Store warranty</div></div></div><div class="card"><h3>Delivery & pickup</h3><p>🚚 Delivery available</p><p>🏪 Store pickup available</p><p class="muted">Final availability and delivery date will be confirmed at checkout.</p></div><div class="card"><h3>Full specifications</h3><div class="specList" id="fullSpecs"><div class="specRow"><span>Brand</span><b id="specBrand">—</b></div><div class="specRow"><span>Category</span><b id="specCategory">—</b></div><div class="specRow"><span>Display</span><b id="specDisplay">6.7″ AMOLED · demo</b></div><div class="specRow"><span>Chipset</span><b id="specChip">—</b></div><div class="specRow"><span>RAM / Storage</span><b id="specMemory">—</b></div><div class="specRow"><span>Main camera</span><b id="specCamera">50 MP · demo</b></div><div class="specRow"><span>Front camera</span><b id="specFront">—</b></div><div class="specRow"><span>Battery</span><b id="specBattery">—</b></div><div class="specRow"><span>Network</span><b id="specNetwork">5G</b></div><div class="specRow"><span>OS</span><b id="specOS">—</b></div><div class="specRow"><span>Warranty</span><b>Our Store warranty</b></div></div><p class="muted" style="margin-bottom:0">Demo specification data. Final specifications can be connected to verified product data later.</p></div><div class="card"><h3>What's in the box</h3><p>📦 Device</p><p>🔌 Charging accessories (as applicable)</p><p>📄 Documentation</p></div><div class="card"><h3>Delivery & pickup</h3><p>🚚 Delivery available</p><p>🏪 Store pickup available</p><p class="muted">Final availability and delivery date will be confirmed at checkout.</p></div><div class="card"><h3>Exchange</h3><p class="muted">Have an old device? Check its condition and get an estimated exchange value.</p><button class="btn alt" onclick="exchange()">🔄 Check Exchange Value</button></div><div class="stickyBuy"><button class="btn" onclick="addCart()">🛒 Add to Cart</button><button class="btn alt" onclick="buyNow()">Buy Now</button><button class="btn alt" onclick="addCurrentProductToCompare()">⚖️ Add to Compare</button></div>
+<div id="product" class="screen"><div class="content"><button class="back" onclick="go('catalog')">← Products</button><div class="productHero"><div class="productVisual"><div class="osGalleryStage" id="osGalleryStage"><span class="osGalleryCount" id="osGalleryCount">1 / 8</span><button class="osGalleryArrow prev" onclick="moveGallery(-1)" aria-label="Previous image">‹</button><img id="productDetailImage" src="" alt="Phone product image" onclick="openImageViewer(false)" role="button" tabindex="0" aria-label="Open full-screen product image" loading="eager" decoding="async" style="width:100%;height:100%;object-fit:contain;padding:12px;box-sizing:border-box" onerror="this.onerror=null;this.src='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 220 300%22%3E%3Crect width=%22220%22 height=%22300%22 rx=%2228%22 fill=%22%23eef2f7%22/%3E%3Crect x=%2250%22 y=%2225%22 width=%22120%22 height=%22245%22 rx=%2220%22 fill=%22%23dce4ef%22 stroke=%22%2399a8bb%22 stroke-width=%224%22/%3E%3C/svg%3E'"><button class="osGalleryArrow next" onclick="moveGallery(1)" aria-label="Next image">›</button><button class="osGallery360" id="osGallery360" onclick="openImageViewer(true)">↻ 360° Preview</button></div><div class="osGalleryThumbs" id="osGalleryThumbs"></div><p class="muted" id="osGalleryNote" style="font-size:11px;margin:8px 2px 0">Product image preview · alternate angles are visual previews</p></div><div class="osProductInfo"><h2 id="pname"></h2><div class="osAvailableColors"><b>Available colours</b><div class="variantRow osColorChoices" style="margin-top:9px"><button class="variant active" data-color="Black" onclick="selectVariant(this,'color')">Black</button><button class="variant" data-color="Blue" onclick="selectVariant(this,'color')">Blue</button><button class="variant" data-color="Silver" onclick="selectVariant(this,'color')">Silver</button></div></div><div class="osStoreStatus"><span class="tag">Our Store</span><span class="tag">In Stock</span><span class="tag">Warranty</span></div><p class="muted">Our Store listing · verify exact variant, availability and price before purchase.</p><div class="price" id="pprice"></div><button type="button" class="btn alt osCompareTopBtn" onclick="addCurrentProductToCompare()">⚖️ Add to Compare</button></div></div><div class="card osStorageCard"><b>Choose storage</b><div class="variantRow osStorageChoices" style="margin-top:10px"><button class="variant" data-storage="8/128 GB" onclick="selectVariant(this,'storage')">8/128 GB</button><button class="variant" data-storage="8/256 GB" onclick="selectVariant(this,'storage')">8/256 GB</button><button class="variant active" data-storage="12/256 GB" onclick="selectVariant(this,'storage')">12/256 GB</button><button class="variant" data-storage="12/512 GB" onclick="selectVariant(this,'storage')">12/512 GB</button><button class="variant" data-storage="16/512 GB" onclick="selectVariant(this,'storage')">16/512 GB</button></div><p class="muted" id="variantSummary" style="margin:10px 0 0">Selected storage: 12/256 GB</p></div><div class="offer"><b>🏷️ Our Store Offer</b><p class="muted">Instant bank offers, EMI options and exchange eligibility will appear here.</p></div><div class="card"><h3>Key specifications</h3><div class="specGrid"><div class="specItem"><small>Display</small>6.7″ AMOLED</div><div class="specItem"><small>Network</small>5G</div><div class="specItem"><small>Memory</small>12 GB RAM</div><div class="specItem"><small>Storage</small>256 GB</div><div class="specItem"><small>Camera</small>50 MP main</div><div class="specItem"><small>Warranty</small>Our Store warranty</div></div></div><div class="card"><h3>Delivery & pickup</h3><p>🚚 Delivery available</p><p>🏪 Store pickup available</p><p class="muted">Final availability and delivery date will be confirmed at checkout.</p></div><div class="card"><h3>Full specifications</h3><div class="specList" id="fullSpecs"><div class="specRow"><span>Brand</span><b id="specBrand">—</b></div><div class="specRow"><span>Category</span><b id="specCategory">—</b></div><div class="specRow"><span>Display</span><b id="specDisplay">6.7″ AMOLED · demo</b></div><div class="specRow"><span>Chipset</span><b id="specChip">—</b></div><div class="specRow"><span>RAM / Storage</span><b id="specMemory">—</b></div><div class="specRow"><span>Main camera</span><b id="specCamera">50 MP · demo</b></div><div class="specRow"><span>Front camera</span><b id="specFront">—</b></div><div class="specRow"><span>Battery</span><b id="specBattery">—</b></div><div class="specRow"><span>Network</span><b id="specNetwork">5G</b></div><div class="specRow"><span>OS</span><b id="specOS">—</b></div><div class="specRow"><span>Warranty</span><b>Our Store warranty</b></div></div><p class="muted" style="margin-bottom:0">Demo specification data. Final specifications can be connected to verified product data later.</p></div><div class="card"><h3>What's in the box</h3><p>📦 Device</p><p>🔌 Charging accessories (as applicable)</p><p>📄 Documentation</p></div><div class="card"><h3>Delivery & pickup</h3><p>🚚 Delivery available</p><p>🏪 Store pickup available</p><p class="muted">Final availability and delivery date will be confirmed at checkout.</p></div><div class="card"><h3>Exchange</h3><p class="muted">Have an old device? Check its condition and get an estimated exchange value.</p><button class="btn alt" onclick="exchange()">🔄 Check Exchange Value</button></div><div class="stickyBuy"><button class="btn" onclick="addCart()">🛒 Add to Cart</button><button class="btn alt" onclick="buyNow()">Buy Now</button><button class="btn alt" onclick="addCurrentProductToCompare()">⚖️ Add to Compare</button></div>
 <div class="card reviewBox">
 <h3>Customer Reviews</h3>
 <div class="reviewSummary"><b>4.7 ★</b><span> · 128 reviews · Verified purchases</span></div>
@@ -2302,9 +2288,9 @@ function product(n,pr,spec){
   const detailImage=document.getElementById('productDetailImage');
   if(detailImage){detailImage.src=deviceImage(p.name?p:{name:n,brand:selectedProduct.brand,category:selectedProduct.category});detailImage.alt=n+' product image';detailImage.style.transform='scale(1)';detailImage.style.filter='none';}
   osGalleryIndex=0;if(osGalleryTimer){clearInterval(osGalleryTimer);osGalleryTimer=null;}const gbtn=document.getElementById('osGallery360');if(gbtn)gbtn.textContent='↻ 360° Preview';setTimeout(renderOsGallery,50);
-  document.getElementById('pname').textContent=n;
   document.getElementById('pprice').textContent=pr;
   document.querySelectorAll('#product .variantRow .variant').forEach(b=>{b.classList.toggle('active',b.dataset.storage===selectedStorage||b.dataset.color==='Black');});
+  updateProductTitle();
   const brandEl=document.getElementById('specBrand'); if(brandEl)brandEl.textContent=selectedProduct.brand;
   const catEl=document.getElementById('specCategory'); if(catEl)catEl.textContent=selectedProduct.category;
   const memEl=document.getElementById('specMemory'); if(memEl)memEl.textContent=spec.split(' · ')[0]||'—';
@@ -2313,12 +2299,21 @@ function product(n,pr,spec){
   const frontEl=document.getElementById('specFront'); if(frontEl)frontEl.textContent=selectedProduct.category==='Mobiles'?'Demo selfie camera':'—';
   const batEl=document.getElementById('specBattery'); if(batEl)batEl.textContent=selectedProduct.category==='Mobiles'?'Demo battery capacity':'—';
   const osEl=document.getElementById('specOS'); if(osEl)osEl.textContent=selectedProduct.category==='Mobiles'?'Demo OS':'—';
-  const summary=document.getElementById('variantSummary'); if(summary)summary.textContent='Selected: '+selectedStorage+' · '+selectedColor;
+  const summary=document.getElementById('variantSummary'); if(summary)summary.textContent='Selected storage: '+selectedStorage;
   const storageText=document.querySelector('#product .specItem:nth-child(4)');
   const memoryText=document.querySelector('#product .specItem:nth-child(3)');
   if(storageText)storageText.innerHTML='<small>Storage</small>'+(selectedStorage.split('/')[1]||'—');
   if(memoryText)memoryText.innerHTML='<small>Memory</small>'+(selectedStorage.split('/')[0]||'—')+' GB RAM';
   go('product');
+}
+function updateProductTitle(){
+  if(!selectedProduct)return;
+  const name=document.getElementById('pname');
+  if(!name)return;
+  const capacity=String(selectedStorage||'').includes('/')?String(selectedStorage).split('/').pop().replace(/\s+/g,''):String(selectedStorage||'').replace(/\s+/g,'');
+  name.textContent=(String(selectedProduct.brand||'').trim()+' '+String(selectedProduct.name||'').trim()).trim()+' | '+capacity+' | '+selectedColor;
+  const summary=document.getElementById('variantSummary');
+  if(summary)summary.textContent='Selected storage: '+selectedStorage;
 }
 function currentProductForCart(){
   if(!selectedProduct)return null;
@@ -2488,7 +2483,7 @@ function selectVariant(btn,type){
   const memoryText=document.querySelector('#product .specItem:nth-child(3)');
   if(storageText)storageText.innerHTML='<small>Storage</small>'+selectedStorage.split('/')[1];
   if(memoryText)memoryText.innerHTML='<small>Memory</small>'+selectedStorage.split('/')[0]+' GB RAM';
-  const sum=document.getElementById('variantSummary');if(sum)sum.textContent='Selected: '+selectedStorage+' · '+selectedColor;
+  updateProductTitle();
   renderOsGallery();
 }
 function find(){document.getElementById('qs').innerHTML=['Budget','Main usage','Camera priority','Battery priority'].map(x=>`<div class="question">${x}<br><span class="muted">Tap to choose</span></div>`).join('');go('find')}
@@ -2907,7 +2902,7 @@ function placeOrder(){
   <button type="button" onclick="closeImageViewer()" aria-label="Close image viewer" style="position:absolute;top:calc(16px + env(safe-area-inset-top));right:18px;width:44px;height:44px;border:0;border-radius:50%;background:#ffffff20;color:white;font-size:28px;z-index:3">×</button>
   <div style="width:100%;max-width:620px;display:flex;flex-direction:column;align-items:center;gap:14px">
     <div id="osViewerCount" style="font-size:13px;color:#d9dce2;font-weight:700">1 / 8</div>
-    <div id="osViewerStage" style="height:min(66vh,650px);width:100%;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:24px;background:radial-gradient(ellipse at center,#343941 0%,#17191e 65%,#0d0e11 100%);touch-action:pan-y">
+    <div style="height:min(66vh,650px);width:100%;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:24px;background:radial-gradient(ellipse at center,#343941 0%,#17191e 65%,#0d0e11 100%)">
       <button type="button" onclick="moveGallery(-1);syncImageViewer()" aria-label="Previous image" style="position:absolute;left:10px;z-index:2;border:0;border-radius:50%;width:42px;height:42px;background:#ffffffea;color:#111;font-size:28px">‹</button>
       <img id="osViewerImage" alt="Expanded product image" style="width:100%;height:100%;object-fit:contain;padding:16px;filter:drop-shadow(0 18px 22px #0008);transition:transform .25s ease,filter .25s ease">
       <button type="button" onclick="moveGallery(1);syncImageViewer()" aria-label="Next image" style="position:absolute;right:10px;z-index:2;border:0;border-radius:50%;width:42px;height:42px;background:#ffffffea;color:#111;font-size:28px">›</button>
@@ -3051,7 +3046,34 @@ if ('serviceWorker' in navigator && location.protocol === 'https:') {
 }
 </script>
 
-
+<script id="os-gallery-swipe-navigation">
+(function(){
+  const stage=document.getElementById('osGalleryStage');
+  if(!stage || stage.dataset.swipeReady==='1') return;
+  stage.dataset.swipeReady='1';
+  let startX=0,startY=0,tracking=false;
+  stage.addEventListener('touchstart',function(e){
+    if(!e.touches || e.touches.length!==1) return;
+    startX=e.touches[0].clientX;
+    startY=e.touches[0].clientY;
+    tracking=true;
+  },{passive:true});
+  stage.addEventListener('touchend',function(e){
+    if(!tracking || !e.changedTouches || !e.changedTouches.length) return;
+    tracking=false;
+    const dx=e.changedTouches[0].clientX-startX;
+    const dy=e.changedTouches[0].clientY-startY;
+    if(Math.abs(dx)>38 && Math.abs(dx)>Math.abs(dy)*1.25){
+      if(typeof moveGallery==='function') moveGallery(dx<0?1:-1);
+      e.preventDefault();
+    }
+  },{passive:false});
+  stage.addEventListener('keydown',function(e){
+    if(e.key==='ArrowLeft'){e.preventDefault();if(typeof moveGallery==='function')moveGallery(-1);}
+    if(e.key==='ArrowRight'){e.preventDefault();if(typeof moveGallery==='function')moveGallery(1);}
+  });
+})();
+</script>
 
 
 <style id="os-image-viewer-mobile-size-fix">
@@ -3119,26 +3141,37 @@ if ('serviceWorker' in navigator && location.protocol === 'https:') {
 @media(min-width:700px){#product .productHero{grid-template-columns:minmax(320px, min(48%,560px)) minmax(0,1fr)!important;align-items:start!important;gap:24px!important}#product .osGalleryStage{height:min(46vw,480px)!important;max-height:480px!important}}
 </style>
 
-<script id="os-viewer-swipe-navigation">
-(function(){
-  const stage=document.getElementById('osViewerStage');
-  if(!stage || stage.dataset.swipeReady==='1') return;
-  stage.dataset.swipeReady='1';
-  let x=0,y=0,active=false;
-  stage.addEventListener('touchstart',function(e){
-    if(!e.touches || e.touches.length!==1) return;
-    x=e.touches[0].clientX; y=e.touches[0].clientY; active=true;
-  },{passive:true});
-  stage.addEventListener('touchend',function(e){
-    if(!active || !e.changedTouches || !e.changedTouches.length) return;
-    active=false;
-    const dx=e.changedTouches[0].clientX-x;
-    const dy=e.changedTouches[0].clientY-y;
-    if(Math.abs(dx)>40 && Math.abs(dx)>Math.abs(dy)*1.2){
-      moveGallery(dx<0?1:-1);
-      syncImageViewer();
-    }
-  },{passive:true});
-})();
-</script>
+
+<style id="os-product-info-order-v1">
+/* Product page hierarchy: image, model/storage/colour title, colour choices, Our Store status. */
+#product .productHero{grid-template-columns:minmax(0,1fr)!important;gap:12px!important;align-items:stretch!important}
+#product .productHero>.productVisual{grid-row:1}
+#product .productHero>.osProductInfo{grid-row:2;padding:18px!important;border:1px solid #e2e8e1;border-radius:22px;background:#fff;box-shadow:0 7px 22px rgba(28,48,34,.045)}
+#product #pname{font-size:clamp(20px,5.2vw,27px)!important;line-height:1.3!important;letter-spacing:-.45px!important;margin:0 0 14px!important;overflow-wrap:anywhere}
+#product .osAvailableColors{margin:0 0 14px}
+#product .osAvailableColors>b{display:block;font-size:14px;color:#33463a}
+#product .osColorChoices{display:flex;flex-wrap:wrap;gap:8px;overflow:visible}
+#product .osColorChoices .variant{min-width:68px;text-align:center}
+#product .osStoreStatus{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+#product .osStoreStatus .tag{margin:0;background:#edf3ed;border:1px solid #dce7dc;color:#315b4b;border-radius:999px;padding:6px 10px;font-size:11px;font-weight:700}
+#product .osProductInfo>.muted{margin:0 0 8px}
+#product .osStorageCard{margin-top:12px!important}
+#product .osStorageChoices{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+#product .osStorageChoices::-webkit-scrollbar{display:none}
+@media(min-width:700px){#product .productHero{grid-template-columns:minmax(320px,min(48%,560px)) minmax(0,1fr)!important;align-items:start!important;gap:24px!important}#product .productHero>.osProductInfo{grid-row:1;padding:24px!important}}
+</style>
 </body></html>
+<style id="os-gallery-click-to-view-only">
+/* Product page: show one clean main image only. All gallery controls and
+   alternate views are available inside the full-screen viewer after a tap. */
+#product .osGalleryThumbs,
+#product #osGalleryNote,
+#product .osGalleryCount,
+#product .osGalleryArrow,
+#product .osGallery360{display:none!important}
+#product .osGalleryStage{cursor:zoom-in;position:relative!important}
+#product .osGalleryStage #productDetailImage{cursor:zoom-in}
+#osImageViewer .osGalleryCount,
+#osImageViewer #osViewerCount{display:block!important}
+#osImageViewer #osViewer360Button{display:inline-flex!important}
+</style>
