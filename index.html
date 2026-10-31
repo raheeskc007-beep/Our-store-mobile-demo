@@ -1532,9 +1532,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
 @media(min-width:900px){.bottom button{display:flex;flex-direction:column;align-items:center;gap:3px}.bottom button span{display:block}}
 </style>
 
-<style id="os-bottom-nav-eight-items-final">
+<style id="os-bottom-nav-seven-items-final">
 @media(max-width:899px){
-  .bottom.os-bottom-nav{display:grid!important;grid-template-columns:repeat(8,minmax(0,1fr))!important;align-items:center;gap:0!important;overflow:hidden!important;width:100%;box-sizing:border-box;padding:7px 2px calc(7px + env(safe-area-inset-bottom))!important}
+  .bottom.os-bottom-nav{display:grid!important;grid-template-columns:repeat(7,minmax(0,1fr))!important;align-items:center;gap:0!important;overflow:hidden!important;width:100%;box-sizing:border-box;padding:7px 2px calc(7px + env(safe-area-inset-bottom))!important}
   .bottom.os-bottom-nav button{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;min-width:0!important;width:100%!important;max-width:100%!important;flex:none!important;padding:7px 0!important;gap:3px!important;font-size:8px!important;line-height:1.05!important;white-space:nowrap!important;overflow:visible!important}
   .bottom.os-bottom-nav button span{display:block!important;font-size:8px!important;letter-spacing:-.35px!important}
   .bottom.os-bottom-nav button .navIcon{font-size:15px!important;line-height:1!important}
@@ -1556,9 +1556,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
   <button onclick="go('home')">⌂ <span>Home</span></button>
   <button onclick="catalog('Mobiles')">▢ <span>Shop</span></button>
   <button onclick="go('find')">⌕ <span>Find My Device</span></button>
-  <button onclick="go('compare')">⇄ <span>Compare</span></button>
-  <button onclick="catalog('Mobiles')">✦ <span>New Launch</span></button>
-  <button onclick="go('exchange')">⇆ <span>Exchange</span></button>
+    <button onclick="catalog('Mobiles')">✦ <span>New Launch</span></button>
+  <button onclick="go('exchange')">💰 <span>Sell</span></button>
   <button onclick="catalog('Mobiles')">◇ <span>Offers</span></button>
   <button onclick="go('wallet')">▱ <span>Wallet</span></button>
   <button onclick="go('profile')">□ <span>Orders / Profile</span></button>
@@ -1599,7 +1598,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
 <section id="osLatestSection" class="homeSection osAddedProductSection" style="margin:22px 0"><div class="osSectionHead"><h3>Latest Products</h3><button class="osViewAll" onclick="catalog('Mobiles')">View All →</button></div><div id="osLatestRow" class="osAddedProductRow"></div></section>
 
 
-<section class="osPromoGrid" aria-label="Explore Our Store"><button class="osPromoCard osPromoBlue" onclick="catalog('Mobiles')" type="button"><span class="osPromoLabel">DISCOVER</span><b>Smartphones<br>that fit you.</b><span class="osPromoAction">Explore mobiles <strong>→</strong></span><span class="osPromoArt osPromoPhone" aria-hidden="true"></span></button><button class="osPromoCard osPromoGold" onclick="catalog('Laptops')" type="button"><span class="osPromoLabel">WORK · CREATE · PLAY</span><b>Power up your<br>everyday.</b><span class="osPromoAction">Explore laptops <strong>→</strong></span><span class="osPromoArt osPromoLaptop" aria-hidden="true"></span></button></section>
+<!-- Removed redundant Smartphones / Laptops promo cards as requested. -->
 
 <section id="popularBrands" class="homeSection" style="margin:22px 0">
   <div class="osSectionHead"><h3>Popular Brands</h3><button class="osViewAll" onclick="catalog('Mobiles')">View All →</button></div>
@@ -1737,7 +1736,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
 
 <div id="exchange" class="screen"><div class="content">
 <button class="back" onclick="go('home')">← Home</button>
-<h2>Exchange</h2>
+<h2>Sell Your Device</h2>
 <p class="muted">Complete the device checks first. Your demo estimate appears only after the review.</p>
 <div class="exProgress" id="exProgress"></div>
 
@@ -1951,8 +1950,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
 <button type="button" onclick="go('home')"><span class="navIcon">🏠</span><span>Home</span></button>
 <button type="button" class="shopNavLink" onclick="catalog('Mobiles')"><span class="navIcon">🔎</span><span>Shop</span></button>
 <button type="button" onclick="go('cart')"><span class="navIcon">🛒</span><span>Cart</span></button>
-<button type="button" onclick="go('compare')"><span class="navIcon">⇄</span><span>Compare</span></button>
-<button type="button" onclick="go('exchange')"><span class="navIcon">🔄</span><span>Exchange</span></button>
+<button type="button" onclick="go('exchange')"><span class="navIcon">💰</span><span>Sell</span></button>
 <button type="button" onclick="go('videoReviews')"><span class="navIcon">🎥</span><span>Reviews</span></button>
 <button type="button" onclick="openNewLaunches()"><span class="navIcon">🆕</span><span>Launches</span></button>
 <button type="button" onclick="openNews()"><span class="navIcon">📰</span><span>News</span></button>
