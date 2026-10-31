@@ -3115,6 +3115,23 @@ if ('serviceWorker' in navigator && location.protocol === 'https:') {
  #osImageViewer>div>div:nth-of-type(2){height:min(62dvh,680px)!important;max-height:680px!important}
 }
 </style>
+
+<style id="os-universal-product-detail-layout">
+/* One consistent product-detail and image-viewer layout for every model. */
+#product .productHero{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:16px!important}
+#product .productVisual{width:100%!important;min-width:0!important;height:auto!important;padding:0!important;background:transparent!important}
+#product .osGalleryStage{width:100%!important;height:clamp(280px,78vw,390px)!important;min-height:0!important;max-height:390px!important;position:relative!important;overflow:hidden!important;border-radius:24px!important;background:radial-gradient(ellipse at 50% 38%,#fff 0%,#f4f6f3 58%,#e7ede7 100%)!important;border:1px solid #e1e8e1!important;box-shadow:0 8px 24px rgba(30,50,38,.07)!important;touch-action:pan-y!important}
+#product .osGalleryStage #productDetailImage{display:block!important;width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;object-fit:contain!important;object-position:center!important;padding:clamp(12px,4vw,28px)!important;box-sizing:border-box!important}
+#product .osGalleryThumbs,#product #osGalleryNote{display:none!important}
+#product .osGalleryArrow{display:none!important}
+#product .osGalleryCount{top:12px!important;right:12px!important;z-index:2!important}
+#product .osGallery360{right:12px!important;bottom:12px!important;z-index:2!important}
+#osImageViewer{z-index:9999!important}
+#osImageViewer #osViewerImage{object-fit:contain!important}
+@media(max-width:380px){#product .osGalleryStage{height:270px!important;border-radius:20px!important}}
+@media(min-width:700px){#product .productHero{grid-template-columns:minmax(320px, min(48%,560px)) minmax(0,1fr)!important;align-items:start!important;gap:24px!important}#product .osGalleryStage{height:min(46vw,480px)!important;max-height:480px!important}}
+</style>
+
 </body></html>
 <style id="os-gallery-click-to-view-only">
 /* Keep product details clean: show only the main product photo on the page.
