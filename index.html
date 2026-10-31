@@ -1523,12 +1523,24 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
 </style>
 
 
-<style id="os-six-item-bottom-navigation">
-/* Keep all discovery shortcuts adjacent to Home / Shop / Cart on mobile. */
-.osBottomNav{display:flex;align-items:stretch;justify-content:space-around;gap:2px;}
-.osBottomNav button{flex:1 1 0;min-width:0;padding:7px 2px;font-size:10px;white-space:normal;overflow-wrap:anywhere;}
-@media(max-width:380px){.osBottomNav button{font-size:9px;padding-left:1px;padding-right:1px;}}
-@media(min-width:900px){.osBottomNav button{flex:0 1 110px;font-size:12px;padding:10px 6px;}}
+<style id="os-seven-item-bottom-nav">
+@media(max-width:899px){
+  .bottom{display:grid!important;grid-template-columns:repeat(7,minmax(0,1fr));gap:0!important;overflow:visible!important;padding:6px 2px calc(6px + env(safe-area-inset-bottom))!important}
+  .bottom button{min-width:0!important;flex:initial!important;padding:6px 1px!important;gap:3px!important;font-size:9px!important;white-space:nowrap;line-height:1.1!important}
+  .bottom button span{display:block;font-size:9px;letter-spacing:-.2px}
+}
+@media(min-width:900px){.bottom button{display:flex;flex-direction:column;align-items:center;gap:3px}.bottom button span{display:block}}
+</style>
+
+<style id="os-bottom-nav-eight-items-final">
+@media(max-width:899px){
+  .bottom.os-bottom-nav{display:grid!important;grid-template-columns:repeat(8,minmax(0,1fr))!important;align-items:center;gap:0!important;overflow:hidden!important;width:100%;box-sizing:border-box;padding:7px 2px calc(7px + env(safe-area-inset-bottom))!important}
+  .bottom.os-bottom-nav button{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;min-width:0!important;width:100%!important;max-width:100%!important;flex:none!important;padding:7px 0!important;gap:3px!important;font-size:8px!important;line-height:1.05!important;white-space:nowrap!important;overflow:visible!important}
+  .bottom.os-bottom-nav button span{display:block!important;font-size:8px!important;letter-spacing:-.35px!important}
+  .bottom.os-bottom-nav button .navIcon{font-size:15px!important;line-height:1!important}
+  .bottom.os-bottom-nav button:first-child{background:#e8edf3!important;color:#203653!important;border-radius:10px}
+}
+@media(min-width:900px){.bottom.os-bottom-nav{display:flex;justify-content:space-around}.bottom.os-bottom-nav button{display:flex;flex-direction:column;align-items:center;gap:4px}.bottom.os-bottom-nav button span{display:block}}
 </style>
 
 </head>
@@ -1600,7 +1612,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
 
 
 <section id="featuredSection" class="homeSection" style="margin:22px 0"><div class="osSectionHead"><h3>Featured Products</h3><button class="osViewAll" onclick="catalog('Mobiles')">View All →</button></div><div id="featured"></div></section>
-<!-- These discovery options now live beside the main bottom navigation. -->
+<!-- Home shortcuts are kept in the bottom navigation to avoid repeating large buttons here. -->
 <div id="newsModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:999;align-items:flex-end;padding:14px">
   <div style="background:#fff;border-radius:24px;padding:20px;width:100%;max-width:520px;margin:auto;max-height:85vh;overflow:auto">
     <button class="back" onclick="closeNews()">← Back</button>
@@ -1930,13 +1942,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
 </div>
 </div></div></div>
 
-<div class="bottom osBottomNav">
-<button type="button" onclick="go('home')">🏠<br>Home</button>
-<button type="button" class="shopNavLink" onclick="catalog('Mobiles')">🔎<br>Shop</button>
-<button type="button" onclick="go('cart')">🛒<br>Cart</button>
-<button type="button" onclick="go('videoReviews')">🎥<br>Reviews</button>
-<button type="button" onclick="openNewLaunches()">🆕<br>Launches</button>
-<button type="button" onclick="openNews()">📰<br>News</button>
+<div class="bottom os-bottom-nav" aria-label="Main navigation">
+<button type="button" onclick="go('home')"><span class="navIcon">🏠</span><span>Home</span></button>
+<button type="button" class="shopNavLink" onclick="catalog('Mobiles')"><span class="navIcon">🔎</span><span>Shop</span></button>
+<button type="button" onclick="go('cart')"><span class="navIcon">🛒</span><span>Cart</span></button>
+<button type="button" onclick="go('compare')"><span class="navIcon">⇄</span><span>Compare</span></button>
+<button type="button" onclick="go('exchange')"><span class="navIcon">🔄</span><span>Exchange</span></button>
+<button type="button" onclick="go('videoReviews')"><span class="navIcon">🎥</span><span>Reviews</span></button>
+<button type="button" onclick="openNewLaunches()"><span class="navIcon">🆕</span><span>Launches</span></button>
+<button type="button" onclick="openNews()"><span class="navIcon">📰</span><span>News</span></button>
 </div>
 </div>
 <script>
