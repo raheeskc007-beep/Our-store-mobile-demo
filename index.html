@@ -3066,6 +3066,55 @@ if ('serviceWorker' in navigator && location.protocol === 'https:') {
 })();
 </script>
 
+
+<style id="os-image-viewer-mobile-size-fix">
+/* Full-screen image viewer: fit the phone screen without clipping controls. */
+#osImageViewer{
+  box-sizing:border-box!important;
+  padding:calc(58px + env(safe-area-inset-top)) 12px calc(14px + env(safe-area-inset-bottom))!important;
+  overflow-y:auto!important;
+  overscroll-behavior:contain;
+}
+#osImageViewer>div{
+  width:min(100%,620px)!important;
+  max-height:100%!important;
+  min-height:0!important;
+  gap:10px!important;
+  justify-content:center!important;
+}
+#osImageViewer #osViewerCount{flex:0 0 auto;font-size:14px!important;line-height:1.2}
+#osImageViewer #osViewerImage{
+  display:block;
+  width:100%!important;height:100%!important;
+  max-width:100%!important;max-height:100%!important;
+  object-fit:contain!important;
+  padding:8px!important;
+  box-sizing:border-box!important;
+}
+#osImageViewer>div>div:nth-of-type(2){
+  height:min(54dvh,520px)!important;
+  min-height:230px!important;
+  max-height:520px!important;
+  flex:0 1 auto!important;
+  width:100%!important;
+  border-radius:20px!important;
+  background:radial-gradient(ellipse at center,#343941 0%,#17191e 68%,#0d0e11 100%)!important;
+}
+#osImageViewer #osViewerLabel{font-size:15px!important;line-height:1.2;margin-top:1px}
+#osImageViewer #osViewer360Button,#osImageViewer button[onclick="closeImageViewer()"]{min-height:44px;padding:10px 16px!important}
+#osImageViewer>div>div:last-child{font-size:10px!important;line-height:1.35;max-width:340px}
+#osImageViewer>button[aria-label="Close image viewer"]{top:calc(8px + env(safe-area-inset-top))!important;right:12px!important;width:42px!important;height:42px!important}
+@media(max-height:700px){
+ #osImageViewer{padding-top:calc(52px + env(safe-area-inset-top))!important}
+ #osImageViewer>div{gap:7px!important}
+ #osImageViewer>div>div:nth-of-type(2){height:48dvh!important;min-height:190px!important}
+ #osImageViewer>div>div:last-child{display:none}
+}
+@media(min-width:700px){
+ #osImageViewer{padding:54px 24px 24px!important}
+ #osImageViewer>div>div:nth-of-type(2){height:min(62dvh,680px)!important;max-height:680px!important}
+}
+</style>
 </body></html>
 <style id="os-gallery-click-to-view-only">
 /* Keep product details clean: show only the main product photo on the page.
