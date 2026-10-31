@@ -3067,3 +3067,11 @@ if ('serviceWorker' in navigator && location.protocol === 'https:') {
 </script>
 
 </body></html>
+<style id="os-gallery-click-to-view-only">
+/* Keep product details clean: show only the main product photo on the page.
+   Alternate-angle previews appear only after the customer taps the main image. */
+#product .osGalleryThumbs,
+#product #osGalleryNote{display:none!important}
+#product .osGalleryStage{cursor:zoom-in}
+#product .osGalleryStage #productDetailImage{cursor:zoom-in}
+</style>
