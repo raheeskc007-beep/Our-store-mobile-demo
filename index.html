@@ -1522,6 +1522,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
 @media(min-width:900px){#osOffersSection .osOfferBanner{flex-basis:360px;min-height:200px}}
 </style>
 
+
+<style id="os-six-item-bottom-navigation">
+/* Keep all discovery shortcuts adjacent to Home / Shop / Cart on mobile. */
+.osBottomNav{display:flex;align-items:stretch;justify-content:space-around;gap:2px;}
+.osBottomNav button{flex:1 1 0;min-width:0;padding:7px 2px;font-size:10px;white-space:normal;overflow-wrap:anywhere;}
+@media(max-width:380px){.osBottomNav button{font-size:9px;padding-left:1px;padding-right:1px;}}
+@media(min-width:900px){.osBottomNav button{flex:0 1 110px;font-size:12px;padding:10px 6px;}}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -1591,10 +1600,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
 
 
 <section id="featuredSection" class="homeSection" style="margin:22px 0"><div class="osSectionHead"><h3>Featured Products</h3><button class="osViewAll" onclick="catalog('Mobiles')">View All →</button></div><div id="featured"></div></section>
-<!-- Removed per approved home layout: Find My Device / Compare / Exchange feature-card row. -->
-<button class="btn" style="width:100%;margin-top:12px" onclick="go('videoReviews')">🎥 Video Reviews</button>
-<button class="btn" style="width:100%;margin:12px 0" onclick="openNewLaunches()">🆕 New Launches</button>
-<button class="btn" style="width:100%;margin:12px 0" onclick="openNews()">📰 News</button>
+<!-- These discovery options now live beside the main bottom navigation. -->
 <div id="newsModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:999;align-items:flex-end;padding:14px">
   <div style="background:#fff;border-radius:24px;padding:20px;width:100%;max-width:520px;margin:auto;max-height:85vh;overflow:auto">
     <button class="back" onclick="closeNews()">← Back</button>
@@ -1924,7 +1930,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
 </div>
 </div></div></div>
 
-<div class="bottom"><button type="button" onclick="go('home')">🏠<br>Home</button><button type="button" class="shopNavLink" onclick="catalog('Mobiles')">🔎<br>Shop</button><button type="button" onclick="go('cart')">🛒<br>Cart</button></div>
+<div class="bottom osBottomNav">
+<button type="button" onclick="go('home')">🏠<br>Home</button>
+<button type="button" class="shopNavLink" onclick="catalog('Mobiles')">🔎<br>Shop</button>
+<button type="button" onclick="go('cart')">🛒<br>Cart</button>
+<button type="button" onclick="go('videoReviews')">🎥<br>Reviews</button>
+<button type="button" onclick="openNewLaunches()">🆕<br>Launches</button>
+<button type="button" onclick="openNews()">📰<br>News</button>
+</div>
 </div>
 <script>
 const data=[
