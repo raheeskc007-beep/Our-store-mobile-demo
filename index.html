@@ -3134,10 +3134,16 @@ if ('serviceWorker' in navigator && location.protocol === 'https:') {
 
 </body></html>
 <style id="os-gallery-click-to-view-only">
-/* Keep product details clean: show only the main product photo on the page.
-   Alternate-angle previews appear only after the customer taps the main image. */
+/* Product page: show one clean main image only. All gallery controls and
+   alternate views are available inside the full-screen viewer after a tap. */
 #product .osGalleryThumbs,
-#product #osGalleryNote{display:none!important}
-#product .osGalleryStage{cursor:zoom-in}
+#product #osGalleryNote,
+#product .osGalleryCount,
+#product .osGalleryArrow,
+#product .osGallery360{display:none!important}
+#product .osGalleryStage{cursor:zoom-in;position:relative!important}
 #product .osGalleryStage #productDetailImage{cursor:zoom-in}
+#osImageViewer .osGalleryCount,
+#osImageViewer #osViewerCount{display:block!important}
+#osImageViewer #osViewer360Button{display:inline-flex!important}
 </style>
