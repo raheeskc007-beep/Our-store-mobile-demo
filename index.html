@@ -1650,63 +1650,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
 }
 </style>
 
-
-<style id="os-product-details-standard-v1">
-/* Consistent, responsive product-detail system. Scoped to the product screen only. */
-#product{width:100%;}
-#product .content{width:100%;max-width:1120px!important;margin:0 auto!important;padding:clamp(14px,2.4vw,28px) clamp(14px,3vw,30px) calc(150px + env(safe-area-inset-bottom))!important;background:#f5f7f4!important;}
-#product .back{margin:0 0 14px!important;font-size:14px!important;min-height:38px;}
-#product .productHero{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:12px!important;align-items:stretch!important;margin:0 0 14px!important;}
-#product .productVisual{width:100%;min-width:0!important;}
-#product .osGalleryStage{width:100%!important;height:clamp(270px,76vw,430px)!important;max-height:430px!important;border-radius:24px!important;overflow:hidden!important;background:linear-gradient(145deg,#fff 0%,#f2f6f1 100%)!important;border:1px solid #e2e9e1!important;box-shadow:0 5px 18px rgba(29,54,38,.055)!important;}
-#product .osGalleryStage #productDetailImage{width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;object-fit:contain!important;padding:clamp(10px,3vw,22px)!important;filter:none!important;}
-#product .osProductInfo{min-width:0!important;padding:clamp(17px,3vw,24px)!important;border:1px solid #e1e8e0!important;border-radius:22px!important;background:#fff!important;box-shadow:0 4px 16px rgba(25,45,32,.035)!important;}
-#product #pname{margin:0 0 14px!important;color:#1e2d24!important;font-size:clamp(21px,4.4vw,30px)!important;line-height:1.22!important;letter-spacing:-.55px!important;font-weight:780!important;overflow-wrap:anywhere!important;}
-#product .osAvailableColors{margin:0 0 10px!important;}
-#product .osAvailableColors>b{display:block!important;margin:0 0 9px!important;color:#405247!important;font-size:15px!important;font-weight:750!important;}
-#product .osColorChoices{display:grid!important;grid-template-columns:repeat(auto-fit,minmax(58px,1fr))!important;gap:7px!important;width:100%!important;padding:2px 1px 5px!important;overflow:visible!important;}
-#product .osColorChoices .variant{display:flex!important;min-width:0!important;max-width:none!important;min-height:70px!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:6px!important;padding:8px 4px!important;border:1px solid #e0e6e0!important;border-radius:15px!important;background:#f9fbf9!important;color:#304137!important;font-size:clamp(10px,2.8vw,12px)!important;line-height:1.15!important;font-weight:700!important;text-align:center!important;white-space:normal!important;}
-#product .osColorChoices .variant.active{border:2px solid #2f6b4f!important;background:#eff6f0!important;box-shadow:0 0 0 2px rgba(47,107,79,.09)!important;}
-#product .osColorChoices .osColorDot{width:17px!important;height:17px!important;flex:0 0 17px!important;}
-#product #pprice{display:block!important;margin:12px 0 0!important;color:#17271e!important;font-size:clamp(27px,5vw,34px)!important;line-height:1.15!important;font-weight:820!important;letter-spacing:-.8px!important;}
-#product .card{width:100%!important;min-width:0!important;margin:13px 0!important;padding:clamp(16px,2.8vw,22px)!important;border:1px solid #e0e7e0!important;border-radius:21px!important;background:#fff!important;box-shadow:0 4px 16px rgba(25,45,32,.035)!important;}
-#product .card h3{margin:0 0 14px!important;color:#22342a!important;font-size:clamp(18px,3.5vw,22px)!important;line-height:1.25!important;font-weight:780!important;}
-#product .osStorageCard>b{display:block!important;margin:0 0 12px!important;color:#263a2e!important;font-size:18px!important;font-weight:780!important;}
-#product .osStorageChoices{display:flex!important;flex-wrap:wrap!important;gap:9px!important;overflow:visible!important;}
-#product .osStorageChoices .variant{min-width:86px!important;min-height:48px!important;padding:11px 15px!important;border:1px solid #dfe6df!important;border-radius:14px!important;background:#f8faf8!important;color:#34463b!important;font-size:14px!important;font-weight:750!important;}
-#product .osStorageChoices .variant.active{border:2px solid #263d59!important;background:#eef2f7!important;box-shadow:0 0 0 2px rgba(38,61,89,.08)!important;}
-#product #variantSummary{display:none!important;}
-#product .osInlineBuy{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:8px!important;margin:18px 0 0!important;}
-#product .osInlineBuy .btn{width:100%!important;min-width:0!important;min-height:50px!important;margin:0!important;padding:9px 5px!important;border-radius:14px!important;font-size:clamp(10px,2.8vw,14px)!important;line-height:1.15!important;font-weight:780!important;white-space:normal!important;overflow-wrap:anywhere!important;}
-#product .osInlineBuy .btn:first-child{background:#176b45!important;color:#fff!important;border:1px solid #176b45!important;}
-#product .osInlineBuy .btn:nth-child(2){background:#16834f!important;color:#fff!important;border:1px solid #16834f!important;}
-#product .osInlineBuy .btn:nth-child(3){background:#eef1f5!important;color:#263a57!important;border:1px solid #d8e0ea!important;}
-#product .osKeyFeaturesCard .specGrid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important;}
-#product .osKeyFeaturesCard .specItem{min-width:0!important;min-height:76px!important;padding:13px!important;border:1px solid #e0e6ed!important;border-radius:16px!important;background:#f3f5f8!important;color:#26382e!important;overflow-wrap:anywhere!important;}
-#product .osKeyFeaturesCard .specItem small{display:block!important;margin:0 0 5px!important;color:#78847d!important;font-size:12px!important;font-weight:650!important;}
-#product .osShowMoreBtn{display:block!important;margin:12px 0 0 auto!important;padding:9px 2px!important;color:#176b45!important;font-size:14px!important;font-weight:780!important;}
-#product #fullSpecificationsCard[hidden]{display:none!important;}
-#product #fullSpecificationsCard:not([hidden]){display:block!important;}
-#product .osOffersCard{margin-top:13px!important;}
-#product .osOfferItem{display:flex!important;gap:12px!important;padding:13px 0!important;border-top:1px solid #e9eeea!important;}
-#product .osOfferItem p{font-size:13px!important;line-height:1.5!important;}
-#product .stickyBuy{display:none!important;}
-#product .card p{line-height:1.55!important;}
-@media(min-width:760px){
- #product .productHero{grid-template-columns:minmax(0,1.08fr) minmax(320px,.92fr)!important;gap:20px!important;align-items:start!important;}
- #product .osGalleryStage{height:min(48vw,500px)!important;}
- #product .osProductInfo{position:sticky;top:18px;}
- #product .osKeyFeaturesCard .specGrid{grid-template-columns:repeat(3,minmax(0,1fr))!important;}
-}
-@media(max-width:390px){
- #product .content{padding-left:12px!important;padding-right:12px!important;}
- #product .osColorChoices{gap:5px!important;grid-template-columns:repeat(auto-fit,minmax(52px,1fr))!important;}
- #product .osColorChoices .variant{min-height:66px!important;padding:7px 2px!important;font-size:10px!important;}
- #product .osInlineBuy{gap:5px!important;}
- #product .osInlineBuy .btn{font-size:10px!important;padding:8px 3px!important;}
-}
-</style>
-
 </head>
 <body>
 <div class="app">
@@ -1879,29 +1822,41 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
 
 <div id="catalog" class="screen"><div class="content"><button class="back" onclick="go('home')">← Home</button><h2 id="catTitle">Products</h2><div class="card osV16ShopTools"><input id="shopSearch" class="search" placeholder="Search products or brands..." oninput="filterShopProducts()" autocomplete="off" aria-label="Search products or brands"><div class="osV19FilterRow"><label for="shopBrandFilter">Brand</label><select id="shopBrandFilter" onchange="filterShopProducts()" aria-label="Filter by brand"><option value="All">All brands</option></select><label for="shopCategoryFilter">Category</label><select id="shopCategoryFilter" onchange="setShopCategory(this.value)" aria-label="Filter by category"><option>Mobiles</option><option>Laptops</option><option>Tablets</option><option>Accessories</option></select></div><div class="osV16QuickFilters"><button class="chip active" onclick="setShopSort('featured',this)">Featured</button><button class="chip" onclick="setShopSort('priceLow',this)">Price: Low to High</button><button class="chip" onclick="setShopSort('priceHigh',this)">Price: High to Low</button></div></div><div class="row" style="margin-bottom:10px"><button class="chip" onclick="brandCatalog('All')">All</button><button class="chip" onclick="brandCatalog('Apple')">Apple</button><button class="chip" onclick="brandCatalog('Samsung')">Samsung</button><button class="chip" onclick="brandCatalog('OnePlus')">OnePlus</button><button class="chip" onclick="brandCatalog('Xiaomi')">Xiaomi</button><button class="chip" onclick="brandCatalog('Vivo')">Vivo</button><button class="chip" onclick="brandCatalog('OPPO')">OPPO</button><button class="chip" onclick="brandCatalog('Google')">Google</button><button class="chip" onclick="brandCatalog('Realme')">Realme</button><button class="chip" onclick="brandCatalog('Motorola')">Motorola</button></div><div id="products"></div></div></div>
 
-<div id="product" class="screen"><div class="content"><button class="back" onclick="go('catalog')">← Products</button><div class="productHero"><div class="productVisual"><div class="osGalleryStage" id="osGalleryStage"><span class="osGalleryCount" id="osGalleryCount">1 / 8</span><button class="osGalleryArrow prev" onclick="moveGallery(-1)" aria-label="Previous image">‹</button><img id="productDetailImage" src="" alt="Phone product image" onclick="openImageViewer(false)" role="button" tabindex="0" aria-label="Open full-screen product image" loading="eager" decoding="async" style="width:100%;height:100%;object-fit:contain;padding:12px;box-sizing:border-box" onerror="this.onerror=null;this.src='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 220 300%22%3E%3Crect width=%22220%22 height=%22300%22 rx=%2228%22 fill=%22%23eef2f7%22/%3E%3Crect x=%2250%22 y=%2225%22 width=%22120%22 height=%22245%22 rx=%2220%22 fill=%22%23dce4ef%22 stroke=%22%2399a8bb%22 stroke-width=%224%22/%3E%3C/svg%3E'"><button class="osGalleryArrow next" onclick="moveGallery(1)" aria-label="Next image">›</button><button class="osGallery360" id="osGallery360" onclick="openImageViewer(true)">↻ 360° Preview</button></div><div class="osGalleryThumbs" id="osGalleryThumbs"></div><p class="muted" id="osGalleryNote" style="font-size:11px;margin:8px 2px 0">Product image preview · alternate angles are visual previews</p></div><div class="osProductInfo"><h2 id="pname"></h2><div class="osAvailableColors"><b>Colours</b><div class="variantRow osColorChoices" id="osColorChoices" style="margin-top:9px"></div></div><div class="price" id="pprice"></div></div></div><div class="card osStorageCard"><b>Storage</b><div class="variantRow osStorageChoices" style="margin-top:10px"><button class="variant" data-storage="8/128 GB" onclick="selectVariant(this,'storage')">8/128 GB</button><button class="variant" data-storage="8/256 GB" onclick="selectVariant(this,'storage')">8/256 GB</button><button class="variant active" data-storage="12/256 GB" onclick="selectVariant(this,'storage')">12/256 GB</button><button class="variant" data-storage="12/512 GB" onclick="selectVariant(this,'storage')">12/512 GB</button><button class="variant" data-storage="16/512 GB" onclick="selectVariant(this,'storage')">16/512 GB</button></div><p class="muted" id="variantSummary" style="margin:10px 0 0">Selected storage: 256 GB</p><div class="osInlineBuy"><button type="button" class="btn alt" onclick="buyNow()">Buy Now</button><button type="button" class="btn" onclick="addCart()">🛒 Add to Cart</button><button type="button" class="btn alt" onclick="addCurrentProductToCompare()">⚖️ Add to Compare</button></div></div><div class="card osKeyFeaturesCard"><div class="osKeyFeaturesHeader"><h3>Key Features</h3></div><div class="specGrid"><div class="specItem"><small>Display</small>6.7″ AMOLED</div><div class="specItem"><small>Network</small>5G</div><div class="specItem"><small>Memory</small>12 GB RAM</div><div class="specItem"><small>Storage</small>256 GB</div><div class="specItem"><small>Camera</small>50 MP main</div><div class="specItem"><small>Warranty</small>Our Store warranty</div></div><button type="button" class="osShowMoreBtn" id="osShowMoreSpecs" onclick="toggleFullSpecifications()" aria-expanded="false" aria-controls="fullSpecificationsCard">Show More</button></div>
-<div class="card" id="fullSpecificationsCard" hidden><h3>Full Specifications</h3><div class="specList" id="fullSpecs"><div class="specRow"><span>Brand</span><b id="specBrand">—</b></div><div class="specRow"><span>Category</span><b id="specCategory">—</b></div><div class="specRow"><span>Display</span><b id="specDisplay">6.7″ AMOLED · demo</b></div><div class="specRow"><span>Chipset</span><b id="specChip">—</b></div><div class="specRow"><span>RAM / Storage</span><b id="specMemory">—</b></div><div class="specRow"><span>Main camera</span><b id="specCamera">50 MP · demo</b></div><div class="specRow"><span>Front camera</span><b id="specFront">—</b></div><div class="specRow"><span>Battery</span><b id="specBattery">—</b></div><div class="specRow"><span>Network</span><b id="specNetwork">5G</b></div><div class="specRow"><span>OS</span><b id="specOS">—</b></div><div class="specRow"><span>Warranty</span><b>Our Store warranty</b></div></div><p class="muted" style="margin-bottom:0">Demo specification data. Final specifications can be connected to verified product data later.</p></div>
-<div class="card osOffersCard" id="productOffers">
-  <h3>Bank &amp; Special Offers</h3>
-  <div class="osOfferItem">
-    <div class="osOfferIcon">🏦</div>
-    <div><b>Bank Offers</b><p>Eligible bank promotions and instant discounts will be shown here when available for this product.</p></div>
+<div id="product" class="screen"><div class="content">
+<button class="back" onclick="go('catalog')">← Products</button>
+<div class="productHero">
+  <div class="productVisual"><div class="osGalleryStage" id="osGalleryStage">
+    <span class="osGalleryCount" id="osGalleryCount">1 / 8</span>
+    <button class="osGalleryArrow prev" onclick="moveGallery(-1)" aria-label="Previous image">‹</button>
+    <img id="productDetailImage" src="" alt="Phone product image" onclick="openImageViewer(false)" role="button" tabindex="0" aria-label="Open product images" loading="eager" decoding="async" style="width:100%;height:100%;object-fit:contain;padding:12px;box-sizing:border-box" onerror="this.onerror=null;this.src='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 220 300%22%3E%3Crect width=%22220%22 height=%22300%22 rx=%2228%22 fill=%22%23eef2f7%22/%3E%3Crect x=%2250%22 y=%2225%22 width=%22120%22 height=%22245%22 rx=%2220%22 fill=%22%23dce4ef%22 stroke=%22%2399a8bb%22 stroke-width=%224%22/%3E%3C/svg%3E'">
+    <button class="osGalleryArrow next" onclick="moveGallery(1)" aria-label="Next image">›</button>
+    <button class="osGallery360" id="osGallery360" onclick="openImageViewer(true)">↻ 360° Preview</button>
+  </div><div class="osGalleryThumbs" id="osGalleryThumbs"></div><p class="muted" id="osGalleryNote">Product image preview</p></div>
+  <div class="osProductInfo"><h2 id="pname"></h2>
+    <div class="osAvailableColors"><b>Colours</b><div class="variantRow osColorChoices" id="osColorChoices" style="margin-top:9px"></div></div>
+    <div class="price" id="pprice"></div>
   </div>
-  <div class="osOfferItem">
-    <div class="osOfferIcon">💳</div>
-    <div><b>Credit &amp; Debit Card Offers</b><p>Check eligible credit-card and debit-card discounts, cashback and card-specific promotions at checkout. Bank, card type and minimum transaction rules may apply.</p></div>
-  </div>
-  <div class="osOfferItem">
-    <div class="osOfferIcon">📆</div>
-    <div><b>Bajaj Finserv EMI Offers</b><p>EMI options may be available on eligible products through Bajaj Finserv. Tenure, down payment, interest or no-cost EMI benefits depend on the active scheme and customer eligibility.</p></div>
-  </div>
-  <div class="osOfferItem">
-    <div class="osOfferIcon">✨</div>
-    <div><b>Special Offers</b><p>Applicable exchange benefits, limited-period promotions and selected accessory deals will appear here when active.</p></div>
-  </div>
-  <p class="osOffersNote">Offer amounts, validity, participating banks and eligibility are subject to confirmation at checkout. No discount is applied until an eligible offer is selected.</p>
 </div>
-<div class="card"><h3>What's in the box</h3><p>📦 Device</p><p>🔌 Charging accessories (as applicable)</p><p>📄 Documentation</p></div><div class="card"><h3>Exchange</h3><p class="muted">Have an old device? Check its condition and get an estimated exchange value.</p><button class="btn alt" onclick="exchange()">🔄 Check Exchange Value</button></div><div class="stickyBuy"><button class="btn" onclick="addCart()">🛒 Add to Cart</button><button class="btn alt" onclick="buyNow()">Buy Now</button><button class="btn alt" onclick="addCurrentProductToCompare()">⚖️ Add to Compare</button></div>
+<div class="card osStorageCard"><b>Storage</b>
+  <div class="variantRow osStorageChoices" style="margin-top:10px"><button class="variant" data-storage="8/128 GB" onclick="selectVariant(this,'storage')">8/128 GB</button><button class="variant" data-storage="8/256 GB" onclick="selectVariant(this,'storage')">8/256 GB</button><button class="variant active" data-storage="12/256 GB" onclick="selectVariant(this,'storage')">12/256 GB</button><button class="variant" data-storage="12/512 GB" onclick="selectVariant(this,'storage')">12/512 GB</button><button class="variant" data-storage="16/512 GB" onclick="selectVariant(this,'storage')">16/512 GB</button></div>
+  <p class="muted" id="variantSummary" style="margin:10px 0 0">Selected storage: 256 GB</p>
+  <div class="osInlineBuy"><button type="button" class="btn alt" onclick="buyNow()">Buy Now</button><button type="button" class="btn" onclick="addCart()">🛒 Add to Cart</button><button type="button" class="btn alt" onclick="addCurrentProductToCompare()">⚖️ Add to Compare</button></div>
+</div>
+<div class="card osKeyFeatures"><div class="osSectionHeading"><h3>Key Features</h3><button type="button" class="osShowMore" id="osShowMoreBtn" aria-expanded="false" onclick="toggleFullSpecs()">Show More⌄</button></div>
+  <div class="specGrid"><div class="specItem"><small>Display</small><span id="osFeatureDisplay">—</span></div><div class="specItem"><small>Network</small><span id="osFeatureNetwork">—</span></div><div class="specItem osFeatureMemory"><small>RAM</small><span id="osFeatureRam">—</span></div><div class="specItem"><small>Storage</small><span id="osFeatureStorage">—</span></div><div class="specItem"><small>Camera</small><span id="osFeatureCamera">—</span></div><div class="specItem"><small>Warranty</small><span>Brand warranty (as per manufacturer)</span></div></div>
+  <div class="osFullSpecs" id="osFullSpecs" hidden><h4>Full Specifications</h4><div class="specList" id="fullSpecs"><div class="specRow"><span>Brand</span><b id="specBrand">—</b></div><div class="specRow"><span>Category</span><b id="specCategory">—</b></div><div class="specRow"><span>Display</span><b id="specDisplay">—</b></div><div class="specRow"><span>Chipset</span><b id="specChip">—</b></div><div class="specRow" id="specMemoryRow"><span>RAM / Storage</span><b id="specMemory">—</b></div><div class="specRow"><span>Main camera</span><b id="specCamera">—</b></div><div class="specRow"><span>Front camera</span><b id="specFront">—</b></div><div class="specRow"><span>Battery</span><b id="specBattery">—</b></div><div class="specRow"><span>Network</span><b id="specNetwork">—</b></div><div class="specRow"><span>OS</span><b id="specOS">—</b></div><div class="specRow"><span>Warranty</span><b>Brand warranty (as per manufacturer)</b></div></div><p class="muted" style="margin-bottom:0">Product specifications should be confirmed against the manufacturer's official details.</p></div>
+</div>
+<div class="card osBankOffers"><h3>Bank & Special Offers</h3>
+  <div class="osOfferRow"><span class="osOfferIcon">🏦</span><div><b>Bank Offers</b><p>Instant discounts and bank promotions will be displayed here when an active offer is configured.</p></div></div>
+  <div class="osOfferRow"><span class="osOfferIcon">💳</span><div><b>Credit & Debit Card Offers</b><p>Eligible card discounts, cashback and applicable bank conditions will be shown here.</p></div></div>
+  <div class="osOfferRow"><span class="osOfferIcon">🧾</span><div><b>Bajaj Finserv EMI Offers</b><p>Available EMI plans, tenure, down payment and eligibility will be shown when confirmed for this product.</p></div></div>
+  <div class="osOfferRow"><span class="osOfferIcon">✨</span><div><b>Special Offers</b><p>Exchange benefits, bundle deals and limited-period promotions will appear here when available.</p></div></div>
+  <p class="osOfferNote">Offers are subject to product, bank, card and customer eligibility. Final benefits are confirmed at checkout.</p>
+</div>
+<div class="card"><h3>What's in the box</h3><p>📦 Device</p><p>🔌 Charging accessories (as applicable)</p><p>📄 Documentation</p></div>
+<div class="card"><h3>Delivery & Pickup</h3><p>🚚 Delivery availability will be confirmed for your address.</p><p>🏪 Store pickup availability will be shown when a location is selected.</p></div>
+<div class="card"><h3>Exchange</h3><p class="muted">Have an old device? Check its condition and get an estimated exchange value.</p><button class="btn alt" onclick="exchange()">🔄 Check Exchange Value</button></div>
+<div class="stickyBuy"><button class="btn alt" onclick="buyNow()">Buy Now</button><button class="btn" onclick="addCart()">🛒 Add to Cart</button><button class="btn alt" onclick="addCurrentProductToCompare()">⚖️ Add to Compare</button></div>
 <div class="card reviewBox">
 <h3>Customer Reviews</h3>
 <div class="reviewSummary"><b>4.7 ★</b><span> · 128 reviews · Verified purchases</span></div>
@@ -2422,15 +2377,22 @@ function product(n,pr,spec){
   const catEl=document.getElementById('specCategory'); if(catEl)catEl.textContent=selectedProduct.category;
   const memEl=document.getElementById('specMemory'); if(memEl)memEl.textContent=spec.split(' · ')[0]||'—';
   const netEl=document.getElementById('specNetwork'); if(netEl)netEl.textContent=spec.includes('5G')?'5G':'—';
+  const displayEl=document.getElementById('specDisplay');if(displayEl){const dm=String(spec||'').match(/(?:\d+(?:\.\d+)?-inch\s+)?(?:AMOLED|OLED|LCD|Foldable AMOLED)/i);displayEl.textContent=dm?dm[0]:'Not listed in product data';}
+  const cameraEl=document.getElementById('specCamera');if(cameraEl){const cm=String(spec||'').match(/\d{2,3}\s*MP(?:\s+[\w-]+)?/i);cameraEl.textContent=cm?cm[0]:'Not listed in product data';}
   const chipEl=document.getElementById('specChip'); if(chipEl)chipEl.textContent=selectedProduct.category==='Mobiles'?'Demo chipset':'Demo platform';
   const frontEl=document.getElementById('specFront'); if(frontEl)frontEl.textContent=selectedProduct.category==='Mobiles'?'Demo selfie camera':'—';
   const batEl=document.getElementById('specBattery'); if(batEl)batEl.textContent=selectedProduct.category==='Mobiles'?'Demo battery capacity':'—';
   const osEl=document.getElementById('specOS'); if(osEl)osEl.textContent=selectedProduct.category==='Mobiles'?'Demo OS':'—';
   const summary=document.getElementById('variantSummary'); if(summary)summary.textContent='Selected storage: '+selectedStorage;
+  const featureDisplay=document.getElementById('osFeatureDisplay');if(featureDisplay)featureDisplay.textContent=(document.getElementById('specDisplay')?.textContent||'—');
+  const featureNetwork=document.getElementById('osFeatureNetwork');if(featureNetwork)featureNetwork.textContent=(document.getElementById('specNetwork')?.textContent||'—');
+  const featureCamera=document.getElementById('osFeatureCamera');if(featureCamera)featureCamera.textContent=(document.getElementById('specCamera')?.textContent||'—');
+  const featureRam=document.getElementById('osFeatureRam');if(featureRam)featureRam.textContent=osIsAppleProduct()?'Not applicable':(selectedStorage.includes('/')?selectedStorage.split('/')[0]+' GB':'—');
+  const featureStorage=document.getElementById('osFeatureStorage');if(featureStorage)featureStorage.textContent=osStorageDisplay(selectedStorage)||'—';
   const storageText=document.querySelector('#product .specItem:nth-child(4)');
   const memoryText=document.querySelector('#product .specItem:nth-child(3)');
-  if(storageText)storageText.innerHTML='<small>Storage</small>'+(selectedStorage.split('/')[1]||'—');
-  if(memoryText){memoryText.style.display=osIsAppleProduct()?'none':'';if(!osIsAppleProduct())memoryText.innerHTML='<small>Memory</small>'+(selectedStorage.split('/')[0]||'—')+' GB RAM';}
+  if(storageText)storageText.innerHTML='<small>Storage</small>'+(osStorageDisplay(selectedStorage)||'—');
+  if(memoryText){memoryText.style.display=osIsAppleProduct()?'none':'';if(!osIsAppleProduct())memoryText.innerHTML='<small>RAM</small><span>'+(selectedStorage.split('/')[0]||'—')+' GB</span>';}
   const memoryRow=document.getElementById('specMemory');if(memoryRow){const row=memoryRow.closest('.specRow');if(row){row.style.display=osIsAppleProduct()?'none':'';row.querySelector('span').textContent=osIsAppleProduct()?'Storage':'RAM / Storage';memoryRow.textContent=osIsAppleProduct()?osStorageDisplay(selectedStorage):selectedStorage;}}
   go('product');
 }
@@ -2443,6 +2405,18 @@ function updateProductTitle(){
   name.textContent=(String(selectedProduct.brand||'').trim()+' '+String(selectedProduct.name||'').trim()).trim()+' | '+memoryLabel+' | '+selectedColor;
   const summary=document.getElementById('variantSummary');
   if(summary)summary.textContent='Selected storage: '+osStorageDisplay(selectedStorage);
+  const fs=document.getElementById('osFeatureStorage');if(fs)fs.textContent=osStorageDisplay(selectedStorage)||'—';
+  const fr=document.getElementById('osFeatureRam');if(fr)fr.textContent=osIsAppleProduct()?'Not applicable':(String(selectedStorage).includes('/')?String(selectedStorage).split('/')[0]+' GB':'—');
+}
+
+function toggleFullSpecs(){
+  const panel=document.getElementById('osFullSpecs');
+  const button=document.getElementById('osShowMoreBtn');
+  if(!panel||!button)return;
+  const opening=panel.hidden;
+  panel.hidden=!opening;
+  button.setAttribute('aria-expanded',String(opening));
+  button.textContent=opening?'Show Less⌃':'Show More⌄';
 }
 function currentProductForCart(){
   if(!selectedProduct)return null;
@@ -2608,10 +2582,15 @@ function selectVariant(btn,type){
     document.getElementById('pprice').textContent=price;
     localStorage.setItem('ourStoreSelectedProduct',JSON.stringify(selectedProduct));
   }
+  const featureDisplay=document.getElementById('osFeatureDisplay');if(featureDisplay)featureDisplay.textContent=(document.getElementById('specDisplay')?.textContent||'—');
+  const featureNetwork=document.getElementById('osFeatureNetwork');if(featureNetwork)featureNetwork.textContent=(document.getElementById('specNetwork')?.textContent||'—');
+  const featureCamera=document.getElementById('osFeatureCamera');if(featureCamera)featureCamera.textContent=(document.getElementById('specCamera')?.textContent||'—');
+  const featureRam=document.getElementById('osFeatureRam');if(featureRam)featureRam.textContent=osIsAppleProduct()?'Not applicable':(selectedStorage.includes('/')?selectedStorage.split('/')[0]+' GB':'—');
+  const featureStorage=document.getElementById('osFeatureStorage');if(featureStorage)featureStorage.textContent=osStorageDisplay(selectedStorage)||'—';
   const storageText=document.querySelector('#product .specItem:nth-child(4)');
   const memoryText=document.querySelector('#product .specItem:nth-child(3)');
   if(storageText)storageText.innerHTML='<small>Storage</small>'+osStorageDisplay(selectedStorage);
-  if(memoryText){memoryText.style.display=osIsAppleProduct()?'none':'';if(!osIsAppleProduct())memoryText.innerHTML='<small>Memory</small>'+(selectedStorage.split('/')[0]||'—')+' GB RAM';}
+  if(memoryText){memoryText.style.display=osIsAppleProduct()?'none':'';if(!osIsAppleProduct())memoryText.innerHTML='<small>RAM</small><span>'+(selectedStorage.split('/')[0]||'—')+' GB</span>';}
   const memoryRow=document.getElementById('specMemory');if(memoryRow){const rowEl=memoryRow.closest('.specRow');if(rowEl){rowEl.style.display=osIsAppleProduct()?'none':'';rowEl.querySelector('span').textContent=osIsAppleProduct()?'Storage':'RAM / Storage';memoryRow.textContent=osIsAppleProduct()?osStorageDisplay(selectedStorage):selectedStorage;}}
   updateProductTitle();
   renderOsGallery();
@@ -3336,30 +3315,7 @@ if ('serviceWorker' in navigator && location.protocol === 'https:') {
 }
 </style>
 
-<script id="os-key-features-expand-js">
-function toggleFullSpecifications(){
-  const card=document.getElementById('fullSpecificationsCard');
-  const button=document.getElementById('osShowMoreSpecs');
-  if(!card||!button)return;
-  const willOpen=card.hidden;
-  card.hidden=!willOpen;
-  button.textContent=willOpen?'Show Less':'Show More';
-  button.setAttribute('aria-expanded',String(willOpen));
-  if(willOpen) card.scrollIntoView({behavior:'smooth',block:'nearest'});
-}
-</script>
 
-<style id="os-bank-card-special-offers">
-#product .osOffersCard{margin-top:14px!important;padding:18px!important}
-#product .osOffersCard h3{margin:0 0 14px!important;color:#24362d!important}
-#product .osOfferItem{display:flex;align-items:flex-start;gap:12px;padding:13px 0;border-top:1px solid #e7ebe8}
-#product .osOfferIcon{flex:0 0 38px;width:38px;height:38px;border-radius:12px;background:#edf4ef;display:grid;place-items:center;font-size:20px}
-#product .osOfferItem b{display:block;font-size:14px;color:#26382f;margin:1px 0 4px}
-#product .osOfferItem p{margin:0!important;color:#68766f;font-size:12px;line-height:1.5}
-#product .osOffersNote{margin:12px 0 0!important;padding:10px 11px;border-radius:10px;background:#f3f5f4;color:#707b75;font-size:11px;line-height:1.45}
-</style>
-
-</body></html>
 <style id="os-gallery-click-to-view-only">
 /* Product page: show one clean main image only. All gallery controls and
    alternate views are available inside the full-screen viewer after a tap. */
@@ -3373,25 +3329,52 @@ function toggleFullSpecifications(){
 #osImageViewer .osGalleryCount,
 #osImageViewer #osViewerCount{display:block!important}
 #osImageViewer #osViewer360Button{display:inline-flex!important}
-
-/* Product details: compact key features with expandable full specifications */
-#product .osStorageCard>b{font-size:17px!important}
-#product .osKeyFeaturesHeader{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
-#product .osKeyFeaturesHeader h3{margin:0!important}
-#product .osShowMoreBtn{border:0;background:transparent;color:#176b45;font:inherit;font-size:14px;font-weight:750;padding:8px 2px;white-space:nowrap;cursor:pointer}
-#product #fullSpecificationsCard[hidden]{display:none!important}
-#product #fullSpecificationsCard:not([hidden]){display:block!important}
 </style>
 
-<style id="os-product-reference-layout-final">
-#product .osInlineBuy{display:grid!important;grid-template-columns:1fr 1.18fr 1.18fr!important;gap:7px!important;margin-top:18px!important}
-#product .osInlineBuy .btn{min-width:0!important;width:100%!important;min-height:50px!important;padding:9px 5px!important;border-radius:14px!important;font-size:clamp(10px,2.8vw,13px)!important;font-weight:750!important;white-space:normal!important;line-height:1.15!important}
-#product .osInlineBuy .btn:first-child{background:#176b45!important;color:#fff!important;border:1px solid #176b45!important}
-#product .osInlineBuy .btn:nth-child(2){background:#16834f!important;color:#fff!important;border:1px solid #16834f!important}
-#product .osInlineBuy .btn:nth-child(3){background:#eef1f5!important;color:#263a57!important;border:1px solid #d8e0ea!important}
-#product .osKeyFeaturesHeader{margin-bottom:12px!important}
-#product .osShowMoreBtn{display:block!important;margin:14px 0 0 auto!important;padding:9px 4px!important;border:0!important;background:transparent!important;color:#176b45!important;font-size:14px!important;font-weight:750!important;cursor:pointer!important}
-#product #variantSummary{display:none!important}
-#product .osCompareTopBtn{display:none!important}
-@media(max-width:360px){#product .osInlineBuy{gap:5px!important}#product .osInlineBuy .btn{font-size:10px!important;padding:8px 3px!important}}
+
+<style id="os-product-details-final-standard-v3">
+/* Final responsive Product Details standard — applied consistently to all models. */
+html,body{width:100%;max-width:100%;overflow-x:hidden}
+.app{width:100%!important;max-width:none!important;margin:0!important}
+#product{width:100%!important;max-width:none!important}
+#product .content{width:100%!important;max-width:1180px!important;box-sizing:border-box!important;margin:0 auto!important;padding:16px clamp(14px,3vw,30px) calc(112px + env(safe-area-inset-bottom))!important;background:#f5f6f3!important}
+#product .productHero{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:14px!important;margin:0 0 14px!important}
+#product .productVisual{width:100%!important;min-width:0!important}
+#product .osGalleryStage{width:100%!important;height:clamp(300px,82vw,520px)!important;max-height:520px!important;overflow:hidden!important;border-radius:24px!important;background:linear-gradient(145deg,#fff,#f1f5f1)!important}
+#product .osGalleryStage #productDetailImage{width:100%!important;height:100%!important;object-fit:contain!important;object-position:center!important;padding:clamp(10px,3vw,24px)!important}
+#product .osProductInfo{width:100%!important;box-sizing:border-box!important;padding:18px!important;border:1px solid #e1e8e1!important;border-radius:22px!important;background:#fff!important}
+#product #pname{font-size:clamp(21px,4.5vw,30px)!important;line-height:1.22!important;letter-spacing:-.5px!important;margin:0 0 16px!important;overflow-wrap:anywhere!important}
+#product .osAvailableColors>b{font-size:16px!important}
+#product #pprice{font-size:clamp(27px,5vw,34px)!important;font-weight:800!important;margin:18px 0 0!important}
+#product .card{box-sizing:border-box!important;width:100%!important;margin:14px 0!important;padding:18px!important;border:1px solid #dfe7df!important;border-radius:22px!important;background:#fff!important;box-shadow:0 5px 18px rgba(35,55,40,.045)!important}
+#product .osStorageCard>b{display:block!important;font-size:19px!important;margin-bottom:10px!important}
+#product .osStorageChoices{display:flex!important;flex-wrap:wrap!important;gap:9px!important;overflow:visible!important}
+#product .osInlineBuy{display:grid!important;grid-template-columns:1fr 1.12fr 1fr!important;gap:8px!important;margin-top:18px!important}
+#product .osInlineBuy .btn{display:flex!important;align-items:center!important;justify-content:center!important;min-width:0!important;min-height:54px!important;margin:0!important;padding:10px 7px!important;font-size:clamp(11px,2.9vw,14px)!important;line-height:1.15!important;white-space:normal!important;border-radius:14px!important}
+#product .osInlineBuy .btn:first-child{background:#176b45!important;color:#fff!important}
+#product .osInlineBuy .btn:nth-child(2){background:#198653!important;color:#fff!important}
+#product .osInlineBuy .btn:nth-child(3){background:#eef2f6!important;color:#243750!important;border:1px solid #d9e1eb!important}
+#product .osKeyFeatures .osSectionHeading{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:12px!important;margin:0 0 14px!important}
+#product .osSectionHeading h3{margin:0!important;font-size:22px!important}
+#product .osShowMore{border:0!important;background:transparent!important;color:#176b45!important;font-size:15px!important;font-weight:750!important;padding:8px 0 8px 10px!important;white-space:nowrap!important}
+#product .specGrid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+#product .specItem{min-width:0!important;min-height:82px!important;padding:13px!important;background:#f2f4f7!important;border:1px solid #e0e6ee!important;border-radius:17px!important;overflow-wrap:anywhere!important}
+#product .specItem small{display:block!important;margin-bottom:5px!important;color:#78847d!important}
+#product .specItem span{display:block!important;font-size:17px!important;font-weight:750!important;color:#26372d!important}
+#product .osFeatureMemory[style*="display: none"]{display:none!important}
+#product .osFullSpecs{margin-top:18px!important;padding-top:16px!important;border-top:1px solid #e5ebe5!important}
+#product .osFullSpecs[hidden]{display:none!important}
+#product .osFullSpecs h4{font-size:18px!important;margin:0 0 12px!important}
+#product .osFullSpecs .specList{display:grid!important;gap:8px!important}
+#product .osBankOffers h3{margin:0 0 12px!important;font-size:21px!important}
+#product .osOfferRow{display:grid!important;grid-template-columns:42px minmax(0,1fr)!important;gap:12px!important;padding:14px 0!important;border-top:1px solid #e8ede8!important;align-items:start!important}
+#product .osOfferIcon{width:40px!important;height:40px!important;display:grid!important;place-items:center!important;border-radius:13px!important;background:#edf4ee!important;font-size:20px!important}
+#product .osOfferRow b{font-size:15px!important;color:#293a30!important}
+#product .osOfferRow p{margin:4px 0 0!important;font-size:13px!important;line-height:1.5!important;color:#69776e!important}
+#product .osOfferNote{margin:12px 0 0!important;padding-top:11px!important;border-top:1px solid #e8ede8!important;font-size:11px!important;line-height:1.45!important;color:#77827a!important}
+#product .stickyBuy{display:none!important}
+@media(min-width:760px){#product .productHero{grid-template-columns:minmax(0,1.05fr) minmax(360px,.95fr)!important;align-items:start!important;gap:22px!important}#product .osGalleryStage{height:min(48vw,540px)!important}#product .osProductInfo{position:sticky!important;top:18px!important}#product .osInlineBuy .btn{font-size:14px!important}}
+@media(max-width:390px){#product .content{padding-left:12px!important;padding-right:12px!important}#product .osColorChoices{gap:5px!important}#product .osColorChoices .variant{font-size:10px!important}#product .osInlineBuy{gap:6px!important}#product .osInlineBuy .btn{font-size:10.5px!important;padding:8px 4px!important}#product .specItem span{font-size:15px!important}}
 </style>
+
+</body></html>
