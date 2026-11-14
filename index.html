@@ -1,13 +1,13 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="os-exchange-only">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#557767">
-<meta name="description" content="Our Store — Our Store — shop mobiles, laptops, tablets and accessories; compare devices and manage demo exchanges and orders.">
+<meta name="description" content="Our Store Exchange — check your device and request an exchange.">
 <link rel="manifest" href="./manifest.json">
 <link rel="apple-touch-icon" href="./icon-192.png">
-<title>Our Store — Electronics Retail Demo</title>
+<title>Our Store — Exchange</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f4f5f7;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial;color:#111}
 .app{max-width:430px;margin:auto;min-height:100vh;background:#fff}.top{padding:18px 18px 10px;position:sticky;top:0;background:#fff;z-index:3;border-bottom:1px solid #eee}
@@ -1650,6 +1650,22 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
 }
 </style>
 
+
+<style id="os-exchange-only-copy">
+/* Separate Exchange-only edition. The original source file is not modified. */
+body.os-exchange-only .osDesktopSidebar,
+body.os-exchange-only .bottom{display:none!important}
+body.os-exchange-only .app{max-width:760px!important;width:100%!important;margin:0 auto!important}
+body.os-exchange-only .screen:not(#exchange){display:none!important}
+body.os-exchange-only #exchange{display:block!important;min-height:100vh;background:#f5f6f3}
+body.os-exchange-only #exchange>.content{max-width:760px!important;margin:0 auto!important;padding:24px 16px calc(36px + env(safe-area-inset-bottom))!important}
+body.os-exchange-only #exchange>.content>.back{display:none!important}
+body.os-exchange-only #exchange h2{font-size:28px;letter-spacing:-.6px;margin:4px 0 8px}
+body.os-exchange-only #exchange>.content>p.muted{font-size:14px;line-height:1.55;margin-bottom:18px}
+body.os-exchange-only #exchange .card{border-radius:20px;box-shadow:0 5px 20px rgba(25,45,35,.045)}
+@media(min-width:700px){body.os-exchange-only #exchange>.content{padding:36px 28px 48px!important}}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -1872,8 +1888,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
 
 <div id="exchange" class="screen"><div class="content">
 <button class="back" onclick="go('home')">← Home</button>
-<h2>Sell Your Device</h2>
-<p class="muted">Complete the device checks first. Your demo estimate appears only after the review.</p>
+<h2>Exchange Your Device</h2>
+<p class="muted">Check your old device, get an estimated exchange value, and submit an exchange request.</p>
 <div class="exProgress" id="exProgress"></div>
 
 <div id="exStep1" class="exStep active">
