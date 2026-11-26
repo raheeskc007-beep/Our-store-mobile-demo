@@ -1895,9 +1895,20 @@ html.os-exchange-only #exchange .card{border-radius:20px;box-shadow:0 5px 20px r
 <div id="exStep1" class="exStep active">
   <div class="card"><h3>1. Choose category</h3><p class="muted">What device do you want to exchange?</p>
     <div class="exChoiceGrid">
-      <button class="exChoice" onclick="selectExCategory('Mobiles')"><div class="exIcon">📱</div><b>Mobile</b><div class="muted">Smartphones</div></button>
+      <button class="exChoice" onclick="selectExCategory('Mobiles')"><div class="exIcon">📱</div><b>Phone</b><div class="muted">Smartphones</div></button>
       <button class="exChoice" onclick="selectExCategory('Tablets')"><div class="exIcon">📲</div><b>Tablet</b><div class="muted">iPad & Android tablets</div></button>
       <button class="exChoice" onclick="selectExCategory('Laptops')"><div class="exIcon">💻</div><b>Laptop</b><div class="muted">Mac & Windows laptops</div></button>
+      <button class="exChoice" onclick="selectExCategory('Gaming Consoles')"><div class="exIcon">🎮</div><b>Gaming Console</b><div class="muted">PlayStation, Xbox & Nintendo</div></button>
+    </div>
+    <button type="button" id="sellAllDevicesBtn" class="btn alt" style="width:100%;margin-top:14px" aria-expanded="false" onclick="toggleSellAllDevices()">Sell All Devices <span aria-hidden="true">＋</span></button>
+    <div id="sellAllDevicesPanel" hidden style="margin-top:14px">
+      <div class="exChoiceGrid">
+        <button class="exChoice" onclick="selectExCategory('Earbuds')"><div class="exIcon">🎧</div><b>Earbuds</b><div class="muted">Wireless earbuds</div></button>
+        <button class="exChoice" onclick="selectExCategory('Smartwatches')"><div class="exIcon">⌚</div><b>Smart Watch</b><div class="muted">Smartwatches & fitness watches</div></button>
+        <button class="exChoice" onclick="selectExCategory('Desktops')"><div class="exIcon">🖥️</div><b>Desktop</b><div class="muted">Desktop PCs & iMac</div></button>
+        <button class="exChoice" onclick="selectExCategory('Cameras')"><div class="exIcon">📷</div><b>Camera</b><div class="muted">Digital & action cameras</div></button>
+      </div>
+    </div>
     </div>
   </div>
 </div>
@@ -2843,12 +2854,15 @@ function showOrderTracking(){document.getElementById('trackingCard').style.displ
 
 let ex={category:'',brand:'',model:null,step:1,view:'Front',conditions:{},tests:{},maxValue:0};
 const brandIcons={Apple:'',Samsung:'▦',OnePlus:'1+',Xiaomi:'Mi',Vivo:'V',OPPO:'O',Google:'G',Realme:'R',Motorola:'M',Dell:'D',HP:'HP',Lenovo:'L',Asus:'A',Acer:'A',Microsoft:'MS'};
-const catIcons={Mobiles:'📱',Tablets:'📲',Laptops:'💻'};
+const catIcons={Mobiles:'📱',Tablets:'📲',Laptops:'💻','Gaming Consoles':'🎮',Earbuds:'🎧',Smartwatches:'⌚',Desktops:'🖥️',Cameras:'📷'};
+const exExtraBrands={'Gaming Consoles':['Sony','Microsoft','Nintendo'],'Earbuds':['Apple','Samsung','Sony','JBL','Bose','OnePlus','Nothing'],'Smartwatches':['Apple','Samsung','Garmin','Fitbit','Noise','boAt'],'Desktops':['Apple','Dell','HP','Lenovo','ASUS','Acer'],'Cameras':['Canon','Nikon','Sony','Fujifilm','GoPro']};
 function resetExchange(){ex={category:'',brand:'',model:null,step:1,view:'Front',conditions:{},tests:{},maxValue:0};for(let i=1;i<=7;i++){const e=document.getElementById('exStep'+i);if(e)e.classList.toggle('active',i===1)}document.querySelectorAll('.exDot').forEach((d,i)=>d.classList.toggle('active',i===0));document.getElementById('exBrands').innerHTML='';document.getElementById('exModels').innerHTML='';initTouchTest();updateConditionSummary();}
 function exStep(n){ex.step=n;for(let i=1;i<=7;i++){const e=document.getElementById('exStep'+i);if(e)e.classList.toggle('active',i===n)}document.querySelectorAll('.exDot').forEach((d,i)=>d.classList.toggle('active',i<n));scrollTo(0,0)}
-function selectExCategory(category){ex.category=category;const brands=[...new Set(data.filter(p=>p.category===category).map(p=>p.brand))];document.getElementById('exCategoryLabel').textContent='Category: '+category;document.getElementById('exBrands').innerHTML=brands.map(b=>`<button class="exChoice" onclick="selectExBrand('${b.replace(/'/g,"\'")}')"><div class="exIcon">${brandIcons[b]||'●'}</div><b>${b}</b><div class="muted">${category}</div></button>`).join('');exStep(2)}
+function toggleSellAllDevices(){const panel=document.getElementById('sellAllDevicesPanel'),btn=document.getElementById('sellAllDevicesBtn');if(!panel||!btn)return;const opening=panel.hidden;panel.hidden=!opening;btn.setAttribute('aria-expanded',String(opening));btn.innerHTML=opening?'Sell All Devices <span aria-hidden="true">−</span>':'Sell All Devices <span aria-hidden="true">＋</span>'; }
+function selectExCategory(category){ex.category=category;const brands=[...new Set(data.filter(p=>p.category===category).map(p=>p.brand))];const available=brands.length?brands:(exExtraBrands[category]||[]);document.getElementById('exCategoryLabel').textContent='Category: '+category;document.getElementById('exBrands').innerHTML=available.map(b=>`<button class="exChoice" onclick="selectExBrand('${b.replace(/'/g,"\'")}')"><div class="exIcon">${brandIcons[b]||'●'}</div><b>${b}</b><div class="muted">${category}</div></button>`).join('');exStep(2)}
 function selectExBrand(brand){ex.brand=brand;document.getElementById('exModelSearch').value='';renderExModels('');exStep(3)}
-function renderExModels(q){const query=(q||'').toLowerCase().trim();const list=data.filter(p=>p.category===ex.category&&p.brand===ex.brand&&(!query||p.name.toLowerCase().includes(query)));document.getElementById('exModels').innerHTML=list.length?list.map(p=>`<button class="exChoice" style="width:100%;margin-top:10px" onclick="selectExModel('${p.name.replace(/'/g,"\'")}')"><div class="exModel"><div class="exModelIcon">${catIcons[ex.category]||'📦'}</div><div><b>${p.name}</b><div class="muted">${p.spec}</div><div class="muted">${p.price}</div></div></div></button>`).join(''):'<div class="card"><b>No model found</b><p class="muted">Try another model name.</p></div>'}
+function renderExModels(q){const query=(q||'').toLowerCase().trim();const list=data.filter(p=>p.category===ex.category&&p.brand===ex.brand&&(!query||p.name.toLowerCase().includes(query)));const cards=list.map(p=>`<button class="exChoice" style="width:100%;margin-top:10px" onclick="selectExModel('${p.name.replace(/'/g,"\'")}')"><div class="exModel"><div class="exModelIcon">${catIcons[ex.category]||'📦'}</div><div><b>${p.name}</b><div class="muted">${p.spec}</div><div class="muted">${p.price}</div></div></div></button>`);if(!list.length&&exExtraBrands[ex.category]){const manualName=ex.brand+' — Other model (manual quote)';if(!query||manualName.toLowerCase().includes(query)||'other model'.includes(query))cards.push(`<button class="exChoice" style="width:100%;margin-top:10px" onclick="selectExManualModel('${manualName.replace(/'/g,"\'")}')"><div class="exModel"><div class="exModelIcon">${catIcons[ex.category]||'📦'}</div><div><b>${manualName}</b><div class="muted">Model not yet in catalogue</div><div class="muted">Manual valuation required</div></div></div></button>`)}document.getElementById('exModels').innerHTML=cards.join('')||'<div class="card"><b>No model found</b><p class="muted">Try another model name.</p></div>'}
+function selectExManualModel(name){ex.model={brand:ex.brand,category:ex.category,name,spec:'Manual inspection and valuation required',price:'Price TBA'};initTouchTest();exStep(4)}
 function selectExModel(name){ex.model=data.find(p=>p.name===name&&p.category===ex.category&&p.brand===ex.brand)||null;if(!ex.model)return;initTouchTest();exStep(4)}
 function setExView(view,btn){ex.view=view;document.querySelectorAll('#exStep4 .exViewTabs .exChoice').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');document.getElementById('exViewTitle').textContent=view+' condition';document.getElementById('exConditionIcon').textContent=view==='Front'?'📱':view==='Back'?'🔲':'↔️'}
 function setExCondition(label,factor,btn){ex.conditions[ex.view]={label,factor};document.querySelectorAll('#exStep4 .exConditionPanel + .exChoiceGrid .exChoice').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');updateConditionSummary()}
@@ -2857,7 +2871,36 @@ function initTouchTest(){const grid=document.getElementById('touchGrid');if(!gri
 function passTest(id){const e=document.getElementById(id);if(e){e.textContent='Passed ✓';e.className='exStatus pass'}ex.tests[id]=true}
 function runSpeakerTest(){try{const C=window.AudioContext||window.webkitAudioContext;if(!C)throw new Error();const c=new C(),o=c.createOscillator(),g=c.createGain();o.frequency.value=660;g.gain.value=.08;o.connect(g);g.connect(c.destination);o.start();setTimeout(()=>{o.stop();c.close()},500);const e=document.getElementById('speakerStatus');e.textContent='Test sound played — confirm it';e.className='exStatus pending'}catch(e){}}
 function continueFromCondition(){if(['Front','Back','Left side','Right side'].some(v=>!ex.conditions[v])){alert('Please check all four sides first.');return}if(!ex.tests.screenStatus){alert('Please complete the screen & touch check.');return}exStep(5)}
-function continueFromFunction(){if(!ex.tests.speakerStatus||!ex.tests.cameraStatus||!ex.tests.buttonsStatus||!ex.tests.connectStatus){alert('Please complete all function checks.');return}const factors=Object.values(ex.conditions).map(x=>x.factor);const conditionFactor=factors.reduce((a,b)=>a+b,0)/factors.length;const battery={'Excellent':1.05,'Good':1,'Average':.92,'Poor':.8}[document.getElementById('batteryHealth').value]||1;const water=document.getElementById('qWater').value==='Yes'?.55:document.getElementById('qWater').value==='Not sure'?.8:1;const replaced=document.getElementById('qReplacement').value==='Yes'?.82:document.getElementById('qReplacement').value==='Not sure'?.9:1;const base=Number(String(ex.model.price).replace(/[^0-9]/g,''))*.35;ex.maxValue=Math.max(0,Math.round(base*conditionFactor*battery*water*replaced/100)*100);document.getElementById('exchangeReview').innerHTML='<p><b>'+ex.model.name+'</b> · '+ex.model.spec+'</p><p>Front/Back/Sides: ✓ checked</p><p>Screen & touch: ✓ · Speaker: ✓ · Camera: ✓ · Buttons: ✓ · Connectivity: ✓</p><p class="muted">This is an approximate maximum exchange value. Final value is confirmed only after physical pickup inspection.</p>';document.getElementById('maxExchangeValue').innerHTML='<h3>Approximate maximum value</h3><div class="price">₹'+ex.maxValue.toLocaleString('en-IN')+'</div><p class="muted">Estimated from the information entered. This is not the final offer.</p>';exStep(6)}
+function continueFromFunction(){
+  if(!ex.tests.speakerStatus||!ex.tests.cameraStatus||!ex.tests.buttonsStatus||!ex.tests.connectStatus){alert('Please complete all function checks.');return}
+  const factors=Object.values(ex.conditions).map(x=>Number(x.factor)||0);
+  if(factors.length!==4){alert('Please complete all four exterior checks.');exStep(4);return}
+  const conditionFactor=factors.reduce((a,b)=>a+b,0)/factors.length;
+  const batteryChoice=document.getElementById('batteryHealth').value;
+  const batteryFactor={'Excellent':1.05,'Good':1,'Average':.92,'Poor':.8}[batteryChoice]||1;
+  const waterChoice=document.getElementById('qWater').value;
+  const waterFactor=waterChoice==='Yes'?.55:waterChoice==='Not sure'?.8:1;
+  const replacedChoice=document.getElementById('qReplacement').value;
+  const replacedFactor=replacedChoice==='Yes'?.82:replacedChoice==='Not sure'?.9:1;
+  const referencePrice=Number(String(ex.model.price).replace(/[^0-9]/g,''));
+  if(!Number.isFinite(referencePrice)||referencePrice<=0){alert('This category/model is not yet connected to a verified reference-price catalogue. Please request a manual valuation.');return}
+  // Prototype-only guide: this percentage is a configurable business assumption, not a live resale-market price.
+  const base=referencePrice*0.35;
+  const calculated=base*conditionFactor*batteryFactor*waterFactor*replacedFactor;
+  ex.maxValue=Math.max(0,Math.round(calculated/100)*100);
+  const low=Math.max(0,Math.floor((ex.maxValue*.9)/100)*100);
+  const high=Math.ceil((ex.maxValue*1.1)/100)*100;
+  const money=n=>'₹'+Math.round(n).toLocaleString('en-IN');
+  const conditionText=Object.entries(ex.conditions).map(([side,v])=>side+': '+v.label).join(' · ');
+  document.getElementById('exchangeReview').innerHTML='<p><b>'+ex.model.name+'</b> · '+ex.model.spec+'</p>'+
+    '<p><b>Exterior:</b> '+conditionText+'</p>'+
+    '<p><b>Function checks:</b> Screen & touch, speaker, camera, buttons and connectivity marked as checked.</p>'+
+    '<p><b>Battery:</b> '+batteryChoice+' · <b>Liquid damage:</b> '+waterChoice+' · <b>Parts replaced:</b> '+replacedChoice+'</p>'+
+    '<div style="border-top:1px solid #e5e7eb;margin-top:12px;padding-top:12px"><b>Estimate calculation</b><p class="muted">Reference price: '+money(referencePrice)+'<br>Prototype base rate: 35%<br>Condition factor: '+conditionFactor.toFixed(2)+'×<br>Battery factor: '+batteryFactor.toFixed(2)+'×<br>Liquid-damage factor: '+waterFactor.toFixed(2)+'×<br>Replacement-parts factor: '+replacedFactor.toFixed(2)+'×</p></div>';
+  document.getElementById('maxExchangeValue').innerHTML='<h3>Indicative exchange estimate</h3><div class="price">'+money(ex.maxValue)+'</div><p><b>Possible review range:</b> '+money(low)+' – '+money(high)+'</p><p class="muted">This is a prototype estimate based on the catalogue reference price and assumed factors. It is not a live market valuation or guaranteed offer. The actual value depends on model age, variant, market demand, accessories and physical inspection. Water damage or uncertain repair history requires manual inspection.</p>';
+  ex.valuation={referencePrice,baseRate:.35,conditionFactor,batteryFactor,waterFactor,replacedFactor,estimate:ex.maxValue,rangeLow:low,rangeHigh:high};
+  exStep(6)
+}
 function requestPickup(){document.getElementById('finalExchangeValue').innerHTML='<h3>Pickup request created ✓</h3><p>Estimated maximum: <b>₹'+ex.maxValue.toLocaleString('en-IN')+'</b></p><p class="muted">Our Store will inspect the device at pickup. The final exchange value may change after inspection.</p>';exStep(7)}
 function confirmExchange(){document.getElementById('finalExchangeValue').innerHTML='<h3>Exchange request confirmed ✓</h3><p>Your device is ready for pickup inspection.</p><p class="muted">Final offer will be generated after the physical inspection.</p>';const btn=document.querySelector('#exStep7 button[onclick="confirmExchange()"]');if(btn){btn.textContent='Exchange Request Confirmed ✓';btn.disabled=true;btn.style.opacity='.55';btn.style.cursor='default';btn.style.display='none';}}
 
